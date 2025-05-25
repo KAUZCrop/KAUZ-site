@@ -1,0 +1,1 @@
+console.log("MIND·MARK site loaded.");

@@ -1,0 +1,29 @@
+body {
+  font-family: sans-serif;
+  background: #fff;
+  color: #000;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #000;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+}
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5em;
+}
+main {
+  padding: 2em;
+}
+form input, form textarea {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1em;
+  padding: 0.5em;
+}
