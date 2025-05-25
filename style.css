@@ -68,3 +68,11 @@ form input, form textarea {
 #reference-list .item h3 {
   margin-top: 0;
 }
+.reference-img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: block;
+  object-fit: cover;
+}
