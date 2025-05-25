@@ -18,18 +18,26 @@ fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
     const fields = record.fields;
     const title = fields.Title || '제목 없음';
     const description = fields.Description || '설명 없음';
+    const url = fields.URL || '#';
 
     // 이미지 URL 추출
     let imageUrl = '';
-  if (fields.ImageURL) {
-  imageUrl = fields.ImageURL;
-}
+    if (fields.ImageURL) {
+      imageUrl = fields.ImageURL;
+    }
+
     const div = document.createElement('div');
-    div.className = 'item';
+    div.className = 'reference-card';
     div.innerHTML = `
-      ${imageUrl ? `<img src="${imageUrl}" alt="${title}" class="reference-img">` : ''}
-      <h3>${title}</h3>
-      <p>${description}</p>
+      <div class="card-image" style="background-image: url('${imageUrl}');">
+        <div class="card-overlay">
+          <div class="card-text">
+            <h3>${title}</h3>
+            <p>${description}</p>
+            <a href="${url}" target="_blank" class="view-link">자세히 보기</a>
+          </div>
+        </div>
+      </div>
     `;
     container.appendChild(div);
   });
@@ -39,4 +47,3 @@ fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
     '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
   console.error('Airtable fetch error:', error);
 });
-
