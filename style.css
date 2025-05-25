@@ -1,67 +1,212 @@
-/* Hero Section */
+/* 기본 설정 */
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #fff;
+  color: #000;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  margin: 0 0 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* HERO SECTION */
 .hero {
-  background: url('hero-image.jpg') center/cover no-repeat;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  background: linear-gradient(to bottom, #000 60%, #111);
   color: #fff;
+  padding: 4rem 2rem;
+  text-align: center;
 }
 
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  letter-spacing: 1px;
 }
 
-.hero-content p {
+.tagline {
   font-size: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Portfolio Section */
-.portfolio {
+.hero nav a {
+  margin: 0 1rem;
+  font-weight: 600;
+  color: #ccc;
+}
+
+.hero nav a:hover {
+  color: #fff;
+}
+
+/* MAIN CONTENT */
+main {
   padding: 4rem 2rem;
-  background-color: #f9f9f9;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.portfolio h2 {
+section h2 {
+  font-size: 2rem;
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+/* ABOUT SECTION */
+#about p {
+  font-size: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
 }
 
-.portfolio-item {
-  background-color: #fff;
-  border-radius: 8px;
+/* PORTFOLIO GRID */
+.reference-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.reference-card {
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 400px;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
   transition: transform 0.3s;
 }
 
-.portfolio-item:hover {
-  transform: translateY(-5px);
+.reference-card:hover {
+  transform: translateY(-4px);
 }
 
-.portfolio-item img {
+.card-image {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
-.portfolio-item .content {
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reference-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-text {
+  color: #fff;
+  text-align: center;
   padding: 1rem;
 }
 
-.portfolio-item .content h3 {
-  margin: 0 0 0.5rem 0;
+.card-text h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
 }
 
-.portfolio-item .content p {
-  margin: 0;
-  color: #666;
+.card-text p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
+
+.view-link {
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.view-link:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* CONTACT FORM */
+#contact form {
+  max-width: 600px;
+  margin: 2rem auto 0;
+}
+
+#contact input,
+#contact textarea {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#contact button {
+  padding: 0.8rem 1.5rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+#contact button:hover {
+  background: #333;
+}
+
+/* FOOTER */
+.site-footer {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-follow-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+}
+
+.share-icon,
+.footer-logo {
+  width: 20px;
+  height: 20px;
+}
+
