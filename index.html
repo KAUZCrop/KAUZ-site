@@ -7,14 +7,16 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>MIND·MARK</h1>
-    <p class="tagline">Your brand's journey — from insight in the Mind to impact that leaves a Mark.</p>
-    <nav>
-      <a href="#about">About</a> | 
-      <a href="#reference">Reference</a> | 
-      <a href="#contact">Contact</a>
-    </nav>
+  <header class="hero">
+    <div class="hero-content">
+      <h1>MIND·MARK</h1>
+      <p class="tagline">Your brand's journey — from insight in the Mind to impact that leaves a Mark.</p>
+      <nav>
+        <a href="#about">About</a> | 
+        <a href="#reference">Reference</a> | 
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
   <main>
@@ -55,11 +57,12 @@
         <span>FOLLOW US</span>
         <img src="share-icon.png" alt="share" class="share-icon" />
       </a>
-      <img src="footer-logo.png" alt="logo" class="footer-logo" />
+      <img src="footer-icon.png" alt="logo" class="footer-logo" />
     </div>
   </footer>
 
   <script>
+    console.log("MIND·MARK site loaded.");
     const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
     const baseId = 'appglO0MOXGY7CITU';
     const tableName = 'Table%201';
@@ -72,26 +75,29 @@
     .then(response => response.json())
     .then(data => {
       const container = document.getElementById('reference-list');
+      container.innerHTML = '';
+
       data.records.forEach(record => {
         const fields = record.fields;
         const title = fields.Title || '제목 없음';
         const description = fields.Description || '설명 없음';
         const url = fields.URL || '#';
-        let imageUrl = '';
+        const imageUrl = fields.ImageURL || '';
 
-        if (fields.ImageURL) {
-          imageUrl = fields.ImageURL;
-        }
-
-        const div = document.createElement('div');
-        div.className = 'item';
-        div.innerHTML = `
-          ${imageUrl ? `<img src="${imageUrl}" alt="${title}" class="reference-img">` : ''}
-          <h3>${title}</h3>
-          <p>${description}</p>
-          ${url !== '#' ? `<a href="${url}" target="_blank">자세히 보기</a>` : ''}
+        const item = document.createElement('div');
+        item.className = 'reference-card';
+        item.innerHTML = `
+          <div class="card-image" style="background-image: url('${imageUrl}')">
+            <div class="card-overlay">
+              <div class="card-text">
+                <h3>${title}</h3>
+                <p>${description}</p>
+                <a href="${url}" class="view-link" target="_blank">VIEW CASE</a>
+              </div>
+            </div>
+          </div>
         `;
-        container.appendChild(div);
+        container.appendChild(item);
       });
     })
     .catch(error => {
