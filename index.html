@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MIND·MARK</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
@@ -16,59 +16,23 @@
       <a href="#contact">Contact</a>
     </nav>
   </header>
+
   <main>
     <section id="about">
       <h2>About Us</h2>
       <p>
-      MIND·MARK는 데이터 기반 인사이트를 중심에 둔 <strong>종합 광고 대행사</strong>입니다.<br><br>
-      우리는 수치 뒤에 숨은 행동과 심리를 읽고, 브랜드가 진짜로 나아가야 할 방향을 제시합니다.<br>
-      미디어 전략부터 크리에이티브 기획, 실행까지 — 단편적인 캠페인이 아닌 <strong>총체적인 브랜드 솔루션</strong>을 제공합니다.<br><br>
-      MIND·MARK는 <strong>당신이 정말로 필요로 하는 인사이트</strong>를 찾아, 그것을 <strong>소비자의 마음속에 명확히 새겨 넣습니다.</strong>
+        MIND·MARK는 데이터 기반 인사이트를 중심에 둔 <strong>종합 광고 대행사</strong>입니다.<br><br>
+        우리는 수치 뒤에 숨은 행동과 심리를 읽고, 브랜드가 진짜로 나아가야 할 방향을 제시합니다.<br>
+        미디어 전략부터 크리에이티브 기획, 실행까지 — 단편적인 캠페인이 아닌 <strong>총체적인 브랜드 솔루션</strong>을 제공합니다.<br><br>
+        MIND·MARK는 <strong>당신이 정말로 필요로 하는 인사이트</strong>를 찾아, 그것을 <strong>소비자의 마음속에 명확히 새겨 넣습니다.</strong>
       </p>
     </section>
+
     <section id="reference">
-  <h2>PORTFOLIO</h2>
-  <div id="reference-list"></div>
-</section>
-
-<script>
-  const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
-  const baseId = 'appglO0MOXGY7CITU';
-  const tableName = 'Table%201';
-
-  fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    const container = document.getElementById('reference-list');
-    data.records.forEach(record => {
-      const fields = record.fields;
-      const title = fields.Title || '제목 없음';
-      const description = fields.Description || '설명 없음';
-      const url = fields.URL || '#';
-
-      const div = document.createElement('div');
-      div.className = 'item';
-      div.innerHTML = `
-        <h3>${title}</h3>
-        <p>${description}</p>
-        <a href="${url}" target="_blank">자세히 보기</a>
-      `;
-      container.appendChild(div);
-    });
-  })
-  .catch(error => {
-    document.getElementById('reference-list').innerHTML =
-      '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
-    console.error('Airtable fetch error:', error);
-  });
-</script>
-
-</p>
+      <h2>PORTFOLIO</h2>
+      <div id="reference-list"></div>
     </section>
+
     <section id="contact">
       <h2>Contact Us</h2>
       <p>
@@ -83,16 +47,58 @@
       </form>
     </section>
   </main>
-  <script src="script.js"></script>
-<footer class="site-footer">
-  <div class="footer-left">© 2025. MINDMARK CORP.</div>
-  <div class="footer-right">
-    <a href="https://www.instagram.com/mindmark.official" target="_blank" class="footer-follow-link">
-      <span>FOLLOW US</span>
-      <img src="share-icon.png" alt="share" class="share-icon" />
-    </a>
-    <img src="footer-logo.png" alt="logo" class="footer-logo" />
-  </div>
-</footer>
+
+  <footer class="site-footer">
+    <div class="footer-left">© 2025. MINDMARK CORP.</div>
+    <div class="footer-right">
+      <a href="https://www.instagram.com/mindmark.official" target="_blank" class="footer-follow-link">
+        <span>FOLLOW US</span>
+        <img src="share-icon.png" alt="share" class="share-icon" />
+      </a>
+      <img src="footer-logo.png" alt="logo" class="footer-logo" />
+    </div>
+  </footer>
+
+  <script>
+    const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
+    const baseId = 'appglO0MOXGY7CITU';
+    const tableName = 'Table%201';
+
+    fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById('reference-list');
+      data.records.forEach(record => {
+        const fields = record.fields;
+        const title = fields.Title || '제목 없음';
+        const description = fields.Description || '설명 없음';
+        const url = fields.URL || '#';
+        let imageUrl = '';
+
+        if (fields.ImageURL) {
+          imageUrl = fields.ImageURL;
+        }
+
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `
+          ${imageUrl ? `<img src="${imageUrl}" alt="${title}" class="reference-img">` : ''}
+          <h3>${title}</h3>
+          <p>${description}</p>
+          ${url !== '#' ? `<a href="${url}" target="_blank">자세히 보기</a>` : ''}
+        `;
+        container.appendChild(div);
+      });
+    })
+    .catch(error => {
+      document.getElementById('reference-list').innerHTML =
+        '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
+      console.error('Airtable fetch error:', error);
+    });
+  </script>
 </body>
 </html>
