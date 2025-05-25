@@ -27,3 +27,34 @@ form input, form textarea {
   margin-bottom: 1em;
   padding: 0.5em;
 }
+.site-footer {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  font-size: 14px;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer-left {
+  text-transform: uppercase;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-right span {
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.share-icon,
+.footer-logo {
+  width: 20px;
+  height: 20px;
+}
