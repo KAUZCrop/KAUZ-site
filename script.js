@@ -21,10 +21,9 @@ fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
 
     // 이미지 URL 추출
     let imageUrl = '';
-    if (fields.ImageURL && fields.ImageURL.length > 0) {
-      imageUrl = fields.ImageURL[0].url;
-    }
-
+  if (fields.ImageURL) {
+  imageUrl = fields.ImageURL;
+}
     const div = document.createElement('div');
     div.className = 'item';
     div.innerHTML = `
