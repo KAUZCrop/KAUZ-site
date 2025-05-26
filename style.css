@@ -332,3 +332,6 @@ section h2 {
   height: 20px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
