@@ -121,3 +121,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const text = "Your brand's journey — from insight in the Mind to impact that leaves a Mark.";
+  const target = document.getElementById('typing-slogan');
+  let index = 0;
+
+  function type() {
+    if (index < text.length) {
+      target.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 40); // 타이핑 속도
+    }
+  }
+
+  type();
+});
+
