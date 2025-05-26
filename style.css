@@ -1,44 +1,113 @@
-#PortFolio-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+/* 기본 설정 */
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #fff;
+  color: #000;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
-.reference-card {
+h1, h2, h3 {
+  margin: 0 0 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* HERO SECTION */
+.hero {
+  background: linear-gradient(to bottom, #000 60%, #111);
+  color: #fff;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero nav a {
+  margin: 0 1rem;
+  font-weight: 600;
+  color: #ccc;
+}
+
+.hero nav a:hover {
+  color: #fff;
+}
+
+/* MAIN CONTENT */
+main {
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+section h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ABOUT SECTION */
+#about p {
+  font-size: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* PORTFOLIO GRID */
+.PortFolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.PortFolio-card {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
   height: 400px;
-  background: #ccc;
-  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
   transition: transform 0.3s;
 }
 
-.reference-card:hover {
-  transform: scale(1.02);
+.PortFolio-card:hover {
+  transform: translateY(-4px);
 }
 
 .card-image {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   position: relative;
 }
 
 .card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.reference-card:hover .card-overlay {
+.PortFolio-card:hover .card-overlay {
   opacity: 1;
 }
 
@@ -49,22 +118,20 @@
 }
 
 .card-text h3 {
+  font-size: 1.4rem;
   margin-bottom: 0.5rem;
-  font-size: 1.3rem;
-  font-weight: 600;
 }
 
 .card-text p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   margin-bottom: 1rem;
 }
 
 .view-link {
   color: #fff;
   border: 1px solid #fff;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  text-decoration: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
   font-size: 0.9rem;
   transition: background 0.3s;
 }
@@ -73,3 +140,73 @@
   background: #fff;
   color: #000;
 }
+
+/* CONTACT FORM */
+#contact form {
+  max-width: 600px;
+  margin: 2rem auto 0;
+}
+
+#contact input,
+#contact textarea {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#contact button {
+  padding: 0.8rem 1.5rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+#contact button:hover {
+  background: #333;
+}
+
+/* FOOTER */
+.site-footer {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-follow-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+}
+
+.share-icon,
+.footer-logo {
+  width: 20px;
+  height: 20px;
+}
+
