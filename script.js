@@ -64,10 +64,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 로딩 화면 제거
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
+  // 2초 동안 progress bar 애니메이션
   setTimeout(() => {
     const loader = document.getElementById('loading-screen');
+
+    // 애니메이션 트랜지션: 페이드아웃
     loader.style.opacity = 0;
-    setTimeout(() => loader.style.display = 'none', 500);
-  }, 2000); // 2초 후 로딩 화면 제거
+
+    // 완전히 사라지게 만듦
+    loader.style.pointerEvents = 'none';
+    loader.style.transition = 'opacity 0.4s ease-out';
+
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 400); // fade-out과 동일 시간
+  }, 2000); // 2초 후 실행
 });
+
