@@ -9,13 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
     loader.style.pointerEvents = 'none';
     loader.style.transition = 'opacity 0.4s ease-out';
 
-    setTimeout(() => {
-      loader.style.display = 'none';
-      hamburger.style.display = 'flex';
-      hamburger.style.visibility = 'visible'; // ✅ 추가
-      hamburger.style.opacity = '1';          // ✅ 추가
-    }, 400);
-  }, 2000);
+   setTimeout(() => {
+  loader.style.opacity = 0;
+  loader.style.pointerEvents = 'none';
+  loader.style.transition = 'opacity 0.4s ease-out';
+
+  // ✅ 햄버거 메뉴를 opacity가 줄어드는 동시에 보여주기
+  hamburger.style.display = 'flex';
+  hamburger.style.visibility = 'visible';
+  hamburger.style.opacity = '1';
+
+  // ✅ loader 제거만 약간 늦게 처리
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 400);
+}, 2000);
 
   // ✅ 햄버거 메뉴 토글
   const closeMenu = () => {
