@@ -75,18 +75,22 @@
   right: 0;
   background-color: #111;
   border-radius: 6px;
-  padding: 0.5rem 1.2rem;
+  padding: 0.5rem 0;
   text-align: right;
   z-index: 1000;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  min-width: 160px; /* ✅ 너비 넓힘 */
+  white-space: nowrap; /* ✅ 줄바꿈 방지 */
 }
 
 .dropdown-menu a {
   display: block;
   color: #fff;
   text-decoration: none;
-  padding: 0.5rem 0;
+  padding: 0.6rem 1rem;
   font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap; /* ✅ 줄바꿈 방지 */
 }
 
 .menu-wrapper:hover .dropdown-menu {
