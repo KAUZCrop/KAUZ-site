@@ -73,6 +73,17 @@
   z-index: 9999;
 }
 
+.menu-logo {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 .menu-content {
   display: flex;
   flex-direction: column;
@@ -94,8 +105,8 @@
 
 .close-btn {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 1.2rem;
+  right: 1.2rem;
   font-size: 2rem;
   color: #fff;
   cursor: pointer;
