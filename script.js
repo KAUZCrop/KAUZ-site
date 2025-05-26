@@ -19,14 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const description = fields.Description || '설명 없음';
         const url = fields.URL || '#';
 
-        // 이미지 URL 추출
+        // 이미지 URL 추출 (Attachment 형태 대응)
         const imageUrl =
           fields.ImageURL && Array.isArray(fields.ImageURL) && fields.ImageURL.length > 0
             ? fields.ImageURL[0].url
             : '';
 
         const item = document.createElement('div');
-        item.className = 'PortFolio-card'; // class명 CSS와 일치
+        item.className = 'PortFolio-card';
 
         item.innerHTML = `
           <div class="card-image" style="background-image: url('${imageUrl}')">
