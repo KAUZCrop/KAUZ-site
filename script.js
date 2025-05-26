@@ -125,26 +125,40 @@ document.addEventListener('DOMContentLoaded', () => {
 // 로딩이 끝난 후 실행되는 타이핑 애니메이션
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
-    const text = "Your brand's journey — from insight in the Mind to impact that leaves a Mark.";
-    const target = document.getElementById('typing-line');
+    const line1 = "Your brand's journey —";
+    const line2 = "from insight in the Mind to impact that leaves a Mark.";
+    const target1 = document.getElementById('typing-line1');
+    const target2 = document.getElementById('typing-line2');
 
-    const totalDuration = 1700;
-    const interval = totalDuration / text.length;
-    let index = 0;
+    const fullText = line1 + line2;
+    const totalDuration = 2000;
+    const interval = totalDuration / fullText.length;
 
-    function type() {
-      if (index <= text.length) {
-        const currentText = text.slice(0, index);
-        const cursor = '<span class="typing-cursor">|</span>';
-        target.innerHTML = currentText + cursor;
-        index++;
-        setTimeout(type, interval);
+    let index1 = 0;
+    let index2 = 0;
+
+    function typeLine1() {
+      if (index1 < line1.length) {
+        target1.innerHTML = line1.slice(0, index1) + '<span class="typing-cursor">|</span>';
+        index1++;
+        setTimeout(typeLine1, interval);
       } else {
-        target.innerHTML = text; // ✅ 커서 제거
+        setTimeout(typeLine2, interval);
       }
     }
 
-    type();
-  }, 2000); // 로딩 이후 시작
+    function typeLine2() {
+      if (index2 < line2.length) {
+        target2.innerHTML = line2.slice(0, index2) + '<span class="typing-cursor">|</span>';
+        index2++;
+        setTimeout(typeLine2, interval);
+      } else {
+        // 최종 완성 시 커서 제거
+        target2.innerHTML = line2;
+      }
+    }
+
+    typeLine1();
+  }, 2000); // 로딩 끝난 뒤 시작
 });
 
