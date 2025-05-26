@@ -82,7 +82,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }, 2000); // 2초 후 실행
 });
 
-// 햄버거 메뉴 토글
+// 햄버거 메뉴 열기/닫기 기능
 document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menu-overlay');
@@ -96,10 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
     menuOverlay.style.display = 'none';
   });
 
-  // 메뉴 클릭하면 자동으로 닫힘
   document.querySelectorAll('.menu-content a').forEach(link => {
     link.addEventListener('click', () => {
       menuOverlay.style.display = 'none';
     });
   });
 });
+
