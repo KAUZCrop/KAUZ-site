@@ -95,6 +95,7 @@ a:hover {
 
 /* 햄버거 아이콘 */
 .hamburger {
+  display: none;
   width: 24px;
   height: 18px;
   position: fixed;
