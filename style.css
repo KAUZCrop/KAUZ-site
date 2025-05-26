@@ -47,15 +47,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 2rem;
-  font-size: 20px; /* 15pt 기준 */
+  padding: 0.5rem 1rem;  /* ✅ 위쪽 여백 줄임 */
+  font-size: 20px;
+  position: relative;
 }
 
 .logo {
-  font-size: 20px; /* 약 15pt */
+  font-size: 20px;
   font-weight: bold;
   color: #fff;
   text-transform: uppercase;
+  margin-top: 0.2rem; /* 선택사항 */
 }
 
 /* 오버레이 메뉴 */
@@ -97,6 +99,13 @@
   cursor: pointer;
 }
 
+.hamburger {
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #fff;
+  margin-top: 0.2rem; /* 선택사항 */
+}
+
 /* 기본 설정 */
 body {
   font-family: 'Helvetica Neue', sans-serif;
@@ -120,7 +129,7 @@ a {
 .hero {
   background: linear-gradient(to bottom, #000 60%, #111);
   color: #fff;
-  padding: 4rem 2rem;
+  padding: 2rem 1rem 4rem;  /* ✅ top padding 줄임 */
   text-align: center;
 }
 
