@@ -120,19 +120,13 @@ a:hover {
   position: relative;
 }
 
-/* 햄버거가 X로 변환될 때 */
+/* X 변환 */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg);
-  position: absolute;
-  top: 11px;
-  left: 0;
+  transform: rotate(45deg) translateY(10px);
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: rotate(-45deg);
-  position: absolute;
-  top: 11px;
-  left: 0;
+  transform: rotate(-45deg) translateY(-10px);
 }
 
 /* 메뉴 오버레이 */
