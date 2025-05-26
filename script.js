@@ -86,6 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menu-overlay');
 
+  // ✅ 로딩 이후 햄버거 표시
+  setTimeout(() => {
+    hamburger.style.display = 'flex';
+  }, 2000); // 로딩 끝나는 타이밍에 맞춰 조절
+
   const closeMenu = () => {
     menuOverlay.classList.remove('active');
     hamburger.classList.remove('active');
