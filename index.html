@@ -73,7 +73,7 @@
     })
     .then(response => response.json())
     .then(data => {
-      const container = document.getElementById('reference-list');
+      const container = document.getElementById('PortFolio-list');
       container.innerHTML = '';
 
       data.records.forEach(record => {
@@ -100,7 +100,7 @@
       });
     })
     .catch(error => {
-      document.getElementById('reference-list').innerHTML =
+      document.getElementById('PortFolio-list').innerHTML =
         '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
       console.error('Airtable fetch error:', error);
     });
