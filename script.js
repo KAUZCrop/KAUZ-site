@@ -109,11 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', closeMenu);
   });
 
-  // ESC 키로 닫기
+  // ESC 키로 메뉴 닫기
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeMenu();
     }
   });
 });
-
