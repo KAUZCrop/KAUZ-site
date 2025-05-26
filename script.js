@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       loader.style.display = 'none';
-      hamburger.style.display = 'flex'; // ✅ 로딩 후 햄버거 표시
+      hamburger.style.display = 'flex';
+      hamburger.style.visibility = 'visible'; // ✅ 추가
+      hamburger.style.opacity = '1';          // ✅ 추가
     }, 400);
   }, 2000);
 
