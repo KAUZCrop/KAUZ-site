@@ -117,12 +117,13 @@
 
 /* 닫기 버튼 (우상단) */
 .close-btn {
-  position: absolute;
+  position: fixed; /* ✅ 기존 absolute → fixed 로 변경 */
   top: 1.5rem;
   right: 1.5rem;
   font-size: 2rem;
   color: #fff;
   cursor: pointer;
+  z-index: 10001; /* ✅ 다른 요소보다 항상 위로 */
 }
 
 .hamburger {
