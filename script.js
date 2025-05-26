@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const target = document.getElementById('typing-slogan');
     let index = 0;
 
-    const totalDuration = 1700; // 1.7초 안에 전체 문장 타이핑
+    const totalDuration = 2000; // 2초 안에 전체 문장 타이핑
     const interval = totalDuration / text.length;
 
     function type() {
