@@ -4,11 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuOverlay = document.getElementById('menu-overlay');
 
   // ✅ 로딩 종료 처리 및 햄버거 표시
-  setTimeout(() => {
-    loader.style.opacity = 0;
-    loader.style.pointerEvents = 'none';
-    loader.style.transition = 'opacity 0.4s ease-out';
-
    setTimeout(() => {
   loader.style.opacity = 0;
   loader.style.pointerEvents = 'none';
