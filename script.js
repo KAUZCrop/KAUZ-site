@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
   const baseId = 'appglO0MOXGY7CITU';
   const tableName = 'Table%201';
+  const MAX_VISIBLE = 6;
 
   fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
     headers: {
@@ -13,20 +14,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById('PortFolio-list');
       container.innerHTML = '';
 
-      data.records.forEach(record => {
+      data.records.forEach((record, index) => {
         const fields = record.fields;
         const title = fields.Title || '제목 없음';
         const description = fields.Description || '설명 없음';
-        const url = fields.URL || '#';
-
-        // 이미지 URL 추출 (Attachment 형태 대응)
-        const imageUrl =
-          fields.ImageURL && Array.isArray(fields.ImageURL) && fields.ImageURL.length > 0
-            ? fields.ImageURL[0].url
-            : '';
+        const imageUrl = fields.ImageURL && Array.isArray(fields.ImageURL) && fields.ImageURL.length > 0 && fields.ImageURL[0].url
+          ? fields.ImageURL[0].url
+          : '';
 
         const item = document.createElement('div');
         item.className = 'PortFolio-card';
+
+        // 초기 6개까지만 보이도록 class 추가
+        if (index >= MAX_VISIBLE) item.classList.add('hidden-card');
 
         item.innerHTML = `
           <div class="card-image" style="background-image: url('${imageUrl}')">
@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
               <div class="card-text">
                 <h3>${title}</h3>
                 <p>${description}</p>
-                <a href="${url}" class="view-link" target="_blank">VIEW CASE</a>
               </div>
             </div>
           </div>
@@ -42,10 +41,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         container.appendChild(item);
       });
+
+      // 버튼 토글
+      const toggleBtn = document.getElementById('toggle-more');
+      toggleBtn.addEventListener('click', () => {
+        const hiddenCards = document.querySelectorAll('.hidden-card');
+        const isExpanded = toggleBtn.innerText === 'Show Less';
+
+        hiddenCards.forEach(card => {
+          card.style.display = isExpanded ? 'none' : 'block';
+        });
+
+        toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
+      });
     })
     .catch(error => {
-      const container = document.getElementById('PortFolio-list');
-      container.innerHTML = '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
+      document.getElementById('PortFolio-list').innerHTML =
+        '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
       console.error('Airtable fetch error:', error);
     });
 });
