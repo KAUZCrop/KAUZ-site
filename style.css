@@ -120,13 +120,23 @@ a:hover {
   position: relative;
 }
 
-/* X 변환 */
+/* 기본 상태: 두 줄 */
+.hamburger span:nth-child(1) {
+  top: 6px;
+}
+.hamburger span:nth-child(2) {
+  top: 16px;
+}
+
+/* X 상태로 회전 */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(10px);
+  transform: rotate(45deg);
+  top: 11px;
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: rotate(-45deg) translateY(-10px);
+  transform: rotate(-45deg);
+  top: 11px;
 }
 
 /* 메뉴 오버레이 */
