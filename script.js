@@ -18,14 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const fields = record.fields;
         const title = fields.Title || '제목 없음';
         const description = fields.Description || '설명 없음';
-        const imageUrl = fields.ImageURL && Array.isArray(fields.ImageURL) && fields.ImageURL.length > 0 && fields.ImageURL[0].url
-          ? fields.ImageURL[0].url
-          : '';
+        const imageUrl =
+          fields.ImageURL &&
+          Array.isArray(fields.ImageURL) &&
+          fields.ImageURL.length > 0 &&
+          fields.ImageURL[0].url
+            ? fields.ImageURL[0].url
+            : '';
 
         const item = document.createElement('div');
         item.className = 'PortFolio-card';
-
-        // 초기 6개까지만 보이도록 class 추가
         if (index >= MAX_VISIBLE) item.classList.add('hidden-card');
 
         item.innerHTML = `
@@ -42,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(item);
       });
 
-      // 버튼 토글
       const toggleBtn = document.getElementById('toggle-more');
       toggleBtn.addEventListener('click', () => {
         const hiddenCards = document.querySelectorAll('.hidden-card');
@@ -60,4 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
         '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
       console.error('Airtable fetch error:', error);
     });
+});
+
+// 로딩 화면 제거
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('loading-screen');
+    loader.style.opacity = 0;
+    setTimeout(() => loader.style.display = 'none', 500);
+  }, 2000); // 2초 후 로딩 화면 제거
 });
