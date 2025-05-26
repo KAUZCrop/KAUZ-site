@@ -87,6 +87,10 @@ a:hover {
   line-height: 1;
 }
 
+.mark {
+  color: #239FD7;
+}
+
 @media (max-width: 768px) {
   .logo {
     font-size: 32px;
