@@ -89,16 +89,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuClose = document.getElementById('menu-close');
 
   hamburger.addEventListener('click', () => {
-    menuOverlay.style.display = 'flex';
+    menuOverlay.classList.add('active'); // ✅ 클래스로 토글
   });
 
   menuClose.addEventListener('click', () => {
-    menuOverlay.style.display = 'none';
+    menuOverlay.classList.remove('active');
   });
 
   document.querySelectorAll('.menu-content a').forEach(link => {
     link.addEventListener('click', () => {
-      menuOverlay.style.display = 'none';
+      menuOverlay.classList.remove('active');
     });
   });
 });
