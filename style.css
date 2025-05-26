@@ -68,14 +68,14 @@ section h2 {
 }
 
 /* PORTFOLIO GRID */
-.reference-grid {
+.ProtFolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   padding-top: 1rem;
 }
 
-.reference-card {
+.PortFolio-card {
   position: relative;
   overflow: hidden;
   height: 400px;
@@ -84,7 +84,7 @@ section h2 {
   transition: transform 0.3s;
 }
 
-.reference-card:hover {
+.PortFolio-card:hover {
   transform: translateY(-4px);
 }
 
@@ -107,7 +107,7 @@ section h2 {
   align-items: center;
 }
 
-.reference-card:hover .card-overlay {
+.PortFolio-card:hover .card-overlay {
   opacity: 1;
 }
 
