@@ -126,13 +126,36 @@
   z-index: 10001; /* ✅ 다른 요소보다 항상 위로 */
 }
 
+/* 햄버거 기본 스타일 */
 .hamburger {
-  font-size: 1.7rem;
+  width: 24px;
+  height: 18px;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   cursor: pointer;
-  color: #fff;
-  margin: 0;
-  padding: 0.2rem 0;
-  line-height: 1;
+  z-index: 10001;
+}
+
+.hamburger span {
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+}
+
+/* 햄버거가 X로 변환될 때 */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* 기본 설정 */
