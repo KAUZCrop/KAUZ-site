@@ -122,19 +122,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const text = "Your brand's journey — from insight in the Mind to impact that leaves a Mark.";
-  const target = document.getElementById('typing-slogan');
-  let index = 0;
+// 로딩이 끝난 후 실행되는 타이핑 애니메이션
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const text = "Your brand's journey — from insight in the Mind to impact that leaves a Mark.";
+    const target = document.getElementById('typing-slogan');
+    let index = 0;
 
-  function type() {
-    if (index < text.length) {
-      target.textContent += text.charAt(index);
-      index++;
-      setTimeout(type, 40); // 타이핑 속도
+    const totalDuration = 1700; // 1.7초 안에 전체 문장 타이핑
+    const interval = totalDuration / text.length;
+
+    function type() {
+      if (index < text.length) {
+        target.textContent += text.charAt(index);
+        index++;
+        setTimeout(type, interval);
+      }
     }
-  }
 
-  type();
+    type();
+  }, 2000); // ✅ 로딩 종료 후 실행 (2초 후)
 });
+
 
