@@ -94,9 +94,9 @@
 }
 
 .menu-wrapper:hover .dropdown-menu {
-  display: block;
+  opacity: 1;
+  pointer-events: auto;
 }
-
 
 /* 기본 설정 */
 body {
