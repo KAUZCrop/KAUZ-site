@@ -47,9 +47,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;  /* ✅ 위쪽 여백 줄임 */
-  font-size: 20px;
-  position: relative;
+  padding: 0rem 1rem;  /* ✅ 상단 패딩 완전 제거 */
+  margin: 0;
 }
 
 .logo {
@@ -57,7 +56,9 @@
   font-weight: bold;
   color: #fff;
   text-transform: uppercase;
-  margin-top: 0.2rem; /* 선택사항 */
+  margin: 0;
+  padding: 0.2rem 0;
+  line-height: 1;
 }
 
 /* 오버레이 메뉴 */
@@ -103,7 +104,9 @@
   font-size: 1.7rem;
   cursor: pointer;
   color: #fff;
-  margin-top: 0.2rem; /* 선택사항 */
+  margin: 0;
+  padding: 0.2rem 0;
+  line-height: 1;
 }
 
 /* 기본 설정 */
@@ -129,10 +132,9 @@ a {
 .hero {
   background: linear-gradient(to bottom, #000 60%, #111);
   color: #fff;
-  padding: 2rem 1rem 4rem;  /* ✅ top padding 줄임 */
+  padding: 1rem 1rem 4rem;  /* ✅ 상단 패딩 최소화 */
   text-align: center;
 }
-
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
