@@ -65,17 +65,26 @@
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background: #000;
-  display: none;
+  background: rgba(0, 0, 0, 0.96);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
   z-index: 9999;
 }
 
-/* 좌상단 로고 */
+/* 활성화 상태일 때 */
+.menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .menu-logo {
   position: absolute;
   top: 1.5rem;
   left: 1.5rem;
-  font-size: 1rem;
+  font-size: 20px; /* ✅ 메인과 동일한 크기 */
   font-weight: bold;
   color: #fff;
   text-transform: uppercase;
@@ -106,7 +115,7 @@
   color: #888;
 }
 
-/* 닫기 버튼 (우상단) */
+/* 닫기 버튼 */
 .close-btn {
   position: absolute;
   top: 1.5rem;
