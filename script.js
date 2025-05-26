@@ -129,8 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const line2 = "from insight in the Mind to impact that leaves a Mark.";
     const target1 = document.getElementById('typing-line1');
     const target2 = document.getElementById('typing-line2');
+    const cursor = document.querySelector('.cursor');
 
-    const totalDuration = 2000; // 전체 타자 시간
+    const totalDuration = 1700;
     const fullText = line1 + line2;
     const interval = totalDuration / fullText.length;
 
@@ -152,9 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
         target2.textContent += line2.charAt(index2);
         index2++;
         setTimeout(typeLine2, interval);
+      } else {
+        // ✅ 커서 숨기기
+        cursor.style.display = 'none';
       }
     }
 
     typeLine1();
-  }, 2000); // 로딩 후 타자 시작
+  }, 2000); // 로딩 후 시작
 });
+
