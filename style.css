@@ -77,13 +77,19 @@ a:hover {
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 44px; /* 기존 20px → 44px로 확장 */
   font-weight: bold;
   color: #fff;
   text-transform: uppercase;
   margin: 0;
   padding: 0.2rem 0;
   line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 32px;
+  }
 }
 
 /* 햄버거 아이콘 */
