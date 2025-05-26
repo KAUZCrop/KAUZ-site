@@ -82,23 +82,38 @@ window.addEventListener('DOMContentLoaded', () => {
   }, 2000); // 2초 후 실행
 });
 
-// 햄버거 메뉴 열기/닫기 기능
 document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menu-overlay');
-  const menuClose = document.getElementById('menu-close');
+
+  const closeMenu = () => {
+    menuOverlay.classList.remove('active');
+    hamburger.classList.remove('active');
+  };
+
+  const openMenu = () => {
+    menuOverlay.classList.add('active');
+    hamburger.classList.add('active');
+  };
 
   hamburger.addEventListener('click', () => {
-    menuOverlay.classList.add('active'); // ✅ 클래스로 토글
-  });
-
-  menuClose.addEventListener('click', () => {
-    menuOverlay.classList.remove('active');
+    const isActive = menuOverlay.classList.contains('active');
+    if (isActive) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
 
   document.querySelectorAll('.menu-content a').forEach(link => {
-    link.addEventListener('click', () => {
-      menuOverlay.classList.remove('active');
-    });
+    link.addEventListener('click', closeMenu);
+  });
+
+  // ESC 키로 닫기
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMenu();
+    }
   });
 });
+
