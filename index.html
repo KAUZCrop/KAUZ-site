@@ -28,12 +28,12 @@
         미디어 전략부터 크리에이티브 기획, 실행까지 — 단편적인 캠페인이 아닌 <strong>총체적인 브랜드 솔루션</strong>을 제공합니다.<br><br>
         MIND·MARK는 <strong>당신이 정말로 필요로 하는 인사이트</strong>를 찾아, 그것을 <strong>소비자의 마음속에 명확히 새겨 넣습니다.</strong>
       </p>
-      
-  </section>
-      <section id="PortFolio">
-        <h2>Portfolio</h2>
-        <div id="PortFolio-list" class="PortFolio-grid"></div>
-  </section>
+    </section>
+
+    <section id="PortFolio">
+      <h2>Portfolio</h2>
+      <div id="PortFolio-list" class="PortFolio-grid"></div>
+    </section>
 
     <section id="contact">
       <h2>Contact Us</h2>
@@ -61,45 +61,7 @@
     </div>
   </footer>
 
-  <script>
-    console.log("MIND·MARK site loaded.");
-    const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
-    const baseId = 'appglO0MOXGY7CITU';
-    const tableName = 'Table%201';
-
-    fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      const container = document.getElementById('PortFolio-list');
-      container.innerHTML = '';
-
-      data.records.forEach(record => {
-        const fields = record.fields;
-        const title = fields.Title || '제목 없음';
-        const description = fields.Description || '설명 없음';
-        const url = fields.URL || '#';
-        const imageUrl = fields.ImageURL || '';
-
-        const item = document.createElement('div');
-        item.className = 'reference-card';
-        item.innerHTML = `
-          <div class="card-image" style="background-image: url('${imageUrl}')">
-            <div class="card-overlay">
-              <div class="card-text">
-                <h3>${title}</h3>
-                <p>${description}</p>
-                <a href="${url}" class="view-link" target="_blank">VIEW CASE</a>
-              </div>
-            </div>
-          </div>
-        `;
-        container.appendChild(item);
-      });
-    })
-<script src="script.js"></script>
+  <!-- 외부 JS 파일 연결 -->
+  <script src="script.js"></script>
 </body>
 </html>
