@@ -26,17 +26,18 @@ document.addEventListener("DOMContentLoaded", () => {
             : '';
 
         const item = document.createElement('div');
-        item.className = 'reference-card';
-        item.innerHTML = `
-          <div class="card-image" style="background-image: url('${imageUrl}')">
+          item.className = 'PortFolio-card';  // 🔴 여기 수정
+          item.innerHTML = `
+            <div class="card-image" style="background-image: url('${imageUrl}')">
             <div class="card-overlay">
-              <div class="card-text">
-                <h3>${title}</h3>
-                <p>${description}</p>
-                <a href="${url}" class="view-link" target="_blank">VIEW CASE</a>
-              </div>
-            </div>
-          </div>
+            <div class="card-text">
+            <h3>${title}</h3>
+          <p>${description}</p>
+          <a href="${url}" class="view-link" target="_blank">VIEW CASE</a>
+        </div>
+      </div>
+    </div>
+      `;
         `;
         container.appendChild(item);
       });
