@@ -123,25 +123,38 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 로딩이 끝난 후 실행되는 타이핑 애니메이션
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
-    const text = "Your brand's journey — from insight in the Mind to impact that leaves a Mark.";
-    const target = document.getElementById('typing-slogan');
-    let index = 0;
+    const line1 = "Your brand's journey —";
+    const line2 = "from insight in the Mind to impact that leaves a Mark.";
+    const target1 = document.getElementById('typing-line1');
+    const target2 = document.getElementById('typing-line2');
 
-    const totalDuration = 2000; // 2초 안에 전체 문장 타이핑
-    const interval = totalDuration / text.length;
+    const totalDuration = 2000; // 전체 타자 시간
+    const fullText = line1 + line2;
+    const interval = totalDuration / fullText.length;
 
-    function type() {
-      if (index < text.length) {
-        target.textContent += text.charAt(index);
-        index++;
-        setTimeout(type, interval);
+    let index1 = 0;
+    let index2 = 0;
+
+    function typeLine1() {
+      if (index1 < line1.length) {
+        target1.textContent += line1.charAt(index1);
+        index1++;
+        setTimeout(typeLine1, interval);
+      } else {
+        setTimeout(typeLine2, interval);
       }
     }
 
-    type();
-  }, 2000); // ✅ 로딩 종료 후 실행 (2초 후)
+    function typeLine2() {
+      if (index2 < line2.length) {
+        target2.textContent += line2.charAt(index2);
+        index2++;
+        setTimeout(typeLine2, interval);
+      }
+    }
+
+    typeLine1();
+  }, 2000); // 로딩 후 타자 시작
 });
-
-
