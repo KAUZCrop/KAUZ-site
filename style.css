@@ -154,6 +154,10 @@ section h2 {
   margin: 2rem auto 0;
 }
 
+.hidden-card {
+  display: none;
+}
+
 #contact input,
 #contact textarea {
   display: block;
