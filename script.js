@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const target1 = document.getElementById('typing-line1');
     const target2 = document.getElementById('typing-line2');
 
-    const totalDuration = 1700;
+    const totalDuration = 2000;
     const fullTextLength = line1.length + line2.length;
     const interval = totalDuration / fullTextLength;
 
