@@ -65,30 +65,31 @@
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.96);
-  z-index: 9999;
+  background: #000;
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 
 .menu-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
   text-align: center;
 }
 
 .menu-content a {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 3rem; /* ✅ 큼직한 메뉴 폰트 */
+  font-weight: 500;
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .menu-content a:hover {
-  color: #ccc;
+  color: #888;
 }
 
 .close-btn {
