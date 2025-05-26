@@ -63,16 +63,17 @@
 
 /* 햄버거 아이콘 */
 .hamburger {
+  display: none; /* ✅ 로딩 중에는 숨김 */
+  /* 이미 있던 스타일 유지 */
   width: 24px;
   height: 18px;
   position: fixed;
   top: 1.5rem;
   right: 1.5rem;
-  display: flex;
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  z-index: 10001; /* 오버레이보다 위에 있도록 */
+  z-index: 10001;
 }
 
 .hamburger span {
