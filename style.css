@@ -96,6 +96,8 @@ a:hover {
 /* 햄버거 아이콘 */
 .hamburger {
   display: none;
+  visibility: hidden; /* ✅ 추가 */
+  opacity: 0;          /* ✅ 추가 */
   width: 28px;
   height: 22px;
   position: fixed;
