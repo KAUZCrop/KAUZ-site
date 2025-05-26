@@ -117,13 +117,11 @@ a:hover {
 
 /* 햄버거가 X로 변환될 때 */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(4px, 4px);
 }
+
 .hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(4px, -4px);
 }
 
 /* 메뉴 오버레이 */
