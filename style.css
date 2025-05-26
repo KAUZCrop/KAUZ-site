@@ -69,9 +69,7 @@
 }
 
 .dropdown-menu {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  display: none;
   position: absolute;
   top: 120%;
   right: 0;
@@ -81,8 +79,8 @@
   text-align: right;
   z-index: 1000;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  min-width: 160px;
-  white-space: nowrap;
+  min-width: 160px; /* ✅ 너비 넓힘 */
+  white-space: nowrap; /* ✅ 줄바꿈 방지 */
 }
 
 .dropdown-menu a {
