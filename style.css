@@ -396,7 +396,7 @@ header.hero {
   font-weight: bold;
   color: white;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.4;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -407,19 +407,10 @@ header.hero {
   white-space: nowrap;
 }
 
-/* 모바일일 경우 2줄 말고 한 줄로 보이게 병합 (가로 줄바꿈 무시) */
 @media (max-width: 768px) {
-  #typing-line1::after {
-    content: " from insight in the Mind to impact that leaves a Mark.";
-  }
-
-  #typing-line2 {
-    display: none;
-  }
-
-  #typing-line1 {
-    white-space: normal;
+  .slogan-line {
     font-size: 5vw;
+    white-space: normal;
   }
 }
 
