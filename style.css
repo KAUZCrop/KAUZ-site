@@ -68,7 +68,7 @@ section h2 {
 }
 
 /* PORTFOLIO GRID */
-.ProtFolio-grid {
+.PortFolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
