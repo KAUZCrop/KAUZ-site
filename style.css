@@ -404,14 +404,14 @@ header.hero {
 }
 
 .slogan-line {
-  font-size: 4vw;
+  font-size: 3.5vw;
   white-space: nowrap;
 }
 
 /* 모바일일 때는 줄바꿈을 자연스럽게 해줌 */
 @media (max-width: 768px) {
   .slogan-line {
-    font-size: 6vw;
+    font-size: 5.2vw;
     white-space: normal;
     word-break: keep-all;
     text-wrap: balance;
@@ -419,7 +419,7 @@ header.hero {
 }
 
 .cursor {
-  font-size: 4vw;
+  font-size: 3.5vw;
   color: white;
   animation: blink 0.7s infinite;
 }
