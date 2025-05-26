@@ -82,3 +82,24 @@ window.addEventListener('DOMContentLoaded', () => {
   }, 2000); // 2초 후 실행
 });
 
+// 햄버거 메뉴 토글
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const menuClose = document.getElementById('menu-close');
+
+  hamburger.addEventListener('click', () => {
+    menuOverlay.style.display = 'flex';
+  });
+
+  menuClose.addEventListener('click', () => {
+    menuOverlay.style.display = 'none';
+  });
+
+  // 메뉴 클릭하면 자동으로 닫힘
+  document.querySelectorAll('.menu-content a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuOverlay.style.display = 'none';
+    });
+  });
+});
