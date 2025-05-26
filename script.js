@@ -130,9 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const target1 = document.getElementById('typing-line1');
     const target2 = document.getElementById('typing-line2');
 
-    const fullText = line1 + line2;
-    const totalDuration = 2000;
-    const interval = totalDuration / fullText.length;
+    const totalDuration = 1700;
+    const fullTextLength = line1.length + line2.length;
+    const interval = totalDuration / fullTextLength;
 
     let index1 = 0;
     let index2 = 0;
@@ -153,12 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
         index2++;
         setTimeout(typeLine2, interval);
       } else {
-        // 최종 완성 시 커서 제거
+        // 타이핑 완료 후 커서 제거
         target2.innerHTML = line2;
       }
     }
 
     typeLine1();
-  }, 2000); // 로딩 끝난 뒤 시작
+  }, 2000); // 로딩 끝난 뒤 타이핑 시작
 });
-
