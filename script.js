@@ -24,7 +24,7 @@
         const imageUrl = fields.ImageURL ?? '';
 
         const item = document.createElement('div');
-        item.className = 'reference-card';
+        item.className = 'PortFolio-card';
         item.innerHTML = `
           <div class="card-image" style="background-image: url('${imageUrl}')">
             <div class="card-overlay">
