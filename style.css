@@ -393,7 +393,7 @@ header.hero {
 
 /* ✨ 타자 효과 슬로건 스타일 */
 .hero-slogan {
-  font-size: 2.2rem;
+  font-size: min(calc(100vw - 10px), 72px);
   font-weight: bold;
   text-align: center;
   margin-top: 4rem;
