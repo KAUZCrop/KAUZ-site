@@ -61,7 +61,39 @@
   line-height: 1;
 }
 
-/* 오버레이 메뉴 */
+/* 햄버거 아이콘 */
+.hamburger {
+  width: 24px;
+  height: 18px;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 10001; /* 오버레이보다 위에 있도록 */
+}
+
+.hamburger span {
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+}
+
+/* 햄버거가 X로 변환될 때 */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* 메뉴 오버레이 */
 .menu-overlay {
   position: fixed;
   inset: 0;
@@ -74,21 +106,9 @@
   z-index: 9999;
 }
 
-/* 활성화 상태일 때 */
 .menu-overlay.active {
   opacity: 1;
   pointer-events: auto;
-}
-
-.menu-logo {
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  font-size: 20px; /* ✅ 메인과 동일한 크기 */
-  font-weight: bold;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .menu-content {
@@ -108,43 +128,21 @@
   font-size: 3rem;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.3s;
-}
-
-.menu-content a:hover {
-  color: #888;
-}
-
-/* 햄버거 기본 스타일 */
-.hamburger {
-  width: 24px;
-  height: 18px;
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  z-index: 10001;
-}
-
-.hamburger span {
-  height: 2px;
-  background: #fff;
-  border-radius: 2px;
-  transition: all 0.4s ease;
-}
-
-/* 햄버거가 X로 변환될 때 */
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.active span:nth-child(2) {
   opacity: 0;
+  transform: translateY(20px);
+  animation: menuFadeIn 0.6s ease forwards;
 }
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+
+.menu-overlay.active .menu-content a:nth-child(1) { animation-delay: 0.1s; }
+.menu-overlay.active .menu-content a:nth-child(2) { animation-delay: 0.2s; }
+.menu-overlay.active .menu-content a:nth-child(3) { animation-delay: 0.3s; }
+.menu-overlay.active .menu-content a:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes menuFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 기본 설정 */
