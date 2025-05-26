@@ -105,7 +105,6 @@ a:hover {
   justify-content: space-between;
   cursor: pointer;
   z-index: 10001;
-  display: flex;
   position: fixed;
 }
 
