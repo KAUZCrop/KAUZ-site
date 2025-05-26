@@ -127,10 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     const line1 = "Your brand's journey —";
     const line2 = "from insight in the Mind to impact that leaves a Mark.";
+
     const target1 = document.getElementById('typing-line1');
     const target2 = document.getElementById('typing-line2');
 
-    const totalDuration = 2000;
+    const cursorSpan = '<span class="typing-cursor">|</span>';
+
+    const totalDuration = 1700;
     const fullTextLength = line1.length + line2.length;
     const interval = totalDuration / fullTextLength;
 
@@ -139,25 +142,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function typeLine1() {
       if (index1 < line1.length) {
-        target1.innerHTML = line1.slice(0, index1) + '<span class="typing-cursor">|</span>';
+        target1.innerHTML = line1.slice(0, index1) + cursorSpan;
         index1++;
         setTimeout(typeLine1, interval);
       } else {
+        // 줄 1 완료 → 커서만 고정
+        target1.textContent = line1;
+        target2.innerHTML = cursorSpan;
         setTimeout(typeLine2, interval);
       }
     }
 
     function typeLine2() {
       if (index2 < line2.length) {
-        target2.innerHTML = line2.slice(0, index2) + '<span class="typing-cursor">|</span>';
+        target2.innerHTML = line2.slice(0, index2) + cursorSpan;
         index2++;
         setTimeout(typeLine2, interval);
       } else {
-        // 타이핑 완료 후 커서 제거
-        target2.innerHTML = line2;
+        target2.textContent = line2; // 커서 제거
       }
     }
 
     typeLine1();
-  }, 2000); // 로딩 끝난 뒤 타이핑 시작
+  }, 2000); // 로딩 후 시작
 });
+
