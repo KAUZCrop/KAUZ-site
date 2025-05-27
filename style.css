@@ -485,6 +485,8 @@ header.hero {
   z-index: 0;
   opacity: 0.25;
   pointer-events: none;
+  /* ✅ 그레이톤 필터 적용 */
+  filter: grayscale(90%) brightness(80%);
 }
 
 .hero-video-section::after {
