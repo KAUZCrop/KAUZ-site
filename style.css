@@ -517,7 +517,7 @@ header.hero {
 
 .menu-logo {
   position: fixed;
-  top: 1.5rem;
+  top: 0.2rem;
   left: 1rem;
   z-index: 10000;
   font-size: 44px;
@@ -525,6 +525,8 @@ header.hero {
   color: #fff;
   text-transform: uppercase;
   line-height: 1;
+  padding: 0.2rem 0;
+  font-family: 'Pretendard', sans-serif;
 }
 
 .menu-logo .mark {
