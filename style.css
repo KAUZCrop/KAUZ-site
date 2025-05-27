@@ -112,7 +112,6 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 6px; /* 간격 추가로 더 자연스러운 느낌 */
 }
 
 .hamburger span {
@@ -136,11 +135,11 @@ a:hover {
 
 /* X 상태 */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg);
+  transform: rotate(45deg) translate(3px, 3px);
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: rotate(-45deg);
+  transform: rotate(-45deg) translate(3px, -3px);
 }
 
 /* 메뉴 오버레이 */
