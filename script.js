@@ -108,12 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(item);
       });
 
-      const toggleBtn = document.getElementById('toggle-more');
-      toggleBtn.addEventListener('click', () => {
-        const hiddenCards = document.querySelectorAll('.hidden-card');
-        const isExpanded = toggleBtn.innerText === 'Show Less';
-        hiddenCards.forEach(card => {
-          const portfolioSlider = document.getElementById('PortfolioSliderList');
+      cconst portfolioSlider = document.getElementById('PortfolioSliderList');
 if (portfolioSlider) {
   data.records.forEach((record) => {
     const fields = record.fields;
@@ -128,11 +123,18 @@ if (portfolioSlider) {
     `;
     portfolioSlider.appendChild(slide);
   });
-          card.style.display = isExpanded ? 'none' : 'block';
-        });
-        toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
-      });
-    })
+}
+
+// ✅ toggle 버튼은 단순히 숨김/보임만 담당
+const toggleBtn = document.getElementById('toggle-more');
+toggleBtn.addEventListener('click', () => {
+  const hiddenCards = document.querySelectorAll('.hidden-card');
+  const isExpanded = toggleBtn.innerText === 'Show Less';
+  hiddenCards.forEach(card => {
+    card.style.display = isExpanded ? 'none' : 'block';
+  });
+  toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
+});
     .catch(error => {
       document.getElementById('PortFolio-list').innerHTML =
         '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
