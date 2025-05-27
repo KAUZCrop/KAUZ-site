@@ -264,54 +264,68 @@ section h2 {
   overflow-x: hidden;
 }
 
+/* === Portfolio Layout and Hover Effect === */
 .portfolio-slider {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 30px;
-  margin: 0 auto;
-  overflow-x: hidden;
+  padding: 0 15px;
   max-width: 100%;
-  padding: 0;
+  overflow-x: hidden;
+  margin: 0 auto;
 }
 
 .portfolio-slide {
-  width: calc((100vw - 90px) / 4); /* 15px 좌우 여백 + 30px * 3 간격 */
+  width: calc((100vw - 90px) / 4); /* 4개 한 줄 배치 (여백 포함) */
   aspect-ratio: 3 / 4;
-  background-color: #aaa;
+  background-color: #fff;
   position: relative;
   transition: all 0.4s ease;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  align-items: center;
 }
 
-.portfolio-slide img {
+.portfolio-image-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.portfolio-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.4s ease;
 }
 
+.portfolio-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
 .portfolio-slide-title {
-  position: absolute;
-  bottom: 8px;
-  left: 10px;
   font-size: 0.9rem;
-  opacity: 1;
+  margin-top: 0.5rem;
+  text-align: left;
+  align-self: flex-start;
+  padding-left: 10px;
+  color: #000;
   transition: opacity 0.3s;
 }
 
-/* Hover Effects */
 .portfolio-slider:hover .portfolio-slide {
-  transform: scale(0.94);
+  transform: scale(0.95);
   opacity: 0.6;
 }
 
 .portfolio-slide:hover {
-  transform: scale(1.08) !important;
+  transform: scale(1.05) !important;
   opacity: 1 !important;
-  z-index: 3;
+  z-index: 2;
 }
 
 .portfolio-slider:hover .portfolio-slide-title {
