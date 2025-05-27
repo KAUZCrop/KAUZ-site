@@ -104,8 +104,8 @@ a:hover {
   width: 48px;
   height: 6px;
   background-color: white;
-  flex-shrink: 0;              /* ✅ 크기 고정 */
-  margin-bottom: 4px;          /* ✅ MIND 기준선과 맞추기 위해 약간 내림 */
+  flex-shrink: 0;
+  margin-bottom: 4px;
 }
 
 .logo-mark {
