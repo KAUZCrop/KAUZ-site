@@ -96,14 +96,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const slide = document.createElement('div');
       slide.className = 'portfolio-slide';
 
-       slide.innerHTML = `
-  <div class="portfolio-image-container">
-    ${imageUrl 
-      ? `<img src="${imageUrl}" alt="${title}">`
-      : `<div class="portfolio-placeholder"></div>`}
-  </div>
-  <div class="portfolio-slide-title">${title}</div>
-`;
+     slide.innerHTML = imageUrl
+  ? `
+    <img src="${imageUrl}" alt="${title}" />
+    <div class="portfolio-slide-title">${title}</div>
+  `
+  : `
+    <div class="portfolio-placeholder"></div>
+    <div class="portfolio-slide-title">${title}</div>
+  `;
       
   sliderContainer.appendChild(slide);
 
