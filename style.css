@@ -515,6 +515,29 @@ header.hero {
   margin-bottom: 5rem;
 }
 
+.menu-logo {
+  position: fixed;
+  top: 1.5rem;
+  left: 1rem;
+  z-index: 10000;
+  font-size: 44px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.menu-logo .mark {
+  color: #239FD7;
+}
+
+@media (max-width: 768px) {
+  .menu-logo {
+    font-size: 32px;
+    left: 0.5rem;
+  }
+}
+
 /* 전체 텍스트 복사 방지 */
 body {
   user-select: none;
