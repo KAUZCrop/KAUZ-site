@@ -83,57 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
   })
     .then(response => response.json())
     .then(data => {
-      const container = document.getElementById('PortFolio-list');
-      container.innerHTML = '';
-      const sliderContainer = document.getElementById('PortfolioSliderList');
+     const sliderContainer = document.getElementById('PortfolioSliderList');
 
-      data.records.forEach((record, index) => {
-        const fields = record.fields;
-        const title = fields.Title || '제목 없음';
-        const description = fields.Description || '설명 없음';
-        const imageUrl = fields.ImageURL?.[0]?.url || '';
+data.records.forEach((record) => {
+  const fields = record.fields;
+  const title = fields.Title || '제목 없음';
+  const imageUrl = fields.ImageURL?.[0]?.url || '';
 
-        // ✅ 1. 일반 카드용
-        const item = document.createElement('div');
-        item.className = 'PortFolio-card';
-        if (index >= MAX_VISIBLE) item.classList.add('hidden-card');
-        item.innerHTML = `
-          <div class="card-image" style="background-image: url('${imageUrl}')">
-            <div class="card-overlay">
-              <div class="card-text">
-                <h3>${title}</h3>
-                <p>${description}</p>
-              </div>
-            </div>
-          </div>`;
-        container.appendChild(item);
-
-        // ✅ 2. 슬라이더용
-        if (sliderContainer) {
-          const slide = document.createElement('div');
-          slide.className = 'portfolio-slide';
-          slide.innerHTML = `
-            <img src="${imageUrl}" alt="${title}">
-            <p class="portfolio-slide-title">${title}</p>
-          `;
-          sliderContainer.appendChild(slide);
-        }
-      });
-
-      // ✅ 토글 버튼: 숨김 카드 show/hide
-      const toggleBtn = document.getElementById('toggle-more');
-      toggleBtn.addEventListener('click', () => {
-        const hiddenCards = document.querySelectorAll('.hidden-card');
-        const isExpanded = toggleBtn.innerText === 'Show Less';
-        hiddenCards.forEach(card => {
-          card.style.display = isExpanded ? 'none' : 'block';
-        });
-        toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
-      });
-    })
-    .catch(error => {
-      document.getElementById('PortFolio-list').innerHTML =
-        '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
-      console.error('Airtable fetch error:', error);
-    });
+  const slide = document.createElement('div');
+  slide.className = 'portfolio-slide';
+  slide.innerHTML = `
+    <img src="${imageUrl}" alt="${title}">
+    <p class="portfolio-slide-title">${title}</p>
+  `;
+  sliderContainer.appendChild(slide);
 });
