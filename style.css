@@ -297,8 +297,9 @@ section h2 {
   margin-top: 0.5rem;
   font-size: 0.9rem;
   color: #fff;
-  text-align: left;
+  text-align: left;     /* ✅ 중앙에서 왼쪽으로 변경 */
   font-weight: 500;
+  padding-left: 0.5rem;  /* ✅ 이미지와 여백 정렬 맞추기 */
 }
 
 #contact input,
