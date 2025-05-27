@@ -3,24 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menu-overlay');
 
-  // ✅ 로딩 종료 처리 및 햄버거 표시
-   setTimeout(() => {
-  loader.style.opacity = 0;
-  loader.style.pointerEvents = 'none';
-  loader.style.transition = 'opacity 0.4s ease-out';
-
-  // ✅ 햄버거 메뉴를 opacity가 줄어드는 동시에 보여주기
-  hamburger.style.display = 'flex';
-  hamburger.style.visibility = 'visible';
-  hamburger.style.opacity = '1';
-
-  // ✅ loader 제거만 약간 늦게 처리
+  // 로딩 끝나면 햄버거 보이기
   setTimeout(() => {
-    loader.style.display = 'none';
-  }, 400);
-}, 2000);
+    loader.style.opacity = 0;
+    loader.style.pointerEvents = 'none';
+    loader.style.transition = 'opacity 0.4s ease-out';
 
-  // ✅ 햄버거 메뉴 토글
+    hamburger.style.display = 'flex';
+    hamburger.style.visibility = 'visible';
+    hamburger.style.opacity = '1';
+
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 400);
+  }, 2000);
+
+  // 햄버거 토글
   const closeMenu = () => {
     menuOverlay.classList.remove('active');
     hamburger.classList.remove('active');
@@ -31,8 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   hamburger.addEventListener('click', () => {
     const isActive = menuOverlay.classList.contains('active');
-    if (isActive) closeMenu();
-    else openMenu();
+    isActive ? closeMenu() : openMenu();
   });
   document.querySelectorAll('.menu-content a').forEach(link => {
     link.addEventListener('click', closeMenu);
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeMenu();
   });
 
-  // ✅ 타이핑 애니메이션
+  // 타이핑 애니메이션
   setTimeout(() => {
     const line1 = "Your brand's journey —";
     const line2 = "from insight in the Mind to impact that leaves a Mark.";
@@ -75,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLine1();
   }, 2000);
 
-  // ✅ 포트폴리오 Airtable 불러오기
+  // Airtable 포트폴리오 로드
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
   const baseId = 'appglO0MOXGY7CITU';
   const tableName = 'Table%201';
@@ -88,11 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       const container = document.getElementById('PortFolio-list');
       container.innerHTML = '';
+      const sliderContainer = document.getElementById('PortfolioSliderList');
+
       data.records.forEach((record, index) => {
         const fields = record.fields;
         const title = fields.Title || '제목 없음';
         const description = fields.Description || '설명 없음';
         const imageUrl = fields.ImageURL?.[0]?.url || '';
+
+        // ✅ 1. 일반 카드용
         const item = document.createElement('div');
         item.className = 'PortFolio-card';
         if (index >= MAX_VISIBLE) item.classList.add('hidden-card');
@@ -106,35 +107,30 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>`;
         container.appendChild(item);
+
+        // ✅ 2. 슬라이더용
+        if (sliderContainer) {
+          const slide = document.createElement('div');
+          slide.className = 'portfolio-slide';
+          slide.innerHTML = `
+            <img src="${imageUrl}" alt="${title}">
+            <p class="portfolio-slide-title">${title}</p>
+          `;
+          sliderContainer.appendChild(slide);
+        }
       });
 
-      cconst portfolioSlider = document.getElementById('PortfolioSliderList');
-if (portfolioSlider) {
-  data.records.forEach((record) => {
-    const fields = record.fields;
-    const title = fields.Title || '제목 없음';
-    const imageUrl = fields.ImageURL?.[0]?.url || '';
-
-    const slide = document.createElement('div');
-    slide.className = 'portfolio-slide';
-    slide.innerHTML = `
-      <img src="${imageUrl}" alt="${title}">
-      <p class="portfolio-slide-title">${title}</p>
-    `;
-    portfolioSlider.appendChild(slide);
-  });
-}
-
-// ✅ toggle 버튼은 단순히 숨김/보임만 담당
-const toggleBtn = document.getElementById('toggle-more');
-toggleBtn.addEventListener('click', () => {
-  const hiddenCards = document.querySelectorAll('.hidden-card');
-  const isExpanded = toggleBtn.innerText === 'Show Less';
-  hiddenCards.forEach(card => {
-    card.style.display = isExpanded ? 'none' : 'block';
-  });
-  toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
-});
+      // ✅ 토글 버튼: 숨김 카드 show/hide
+      const toggleBtn = document.getElementById('toggle-more');
+      toggleBtn.addEventListener('click', () => {
+        const hiddenCards = document.querySelectorAll('.hidden-card');
+        const isExpanded = toggleBtn.innerText === 'Show Less';
+        hiddenCards.forEach(card => {
+          card.style.display = isExpanded ? 'none' : 'block';
+        });
+        toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
+      });
+    })
     .catch(error => {
       document.getElementById('PortFolio-list').innerHTML =
         '<p style="color:red;">🚫 데이터를 불러오지 못했습니다.</p>';
