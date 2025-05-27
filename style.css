@@ -438,8 +438,8 @@ header.hero {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;       /* ✅ 수직 정중앙 정렬 */
-  min-height: 35vh;              /* ✅ 고정된 공간 확보 */
+  justify-content: center;
+  min-height: calc(35vh + 35px);  /* ✅ 기존보다 35px 높이 증가 */
   font-weight: bold;
   color: white;
   line-height: 1.4;
@@ -456,13 +456,15 @@ header.hero {
 
 @media (max-width: 768px) {
   .hero-slogan {
-    min-height: 36vh; /* ✅ 기존 45vh → 40vh로 줄임 (약 10px 감소 효과) */
+    min-height: 36vh;                /* ✅ 영역 높이 그대로 유지 */
+    justify-content: center;         /* ✅ 해당 영역의 정중앙에 슬로건 배치 */
   }
+
   .slogan-line {
     font-size: 5vw;
     white-space: normal;
     text-align: center;
-    min-height: 5vw; /* 살짝 줄여서 덜 벌어지게 */
+    min-height: 5vw;
   }
 }
 
