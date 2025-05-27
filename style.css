@@ -138,11 +138,11 @@ a:hover {
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(2px, 2px);
+  transform: rotate(45deg) translate(6px, 6px);
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: rotate(-45deg) translate(2px, -2px);
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 .menu-overlay .hamburger {
