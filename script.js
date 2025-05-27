@@ -78,32 +78,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const tableName = 'Table%201';
 
   fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-    .then(response => response.json())
-   .then(data => {
-  const sliderContainer = document.getElementById('PortfolioSliderList');
-  if (!sliderContainer) return;
-
-  const MAX_ITEMS = 4; // ✅ 최대 4개까지만 표시
-
-  data.records.slice(0, MAX_ITEMS).forEach((record) => {
-    const fields = record.fields;
-    const title = fields.Title || '제목 없음';
-    const imageUrl = fields.ImageURL?.[0]?.url || '';
-
-    const slide = document.createElement('div');
-    slide.className = 'portfolio-slide';
-    slide.innerHTML = `
-      <img src="${imageUrl}" alt="${title}">
-      <p class="portfolio-slide-title">${title}</p>
-    `;
-    sliderContainer.appendChild(slide);
-  });
+  headers: { Authorization: `Bearer ${token}` }
 })
-    .catch(error => {
-      console.error('🚫 Airtable fetch error:', error);
+  .then(response => response.json())
+  .then(data => {
+    const sliderContainer = document.getElementById('PortfolioSliderList');
+    if (!sliderContainer) return;
+
+    const MAX_ITEMS = 4;
+    const records = data.records.slice(0, MAX_ITEMS);
+
+    records.forEach((record) => {
+      const fields = record.fields;
+      const title = fields.Title || '제목 없음';
+      const imageUrl = fields.ImageURL?.[0]?.url || null;
+
+      const slide = document.createElement('div');
+      slide.className = 'portfolio-slide';
+
+      // ✅ 이미지가 없으면 빈 배경 박스 출력
+      slide.innerHTML = imageUrl
+        ? `<img src="${imageUrl}" alt="${title}">
+           <p class="portfolio-slide-title">${title}</p>`
+        : `<div class="portfolio-placeholder"></div>
+           <p class="portfolio-slide-title">${title}</p>`;
+
+      sliderContainer.appendChild(slide);
     });
+  })
+  .catch(error => {
+    console.error('🚫 Airtable fetch error:', error);
+  });
+
 
   // ✅ (에러 방지를 위한 남은 버튼 코드 — 실제 버튼 없으면 무시)
   const toggleBtn = document.getElementById('toggle-more');
