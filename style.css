@@ -446,8 +446,8 @@ header.hero {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px; /* ✅ 슬로건 아래로 10px 내리기 */
-  margin-bottom: 8rem;
+  padding-top: 7vh;      /* ✅ 상단 여백 추가 (뷰포트 기준) */
+  padding-bottom: 5vh;   /* ✅ 하단 여백도 살짝 추가 */
 }
 
 .slogan-line {
