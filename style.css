@@ -305,25 +305,18 @@ section h2 {
 }
 
 /* 전체 슬라이더에 hover하면 다른 슬라이드는 축소 */
-/* 기본 스타일 */
-.portfolio-slide {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  transform: scale(1);
-  opacity: 1;
-}
-
-/* 슬라이더 전체에 hover 시 모든 슬라이드를 축소 */
-.portfolio-slider.hover-effect .portfolio-slide {
+.portfolio-slider:hover .portfolio-slide {
   transform: scale(0.9);
   opacity: 0.7;
 }
 
-/* 단, 현재 hover된 슬라이드만 확대 + opacity 복원 */
+/* hover된 슬라이드는 확대 (가로세로 비율 변경) */
 .portfolio-slide:hover {
-  transform: scale3d(1.08, 1.05, 1);
+  transform: scale3d(1.08, 1.05, 1);  /* 좌우 1.08배, 상하 1.05배 */
   opacity: 1 !important;
   z-index: 2;
 }
+
 /* 부드러운 트랜지션 효과 */
 .portfolio-slide {
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -346,6 +339,25 @@ section h2 {
   opacity: 1 !important;
 }
 
+/* 기본 스타일 */
+.portfolio-slide {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* 슬라이더 전체에 hover 시 모든 슬라이드를 축소 */
+.portfolio-slider.hover-effect .portfolio-slide {
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+/* 단, 현재 hover된 슬라이드만 확대 + opacity 복원 */
+.portfolio-slide:hover {
+  transform: scale3d(1.08, 1.05, 1);
+  opacity: 1 !important;
+  z-index: 2;
+}
 
 #contact input,
 #contact textarea {
