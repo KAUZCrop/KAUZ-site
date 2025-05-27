@@ -266,17 +266,18 @@ section h2 {
   box-sizing: border-box;
 }
 
+/* === Portfolio 영역 스타일 수정 === */
 .portfolio-slider {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 16px; /* 🔽 이미지 간격 줄임 */
   justify-content: space-between;
   margin: 0 auto;
   padding-bottom: 2rem;
 }
 
 .portfolio-slide {
-  width: calc((100% - 90px) / 4); /* 4개 한 줄 배치 */
+  width: calc((100% - 48px) / 4); /* 🔼 이미지 크기 키움 (4개 한 줄 기준) */
   background: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
   flex-shrink: 0;
@@ -299,14 +300,13 @@ section h2 {
   transition: transform 0.4s ease;
 }
 
-/* 이미지 없을 때 흰 배경 */
 .portfolio-placeholder {
   width: 100%;
   aspect-ratio: 3 / 4;
   background-color: #fff;
 }
 
-/* 브랜드명은 항상 아래 표시 */
+/* 브랜드명 항상 보이게 + 한 줄 고정 */
 .portfolio-slide-title {
   font-size: 0.9rem;
   color: white;
@@ -315,9 +315,12 @@ section h2 {
   padding-left: 2px;
   margin-top: 6px;
   opacity: 1;
+  white-space: nowrap;        /* ✅ 한 줄로 제한 */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Hover 시 효과 */
+/* Hover 효과 */
 .portfolio-slider:hover .portfolio-slide {
   transform: scale(0.95);
   opacity: 0.7;
@@ -329,9 +332,21 @@ section h2 {
   z-index: 2;
 }
 
-/* 브랜드명 항상 유지 */
 .portfolio-slider:hover .portfolio-slide-title {
   opacity: 1 !important;
+}
+
+/* ✅ 모바일 대응: 포트폴리오 2개씩 한 줄 */
+@media (max-width: 768px) {
+  .portfolio-slide {
+    width: calc((100% - 16px) / 2);
+  }
+
+  .portfolio-slide-title {
+    white-space: nowrap;   /* 모바일도 무조건 한 줄 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 #contact input,
