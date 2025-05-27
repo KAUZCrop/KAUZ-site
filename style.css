@@ -439,28 +439,36 @@ header.hero {
 
 /* ✨ 타자 효과 슬로건 스타일 */
 .hero-slogan {
-  padding: 12vh 1rem 6vh;
+  padding: 0 1rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 0;
+  justify-content: center;       /* ✅ 수직 정중앙 정렬 */
+  min-height: 35vh;              /* ✅ 고정된 공간 확보 */
   font-weight: bold;
   color: white;
   line-height: 1.4;
+  position: relative;
+  z-index: 2;
 }
 
 .slogan-line {
   font-size: 3.5vw;
+  min-height: 4vw;        /* ✅ 초기 공간 확보 (한 줄) */
   white-space: nowrap;
-  min-height: 4.5vw;   /* ✅ 슬로건 공간 미리 확보 */
+  overflow: hidden;
 }
 
-@@media (max-width: 768px) {
+@media (max-width: 768px) {
+  .hero-slogan {
+    min-height: 45vh;      /* 모바일에서 더 넉넉하게 */
+  }
   .slogan-line {
     font-size: 5vw;
     white-space: normal;
-    min-height: 6vw;   /* ✅ 모바일용 여유 공간 */
+    text-align: center;
+    min-height: 6vw;
   }
 }
 
