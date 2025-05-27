@@ -96,20 +96,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const slide = document.createElement('div');
       slide.className = 'portfolio-slide';
 
-      // ✅ 이미지가 없으면 빈 배경 박스 출력
-     slide.innerHTML = `
-  <div class="portfolio-image-container">
-    ${imageUrl 
-      ? `<img src="${imageUrl}" alt="${title}">`
-      : `<div class="portfolio-placeholder"></div>`}
-  </div>
-  <div class="portfolio-slide-title">${title}</div>
-`;
+      // ✅ 이미지가 없으면 흰 박스로 대체
+      slide.innerHTML = `
+        <div class="portfolio-image-container">
+          ${imageUrl 
+            ? `<img src="${imageUrl}" alt="${title}">`
+            : `<div class="portfolio-placeholder"></div>`}
+        </div>
+        <div class="portfolio-slide-title">${title}</div>
+      `;
 
+      sliderContainer.appendChild(slide);
+    });
+  }) // ✅ ← 이 닫는 괄호가 누락되어 있었음
   .catch(error => {
     console.error('🚫 Airtable fetch error:', error);
   });
-
 
   // ✅ (에러 방지를 위한 남은 버튼 코드 — 실제 버튼 없으면 무시)
   const toggleBtn = document.getElementById('toggle-more');
