@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menu-overlay');
 
-  // 로딩 끝나면 햄버거 보이기
+  // ✅ 로딩 후 햄버거 메뉴 표시
   setTimeout(() => {
     loader.style.opacity = 0;
     loader.style.pointerEvents = 'none';
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 400);
   }, 2000);
 
-  // 햄버거 토글
+  // ✅ 햄버거 메뉴 토글
   const closeMenu = () => {
     menuOverlay.classList.remove('active');
     hamburger.classList.remove('active');
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeMenu();
   });
 
-  // 타이핑 애니메이션
+  // ✅ 타이핑 애니메이션
   setTimeout(() => {
     const line1 = "Your brand's journey —";
     const line2 = "from insight in the Mind to impact that leaves a Mark.";
@@ -72,29 +72,47 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLine1();
   }, 2000);
 
-  // Airtable 포트폴리오 로드
+  // ✅ Airtable 슬라이드용 포트폴리오 로딩
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
   const baseId = 'appglO0MOXGY7CITU';
   const tableName = 'Table%201';
-  const MAX_VISIBLE = 6;
 
   fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
     headers: { Authorization: `Bearer ${token}` }
   })
     .then(response => response.json())
     .then(data => {
-     const sliderContainer = document.getElementById('PortfolioSliderList');
+      const sliderContainer = document.getElementById('PortfolioSliderList');
+      if (!sliderContainer) return;
 
-data.records.forEach((record) => {
-  const fields = record.fields;
-  const title = fields.Title || '제목 없음';
-  const imageUrl = fields.ImageURL?.[0]?.url || '';
+      data.records.forEach((record) => {
+        const fields = record.fields;
+        const title = fields.Title || '제목 없음';
+        const imageUrl = fields.ImageURL?.[0]?.url || '';
 
-  const slide = document.createElement('div');
-  slide.className = 'portfolio-slide';
-  slide.innerHTML = `
-    <img src="${imageUrl}" alt="${title}">
-    <p class="portfolio-slide-title">${title}</p>
-  `;
-  sliderContainer.appendChild(slide);
+        const slide = document.createElement('div');
+        slide.className = 'portfolio-slide';
+        slide.innerHTML = `
+          <img src="${imageUrl}" alt="${title}">
+          <p class="portfolio-slide-title">${title}</p>
+        `;
+        sliderContainer.appendChild(slide);
+      });
+    })
+    .catch(error => {
+      console.error('🚫 Airtable fetch error:', error);
+    });
+
+  // ✅ (에러 방지를 위한 남은 버튼 코드 — 실제 버튼 없으면 무시)
+  const toggleBtn = document.getElementById('toggle-more');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const hiddenCards = document.querySelectorAll('.hidden-card');
+      const isExpanded = toggleBtn.innerText === 'Show Less';
+      hiddenCards.forEach(card => {
+        card.style.display = isExpanded ? 'none' : 'block';
+      });
+      toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
+    });
+  }
 });
