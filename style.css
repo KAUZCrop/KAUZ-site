@@ -81,14 +81,18 @@ a:hover {
   margin: 0;
 }
 
-.logo {
-  font-size: 44px; /* 기존 20px → 44px로 확장 */
+.navbar .logo {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10000;
+  font-size: 44px;
   font-weight: bold;
-  color: #fff;
   text-transform: uppercase;
-  margin: 0;
-  padding: 0.2rem 0;
   line-height: 1;
+  padding: 0.2rem 0;
+  color: white;
+  font-family: 'Pretendard', sans-serif;
 }
 
 .mark {
@@ -96,10 +100,10 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .logo {
+  .navbar .logo {
     font-size: 32px;
-    margin-left: 0;        /* 불필요한 margin 제거 */
-    padding-left: 0.5rem;  /* ← 여기 추가해서 왼쪽 여백 최소화 */
+    top: 1rem;
+    left: 1rem;
   }
 }
 
