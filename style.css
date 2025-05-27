@@ -48,6 +48,10 @@ a:hover {
   letter-spacing: 1px;
 }
 
+#loading-screen + .hamburger {
+  display: none;
+}
+
 .progress-bar {
   width: 200px;
   height: 8px;
@@ -133,13 +137,12 @@ a:hover {
   transform: translateY(6px);
 }
 
-/* X 상태 */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg);
+  transform: rotate(45deg) translate(2px, 2px);
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: rotate(-45deg);
+  transform: rotate(-45deg) translate(2px, -2px);
 }
 
 .menu-overlay .hamburger {
