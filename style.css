@@ -446,7 +446,8 @@ header.hero {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 8rem; /* ✅ 여기에 추가 */
+  margin-top: 10px; /* ✅ 슬로건 아래로 10px 내리기 */
+  margin-bottom: 8rem;
 }
 
 .slogan-line {
