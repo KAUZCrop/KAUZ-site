@@ -127,11 +127,11 @@ a:hover {
 
 /* 기본 햄버거 상태 */
 .hamburger span:nth-child(1) {
-  transform: translateY(0px);
+  transform: translateY(-6px);
 }
 
 .hamburger span:nth-child(2) {
-  transform: translateY(0px);
+  transform: translateY(6px);
 }
 
 /* X 상태 */
