@@ -470,7 +470,7 @@ header.hero {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.3; /* 어두운 배경 효과 */
+  opacity: 0.3;
   pointer-events: none;
 }
 
@@ -482,7 +482,7 @@ header.hero {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 8rem; /* 기존 여백 유지 */
+  margin-bottom: 8rem;
 }
 
 /* 전체 텍스트 복사 방지 */
