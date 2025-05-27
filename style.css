@@ -453,12 +453,14 @@ header.hero {
 .slogan-line {
   font-size: 3.5vw;
   white-space: nowrap;
+  min-height: 4.5vw;   /* ✅ 슬로건 공간 미리 확보 */
 }
 
-@media (max-width: 768px) {
+@@media (max-width: 768px) {
   .slogan-line {
     font-size: 5vw;
     white-space: normal;
+    min-height: 6vw;   /* ✅ 모바일용 여유 공간 */
   }
 }
 
