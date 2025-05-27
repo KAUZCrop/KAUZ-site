@@ -86,49 +86,18 @@ a:hover {
   top: 1.5rem;
   left: 1.5rem;
   z-index: 10000;
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;        /* ✅ 기준선을 MIND에 맞춤 */
-  gap: 1rem;
-  font-family: 'Pretendard', sans-serif;
+  height: 56px; /* ✅ 기존 높이 유지 */
 }
 
-.logo-text {
-  font-size: 46px;
-  font-weight: bold;
-  color: white;
-  line-height: 1;
+.logo-img {
+  height: 100%;
+  width: auto;
+  display: block;
 }
-
-.logo-line {
-  width: 48px;
-  height: 6px;
-  background-color: white;
-  display: inline-block;
-  flex-shrink: 0;
-  transform: translateY(6px); /* ✅ 선을 아래로 내려서 시각적 기준선에 맞춤 */
-}
-
-.logo-mark {
-  font-size: 46px;
-  font-weight: bold;
-  background: linear-gradient(to bottom, #FF854F, #C43D00);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1;
-}
-
 
 @media (max-width: 768px) {
-  .logo-text,
-  .logo-mark {
-    font-size: 34px;
-  }
-
-  .logo-line {
-    width: 36px;
-    height: 5px;
-    transform: translateY(4px); /* 모바일 기준선 맞춤 */
+  .logo {
+    height: 42px; /* 모바일에서 축소 */
   }
 }
 
