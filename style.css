@@ -101,7 +101,6 @@ a:hover {
 
 /* 햄버거 아이콘 */
 .hamburger {
-  display: none;
   position: fixed;
   top: 1.5rem;
   right: 1.5rem;
@@ -113,9 +112,8 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  visibility: hidden;
-  position: fixed;
+  opacity: 1;
+  visibility: visible;
 }
 
 .hamburger span {
