@@ -462,7 +462,7 @@ header.hero {
 
 @media (max-width: 768px) {
   .hero-slogan {
-    min-height: 40vh; /* ✅ 기존 45vh → 40vh로 줄임 (약 10px 감소 효과) */
+    min-height: 36vh; /* ✅ 기존 45vh → 40vh로 줄임 (약 10px 감소 효과) */
   }
   .slogan-line {
     font-size: 5vw;
