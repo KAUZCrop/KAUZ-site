@@ -266,20 +266,24 @@ section h2 {
 }
 
 .portfolio-slide {
-  flex: 0 0 calc(25% - 1.5rem); /* ✅ 한 줄에 4개 */
-  max-width: calc(25% - 1.5rem);
+  flex: 0 0 23%;
+  max-width: 23%;
   aspect-ratio: 3/4;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff; /* 기본 배경 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  scroll-snap-align: center;
-  transition: transform 0.3s ease;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
 }
 
-.portfolio-slide img,
+.portfolio-image-container {
+  width: 100%;
+  height: 100%;
+}
+
+.portfolio-image-container img,
 .portfolio-placeholder {
   width: 100%;
   height: 100%;
@@ -288,19 +292,15 @@ section h2 {
 
 .portfolio-placeholder {
   background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #999;
 }
 
 .portfolio-slide-title {
-  margin-top: 0.5rem;
   font-size: 0.9rem;
-  color: white;
+  color: #fff;
   text-align: center;
+  margin-top: 0.8rem;
 }
+
 
 #contact input,
 #contact textarea {
