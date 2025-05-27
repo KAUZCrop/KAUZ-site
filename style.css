@@ -86,7 +86,7 @@ a:hover {
   top: 1.5rem;
   left: 1.5rem;
   z-index: 10000;
-  height: 56px; /* ✅ 기존 높이 유지 */
+  height: 66px; /* ✅ 기존 높이 유지 */
 }
 
 .logo-img {
