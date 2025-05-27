@@ -96,15 +96,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const slide = document.createElement('div');
       slide.className = 'portfolio-slide';
 
-        slide.innerHTML = `
-    <div class="portfolio-image-container">
-      ${imageUrl 
-        ? `<img src="${imageUrl}" alt="${title}">`
-        : `<div class="portfolio-placeholder"></div>`}
-    </div>
-    <div class="portfolio-slide-title">${title}</div>
-  `;
-
+       slide.innerHTML = `
+  <div class="portfolio-image-container">
+    ${imageUrl 
+      ? `<img src="${imageUrl}" alt="${title}">`
+      : `<div class="portfolio-placeholder"></div>`}
+  </div>
+  <div class="portfolio-slide-title">${title}</div>
+`;
+      
   sliderContainer.appendChild(slide);
 
       // 포트폴리오 슬라이드 마우스 효과
@@ -117,16 +117,6 @@ if (slider) {
     slider.classList.remove('hover-effect');
   });
 }
-
-      // ✅ 이미지가 없으면 흰 박스로 대체
-    slide.innerHTML = `
-  <div class="portfolio-image-container">
-    ${imageUrl 
-      ? `<img src="${imageUrl}" alt="${title}">`
-      : `<div class="portfolio-placeholder"></div>`}
-  </div>
-  <div class="portfolio-slide-title">${title}</div> <!-- ✅ 이미지 바깥쪽 -->
-`;
 
       sliderContainer.appendChild(slide);
     });
