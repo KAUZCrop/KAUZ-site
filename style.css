@@ -116,6 +116,7 @@ a:hover {
 }
 
 .hamburger span {
+  position: absolute;
   width: 100%;
   height: 2px;
   background: white;
@@ -124,18 +125,20 @@ a:hover {
   transform-origin: center;
 }
 
-/* 기본 위치 */
+/* 기본 햄버거 상태 */
 .hamburger span:nth-child(1) {
-  transform: translateY(0px);
-}
-.hamburger span:nth-child(2) {
-  transform: translateY(0px);
+  transform: translateY(-6px);
 }
 
-/* X 표시 변형 */
+.hamburger span:nth-child(2) {
+  transform: translateY(6px);
+}
+
+/* X 상태 */
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg);
 }
+
 .hamburger.active span:nth-child(2) {
   transform: rotate(-45deg);
 }
