@@ -257,23 +257,27 @@ section h2 {
 }
 
 /* 슬라이드 기본 상태 */
+.portfolio-slider {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0 15px; /* ← 양옆 여백 설정 */
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  justify-content: space-between;
+}
+
 .portfolio-slide {
-  transform: scale(1);
+  flex: 1 1 calc((100% - 3 * 1.5rem - 2 * 15px) / 4); /* 4개 기준, gap 1.5rem, padding 15px */
+  max-width: calc((100% - 3 * 1.5rem - 2 * 15px) / 4);
   transition: transform 0.3s ease, opacity 0.3s ease;
-  opacity: 1;
   position: relative;
   z-index: 1;
 }
 
-/* 슬라이더 전체에 hover 시: 모든 슬라이드 축소 & 반투명 */
-.portfolio-slider:hover .portfolio-slide {
-  transform: scale(0.9);
-  opacity: 0.7;
-}
-
-/* 단, hover된 슬라이드는 예외 처리: 확대 & 선명 */
+/* 확대될 때도 넘지 않도록 최대 너비 제한 */
 .portfolio-slider:hover .portfolio-slide:hover {
-  transform: scale3d(1.08, 1.05, 1);
+  transform: scale(1.05);
   opacity: 1 !important;
   z-index: 2;
 }
