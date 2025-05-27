@@ -323,6 +323,50 @@ section h2 {
   margin-bottom: 1rem;
 }
 
+#PortfolioSlider {
+  padding: 4rem 2rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.portfolio-slider {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portfolio-slide {
+  flex: 0 0 auto;
+  width: 280px;
+  height: 360px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-slide:hover img {
+  transform: scale(1.08);
+}
+
+.portfolio-slide-title {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  color: white;
+}
+
 .view-link {
   color: #fff;
   border: 1px solid #fff;
