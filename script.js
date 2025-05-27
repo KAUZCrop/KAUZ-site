@@ -113,6 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const hiddenCards = document.querySelectorAll('.hidden-card');
         const isExpanded = toggleBtn.innerText === 'Show Less';
         hiddenCards.forEach(card => {
+          const portfolioSlider = document.getElementById('PortfolioSliderList');
+if (portfolioSlider) {
+  data.records.forEach((record) => {
+    const fields = record.fields;
+    const title = fields.Title || '제목 없음';
+    const imageUrl = fields.ImageURL?.[0]?.url || '';
+
+    const slide = document.createElement('div');
+    slide.className = 'portfolio-slide';
+    slide.innerHTML = `
+      <img src="${imageUrl}" alt="${title}">
+      <p class="portfolio-slide-title">${title}</p>
+    `;
+    portfolioSlider.appendChild(slide);
+  });
           card.style.display = isExpanded ? 'none' : 'block';
         });
         toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
