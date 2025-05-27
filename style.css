@@ -454,10 +454,10 @@ header.hero {
   white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-  .hero-slogan {
-    padding-top: 4vh;
-    padding-bottom: 3vh;
+@@media (max-width: 768px) {
+  .slogan-line {
+    font-size: 5vw;
+    white-space: normal;
   }
 }
 
