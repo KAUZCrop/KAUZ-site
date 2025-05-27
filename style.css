@@ -256,107 +256,48 @@ section h2 {
   line-height: 1.8;
 }
 
-.portfolio-slider {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;            /* 좌우 여백 */
-  gap: 20px;                  /* 슬라이드 간 간격 */
-  width: 100%;
-  max-width: 100vw;           /* 전체 뷰포트 기준 */
-  box-sizing: border-box;    /* 패딩까지 포함 계산 */
-  flex-wrap: wrap;
-}
-
+/* 슬라이드 기본 상태 */
 .portfolio-slide {
-  flex: 0 0 calc((100% - 60px) / 4);  /* (총 폭 - gap 총합) ÷ 4 */
-  max-width: calc((100% - 60px) / 4);
-  aspect-ratio: 3 / 4;
-  display: flex;
-  flex-direction: column;
-  background: transparent;
-  border-radius: 0;
+  transform: scale(1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+  position: relative;
+  z-index: 1;
 }
 
-.portfolio-image-container {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-}
-
-.portfolio-image-container img,
-.portfolio-placeholder {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 0;
-}
-
-.portfolio-placeholder {
-  background-color: #fff;
-}
-
-.portfolio-slide-title {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #fff;
-  text-align: left;     /* ✅ 중앙에서 왼쪽으로 변경 */
-  font-weight: 500;
-  padding-left: 0.5rem;  /* ✅ 이미지와 여백 정렬 맞추기 */
-}
-
-/* 전체 슬라이더에 hover하면 다른 슬라이드는 축소 */
+/* 슬라이더 전체에 hover 시: 모든 슬라이드 축소 & 반투명 */
 .portfolio-slider:hover .portfolio-slide {
   transform: scale(0.9);
   opacity: 0.7;
 }
 
-/* hover된 슬라이드는 확대 (가로세로 비율 변경) */
-.portfolio-slide:hover {
-  transform: scale3d(1.08, 1.05, 1);  /* 좌우 1.08배, 상하 1.05배 */
+/* 단, hover된 슬라이드는 예외 처리: 확대 & 선명 */
+.portfolio-slider:hover .portfolio-slide:hover {
+  transform: scale3d(1.08, 1.05, 1);
   opacity: 1 !important;
   z-index: 2;
 }
 
-/* 부드러운 트랜지션 효과 */
-.portfolio-slide {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: relative;
-}
-
-/* 브랜드명은 기본적으로 보이게 */
+/* 브랜드명 기본 상태: 항상 보임 */
 .portfolio-slide-title {
   opacity: 1;
   transition: opacity 0.3s ease;
+  color: #fff;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: left;
+  padding-left: 0.5rem;
+  font-weight: 500;
 }
 
-/* 슬라이더 전체 hover 중에는 브랜드명을 숨기고 */
+/* 슬라이더 전체 hover 시: 브랜드명 감춤 */
 .portfolio-slider:hover .portfolio-slide-title {
   opacity: 0;
 }
 
-/* hover된 슬라이드의 브랜드명만 다시 보이게 */
-.portfolio-slide:hover .portfolio-slide-title {
+/* hover된 슬라이드만 브랜드명 다시 표시 */
+.portfolio-slider:hover .portfolio-slide:hover .portfolio-slide-title {
   opacity: 1 !important;
-}
-
-/* 기본 스타일 */
-.portfolio-slide {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  transform: scale(1);
-  opacity: 1;
-}
-
-/* 슬라이더 전체에 hover 시 모든 슬라이드를 축소 */
-.portfolio-slider.hover-effect .portfolio-slide {
-  transform: scale(0.9);
-  opacity: 0.7;
-}
-
-/* 단, 현재 hover된 슬라이드만 확대 + opacity 복원 */
-.portfolio-slide:hover {
-  transform: scale3d(1.08, 1.05, 1);
-  opacity: 1 !important;
-  z-index: 2;
 }
 
 #contact input,
