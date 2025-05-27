@@ -304,6 +304,39 @@ section h2 {
   padding-left: 0.5rem;  /* ✅ 이미지와 여백 정렬 맞추기 */
 }
 
+/* 🔄 슬라이드 hover 인터랙션 애니메이션 */
+.portfolio-slider:hover .portfolio-slide {
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+.portfolio-slide:hover {
+  transform: scale(1.05) !important;
+  opacity: 1 !important;
+  z-index: 2;
+}
+
+.portfolio-slide {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: relative;
+}
+
+/* 브랜드명 기본 표시 */
+.portfolio-slide-title {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* 슬라이더 전체 hover 상태에서는 브랜드명 숨김 */
+.portfolio-slider:hover .portfolio-slide-title {
+  opacity: 0;
+}
+
+/* hover된 카드만 브랜드명 다시 표시 */
+.portfolio-slide:hover .portfolio-slide-title {
+  opacity: 1 !important;
+}
+
 #contact input,
 #contact textarea {
   display: block;
