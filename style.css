@@ -105,17 +105,15 @@ a:hover {
   top: 1.5rem;
   right: 1.5rem;
   width: 28px;
-  height: 24px;
-  z-index: 10001; /* ✅ 메뉴보다 더 위에 있도록 높은 값 */
+  height: 28px;
+  z-index: 10001;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 1;
-  visibility: visible;
+  gap: 6px; /* 간격 추가로 더 자연스러운 느낌 */
 }
-
 
 .hamburger span {
   position: absolute;
