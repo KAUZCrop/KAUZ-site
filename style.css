@@ -439,25 +439,27 @@ header.hero {
 
 /* ✨ 타자 효과 슬로건 스타일 */
 .hero-slogan {
-  font-weight: bold;
-  color: white;
+  padding: 12vh 1rem 6vh; /* ✅ 상단 여백 12vh, 하단 여백 6vh */
   text-align: center;
-  line-height: 1.4;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 8rem;
+  margin-bottom: 0; /* ✅ 기존의 margin 제거 */
+  font-weight: bold;
+  color: white;
+  line-height: 1.4;
 }
+
 
 .slogan-line {
   font-size: 3.5vw;
   white-space: nowrap;
 }
 
-@@media (max-width: 768px) {
-  .slogan-line {
-    font-size: 5vw;
-    white-space: normal;
+@media (max-width: 768px) {
+  .hero-slogan {
+    padding-top: 10vh;
+    padding-bottom: 4vh;
   }
 }
 
