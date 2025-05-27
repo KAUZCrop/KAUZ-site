@@ -98,13 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // ✅ 이미지가 없으면 흰 박스로 대체
       slide.innerHTML = `
-        <div class="portfolio-image-container">
-          ${imageUrl 
-            ? `<img src="${imageUrl}" alt="${title}">`
-            : `<div class="portfolio-placeholder"></div>`}
-        </div>
-        <div class="portfolio-slide-title">${title}</div>
-      `;
+  <div class="portfolio-image-container">
+    ${imageUrl 
+      ? `<img src="${imageUrl}" alt="${title}">`
+      : `<div class="portfolio-placeholder"></div>`}
+    <div class="portfolio-slide-title">${title}</div> <!-- ✅ 이미지 안에 위치 -->
+  </div>
+`;
 
       sliderContainer.appendChild(slide);
     });
