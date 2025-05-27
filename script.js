@@ -81,24 +81,26 @@ document.addEventListener('DOMContentLoaded', () => {
     headers: { Authorization: `Bearer ${token}` }
   })
     .then(response => response.json())
-    .then(data => {
-      const sliderContainer = document.getElementById('PortfolioSliderList');
-      if (!sliderContainer) return;
+   .then(data => {
+  const sliderContainer = document.getElementById('PortfolioSliderList');
+  if (!sliderContainer) return;
 
-      data.records.forEach((record) => {
-        const fields = record.fields;
-        const title = fields.Title || '제목 없음';
-        const imageUrl = fields.ImageURL?.[0]?.url || '';
+  const MAX_ITEMS = 4; // ✅ 최대 4개까지만 표시
 
-        const slide = document.createElement('div');
-        slide.className = 'portfolio-slide';
-        slide.innerHTML = `
-          <img src="${imageUrl}" alt="${title}">
-          <p class="portfolio-slide-title">${title}</p>
-        `;
-        sliderContainer.appendChild(slide);
-      });
-    })
+  data.records.slice(0, MAX_ITEMS).forEach((record) => {
+    const fields = record.fields;
+    const title = fields.Title || '제목 없음';
+    const imageUrl = fields.ImageURL?.[0]?.url || '';
+
+    const slide = document.createElement('div');
+    slide.className = 'portfolio-slide';
+    slide.innerHTML = `
+      <img src="${imageUrl}" alt="${title}">
+      <p class="portfolio-slide-title">${title}</p>
+    `;
+    sliderContainer.appendChild(slide);
+  });
+})
     .catch(error => {
       console.error('🚫 Airtable fetch error:', error);
     });
