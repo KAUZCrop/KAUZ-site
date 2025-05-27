@@ -521,8 +521,8 @@ header.hero {
 
 .menu-logo {
   position: fixed;
-  top: 0.2rem;
-  left: 1rem;
+  top: 1.5rem;
+  left: 1.5rem;
   z-index: 10000;
   font-size: 44px;
   font-weight: bold;
@@ -540,7 +540,8 @@ header.hero {
 @media (max-width: 768px) {
   .menu-logo {
     font-size: 32px;
-    left: 0.5rem;
+    top: 1rem;
+    left: 1rem;
   }
 }
 
