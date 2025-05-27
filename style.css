@@ -268,19 +268,16 @@ section h2 {
 .portfolio-slide {
   flex: 0 0 23%;
   max-width: 23%;
-  aspect-ratio: 3 / 4;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   background: transparent;
   margin-bottom: 2rem;
   border-radius: 0;
 }
 
 .portfolio-image-container {
-  position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 3 / 4;
 }
 
 .portfolio-image-container img,
@@ -289,25 +286,19 @@ section h2 {
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 0;
 }
 
 .portfolio-placeholder {
   background-color: #fff;
 }
 
-/* ✅ 브랜드명이 이미지 안쪽 하단에 정중앙 고정 */
 .portfolio-slide-title {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
   color: #fff;
-  font-size: 1rem;
-  font-weight: 500;
   text-align: center;
-  padding: 0 1rem;
-  white-space: nowrap;
-  background: transparent;
+  font-weight: 500;
 }
 
 #contact input,
