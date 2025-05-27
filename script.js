@@ -97,15 +97,15 @@ document.addEventListener('DOMContentLoaded', () => {
       slide.className = 'portfolio-slide';
 
       // ✅ 이미지가 없으면 빈 배경 박스 출력
-      slide.innerHTML = imageUrl
-        ? `<img src="${imageUrl}" alt="${title}">
-           <p class="portfolio-slide-title">${title}</p>`
-        : `<div class="portfolio-placeholder"></div>
-           <p class="portfolio-slide-title">${title}</p>`;
+     slide.innerHTML = `
+  <div class="portfolio-image-container">
+    ${imageUrl 
+      ? `<img src="${imageUrl}" alt="${title}">`
+      : `<div class="portfolio-placeholder"></div>`}
+  </div>
+  <div class="portfolio-slide-title">${title}</div>
+`;
 
-      sliderContainer.appendChild(slide);
-    });
-  })
   .catch(error => {
     console.error('🚫 Airtable fetch error:', error);
   });
