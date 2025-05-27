@@ -456,9 +456,9 @@ header.hero {
 }
 
 @media (max-width: 768px) {
-  .slogan-line {
-    font-size: 5vw;
-    white-space: normal;
+  .hero-slogan {
+    padding-top: 4vh;
+    padding-bottom: 3vh;
   }
 }
 
