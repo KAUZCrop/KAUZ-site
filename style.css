@@ -122,7 +122,6 @@ a:hover {
   border-radius: 2px;
   transition: all 0.3s ease;
   transform-origin: center;
-  margin: 4px 0; /* ✅ 두 줄 사이에 여백 줌 */
 }
 
 /* 기본 햄버거 상태 */
