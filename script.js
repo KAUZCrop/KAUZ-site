@@ -91,7 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
     records.forEach((record) => {
       const fields = record.fields;
       const title = fields.Title || '제목 없음';
-      const imageUrl = fields.ImageURL?.[0]?.url || null;
+      const attachments = fields.ImageURL;
+      const imageUrl = Array.isArray(attachments) && attachments.length > 0
+      ? attachments[0].url
+      : null;
 
       const slide = document.createElement('div');
       slide.className = 'portfolio-slide';
