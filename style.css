@@ -456,8 +456,12 @@ header.hero {
 
 @media (max-width: 768px) {
   .hero-slogan {
-    min-height: 36vh;                /* ✅ 영역 높이 그대로 유지 */
-    justify-content: center;         /* ✅ 해당 영역의 정중앙에 슬로건 배치 */
+    height: 36vh;                /* ✅ 명확히 높이 지정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;     /* ✅ 수직 정중앙 정렬 보장 */
+    align-items: center;
+    padding: 0 1rem;
   }
 
   .slogan-line {
