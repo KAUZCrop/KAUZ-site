@@ -96,9 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const slide = document.createElement('div');
       slide.className = 'portfolio-slide';
 
-     slide.innerHTML = imageUrl
+    slide.innerHTML = imageUrl
   ? `
-    <img src="${imageUrl}" alt="${title}" />
+    <div class="portfolio-image-container">
+      <img src="${imageUrl}" alt="${title}" />
+    </div>
     <div class="portfolio-slide-title">${title}</div>
   `
   : `
