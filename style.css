@@ -256,74 +256,70 @@ section h2 {
   line-height: 1.8;
 }
 
-/* 포트폴리오 슬라이더 전체 */
-.portfolio-slider {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: space-between;
+/* PORTFOLIO FIXED LAYOUT */
+#portfolio {
+  max-width: 100vw;
   padding: 0 15px;
-  max-width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
 }
 
-/* 슬라이드 박스 */
-.portfolio-slide {
-  flex: 1 1 calc(25% - 1.125rem); /* 4개 균등 */
-  max-width: calc(25% - 1.125rem);
-  aspect-ratio: 3 / 4;
-  position: relative;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 1;
-  background: #fff;
+.portfolio-slider {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  max-width: 100%;
+  padding: 0;
 }
 
-/* 이미지 */
+.portfolio-slide {
+  width: calc((100vw - 90px) / 4); /* 15px 좌우 여백 + 30px * 3 간격 */
+  aspect-ratio: 3 / 4;
+  background-color: #aaa;
+  position: relative;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .portfolio-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  border-radius: 0;
+  transition: transform 0.4s ease;
 }
 
-/* 마우스 호버 효과 */
+.portfolio-slide-title {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  font-size: 0.9rem;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+/* Hover Effects */
 .portfolio-slider:hover .portfolio-slide {
-  transform: scale(0.95);
+  transform: scale(0.94);
   opacity: 0.6;
 }
 
-.portfolio-slider:hover .portfolio-slide:hover {
-  transform: scale(1.08);
+.portfolio-slide:hover {
+  transform: scale(1.08) !important;
   opacity: 1 !important;
-  z-index: 2;
-}
-
-/* 브랜드명 */
-.portfolio-slide-title {
-  position: absolute;
-  bottom: 10px;
-  left: 12px;
-  color: white;
-  font-size: 0.9rem;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  font-weight: 500;
+  z-index: 3;
 }
 
 .portfolio-slider:hover .portfolio-slide-title {
   opacity: 0;
 }
 
-.portfolio-slider:hover .portfolio-slide:hover .portfolio-slide-title {
+.portfolio-slide:hover .portfolio-slide-title {
   opacity: 1 !important;
-}
-
-/* 이미지 없을 경우 흰 박스 */
-.portfolio-placeholder {
-  width: 100%;
-  height: 100%;
-  background: #fff;
 }
 
 #contact input,
