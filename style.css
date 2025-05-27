@@ -97,7 +97,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .logo {
-    height: 42px; /* 모바일에서 축소 */
+    height: 52px; /* 모바일에서 축소 */
   }
 }
 
