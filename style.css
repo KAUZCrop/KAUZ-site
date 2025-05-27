@@ -256,66 +256,52 @@ section h2 {
   line-height: 1.8;
 }
 
-#PortfolioSlider {
-  padding: 4rem 2rem;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
 .portfolio-slider {
   display: flex;
-  gap: 2rem;
-  overflow-x: auto;
+  gap: 1.5rem;
+  overflow-x: hidden;
   padding: 2rem 1rem;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.portfolio-slider::-webkit-scrollbar {
-  display: none;
+  justify-content: center;
+  flex-wrap: wrap; /* ✅ 한 줄에 여러 개 배치 */
 }
 
 .portfolio-slide {
-  flex: 0 0 85vw;
-  height: 85vh;
+  flex: 0 0 calc(25% - 1.5rem); /* ✅ 한 줄에 4개 */
+  max-width: calc(25% - 1.5rem);
+  aspect-ratio: 3/4;
   border-radius: 12px;
   overflow: hidden;
-  position: relative;
+  background: #fff; /* 기본 배경 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   scroll-snap-align: center;
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
-.portfolio-slide img {
+.portfolio-slide img,
+.portfolio-placeholder {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
 }
 
-.portfolio-slide:hover img {
-  transform: scale(1.05);
+.portfolio-placeholder {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #999;
 }
 
 .portfolio-slide-title {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 1rem;
-  font-weight: 500;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
   color: white;
+  text-align: center;
 }
 
-@media (max-width: 768px) {
-  .portfolio-slide {
-    flex: 0 0 90vw;
-    height: 65vh;
-  }
-
-  .portfolio-slide-title {
-    font-size: 0.9rem;
-  }
-}
 #contact input,
 #contact textarea {
   display: block;
