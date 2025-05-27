@@ -87,9 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const MAX_ITEMS = 4;
     // ✅ 생성 시간 기준으로 오래된 순으로 정렬
-const records = data.records
-  .sort((a, b) => new Date(a.createdTime) - new Date(b.createdTime))
-  .slice(0, MAX_ITEMS);
+    const records = data.records
+  .    sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime)) // 🔁 순서 반대로!
+      .slice(0, MAX_ITEMS);
 
     records.forEach((record) => {
       const fields = record.fields;
