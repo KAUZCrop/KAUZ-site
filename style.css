@@ -142,6 +142,20 @@ a:hover {
   transform: rotate(-45deg);
 }
 
+.menu-overlay .hamburger {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 28px;
+  height: 28px;
+  z-index: 10001;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* 메뉴 오버레이 */
 .menu-overlay {
   position: fixed;
