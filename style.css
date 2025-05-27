@@ -439,17 +439,16 @@ header.hero {
 
 /* ✨ 타자 효과 슬로건 스타일 */
 .hero-slogan {
-  padding: 12vh 1rem 6vh; /* ✅ 상단 여백 12vh, 하단 여백 6vh */
+  padding: 12vh 1rem 6vh;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 0; /* ✅ 기존의 margin 제거 */
+  margin-bottom: 0;
   font-weight: bold;
   color: white;
   line-height: 1.4;
 }
-
 
 .slogan-line {
   font-size: 3.5vw;
@@ -457,9 +456,9 @@ header.hero {
 }
 
 @media (max-width: 768px) {
-  .hero-slogan {
-    padding-top: 10vh;
-    padding-bottom: 4vh;
+  .slogan-line {
+    font-size: 5vw;
+    white-space: normal;
   }
 }
 
@@ -510,15 +509,6 @@ header.hero {
 .navbar, .hero-slogan {
   position: relative;
   z-index: 2;
-}
-
-.hero-slogan {
-  padding: 4rem 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 5rem;
 }
 
 .menu-logo {
