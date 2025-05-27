@@ -462,13 +462,13 @@ header.hero {
 
 @media (max-width: 768px) {
   .hero-slogan {
-    min-height: 45vh;      /* 모바일에서 더 넉넉하게 */
+    min-height: 40vh; /* ✅ 기존 45vh → 40vh로 줄임 (약 10px 감소 효과) */
   }
   .slogan-line {
     font-size: 5vw;
     white-space: normal;
     text-align: center;
-    min-height: 6vw;
+    min-height: 5vw; /* 살짝 줄여서 덜 벌어지게 */
   }
 }
 
