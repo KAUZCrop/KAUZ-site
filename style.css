@@ -268,19 +268,20 @@ section h2 {
 .portfolio-slide {
   flex: 0 0 23%;
   max-width: 23%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 3 / 4;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: #000;
-  border-radius: 12px;
+  position: relative;
+  background: transparent;
   overflow: hidden;
   margin-bottom: 2rem;
+  border-radius: 0; /* ✅ 라운드 제거 */
 }
 
 .portfolio-image-container {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .portfolio-image-container img,
@@ -288,6 +289,8 @@ section h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  border-radius: 0; /* ✅ 라운드 제거 */
 }
 
 .portfolio-placeholder {
@@ -295,12 +298,16 @@ section h2 {
 }
 
 .portfolio-slide-title {
+  position: absolute;           /* ✅ 이미지 위 왼쪽 하단 고정 */
+  bottom: 0.8rem;
+  left: 1rem;
   font-size: 0.9rem;
   color: #fff;
-  text-align: center;
-  margin-top: 0.8rem;
+  background: transparent;      /* ✅ 배경 제거 */
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
 }
-
 
 #contact input,
 #contact textarea {
