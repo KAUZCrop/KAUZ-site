@@ -281,16 +281,18 @@ section h2 {
 
 /* WEB: Who We Are 맞춤 설정 */
 .about-left {
-  text-align: right;         /* ✅ 우측 정렬 */
-  font-size: 2.25rem;        /* ✅ 약 36px */
-  padding-right: 4vw;        /* ✅ 슬로건 우측 그리드 기준 */
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;         /* ✅ 좌정렬 */
+  font-size: 2.25rem;       /* ✅ 약 36px */
+  padding-left: 30vw;       /* ✅ insight 시작 그리드에 맞춤 */
   line-height: 1.8;
 }
 
 .about-left h3 {
   font-size: 2.25rem;
   margin-bottom: 25px;
-  text-align: right;
+  text-align: left;
 }
 
 .about-right {
