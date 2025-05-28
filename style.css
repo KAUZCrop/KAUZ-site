@@ -340,19 +340,29 @@ section h2 {
     max-width: 100% !important;
   }
 
-  .about-left.aligned-left {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    text-align: left;
-    width: 100%;
+  .about-left h3, .about-right h3 {
+    font-size: 1.25rem;   /* 모바일 제목 크기 조정 */
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.4;
   }
 
   .about-left p, .about-right p {
-    font-size: 1rem;   /* 모바일 본문 크기 */
+    font-size: 1rem;
     font-weight: 400;
-    line-height: 1.8;    /* 자연스러운 가독성 중심 */
+    line-height: 1.8;
     letter-spacing: -0.003em;
-    white-space: normal; /* <br> 줄바꿈 유지하지 않음 */
+    white-space: normal;
+    margin-bottom: 2rem;
+  }
+}
+
+  .about-left p, .about-right p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.8;
+    letter-spacing: -0.003em;
+    white-space: normal;
     margin-bottom: 2rem;
   }
 }
