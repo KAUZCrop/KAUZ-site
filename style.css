@@ -336,12 +336,11 @@ section h2 {
 
 /* 📱 모바일 대응 */
 @media (max-width: 768px) {
-  .about-left.aligned-left, 
-  .about-right.aligned-right {
+  .about-left,
+  .about-right {
+    padding: 0 !important;       /* 🔥 좌우 패딩 완전 제거 */
     margin: 0 !important;
-    padding: 0 !important;
     width: 100% !important;
-    text-align: left;
   }
 
   .about-row {
@@ -351,8 +350,8 @@ section h2 {
   }
 
   .about-left h3, .about-right h3 {
-    font-size: 1.7rem;
-    font-weight: 800;
+    font-size: 1.25rem;
+    font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.4;
   }
@@ -366,6 +365,7 @@ section h2 {
     margin-bottom: 2rem;
   }
 }
+
 
 /* PORTFOLIO FIXED LAYOUT */
 /* === Portfolio 영역 스타일 === */
