@@ -339,10 +339,11 @@ section h2 {
   .about-left.aligned-left {
     margin-left: 0 !important;
     padding-left: 0 !important;
+    padding-right: 0 !important;  /* 🔥 이게 핵심! 오른쪽 여백 제거 */
     text-align: left;
     width: 100%;
-    padding-right: 0 !important;  /* ← 바로 이 줄 추가됨 */
   }
+}
   .about-row {
     max-width: 100% !important;
   }
