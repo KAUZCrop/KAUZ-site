@@ -338,13 +338,13 @@ section h2 {
 @media (max-width: 768px) {
   .about-left.aligned-left,
   .about-right.aligned-right {
-    flex: 1 1 100% !important;   /* ✅ 열 너비를 100%로 확실히 */
+    flex: 1 1 100% !important;
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
-    text-align: left;
+    text-align: left !important;  /* ✅ 둘 다 왼쪽 정렬 */
   }
-
+  
 .about-right.aligned-right {
   flex: 1 1 100% !important;
   width: 100% !important;
