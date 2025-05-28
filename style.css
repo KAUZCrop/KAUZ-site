@@ -300,6 +300,12 @@ section h2 {
   text-align: left;
 }
 
+.about-left.aligned-left {
+  margin-left: clamp(3.2vw, 3.7vw, 4vw); /* 슬로건 from의 F에 정렬 */
+  text-align: left;
+  flex: 0 0 50%;
+}
+
 .about-right {
   flex: 0 0 50%;          /* 정확히 절반 */
   text-align: right;
@@ -319,6 +325,13 @@ section h2 {
   font-size: 5.5rem;
   margin-bottom: 5px;
   text-align: right;
+}
+
+.about-right.aligned-right {
+  margin-right: clamp(3.4vw, 4.1vw, 4.8vw); /* 슬로건 Mark.의 마침표에 정렬 */
+  margin-left: auto;
+  text-align: right;
+  flex: 0 0 50%;
 }
 
 /* 📱 모바일 대응 */
