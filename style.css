@@ -338,7 +338,7 @@ section h2 {
 @media (max-width: 768px) {
   .about-left, .about-right {
     flex: 1 1 100%;
-    padding: 0 1.5rem;
+    padding: 0 5vw;
     text-align: left;
     display: block;
     margin-top: 3rem;
@@ -348,14 +348,15 @@ section h2 {
     font-size: 1.625rem;   /* 모바일 제목 크기 */
     font-weight: 700;
     margin-bottom: 1.25rem;
-    line-height: 1.3;
+    line-height: 1.4;
   }
 
   .about-left p, .about-right p {
-    font-size: 0.95rem;   /* 모바일 본문 크기 */
+    font-size: 1rem;   /* 모바일 본문 크기 */
     font-weight: 400;
-    line-height: 1.8;
-    white-space: normal; /* ✅ HTML <br> 줄바꿈 유지 */
+    line-height: 1.8;    /* 자연스러운 가독성 중심 */
+    letter-spacing: -0.003em;
+    white-space: normal; /* <br> 줄바꿈 유지하지 않음 */
     margin-bottom: 2rem;
   }
 }
