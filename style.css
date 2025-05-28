@@ -340,6 +340,15 @@ section h2 {
     max-width: 100% !important;
   }
 
+  .about-left.aligned-left {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    text-align: left;
+  }
+
+$1
+}
+
 $1
 }
 
@@ -358,7 +367,6 @@ $1
     white-space: normal; /* <br> 줄바꿈 유지하지 않음 */
     margin-bottom: 2rem;
   }
-}
 
 /* PORTFOLIO FIXED LAYOUT */
 /* === Portfolio 영역 스타일 === */
