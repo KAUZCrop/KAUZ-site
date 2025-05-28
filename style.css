@@ -259,14 +259,64 @@ section h2 {
   margin-bottom: 2rem;
 }
 
-/* ABOUT SECTION */
-#about p {
-  font-size: 1rem;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.8;
+.about-custom {
+  padding: 4rem 2rem;
 }
 
+.about-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.about-left, .about-right {
+  flex: 1 1 45%;
+  font-size: 1.375rem; /* 기존 1rem보다 5pt(=0.3125rem) 증가 */
+  line-height: 1.7;
+}
+
+.about-left h3 {
+  text-align: left;
+  margin-bottom: 25px;
+  font-size: 2rem;
+}
+
+.about-right h3 {
+  text-align: right;
+  margin-bottom: 25px;
+  font-size: 2rem;
+}
+
+.about-left p {
+  text-align: left;
+}
+
+.about-right p {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .about-row {
+    flex-direction: column;
+  }
+
+  .about-left, .about-right {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .about-left h3, .about-right h3 {
+    text-align: center;
+  }
+
+  .about-left p, .about-right p {
+    text-align: center;
+  }
+}
 /* PORTFOLIO FIXED LAYOUT */
 /* === Portfolio 영역 스타일 === */
 #portfolio,
