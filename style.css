@@ -337,7 +337,7 @@ section h2 {
 /* 📱 모바일 대응 */
 @media (max-width: 768px) {
   .about-left.aligned-left,
-  .about-right.aligned-right {
+  .about-right mobile-left {
     flex: 1 1 100% !important;
     width: 100% !important;
     padding: 0 !important;
