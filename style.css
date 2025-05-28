@@ -300,6 +300,12 @@ section h2 {
   text-align: left;
 }
 
+.about-left.aligned-left {
+  margin-left: 2vw;
+  text-align: left;
+  flex: 0 0 50%;
+}
+
 .about-right {
   flex: 0 0 50%;          /* 정확히 절반 */
   text-align: right;
@@ -319,6 +325,13 @@ section h2 {
   font-size: 5.5rem;
   margin-bottom: 5px;
   text-align: right;
+}
+
+.about-right.aligned-right {
+  margin-right: 2vw;
+  margin-left: auto;
+  text-align: right;
+  flex: 0 0 50%;
 }
 
 /* 📱 모바일 대응 */
