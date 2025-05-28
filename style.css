@@ -337,15 +337,15 @@ section h2 {
 /* 📱 모바일 대응 */
 @media (max-width: 768px) {
   .about-left.aligned-left {
-    margin-left: -2vw !important;
+    margin-left: 0 !important;
     padding-left: 0 !important;
     text-align: left;
     width: 100%;
+    padding-right: 0 !important;  /* ← 바로 이 줄 추가됨 */
   }
   .about-row {
     max-width: 100% !important;
   }
-
 
   .about-left h3, .about-right h3 {
     font-size: 1.5rem;   /* 모바일 제목 크기 조정 */
