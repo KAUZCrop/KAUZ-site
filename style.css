@@ -361,14 +361,14 @@ section h2 {
 }
 
   .about-left h3, .about-right h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.7rem;
+    font-weight: 850;
     margin-bottom: 1rem;
     line-height: 1.4;
   }
 
   .about-left p, .about-right p {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 400;
     line-height: 1.8;
     letter-spacing: -0.003em;
