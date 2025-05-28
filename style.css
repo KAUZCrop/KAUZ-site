@@ -345,6 +345,14 @@ section h2 {
     text-align: left;
   }
 
+.about-right.aligned-right {
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+  
   .about-row {
     max-width: 100% !important;
     padding: 0 !important;
