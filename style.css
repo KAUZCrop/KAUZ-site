@@ -281,12 +281,13 @@ section h2 {
 
 /* WEB: Who We Are 맞춤 설정 */
 .about-left {
-  max-width: 1200px;
-  margin: 0 auto;
+  flex: 1 1 45%;
   text-align: left;
-  font-size: 2.25rem;        /* 유지: 약 36px */
-  padding-left: 2rem;        /* ✅ 기본 좌측 정렬로 복귀 */
+  font-size: 2.25rem;       /* ≒ 36px */
+  padding-left: 2rem;       /* 일반적인 좌측 여백 */
+  padding-right: 2rem;      /* 균형 맞춤 */
   line-height: 1.8;
+  margin: 0;                /* ✅ 중앙정렬 방지 */
 }
 
 .about-left h3 {
