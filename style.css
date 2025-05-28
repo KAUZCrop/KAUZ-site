@@ -279,11 +279,18 @@ section h2 {
   padding: 0 2rem;
 }
 
-/* 웹 기준: 약 20pt 증가 */
+/* WEB: Who We Are 맞춤 설정 */
 .about-left {
-  text-align: left;
-  font-size: 2.5rem; /* 약 33px */
-  padding-left: 4vw; /* 슬로건 좌측 정렬 기준 */
+  text-align: right;         /* ✅ 우측 정렬 */
+  font-size: 2.25rem;        /* ✅ 약 36px */
+  padding-right: 4vw;        /* ✅ 슬로건 우측 그리드 기준 */
+  line-height: 1.8;
+}
+
+.about-left h3 {
+  font-size: 2.25rem;
+  margin-bottom: 25px;
+  text-align: right;
 }
 
 .about-right {
@@ -293,7 +300,7 @@ section h2 {
   margin-top: 25px;
 }
 
-.about-left h3, .about-right h3 {
+.about-right h3 {
   font-size: 2.5rem;
   margin-bottom: 25px;
 }
