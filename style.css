@@ -344,20 +344,7 @@ section h2 {
     margin-left: 0 !important;
     padding-left: 0 !important;
     text-align: left;
-    font-size: 1.625rem;
-  }
-
-$1
-}
-
-$1
-}
-
-  .about-left h3, .about-right h3 {
-    font-size: 1.625rem;   /* 모바일 제목 크기 */
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-    line-height: 1.4;
+    width: 100%;
   }
 
   .about-left p, .about-right p {
@@ -368,6 +355,7 @@ $1
     white-space: normal; /* <br> 줄바꿈 유지하지 않음 */
     margin-bottom: 2rem;
   }
+}
 
 /* PORTFOLIO FIXED LAYOUT */
 /* === Portfolio 영역 스타일 === */
