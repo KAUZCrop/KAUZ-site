@@ -336,11 +336,13 @@ section h2 {
 
 /* 📱 모바일 대응 */
 @media (max-width: 768px) {
-  .about-left,
-  .about-right {
-    padding: 0 !important;       /* 🔥 좌우 패딩 완전 제거 */
-    margin: 0 !important;
+  .about-left.aligned-left,
+  .about-right.aligned-right {
+    flex: 1 1 100% !important;   /* ✅ 열 너비를 100%로 확실히 */
     width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: left;
   }
 
   .about-row {
@@ -348,6 +350,7 @@ section h2 {
     padding: 0 !important;
     margin: 0 auto;
   }
+}
 
   .about-left h3, .about-right h3 {
     font-size: 1.25rem;
