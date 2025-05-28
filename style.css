@@ -336,13 +336,12 @@ section h2 {
 
 /* 📱 모바일 대응 */
 @media (max-width: 768px) {
-  .about-left, .about-right {
-    flex: 1 1 100%;
-    padding: 0 5vw;
-    text-align: left;
-    display: block;
-    margin-top: 3rem;
+  .about-row {
+    max-width: 100% !important;
   }
+
+$1
+}
 
   .about-left h3, .about-right h3 {
     font-size: 1.625rem;   /* 모바일 제목 크기 */
