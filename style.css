@@ -302,15 +302,24 @@ section h2 {
 }
 
 .about-right {
+  flex: 1 1 45%;
   text-align: right;
   font-size: 2.5rem;
   padding-right: 4vw; /* 슬로건 우측 정렬 기준 */
+  padding-left: 4rem;
+  line-hight: 1.8;
   margin-top: 25px;
 }
 
+.about-right p {
+  line-height: 1.8;
+  margin-top: 7px;
+}
+
 .about-right h3 {
-  font-size: 2.5rem;
-  margin-bottom: 25px;
+  font-size: 5.5rem;
+  margin-bottom: 5px;
+  text-align: right;
 }
 
 /* 📱 모바일 대응 */
