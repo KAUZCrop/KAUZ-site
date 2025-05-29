@@ -143,7 +143,7 @@ if (slider) {
   .catch(error => {
     console.error('🚫 Airtable fetch error:', error);
   });
-
+  
   // ✅ (에러 방지를 위한 남은 버튼 코드 — 실제 버튼 없으면 무시)
   const toggleBtn = document.getElementById('toggle-more');
   if (toggleBtn) {
@@ -157,3 +157,16 @@ if (slider) {
     });
   }
 });
+
+// ─── about-card 스크롤 트리거 등록 ───
+const aboutCards = document.querySelectorAll('.about-card');
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      cardObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+aboutCards.forEach(card => cardObserver.observe(card));
