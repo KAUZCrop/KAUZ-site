@@ -274,8 +274,6 @@ section h2 {
 }
 
 body.mobile .about-row {
-  max-width: none !important;
-  width: 100% !important;
 }
 
 /* 1. 반드시 box-sizing 추가! */
