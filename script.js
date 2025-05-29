@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const loader = document.getElementById('loading-screen');
+  const loadingScreen = document.getElementById('loading-screen');
+  const progressFill  = document.querySelector('.progress-fill');
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menu-overlay');
 
@@ -13,21 +14,42 @@ document.addEventListener('DOMContentLoaded', () => {
 setBodyMobileClass();
 window.addEventListener('resize', setBodyMobileClass);
 
-  // ✅ 로딩 후 햄버거 메뉴 표시
-  setTimeout(() => {
-    loader.style.opacity = 0;
-    loader.style.pointerEvents = 'none';
-    loader.style.transition = 'opacity 0.4s ease-out';
+  // ─── 로딩 프로그레스 바 연동 + 햄버거 표시 ───
+  // 1) DOMContentLoaded 시점에 바 50% 채우기
+  if (progressFill) {
+    progressFill.style.width = '50%';
+  }
 
-    hamburger.style.display = 'flex';
-    hamburger.style.visibility = 'visible';
-    hamburger.style.opacity = '1';
+  // 2) 모든 리소스(load) 완료 시 100% → 페이드아웃 + 햄버거 노출
+  window.addEventListener('load', () => {
+    if (progressFill) {
+      progressFill.style.width = '100%';
+    }
 
+    // 프로그레스 바 transition(.3s) 완료 후 실행
     setTimeout(() => {
-      loader.style.display = 'none';
-    }, 400);
-  }, 2000);
+      // 로딩 화면 페이드아웃
+      loadingScreen.style.transition = 'opacity .5s ease';
+      loadingScreen.style.opacity    = '0';
 
+      // 햄버거 메뉴 노출
+      if (hamburger) {
+        hamburger.style.display    = 'flex';
+        hamburger.style.visibility = 'visible';
+        hamburger.style.opacity    = '1';
+      }
+
+      // 스크롤 잠금 해제 및 로딩 클래스 제거
+      document.body.style.overflow      = '';
+      document.body.classList.remove('loading');
+
+      //  페이드아웃 완료 후 로딩 엘리먼트 완전 제거
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+      }, 500);
+    }, 300);
+  });
+  
   // ✅ 햄버거 메뉴 토글
   const closeMenu = () => {
     menuOverlay.classList.remove('active');
