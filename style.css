@@ -635,6 +635,7 @@ header.hero {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20px; /* ←  콘텐츠를 위에서 20px 내려서 보여줍니다 */
   z-index: 0;
   opacity: 0.25;
   pointer-events: none;
