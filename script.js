@@ -3,6 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menu-overlay');
 
+  function setBodyMobileClass() {
+  if (window.innerWidth <= 768) {
+    document.body.classList.add('mobile');
+  } else {
+    document.body.classList.remove('mobile');
+  }
+}
+setBodyMobileClass();
+window.addEventListener('resize', setBodyMobileClass);
+
   // ✅ 로딩 후 햄버거 메뉴 표시
   setTimeout(() => {
     loader.style.opacity = 0;
