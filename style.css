@@ -702,3 +702,20 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ─── 로딩 프로그레스 바 스타일 ─── */
+#loading-bar-container {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+}
+#loading-bar {
+  width: 0%;
+  height: 100%;
+  background: #E46F19;
+  transition: width .3s ease;
+}
