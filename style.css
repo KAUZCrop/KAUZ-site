@@ -330,57 +330,26 @@ section h2 {
   flex: 0 0 50%;
 }
 
-/* WEB 전용 폰트 스타일 */
-@media (min-width: none) {
-  .about-left h3, .about-right h3 {
-    font-size: 5.5rem;
-    font-weight: 850;
-    margin-bottom: 1rem;
-    line-height: 1.4;
-  }
-  .about-left h3 { text-align: left; }
-  .about-right h3 { text-align: right; }
-  .about-left p, .about-right p {
-    font-size: 2.25rem;
-    line-height: 1.8;
-    margin-top: 7px;
-    margin-bottom: 2rem;
-  }
+/* ⬇️ 여기 아래에 새 코드 추가 */
+:root {
+  --about-h3-font-size: 5.5rem;     /* PC(웹) */
+  --about-p-font-size: 2.25rem;
 }
-
-/* 📱 모바일 대응 */
-@media (max-width: none) {
-  .about-left.aligned-left,
-  .about-right.aligned-right {
-    flex: 1 1 100% !important;
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    text-align: left !important;  /* ✅ 둘 다 왼쪽 정렬 */
-  }
-  
-  .about-row {
-    max-width: 100% !important;
-    padding: 0 !important;
-    margin: 0 auto;
-  }
+body.mobile {
+  --about-h3-font-size: 2rem;       /* 모바일(예시) */
+  --about-p-font-size: 1.1rem;
 }
-
-  .about-left h3, .about-right h3 {
-    font-size: 1.7rem;
-    font-weight: 850;
-    margin-bottom: 1rem;
-    line-height: 1.4;
-  }
-
-  .about-left p, .about-right p {
-    font-size: 0.8rem;
-    font-weight: 400;
-    line-height: 2;
-    letter-spacing: -0.003em;
-    white-space: normal;
-    margin-bottom: 2rem;
-  }
+.about-left h3, .about-right h3 {
+  font-size: var(--about-h3-font-size);
+  font-weight: 850;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+.about-left p, .about-right p {
+  font-size: var(--about-p-font-size);
+  line-height: 1.8;
+  margin-top: 7px;
+  margin-bottom: 2rem;
 }
 
 /* PORTFOLIO FIXED LAYOUT */
