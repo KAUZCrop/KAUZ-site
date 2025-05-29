@@ -691,3 +691,14 @@ body {
   -moz-user-select: none;    /* Firefox */
   -ms-user-select: none;     /* IE10+ */
 }
+
+/* fade-up 애니메이션 */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease-out, transform .6s ease-out;
+}
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
