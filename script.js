@@ -156,18 +156,4 @@ if (slider) {
       toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
     });
   }
-  
-  // ─── about-card 스크롤 트리거 등록 ───
-const aboutCards = document.querySelectorAll('.about-card');
-const cardObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('is-visible');
-      cardObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.2 });
-
-aboutCards.forEach(card => cardObserver.observe(card));
-  
 });
