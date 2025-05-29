@@ -26,7 +26,7 @@ window.addEventListener('resize', setBodyMobileClass);
       progressFill.style.width = '100%';
     }
 
-    // 프로그레스 바 transition(.3s) 완료 후 실행
+    // CSS 전환(300ms) + 추가 대기(200ms) = 500ms 뒤에 실행
     setTimeout(() => {
       // 로딩 화면 페이드아웃
       loadingScreen.style.transition = 'opacity .5s ease';
@@ -43,11 +43,11 @@ window.addEventListener('resize', setBodyMobileClass);
       document.body.style.overflow      = '';
       document.body.classList.remove('loading');
 
-      //  페이드아웃 완료 후 로딩 엘리먼트 완전 제거
+      // 페이드아웃 완료 후 로딩 엘리먼트 완전 제거
       setTimeout(() => {
         loadingScreen.style.display = 'none';
       }, 500);
-    }, 300);
+    }, 500);
   });
   
   // ✅ 햄버거 메뉴 토글
