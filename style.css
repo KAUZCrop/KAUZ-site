@@ -331,7 +331,7 @@ section h2 {
 }
 
 /* WEB 전용 폰트 스타일 */
-@media (min-width: 769px) {
+@media (min-width: none) {
   .about-left h3, .about-right h3 {
     font-size: 5.5rem;
     font-weight: 850;
@@ -349,7 +349,7 @@ section h2 {
 }
 
 /* 📱 모바일 대응 */
-@media (max-width: 768px) {
+@media (max-width: none) {
   .about-left.aligned-left,
   .about-right.aligned-right {
     flex: 1 1 100% !important;
