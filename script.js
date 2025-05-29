@@ -156,9 +156,8 @@ if (slider) {
       toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
     });
   }
-});
-
-// ─── about-card 스크롤 트리거 등록 ───
+  
+  // ─── about-card 스크롤 트리거 등록 ───
 const aboutCards = document.querySelectorAll('.about-card');
 const cardObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -170,3 +169,5 @@ const cardObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.2 });
 
 aboutCards.forEach(card => cardObserver.observe(card));
+  
+});
