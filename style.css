@@ -273,6 +273,11 @@ section h2 {
   gap: 2rem;
 }
 
+body.mobile .about-row {
+  max-width: none !important;
+  width: 100% !important;
+}
+
 .about-left, .about-right {
   flex: 1 1 45%;
   line-height: 1.8;
