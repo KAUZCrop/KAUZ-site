@@ -336,24 +336,6 @@ section h2 {
 
 /* WEB 전용 폰트 스타일 */
 @media (min-width: 769px) {
-  .about-left h3, .about-right h3 {
-    font-size: 5.5rem;
-    font-weight: 850;
-    margin-bottom: 5px;
-    text-align: left;
-  }
-  .about-right h3 {
-    text-align: right;
-  }
-  .about-left p, .about-right p {
-    font-size: 2.25rem;
-    line-height: 1.8;
-    margin-top: 7px;
-  }
-}
-
-/* WEB 전용 폰트 스타일 */
-@media (min-width: 769px) {
   .about-left h3 {
     font-size: 5.5rem;
     margin-bottom: 5px;
@@ -378,6 +360,9 @@ section h2 {
     margin-top: 7px;
   }
 }
+
+
+/* ...이후 모든 @media (min-width: 769px), @media (max-width: 768px) 관련 블록 삭제! */
 
 /* 📱 모바일 대응 */
 @media (max-width: 768px) {
