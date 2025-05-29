@@ -283,7 +283,6 @@ section h2 {
 .about-left {
   flex: 0 0 50%;          /* 정확히 절반 */
   text-align: left;
-  font-size: 2.25rem;
   padding: 0;
   margin: 0;
   line-height: 1.8;
@@ -295,7 +294,6 @@ section h2 {
 }
 
 .about-left h3 {
-  font-size: 5.5rem;
   margin-bottom: 5px;
   text-align: left;
 }
@@ -309,7 +307,6 @@ section h2 {
 .about-right {
   flex: 0 0 50%;          /* 정확히 절반 */
   text-align: right;
-  font-size: 2.25rem;
   padding: 0;
   margin-left: auto;      /* ✅ 오른쪽 끝 정렬 */
   line-height: 1.8;
@@ -322,7 +319,6 @@ section h2 {
 }
 
 .about-right h3 {
-  font-size: 5.5rem;
   margin-bottom: 5px;
   text-align: right;
 }
@@ -336,33 +332,21 @@ section h2 {
 
 /* WEB 전용 폰트 스타일 */
 @media (min-width: 769px) {
-  .about-left h3 {
+  .about-left h3, .about-right h3 {
     font-size: 5.5rem;
-    margin-bottom: 5px;
-    text-align: left;
+    font-weight: 850;
+    margin-bottom: 1rem;
+    line-height: 1.4;
   }
-
-  .about-left p {
+  .about-left h3 { text-align: left; }
+  .about-right h3 { text-align: right; }
+  .about-left p, .about-right p {
     font-size: 2.25rem;
     line-height: 1.8;
     margin-top: 7px;
-  }
-
-  .about-right h3 {
-    font-size: 5.5rem;
-    margin-bottom: 5px;
-    text-align: right;
-  }
-
-  .about-right p {
-    font-size: 2.25rem;
-    line-height: 1.8;
-    margin-top: 7px;
+    margin-bottom: 2rem;
   }
 }
-
-
-/* ...이후 모든 @media (min-width: 769px), @media (max-width: 768px) 관련 블록 삭제! */
 
 /* 📱 모바일 대응 */
 @media (max-width: 768px) {
