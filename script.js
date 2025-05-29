@@ -156,4 +156,18 @@ if (slider) {
       toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
     });
   }
+
+  // ─── fade-up 요소 스크롤 트리거 ───
+const fadeEls = document.querySelectorAll('.fade-up');
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+fadeEls.forEach(el => fadeObserver.observe(el));
+
 });
