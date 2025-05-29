@@ -365,7 +365,7 @@ body.mobile .about-right {
 }
 body.mobile {
   --about-h3-font-size: 1.25rem;
-  --about-p-font-size: 0.8rem;
+  --about-p-font-size: 0.77rem;
 }
 .about-left h3, .about-right h3 {
   font-size: var(--about-h3-font-size);
