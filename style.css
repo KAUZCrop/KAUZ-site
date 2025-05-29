@@ -637,7 +637,6 @@ header.hero {
   object-fit: cover;
   z-index: 0;
   opacity: 0.25;
-  transform: translateY(20px);  /* ← 이 한 줄만 추가 */
   pointer-events: none;
   /* ✅ 그레이톤 필터 적용 */
   filter: grayscale(90%) brightness(80%);
