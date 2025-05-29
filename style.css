@@ -283,7 +283,7 @@ section h2 {
 .about-left {
   flex: 0 0 50%;          /* 정확히 절반 */
   text-align: left;
-  font-size: 2.25rem;
+  font-size: 4.25rem;
   padding: 0;
   margin: 0;
   line-height: 1.8;
@@ -291,7 +291,7 @@ section h2 {
 
 .about-left p {
   line-height: 1.8;
-  margin-top: 5.5px;
+  margin-top: 7px;
 }
 
 .about-left h3 {
@@ -309,7 +309,7 @@ section h2 {
 .about-right {
   flex: 0 0 50%;          /* 정확히 절반 */
   text-align: right;
-  font-size: 2.25rem;
+  font-size: 4.25rem;
   padding: 0;
   margin-left: auto;      /* ✅ 오른쪽 끝 정렬 */
   line-height: 1.8;
@@ -322,7 +322,7 @@ section h2 {
 }
 
 .about-right h3 {
-  font-size: 5.5rem;
+  font-size: 7rem;
   margin-bottom: 5px;
   text-align: right;
 }
