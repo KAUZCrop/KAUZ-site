@@ -323,7 +323,7 @@ section h2 {
   text-align: right;
 }
 
-.about-left.aligned-left {.about-left.aligned-left {
+.about-right.aligned-right {
   margin-right: clamp(3.4vw, 4.1vw, 4.8vw); /* 슬로건 Mark.의 마침표에 정렬 */
   margin-left: auto;
   text-align: right;
