@@ -361,7 +361,7 @@ body.mobile .about-right {
 /* 폰트 변수 방식 - 모든 font-size 관리 */
 :root {
   --about-h3-font-size: 6rem;
-  --about-p-font-size: 2.7rem;
+  --about-p-font-size: 2.5rem;
 }
 body.mobile {
   --about-h3-font-size: 1.25rem;
