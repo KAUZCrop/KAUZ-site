@@ -400,6 +400,9 @@ body.mobile {
   .about-right {
     text-align: left !important;
   }
+  .about-right h3 {
+    text-align: left !important;
+  }
 }
 
 /* PORTFOLIO FIXED LAYOUT */
