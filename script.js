@@ -127,14 +127,10 @@ window.addEventListener('resize', setBodyMobileClass);
       const fields = record.fields;
       const title = fields.Title || '제목 없음';
       // Airtable이 제공하는 썸네일 URL 우선 사용 (small → large 순)
-    const attachment = Array.isArray(fields.ImageURL) && fields.ImageURL[0];
-    const imageUrl = attachment
-      ? (
-          attachment.thumbnails?.small?.url ||
-          attachment.thumbnails?.large?.url ||
-          attachment.url
-        )
-      : null;
+     const attachments = fields.ImageURL;
+-    const imageUrl = Array.isArray(attachments) && attachments.length > 0
+-      ? attachments[0].url
+-      : null;
 
       const slide = document.createElement('div');
       slide.className = 'portfolio-slide';
