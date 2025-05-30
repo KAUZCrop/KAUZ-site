@@ -473,18 +473,28 @@ body.mobile {
   text-overflow: ellipsis;
 }
 
-/* Hover 시 확대 효과 */
-.portfolio-slider:hover .portfolio-slide {
+/* Hover 상태일 때, hover 안 된 카드는 축소 */
+.portfolio-slider:hover .portfolio-slide:not(:hover) {
   transform: scale(0.95);
   opacity: 0.7;
 }
-.portfolio-slide:hover {
-  transform: scale(1.05) !important;
+
+/* 좌측 두 카드: 오른쪽(+) 방향으로 확대 */
+.portfolio-slide:nth-child(1):hover,
+.portfolio-slide:nth-child(2):hover {
+  transform-origin: left center;
+  transform: translateX(10%) scale(1.05) !important;
   opacity: 1 !important;
   z-index: 2;
 }
-.portfolio-slider:hover .portfolio-slide-title {
+
+/* 우측 두 카드: 왼쪽(-) 방향으로 확대 */
+.portfolio-slide:nth-child(3):hover,
+.portfolio-slide:nth-child(4):hover {
+  transform-origin: right center;
+  transform: translateX(-10%) scale(1.05) !important;
   opacity: 1 !important;
+  z-index: 2;
 }
 
 /* 모바일: 한 줄에 2장 */
