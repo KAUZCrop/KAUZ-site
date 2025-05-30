@@ -408,19 +408,24 @@ body.mobile {
 /* PORTFOLIO FIXED LAYOUT */
 /* === Portfolio 영역 스타일 수정 === */
 #PortfolioSlider {
-  overflow-x: hidden;
+  overflow-x: hidden;         /* 섹션 전체 가로 넘침 금지 */
+  padding: 0 15px;
+  box-sizing: border-box;
+  width: 100%;                /* 섹션 폭을 뷰포트 100%로 고정 */
 }
 
 .portfolio-slider {
-  overflow: hidden;      /* ← 내부 확대된 .portfolio-slide가 튀어나오지 않도록 */
-  position: relative;    /* ← overflow가 제대로 작동하도록 */
+  width: 100%;                /* 컨테이너도 부모에 딱 맞추기 */
+  box-sizing: border-box;     /* 패딩·갭 포함 100% */
+  overflow: hidden;           /* 자식 확장 잘라내기 */
+  position: relative;         /* 클리핑 컨텍스트 설정 */
   display: flex;
   flex-wrap: wrap;
-  gap: 16px; /* 카드 간격 */
+  gap: 16px;                  /* 카드 간격 */
   justify-content: space-between;
   margin: 0 auto;
   padding-bottom: 2rem;
- }
+}
 
 
 .portfolio-slide {
