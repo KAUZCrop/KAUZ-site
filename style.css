@@ -408,6 +408,8 @@ body.mobile {
 /* PORTFOLIO FIXED LAYOUT */
 /* === Portfolio 영역 스타일 수정 === */
 .portfolio-slider {
+  overflow: hidden;      /* ← 내부 확대된 .portfolio-slide가 튀어나오지 않도록 */
+  position: relative;    /* ← overflow가 제대로 작동하도록 */
   display: flex;
   flex-wrap: wrap;
   gap: 16px; /* 카드 간격 */
