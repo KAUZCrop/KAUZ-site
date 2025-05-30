@@ -151,9 +151,6 @@ window.addEventListener('resize', setBodyMobileClass);
       // 포트폴리오 슬라이드 마우스 효과
 const slider = document.querySelector('.portfolio-slider');
 if (slider) {
-  slider.addEventListener('mouseenter', () => {
-    slider.classList.add('hover-effect');
-  });
   slider.addEventListener('mouseleave', () => {
     slider.classList.remove('hover-effect');
   });
