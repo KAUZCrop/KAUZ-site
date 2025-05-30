@@ -157,6 +157,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.1 });
   fadeEls.forEach(el => fadeObserver.observe(el));
 
+  // ─── Portfolio 이웃 카드 축소 제어 ───
+const slides = document.querySelectorAll('.portfolio-slide');
+slides.forEach((slide, idx) => {
+  slide.addEventListener('mouseenter', () => {
+    // 호버된 카드 제외 나머지 전체 축소 룰은 CSS가 이미 적용
+    // 대신 “이웃 하나”만 flex-basis 줄이기 위해 강제 클래스 토글
+    slides.forEach(s => s.classList.remove('neighbor-shrink'));
+    let neighbor;
+    if (idx === 0) neighbor = 1;      // 1호버→2
+    if (idx === 1) neighbor = 2;      // 2호버→3
+    if (idx === 2) neighbor = 1;      // 3호버→2
+    if (idx === 3) neighbor = 2;      // 4호버→3
+    if (neighbor !== undefined) {
+      slides[neighbor].classList.add('neighbor-shrink');
+    }
+  });
+  slide.addEventListener('mouseleave', () => {
+    slides.forEach(s => s.classList.remove('neighbor-shrink'));
+  });
+});
+
   // Portfolio slides
   const portfolioCards = document.querySelectorAll('.portfolio-slide');
   const portfolioObserver = new IntersectionObserver((entries, obs) => {
