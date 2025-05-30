@@ -405,85 +405,99 @@ body.mobile {
   }
 }
 
-/* PORTFOLIO FIXED LAYOUT */
-/* =================================================================== */
-/*  포트폴리오 섹션: transform 기반 양방향 확장 & 축소 호버 이펙트   */
-/* =================================================================== */
-
-/* 1) 섹션 전체 가로 넘침 차단 */
-#PortfolioSlider {
-  overflow-x: hidden;
+/* === Portfolio 영역 스타일 수정 (클리핑 + 너비 확장 방식) === */
+:root {
+  --gap:    16px;
+  --expand: 30px;
 }
 
-/* 2) 카드 컨테이너 */
+/* 섹션 전체 넘침 차단 */
+#PortfolioSlider {
+  width:       100%;
+  padding:     0 15px;
+  box-sizing:  border-box;
+  overflow-x:  hidden;
+}
+
+/* 슬라이더 컨테이너 */
 .portfolio-slider {
-  display: flex;
-  gap: 16px;               /* 카드 사이 간격 */
+  display:        flex;
+  gap:            var(--gap);
   justify-content: space-between;
   padding-bottom: 2rem;
+  overflow:       hidden;    /* 카드 확대 시 넘치는 부분 자름 */
 }
 
-/* 3) 각 카드 기본 설정 */
+/* 카드 기본 상태: flex-basis로 너비 계산, overflow:hidden으로 클리핑 */
 .portfolio-slide {
-  flex: 1;
-  box-sizing: border-box;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: relative;
-  z-index: 1;
+  flex:            0 0 calc((100% - (3 * var(--gap))) / 4);
+  box-sizing:      border-box;
+  overflow:        hidden;   /* 내부 img 확장 시 잘린 부분 숨김 */
+  position:        relative;
+  transition:      flex-basis .3s ease, opacity .3s ease;
 }
 
-/* 4) 카드 내부 이미지/플레이스홀더 유지 */
+/* 내부 이미지: 컨테이너보다 조금 크게 */
 .portfolio-image-container {
-  width: 100%;
-  padding-bottom: 75%;     /* 3:4 비율 박스 확보 */
-  overflow: hidden;
-  background: #eee;        /* 이미지 로드 전 회색 백그라운드 */
+  position:        relative;
+  width:           100%;
+  padding-bottom:  75%;      /* 3:4 비율 */
+  overflow:        hidden;
+  background:      #fff;     /* 이미지 없을 때 흰 배경 */
 }
 .portfolio-image-container img {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  position:        absolute;
+  top:             0;
+  left:            0;
+  width:           calc(100% + var(--expand)); /* 컨테이너 너비 + 확장폭 */
+  height:          100%;
+  object-fit:      cover;
+  object-position: center center;
+  transition:      transform .3s ease; /* optional */
 }
 
-/* 5) 호버되지 않은 카드들은 축소 + 반투명 */
+/* 제목 스타일 */
+.portfolio-slide-title {
+  margin:        .5rem 0 0;
+  font-size:     .9rem;
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+/* 1) 호버되지 않은 카드만 축소 */
 .portfolio-slider:hover .portfolio-slide:not(:hover) {
-  transform: scale(0.92);
-  opacity: 0.6;
+  opacity:  0.6;
+  flex:     0 0 calc((100% - (3 * var(--gap)) - var(--expand)) / 3);
 }
 
-/* 6) 호버된 카드: 불투명 + scale 1.15 (약 15% 확장) */
+/* 2) 호버된 카드만 너비 확장 */
 .portfolio-slider:hover .portfolio-slide:hover {
-  opacity: 1;
+  opacity:  1;
+  flex:     0 0 calc((100% - (3 * var(--gap)) - var(--expand)) / 3 + var(--expand));
 }
 
-/* 7) 카드별 방향성 확장 */
-/*  - 1,2번 카드는 왼쪽 기준(왼쪽으로 확장) */
-.portfolio-slide:nth-child(1):hover,
-.portfolio-slide:nth-child(2):hover {
+/* 3) 방향별 앵커: 호버된 카드 전후로 이미지 정렬만 바뀝니다 */
+/* 1,2번: 왼쪽 기준에서 오른쪽으로 확장 */
+.portfolio-slide:nth-child(1):hover .portfolio-image-container img,
+.portfolio-slide:nth-child(2):hover .portfolio-image-container img {
   transform-origin: left center;
-  transform: scaleX(1.15);
-  z-index: 2;
 }
-/*  - 3,4번 카드는 오른쪽 기준(오른쪽으로 확장) */
-.portfolio-slide:nth-child(3):hover,
-.portfolio-slide:nth-child(4):hover {
+/* 3,4번: 오른쪽 기준에서 왼쪽으로 확장 */
+.portfolio-slide:nth-child(3):hover .portfolio-image-container img,
+.portfolio-slide:nth-child(4):hover .portfolio-image-container img {
   transform-origin: right center;
-  transform: scaleX(1.15);
-  z-index: 2;
 }
 
-/* 8) 모바일: 2열 고정, 호버 효과 해제 */
+/* 모바일: 2열, 호버 비활성화 */
 @media (max-width: 768px) {
   .portfolio-slider {
     flex-wrap: wrap;
-    gap: 8px;
+    gap:       8px;
   }
   .portfolio-slide {
-    flex: 0 0 calc((100% - 8px) / 2) !important;
-    transform: none !important;
-    opacity: 1 !important;
+    flex:           0 0 calc((100% - var(--gap)) / 2) !important;
+    opacity:        1 !important;
   }
 }
 
