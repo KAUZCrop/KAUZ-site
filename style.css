@@ -407,6 +407,10 @@ body.mobile {
 
 /* PORTFOLIO FIXED LAYOUT */
 /* === Portfolio 영역 스타일 수정 === */
+#PortfolioSlider {
+  overflow-x: hidden;
+}
+
 .portfolio-slider {
   overflow: hidden;      /* ← 내부 확대된 .portfolio-slide가 튀어나오지 않도록 */
   position: relative;    /* ← overflow가 제대로 작동하도록 */
@@ -416,9 +420,6 @@ body.mobile {
   justify-content: space-between;
   margin: 0 auto;
   padding-bottom: 2rem;
-  /* Prevent hover‐scale overflow */
-  overflow: hidden;
-  position: relative;  /* overflow를 활성화하기 위해 */
  }
 
 
