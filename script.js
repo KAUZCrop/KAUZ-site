@@ -139,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="portfolio-placeholder"></div>
             <div class="portfolio-slide-title">${title}</div>
           `;
+        sliderContainer.appendChild(slide);
       });
     })
     .catch(err => console.error(err));
