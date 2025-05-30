@@ -406,105 +406,84 @@ body.mobile {
 }
 
 /* PORTFOLIO FIXED LAYOUT */
-/* === Portfolio 영역 스타일 수정 (한 번에 덮어쓰기) === */
-/* 변수 선언: 카드 간격과 확장 폭을 한 곳에서 관리 */
-:root {
-  --gap:    16px;
-  --expand: 30px;
-}
+/* =================================================================== */
+/*  포트폴리오 섹션: transform 기반 양방향 확장 & 축소 호버 이펙트   */
+/* =================================================================== */
 
-/* 섹션 통째로 넘침 차단 */
+/* 1) 섹션 전체 가로 넘침 차단 */
 #PortfolioSlider {
-  width:       100%;
-  padding:     0 15px;
-  box-sizing:  border-box;
-  overflow-x:  hidden;
+  overflow-x: hidden;
 }
 
-/* 그리드 컨테이너 설정 */
+/* 2) 카드 컨테이너 */
 .portfolio-slider {
-  --base:       calc((100% - (3 * var(--gap))) / 4);
-  display:      flex;
-  flex-wrap:    wrap;
-  gap:          var(--gap);
+  display: flex;
+  gap: 16px;               /* 카드 사이 간격 */
   justify-content: space-between;
-  width:        100%;
-  box-sizing:   border-box;
-  overflow:     hidden;
-  position:     relative;
   padding-bottom: 2rem;
 }
 
-/* 카드 기본 크기 */
+/* 3) 각 카드 기본 설정 */
 .portfolio-slide {
-  width:         var(--base);
-  transition:    width .3s ease, opacity .3s ease;
-  flex-shrink:   0;
-  display:       flex;
-  flex-direction: column;
-  align-items:   center;
-  box-sizing:    border-box;
+  flex: 1;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
-/* 카드 내부 이미지 */
+/* 4) 카드 내부 이미지/플레이스홀더 유지 */
 .portfolio-image-container {
-  width:        100%;
-  aspect-ratio: 3/4;
-  overflow:     hidden;
+  width: 100%;
+  padding-bottom: 75%;     /* 3:4 비율 박스 확보 */
+  overflow: hidden;
+  background: #eee;        /* 이미지 로드 전 회색 백그라운드 */
 }
 .portfolio-image-container img {
-  width:        100%;
-  height:       100%;
-  object-fit:   cover;
-  display:      block;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* 제목 스타일 */
-.portfolio-slide-title {
-  margin-top:    0.5rem;
-  font-size:     0.9rem;
-  white-space:   nowrap;
-  overflow:      hidden;
-  text-overflow: ellipsis;
-  width:         100%;
-  box-sizing:    border-box;
-}
-
-/* 1) 호버된 카드 외 나머지 축소 + 반투명 */
+/* 5) 호버되지 않은 카드들은 축소 + 반투명 */
 .portfolio-slider:hover .portfolio-slide:not(:hover) {
-  width:    calc((100% - (3 * var(--gap)) - var(--expand)) / 3);
-  opacity:  0.7;
+  transform: scale(0.92);
+  opacity: 0.6;
 }
 
-/* 2) 호버된 카드는 +30px 확장, 불투명 */
+/* 6) 호버된 카드: 불투명 + scale 1.15 (약 15% 확장) */
 .portfolio-slider:hover .portfolio-slide:hover {
-  width:    calc((100% - (3 * var(--gap)) - var(--expand)) / 3 + var(--expand));
-  opacity:  1;
+  opacity: 1;
 }
 
-/* 3) 아웃워드 확장: 마진으로 방향 제어 */
-/* ── 왼쪽 두 카드: 왼쪽 경계 고정, 오른쪽으로만 넓혀라 ── */
-.portfolio-slider:hover .portfolio-slide:nth-child(1):hover,
-.portfolio-slider:hover .portfolio-slide:nth-child(2):hover {
-  margin-left:  0;
-  margin-right: calc(-1 * var(--expand));
+/* 7) 카드별 방향성 확장 */
+/*  - 1,2번 카드는 왼쪽 기준(왼쪽으로 확장) */
+.portfolio-slide:nth-child(1):hover,
+.portfolio-slide:nth-child(2):hover {
+  transform-origin: left center;
+  transform: scaleX(1.15);
+  z-index: 2;
+}
+/*  - 3,4번 카드는 오른쪽 기준(오른쪽으로 확장) */
+.portfolio-slide:nth-child(3):hover,
+.portfolio-slide:nth-child(4):hover {
+  transform-origin: right center;
+  transform: scaleX(1.15);
+  z-index: 2;
 }
 
-/* ── 오른쪽 두 카드: 오른쪽 경계 고정, 왼쪽으로만 넓혀라 ── */
-.portfolio-slider:hover .portfolio-slide:nth-child(3):hover,
-.portfolio-slider:hover .portfolio-slide:nth-child(4):hover {
-  margin-right: 0;
-  margin-left:  calc(-1 * var(--expand));
-}
-
-/* 모바일(≤768px): 2열만, 호버 효과 비활성화 */
+/* 8) 모바일: 2열 고정, 호버 효과 해제 */
 @media (max-width: 768px) {
-  .portfolio-slide,
-  .portfolio-slider:hover .portfolio-slide,
-  .portfolio-slider:hover .portfolio-slide:not(:hover) {
-    width:    calc((100% - var(--gap)) / 2) !important;
-    opacity:  1 !important;
-    margin:   0 !important;
+  .portfolio-slider {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .portfolio-slide {
+    flex: 0 0 calc((100% - 8px) / 2) !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 
