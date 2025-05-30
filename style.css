@@ -414,7 +414,11 @@ body.mobile {
   justify-content: space-between;
   margin: 0 auto;
   padding-bottom: 2rem;
-}
+  /* Prevent hover‐scale overflow */
+  overflow: hidden;
+  position: relative;  /* overflow를 활성화하기 위해 */
+ }
+
 
 .portfolio-slide {
   width: calc((100% - 48px) / 4);
@@ -424,6 +428,7 @@ body.mobile {
   display: flex;
   flex-direction: column;
   align-items: center;
+ transform-origin: center center; /* 중앙을 기준으로 스케일 */
 }
 
 .portfolio-image-container {
