@@ -406,99 +406,110 @@ body.mobile {
 }
 
 /* === Portfolio 영역: 클리핑 + 좌우 확장 & 이웃 축소 === */
+/* ─── Portfolio: transform-only 양방향 확장 & 축소 ─── */
 :root {
-  --gap:    16px;
-  --expand: 30px;
+  --gap: 16px;
+  /* 호버된 카드의 X축 확장 배율 */
+  --expand-scale: 1.15;
+  /* 축소된 카드의 X/Y축 축소 배율 */
+  --shrink-scale: 0.92;
 }
 
-/* 섹션 전체 넘침 차단 */
 #PortfolioSlider {
-  width:       100%;
-  padding:     0 15px;
-  box-sizing:  border-box;
-  overflow-x:  hidden;
+  overflow-x: hidden; /* 전체 절대 넘침 금지 */
+  padding: 0 15px;
+  box-sizing: border-box;
 }
 
-/* 슬라이더 컨테이너 */
 .portfolio-slider {
-  display:        flex;
-  gap:            var(--gap);
+  display: flex;
+  gap: var(--gap);
   justify-content: space-between;
+  overflow: hidden;
   padding-bottom: 2rem;
-  overflow:       hidden;
 }
 
-/* 카드 기본 상태 */
 .portfolio-slide {
-  flex:         0 0 calc((100% - (3 * var(--gap))) / 4);
-  box-sizing:   border-box;
-  overflow:     hidden;
-  position:     relative;
-  transition:   flex-basis .3s ease, opacity .3s ease;
-  background:   #fff;         /* placeholder까지 백그라운드 화이트 유지 */
+  /* 4등분 그리드 고정 */
+  width: calc((100% - 3 * var(--gap)) / 4);
+  flex-shrink: 0;
+  box-sizing: border-box;
+  overflow: hidden; /* 이미지 transform 시 잘린 부분 숨김 */
+  transition: transform .3s ease, opacity .3s ease;
+  position: relative;
+  background: transparent; /* 흰 배경은 플레이스홀더 컨테이너로만 */
 }
 
-/* 카드 내부 이미지 */
+/* 플레이스홀더(이미지 없을 때 흰 박스) */
+.portfolio-placeholder {
+  width: 100%;
+  padding-bottom: 75%; /* 3:4 비율 */
+  background: #fff;
+}
+
+/* 이미지 컨테이너 */
 .portfolio-image-container {
-  position:        relative;
-  width:           100%;
-  padding-bottom:  75%;      /* 3:4 비율 */
-  overflow:        hidden;
-  background:      #fff;
+  width: 100%;
+  padding-bottom: 75%;
+  position: relative;
+  overflow: hidden;
 }
 .portfolio-image-container img {
-  position:        absolute;
-  top:             0;
-  left:            0;
-  width:           calc(100% + var(--expand));
-  height:          100%;
-  object-fit:      cover;
-  object-position: center center;
-  transition:      transform .3s ease;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* 카드 타이틀 */
+/* 카드 제목 */
 .portfolio-slide-title {
-  margin-top:    .5rem;
-  font-size:     .9rem;
-  white-space:   nowrap;
-  overflow:      hidden;
+  margin-top: .5rem;
+  font-size: .9rem;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* 호버되지 않은 카드 축소 */
+/* 1) 호버되지 않은 카드만 축소 + 반투명 */
 .portfolio-slider:hover .portfolio-slide:not(:hover) {
+  transform: scaleX(var(--shrink-scale)) scaleY(var(--shrink-scale));
   opacity: 0.6;
-  flex:    0 0 calc((100% - (3 * var(--gap)) - var(--expand)) / 3);
 }
 
-/* 호버된 카드 확장 */
+/* 2) 호버된 카드만 불투명 (scale은 아래에서 따로) */
 .portfolio-slider:hover .portfolio-slide:hover {
   opacity: 1;
-  flex:    0 0 calc((100% - (3 * var(--gap)) - var(--expand)) / 3 + var(--expand));
 }
 
-/* 1,2번 카드: 왼쪽 기준(왼쪽으로 확장) */
-.portfolio-slide:nth-child(1):hover .portfolio-image-container img,
-.portfolio-slide:nth-child(2):hover .portfolio-image-container img {
+/* 3) 좌측 두 카드: 왼쪽을 기준으로 확장 */
+.portfolio-slide:nth-child(1):hover,
+.portfolio-slide:nth-child(2):hover {
   transform-origin: left center;
+  transform: scaleX(var(--expand-scale)) scaleY(var(--expand-scale));
+  z-index: 2;
 }
 
-/* 3,4번 카드: 오른쪽 기준(오른쪽으로 확장) */
-.portfolio-slide:nth-child(3):hover .portfolio-image-container img,
-.portfolio-slide:nth-child(4):hover .portfolio-image-container img {
+/* 4) 우측 두 카드: 오른쪽을 기준으로 확장 */
+.portfolio-slide:nth-child(3):hover,
+.portfolio-slide:nth-child(4):hover {
   transform-origin: right center;
+  transform: scaleX(var(--expand-scale)) scaleY(var(--expand-scale));
+  z-index: 2;
 }
 
-/* 모바일: 2열 고정, 호버 삭제 */
+/* 모바일(≤768px): 2열, 호버 무효화 */
 @media (max-width: 768px) {
   .portfolio-slider {
     flex-wrap: wrap;
-    gap:       8px;
+    gap: 8px;
   }
   .portfolio-slide {
-    flex:        0 0 calc((100% - var(--gap)) / 2) !important;
-    opacity:     1 !important;
+    width: calc((100% - var(--gap)) / 2) !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 
