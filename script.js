@@ -126,11 +126,11 @@ window.addEventListener('resize', setBodyMobileClass);
     records.forEach((record) => {
       const fields = record.fields;
       const title = fields.Title || '제목 없음';
-      // Airtable이 제공하는 썸네일 URL 우선 사용 (small → large 순)
-     const attachments = fields.ImageURL;
--    const imageUrl = Array.isArray(attachments) && attachments.length > 0
--      ? attachments[0].url
--      : null;
+      // (원래) Airtable 필드에서 URL 직접 가져오기
+    const attachments = fields.ImageURL;
+    const imageUrl = Array.isArray(attachments) && attachments.length > 0
+      ? attachments[0].url
+     : null;
 
       const slide = document.createElement('div');
       slide.className = 'portfolio-slide';
@@ -140,7 +140,6 @@ window.addEventListener('resize', setBodyMobileClass);
     <div class="portfolio-image-container">
       <img src="${imageUrl}" alt="${title}" />
     </div>
-    <div class="portfolio-slide-title">${title}</div>
   `
   : `
     <div class="portfolio-placeholder"></div>
