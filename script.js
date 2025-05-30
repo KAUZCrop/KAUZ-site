@@ -31,9 +31,16 @@ window.addEventListener('resize', setBodyMobileClass);
     }, 500);
   });
 
-    // CSS 전환(300ms) + 추가 대기(200ms) = 500ms 뒤에 실행
+   // 2) 모든 리소스(load) 완료 시 100% → 페이드아웃 + 햄버거 노출 + 타이핑 시작
+  window.addEventListener('load', () => {
+    // ① 프로그레스 바를 마지막까지 채움
+    if (progressFill) {
+      progressFill.style.width = '100%';
+    }
+
+    // ② CSS 전환(300ms) + 추가 지연(200ms) = 500ms 뒤에 실행
     setTimeout(() => {
-      // 로딩 화면 페이드아웃
+      // 오버레이 페이드아웃
       loadingScreen.style.transition = 'opacity .5s ease';
       loadingScreen.style.opacity    = '0';
 
@@ -44,13 +51,14 @@ window.addEventListener('resize', setBodyMobileClass);
         hamburger.style.opacity    = '1';
       }
 
-      // 스크롤 잠금 해제 및 로딩 클래스 제거
+      // 스크롤 잠금 해제 & 로딩 클래스 제거
       document.body.style.overflow      = '';
       document.body.classList.remove('loading');
 
-      // 페이드아웃 완료 후 로딩 엘리먼트 완전 제거
+      // ③ 페이드아웃(500ms) 완료 후 오버레이 완전 제거 & 타이핑 시작
       setTimeout(() => {
         loadingScreen.style.display = 'none';
+        startTypingAnimation();
       }, 500);
     }, 500);
   });
