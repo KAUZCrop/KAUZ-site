@@ -520,6 +520,10 @@ body.mobile {
   opacity: 0.6 !important;
 }
 
+#contact {
+  margin-top: 50px;
+}
+
 #contact input,
 #contact textarea {
   display: block;
