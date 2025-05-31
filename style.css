@@ -469,8 +469,8 @@ body.mobile {
   color: white;
   text-align: left;
   white-space: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
+   overflow: visible;
+  text-overflow: unset;
 }
 
 
