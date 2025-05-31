@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABOUT US — Your Company Name</title>
+  <!-- 메인 페이지와 동일한 CSS 로드 -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- 만약 favicon 등이 있다면 index.html 헤더에서 복사해 오세요 -->
+</head>
+<body>
+  <!-- ─────────────────────────────────────────────────────────────────────
+       ① 상단 햄버거 버튼 & 메뉴 오버레이 (index.html과 동일해야 합니다)
+       ───────────────────────────────────────────────────────────────────── -->
+  <button class="hamburger" aria-label="Open menu">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+  </button>
+  <div id="menu-overlay" class="menu-overlay">
+    <nav>
+      <ul>
+        <!-- 메인 페이지로 돌아가기 -->
+        <li><a href="index.html">HOME</a></li>
+        <!-- 현재 페이지 강조를 위해 class="active" 추가 -->
+        <li><a href="about.html" class="active">ABOUT US</a></li>
+        <!-- Portfolio, Contact 등 다른 페이지 링크 -->
+        <li><a href="portfolio.html">PORTFOLIO</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       ② About Us 페이지 메인 콘텐츠
+       ───────────────────────────────────────────────────────────────────── -->
+  <main id="about-page">
+    <!-- About 히어로 섹션 -->
+    <section id="about-hero" class="about-hero-section">
+      <div class="about-hero-overlay">
+        <h1 class="about-hero-title">ABOUT US</h1>
+        <p class="about-hero-subtitle">Your story, our passion. Let's create together.</p>
+      </div>
+    </section>
+
+    <!-- About Content -->
+    <section id="about-content" class="about-content-section fade-up">
+      <!-- WHO WE ARE -->
+      <div class="about-block">
+        <h2 class="about-heading">WHO WE ARE</h2>
+        <p class="about-text">
+          저희는 광고 기획과 디지털 마케팅을 전문으로 하는 에이전시입니다.  
+          전략적 인사이트와 창의적 아이디어를 융합하여 브랜드 경험을 설계합니다.
+        </p>
+      </div>
+
+      <!-- WHAT WE DO -->
+      <div class="about-block">
+        <h2 class="about-heading">WHAT WE DO</h2>
+        <p class="about-text">
+          • 광고 캠페인 전략 수립 및 실행<br />
+          • 콘텐츠 제작(영상, 그래픽, 카피라이팅)<br />
+          • 디지털 채널 운영 및 퍼포먼스 최적화<br />
+          • 브랜드 컨설팅 및 리브랜딩  
+        </p>
+      </div>
+
+      <!-- OUR MISSION -->
+      <div class="about-block">
+        <h2 class="about-heading">OUR MISSION</h2>
+        <p class="about-text">
+          “브랜드의 본질을 직관적으로 전달하고, 소비자와 진정성 있게 연결합니다.”  
+          데이터 기반의 인사이트와 크리에이티브를 결합하여 새로운 가치를 창출합니다.
+        </p>
+      </div>
+
+      <!-- OUR TEAM -->
+      <div class="about-block">
+        <h2 class="about-heading">OUR TEAM</h2>
+        <div class="team-grid">
+          <div class="team-member fade-up">
+            <img src="images/team_member_1.jpg" alt="홍길동 – CEO" class="team-photo" />
+            <h3 class="team-name">홍길동</h3>
+            <p class="team-role">CEO / Creative Director</p>
+          </div>
+          <div class="team-member fade-up">
+            <img src="images/team_member_2.jpg" alt="김영희 – Account Manager" class="team-photo" />
+            <h3 class="team-name">김영희</h3>
+            <p class="team-role">Account Manager</p>
+          </div>
+          <div class="team-member fade-up">
+            <img src="images/team_member_3.jpg" alt="박철수 – Designer" class="team-photo" />
+            <h3 class="team-name">박철수</h3>
+            <p class="team-role">Designer</p>
+          </div>
+          <!-- 필요에 따라 더 많은 팀원 추가 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+         ③ Footer (index.html과 동일)
+         ───────────────────────────────────────────────────────────────────── -->
+    <footer class="site-footer fade-up">
+      <p>&copy; 2025 Your Company Name. All rights reserved.</p>
+      <ul class="footer-social">
+        <li><a href="https://www.instagram.com/yourcompany" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/yourcompany" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://www.linkedin.com/company/yourcompany" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </footer>
+  </main>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       ④ 공통 JavaScript (햄버거 메뉴 토글, 스크롤 애니메이션)
+       ───────────────────────────────────────────────────────────────────── -->
+  <script src="script.js"></script>
+</body>
+</html>
