@@ -467,10 +467,11 @@ body.mobile {
   margin-top: .5rem;
   font-size: .9rem;
   color: white;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: left;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  padding-left: 0; /* 만약 약간 여백을 주고 싶으면 0.25rem 등으로 수정 가능 */
 }
 
 /* 1) 호버되지 않은 카드만 축소 + 반투명 */
