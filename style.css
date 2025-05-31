@@ -434,7 +434,8 @@ body.mobile {
   width: calc((100% - 3 * var(--gap)) / 4);
   flex-shrink: 0;
   box-sizing: border-box;
-  overflow: hidden; /* 이미지 transform 시 잘린 부분 숨김 */
+  overflow-x: hidden; 
+  overflow-y: visible; 
   transition: transform .3s ease, opacity .3s ease;
   position: relative;
   background: transparent; /* 흰 배경은 플레이스홀더 컨테이너로만 */
