@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | MIND·MARK</title>
+  <!-- Portfolio 전용 CSS -->
+  <link rel="stylesheet" href="../css/portfolio.css" />
+</head>
+<body>
+  <!-- 헤더: 로고 + 네비게이션 -->
+  <header class="header">
+    <div class="container">
+      <img src="../LOGO/LOGO.png" alt="MIND·MARK Logo" class="logo" />
+      <nav class="nav">
+        <a href="main.html">HOME</a>
+        <a href="about.html">ABOUT US</a>
+        <a href="portfolio.html" class="active">PORTFOLIO</a>
+        <a href="contact.html">CONTACT US</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 히어로 섹션 -->
+  <section class="hero-portfolio">
+    <div class="hero-text">
+      <h1>Our Portfolio</h1>
+      <p>성과로 증명된 광고 캠페인 사례를 확인하세요.</p>
+    </div>
+  </section>
+
+  <!-- 포트폴리오 리스트 -->
+  <main class="project-list container">
+    <!-- 각 프로젝트를 카드 형태로 표시 -->
+    <div class="project-card" data-filter="branding">
+      <img src="../image/project1-thumbnail.jpg" alt="Client A 리브랜딩 캠페인" />
+      <div class="card-content">
+        <h3>Client A: 리브랜딩 캠페인</h3>
+        <p>• 소비자 인지도 25% 상승<br>• 클릭률 3.2% 기록</p>
+        <button class="btn-more" data-modal="modalA">자세히 보기</button>
+      </div>
+    </div>
+
+    <div class="project-card" data-filter="digital">
+      <img src="../image/project2-thumbnail.jpg" alt="Client B 디지털 퍼포먼스 캠페인" />
+      <div class="card-content">
+        <h3>Client B: 디지털 퍼포먼스 캠페인</h3>
+        <p>• 전환율 15% 증가<br>• ROAS 400% 달성</p>
+        <button class="btn-more" data-modal="modalB">자세히 보기</button>
+      </div>
+    </div>
+
+    <div class="project-card" data-filter="social">
+      <img src="../image/project3-thumbnail.jpg" alt="Client C 소셜 미디어 캠페인" />
+      <div class="card-content">
+        <h3>Client C: 소셜 미디어 캠페인</h3>
+        <p>• 팔로워 5만 명 증가<br>• 인게이지먼트 8% 증가</p>
+        <button class="btn-more" data-modal="modalC">자세히 보기</button>
+      </div>
+    </div>
+
+    <!-- 필요하다면 더 많은 프로젝트 카드 추가 -->
+  </main>
+
+  <!-- 필터 버튼 (추가 기능 예시) -->
+  <section class="filter-section container">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="branding">Branding</button>
+    <button class="filter-btn" data-filter="digital">Digital</button>
+    <button class="filter-btn" data-filter="social">Social</button>
+  </section>
+
+  <!-- 모달 팝업 예시: Client A 상세 -->
+  <div id="modalA" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" data-modal="modalA">&times;</span>
+      <h2>Client A: 리브랜딩 캠페인</h2>
+      <p>
+        <strong>프로젝트 개요:</strong><br>
+        Client A의 브랜드 정체성을 재정립하고, 새로운 슬로건과 비주얼 아이덴티티를 제작하여 전 고객층에 일관된 메시지를 전달했습니다.
+      </p>
+      <p>
+        <strong>주요 성과:</strong><br>
+        • 소비자 인지도 25% 상승<br>
+        • 클릭률(CTR) 3.2% 기록<br>
+        • 매출 15% 증가
+      </p>
+      <p>
+        <strong>사용된 채널:</strong> TVC, 디지털 배너, SNS 광고, 옥외 광고
+      </p>
+    </div>
+  </div>
+
+  <!-- 모달 팝업 예시: Client B 상세 -->
+  <div id="modalB" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" data-modal="modalB">&times;</span>
+      <h2>Client B: 디지털 퍼포먼스 캠페인</h2>
+      <p>
+        <strong>프로젝트 개요:</strong><br>
+        Client B의 온라인 판매 채널을 최적화하고, 효율적인 키워드 광고 및 리타겟팅 전략을 실행하여 전환율을 극대화했습니다.
+      </p>
+      <p>
+        <strong>주요 성과:</strong><br>
+        • 전환율 15% 증가<br>
+        • ROAS 400% 달성<br>
+        • 클릭당 비용(CPC) 30% 절감
+      </p>
+      <p>
+        <strong>사용된 채널:</strong> 구글 애드워즈, 페이스북/인스타그램 광고, 네이버 쇼핑
+      </p>
+    </div>
+  </div>
+
+  <!-- 모달 팝업 예시: Client C 상세 -->
+  <div id="modalC" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" data-modal="modalC">&times;</span>
+      <h2>Client C: 소셜 미디어 캠페인</h2>
+      <p>
+        <strong>프로젝트 개요:</strong><br>
+        Client C의 소셜 채널(페이스북, 인스타그램, 트위터 등)을 중심으로 크리에이티브 콘텐츠를 제작하고, 유저 참여형 이벤트를 기획했습니다.
+      </p>
+      <p>
+        <strong>주요 성과:</strong><br>
+        • 팔로워 5만 명 증가<br>
+        • 인게이지먼트 8% 증가<br>
+        • 브랜드 해시태그 10만 회 사용
+      </p>
+      <p>
+        <strong>사용된 채널:</strong> 페이스북, 인스타그램, 유튜브
+      </p>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="container">
+      &copy; 2025. MIND·MARK CORP. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Portfolio 전용 JS -->
+  <script src="../js/portfolio.js"></script>
+</body>
+</html>
