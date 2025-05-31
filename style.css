@@ -429,16 +429,19 @@ body.mobile {
   padding-bottom: 2rem;
 }
 
+/* ── 포트폴리오 카드 부모 (.portfolio-slide) ── */
 .portfolio-slide {
-  /* 4등분 그리드 고정 */
   width: calc((100% - 3 * var(--gap)) / 4);
   flex-shrink: 0;
   box-sizing: border-box;
-  overflow-x: hidden; 
-  overflow-y: visible; 
+
+  /* 가로 넘침 숨김, 세로 넘침 표시 */
+  overflow-x: hidden;
+  overflow-y: visible;
+
   transition: transform .3s ease, opacity .3s ease;
   position: relative;
-  background: transparent; /* 흰 배경은 플레이스홀더 컨테이너로만 */
+  background: transparent;
 }
 
 /* 플레이스홀더(이미지 없을 때 흰 박스) */
@@ -463,17 +466,23 @@ body.mobile {
   object-fit: cover;
 }
 
-/* 카드 제목 */
+/* ── 카드 제목 (.portfolio-slide-title) ── */
 .portfolio-slide-title {
   margin-top: .5rem;
   font-size: .9rem;
   color: white;
   text-align: left;
-  white-space: normal;
-   overflow: visible;
-  text-overflow: unset;
-}
 
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+
+  /* 긴 단어도 무조건 줄 바꿈 */
+  word-break: break-all;
+  /* 또는 필요 시 아래 한 줄만 사용
+     overflow-wrap: break-word;
+  */
+}
 
 /* 1) 호버되지 않은 카드만 축소 + 반투명 */
 .portfolio-slider:hover .portfolio-slide:not(:hover) {
