@@ -1,0 +1,134 @@
+/* 기본 리셋 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 컨테이너 공통 클래스 */
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 헤더 스타일 (Portfolio와 동일) */
+.header {
+  background-color: #1F2A44;
+  padding: 1rem 0;
+}
+.header .logo {
+  height: 40px;
+  vertical-align: middle;
+}
+.header .nav {
+  display: inline-block;
+  float: right;
+}
+.header .nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 500;
+}
+.header .nav a.active,
+.header .nav a:hover {
+  color: #FF6F61;
+}
+
+/* 히어로 섹션 */
+.hero-contact {
+  background: url('../image/hero-contact.jpg') no-repeat center/cover;
+  height: 40vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+}
+.hero-contact .hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.hero-contact .hero-text p {
+  font-size: 1.1rem;
+}
+
+/* 문의 폼 섹션 */
+.contact-form-section {
+  margin: 2rem auto 4rem;
+}
+.contact-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.contact-form .form-group {
+  margin-bottom: 1.25rem;
+}
+.contact-form label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333333;
+}
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333333;
+}
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #1F2A44;
+}
+.contact-form .required {
+  color: #FF6F61;
+  margin-left: 0.25rem;
+}
+.btn-submit {
+  background-color: #1F2A44;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.btn-submit:hover {
+  background-color: #FF6F61;
+}
+.form-response {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #FF6F61;
+  visibility: hidden;
+}
+
+/* 푸터 스타일 (Portfolio와 동일) */
+.footer {
+  background-color: #1F2A44;
+  padding: 1rem 0;
+  text-align: center;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .hero-contact .hero-text h1 {
+    font-size: 2rem;
+  }
+  .hero-contact .hero-text p {
+    font-size: 1rem;
+  }
+}
