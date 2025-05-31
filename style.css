@@ -467,8 +467,8 @@ body.mobile {
   margin-top: .5rem;
   font-size: .9rem;
   color: white;
-  text-align: center;
-  white-space: nowrap;
+  text-align: left;
+  white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
 }
