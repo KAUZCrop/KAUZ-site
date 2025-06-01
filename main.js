@@ -271,41 +271,49 @@ fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
       resetSlides(slides);
     });
 
-    // 확장 효과 처리 함수 - 방향별 다른 처리
+    // 확장 효과 처리 함수 - 안정적인 애니메이션
     function handleSlideHover(slides, activeIndex) {
-      slides.forEach((slide, index) => {
-        slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+      // 기존 클래스 제거를 위한 타이머 제거로 더 안정적으로
+      requestAnimationFrame(() => {
+        slides.forEach((slide, index) => {
+          slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+        });
+        
+        // 다음 프레임에서 새 클래스 적용
+        requestAnimationFrame(() => {
+          // 활성화된 슬라이드 확장
+          slides[activeIndex].classList.add('portfolio-expanded');
+          
+          // 각 카드별 축소 패턴 - 부드럽게 적용
+          if (activeIndex === 0) {
+            // 1번 호버: 2,3,4번 축소
+            slides[1]?.classList.add('portfolio-shrunk');
+            slides[2]?.classList.add('portfolio-shrunk');
+            slides[3]?.classList.add('portfolio-shrunk');
+          } else if (activeIndex === 1) {
+            // 2번 호버: 3,4번 축소
+            slides[2]?.classList.add('portfolio-shrunk');
+            slides[3]?.classList.add('portfolio-shrunk');
+          } else if (activeIndex === 2) {
+            // 3번 호버: 1,2번 축소
+            slides[0]?.classList.add('portfolio-shrunk');
+            slides[1]?.classList.add('portfolio-shrunk');
+          } else if (activeIndex === 3) {
+            // 4번 호버: 1,2,3번 축소
+            slides[0]?.classList.add('portfolio-shrunk');
+            slides[1]?.classList.add('portfolio-shrunk');
+            slides[2]?.classList.add('portfolio-shrunk');
+          }
+        });
       });
-      
-      // 활성화된 슬라이드 확장
-      slides[activeIndex].classList.add('portfolio-expanded');
-      
-      // 각 카드별 다른 축소 패턴
-      if (activeIndex === 0) {
-        // 1번 호버: 2,3,4번 축소
-        slides[1]?.classList.add('portfolio-shrunk');
-        slides[2]?.classList.add('portfolio-shrunk');
-        slides[3]?.classList.add('portfolio-shrunk');
-      } else if (activeIndex === 1) {
-        // 2번 호버: 3,4번 축소 (1번은 그대로)
-        slides[2]?.classList.add('portfolio-shrunk');
-        slides[3]?.classList.add('portfolio-shrunk');
-      } else if (activeIndex === 2) {
-        // 3번 호버: 1,2번 축소 (4번은 그대로)
-        slides[0]?.classList.add('portfolio-shrunk');
-        slides[1]?.classList.add('portfolio-shrunk');
-      } else if (activeIndex === 3) {
-        // 4번 호버: 1,2,3번 축소
-        slides[0]?.classList.add('portfolio-shrunk');
-        slides[1]?.classList.add('portfolio-shrunk');
-        slides[2]?.classList.add('portfolio-shrunk');
-      }
     }
 
-    // 슬라이드 초기화 함수
+    // 슬라이드 초기화 함수 - 더 부드럽게
     function resetSlides(slides) {
-      slides.forEach(slide => {
-        slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+      requestAnimationFrame(() => {
+        slides.forEach(slide => {
+          slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+        });
       });
     }
 
