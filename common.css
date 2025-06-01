@@ -1,0 +1,220 @@
+/*=================================================================================
+  common.css
+  ─────────────────────────────────────────────────────────────────────────────────
+  1) 모바일 스크롤 부드럽게 처리
+  2) html, body 전역 설정 (배경/글자/폰트/오버플로우 등)
+  3) 공통 텍스트 요소 스타일 (a, a:hover, h1/h2/h3)
+  4) 로고 이미지 스타일 (.logo-img)
+  5) 햄버거 메뉴 아이콘 스타일 (.hamburger, .hamburger span, .hamburger.active …)
+  6) 메뉴 오버레이(전체 화면 메뉴) 스타일 (.menu-overlay, .menu-overlay.active)
+  7) 메뉴 항목(링크) 애니메이션 및 순차 등장 효과 (.menu-content a, .menu-overlay.active .menu-content a:nth-child(N))
+=================================================================================*/
+
+
+
+/* 1) 모바일 스크롤 부드럽게 처리 */
+* {
+  -webkit-overflow-scrolling: touch; /* iOS에서 스크롤 끊김 없이 부드럽게 */
+}
+
+
+
+/* 2) html, body 전역 설정 */
+html, body {
+  background-color: #0D0D0D;    /* 검은색 배경(어두운 테마) */
+  color: white;                 /* 기본 글자색 흰색 */
+  margin: 0;
+  padding: 0;
+  font-family: 'Pretendard', sans-serif;  /* Pretendard 또는 sans-serif 계열 */
+  overflow-x: hidden;  /* 가로 스크롤 방지 */
+}
+
+
+
+/* 3-1) 공통 텍스트 요소 스타일: 링크(a) */
+a {
+  text-decoration: none;
+  color: inherit;         /* 부모의 색을 물려받음(기본 흰색) */
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: #ccc;            /* hover 시 약간 밝은 회색으로 포인트 */
+}
+
+
+/* 3-2) 공통 텍스트 요소 스타일: 헤딩(h1/h2/h3 등) */
+h1, h2, h3 {
+  margin: 0 0 1rem;       /* 위-좌-우 여백 0, 아래만 1rem */
+}
+
+
+
+/* 4) 로고 이미지 스타일 (header / 햄버거 팝업 시 사용) */
+.logo-img {
+  height: 100%;
+  width: auto;
+  display: block;        /* 부모 요소 높이에 맞춰 자동 비율 유지 */
+}
+
+
+
+/* 5) 햄버거 메뉴 아이콘 스타일 */
+/* ────────────────────────────────────────────────────────────────────────────── */
+/* (index.html / about.html / portfolio.html / contact.html 모두 공통으로 사용) */
+.hamburger {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 28px;
+  height: 28px;
+  z-index: 10001;
+  cursor: pointer;
+  display: none;           /* 기본적으로 보이지 않음 (모바일/태블릿에 따라 JS로 display:flex 처리) */
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* 햄버거가 열렸을 때 (=.active 클래스) */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(12px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-12px) rotate(-45deg);
+}
+
+
+
+/* 6) 메뉴 오버레이(전체 화면 메뉴 팝업) */
+/* ────────────────────────────────────────────────────────────────────────────── */
+.menu-overlay {
+  position: fixed;
+  inset: 0;  /* top:0; right:0; bottom:0; left:0; */
+  background-color: rgba(13, 13, 13, 0.98);  /* 거의 불투명한 검정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;            /* 기본적으로 감춤 */
+  visibility: hidden;    /* 보이지 않음 */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  z-index: 10000;
+}
+
+.menu-overlay.active {
+  opacity: 1;            /* 활성화되면 서서히 나타남 */
+  visibility: visible;
+}
+
+
+
+/* 7) 메뉴 컨텐츠(링크) 애니메이션 및 순차 등장 */
+/* ────────────────────────────────────────────────────────────────────────────── */
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-content a {
+  font-size: 2rem;       /* 메뉴 항목 글자 크기 */
+  color: white;
+  margin: 1rem 0;
+  opacity: 0;            /* 기본적으로 보이지 않음 */
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 메뉴 오버레이가 active 될 때 순차적으로 등장시키는 딜레이 설정 */
+.menu-overlay.active .menu-content a:nth-child(1) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+.menu-overlay.active .menu-content a:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+.menu-overlay.active .menu-content a:nth-child(3) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+.menu-overlay.active .menu-content a:nth-child(4) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
+
+/*=================================================================================
+  ※ 사용법
+  1. 각 HTML 문서(<head> 태그 안)에 아래 순서대로 CSS 파일을 불러오세요.
+     ─────────────────────────────────────────────────────────────────────────────
+     <link rel="stylesheet" href="common.css" />   ← 이 파일 (⭐ 공통)
+     <link rel="stylesheet" href="main.css"   />   ← index 전용
+     <link rel="stylesheet" href="about.css"  />   ← about 전용
+     <link rel="stylesheet" href="portfolio.css" />← portfolio 전용
+     <link rel="stylesheet" href="contact.css" />  ← contact 전용
+     ※ 공통영역 스타일 → 각 페이지 전용 스타일 순으로 로드해야, 
+        공통-페이지 중복되는 클래스가 있을 때 페이지 전용이 덮어씌워집니다.
+
+  2. JavaScript로 햄버거 토글 시 `.hamburger`에 `active` 클래스를 붙이고 뗄 것입니다.
+     예를 들면:
+     ┌───────────────────────────────────────────────────────────────
+     document.getElementById('hamburger').addEventListener('click', () => {
+       document.getElementById('hamburger').classList.toggle('active');
+       document.getElementById('menu-overlay').classList.toggle('active');
+     });
+     └───────────────────────────────────────────────────────────────
+
+  3. 각 페이지에 header/nav가 동일한 구조로 되어 있으면, 공통 CSS가 그대로 적용됩니다.
+     예를 들어 index.html, about.html, portfolio.html, contact.html 에 아래와 
+     같은 header 구조가 있다면 모두 공통 CSS가 적용됩니다.
+
+     ```html
+     <!-- 예시 header 구조 (각 페이지 최상단) -->
+     <header>
+       <div class="logo">
+         <a href="index.html">
+           <img src="logo/logo_1.png" alt="Logo" class="logo-img" />
+         </a>
+       </div>
+       <div id="hamburger" class="hamburger">
+         <span></span>
+         <span></span>
+         <span></span>
+       </div>
+     </header>
+
+     <!-- 메뉴 오버레이도 공통으로 -->
+     <div id="menu-overlay" class="menu-overlay">
+       <div class="logo">
+         <img src="logo/logo_1.png" alt="Logo" class="logo-img" />
+       </div>
+       <div class="menu-content">
+         <a href="index.html">HOME</a>
+         <a href="about.html">ABOUT US</a>
+         <a href="portfolio.html">PORTFOLIO</a>
+         <a href="contact.html">CONTACT US</a>
+       </div>
+     </div>
+     ```
+
+  4. 페이지 전용 영역(예: HERO 섹션, ABOUT, PORTFOLIO, CONTACT 영역 등)의 
+     레이아웃 및 색상/애니메이션은 `main.css`, `about.css`, `portfolio.css`, 
+     `contact.css` 에서 각각 작성하여 덮어씌워 주시면 됩니다.
+
+=================================================================================*/ 
