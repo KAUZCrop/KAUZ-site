@@ -81,32 +81,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 500);
   });
 
- if (hamburger && menuOverlay) {
-  hamburger.addEventListener('click', () => {
-    menuOverlay.classList.toggle('active');
-    hamburger.classList.toggle('active');
-    document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
-  });
-
-  // ESC키로 오버레이 닫기
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
-      menuOverlay.classList.remove('active');
-      hamburger.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-
-  // 메뉴(링크) 클릭 시 닫기
-  const menuLinks = document.querySelectorAll('#menu-overlay .menu-content a');
-  menuLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      menuOverlay.classList.remove('active');
-      hamburger.classList.remove('active');
-      document.body.style.overflow = '';
+ // 햄버거 토글
+  if (hamburger && menuOverlay) {
+    hamburger.addEventListener('click', () => {
+      menuOverlay.classList.toggle('active');
+      hamburger.classList.toggle('active');
+      document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
     });
-  });
-} 
+
+    // 메뉴(링크) 클릭 시 닫기
+    const menuLinks = document.querySelectorAll('#menu-overlay .menu-content a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuOverlay.classList.remove('active');
+        hamburger.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+});
+
+// ESC키로 오버레이 닫기 (전역에서 단 한 번만 등록)
+window.addEventListener('keydown', (e) => {
+  const menuOverlay = document.getElementById('menu-overlay');
+  const hamburger = document.getElementById('hamburger');
+  if (
+    e.key === 'Escape' &&
+    menuOverlay &&
+    hamburger &&
+    menuOverlay.classList.contains('active')
+  ) {
+    menuOverlay.classList.remove('active');
+    hamburger.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
 
   // ─── Airtable Portfolio Slide Loading ───
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
