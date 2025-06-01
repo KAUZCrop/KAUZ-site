@@ -417,36 +417,24 @@ body.mobile {
   z-index: 10;
 }
 
-/* 호버 시 확장 효과 */
-.portfolio-slide:hover {
-  flex: 0 0 50%; /* 전체의 50%로 확장 */
+/* 호버 시 확장 효과 - 각 카드별 다른 방향으로 확장 */
+.portfolio-slide:nth-child(1):hover,
+.portfolio-slide:nth-child(2):hover {
+  flex: 0 0 50%; /* 왼쪽 2개는 오른쪽으로 확장 */
 }
 
-/* 호버 시 다른 카드들 축소 */
-.portfolio-container:hover .portfolio-slide:not(:hover) {
-  flex: 0 0 16.66%; /* 나머지 3개가 50% 공간을 3등분 */
+.portfolio-slide:nth-child(3):hover,
+.portfolio-slide:nth-child(4):hover {
+  flex: 0 0 50%; /* 오른쪽 2개는 왼쪽으로 확장 */
 }
 
-/* 호버 시 이미지 스케일 효과 */
-.portfolio-slide:hover .portfolio-image-container img {
-  transform: scale(1.05);
+/* 1번, 2번 호버 시 오른쪽 카드들 축소 */
+.portfolio-slide:nth-child(1):hover ~ .portfolio-slide,
+.portfolio-slide:nth-child(2):hover ~ .portfolio-slide {
+  flex: 0 0 16.66%;
 }
 
-/* 호버 시 브랜드명 표시 */
-.portfolio-slide:hover .portfolio-slide-title {
-  transform: translateY(0);
-}
-
-/* 호버되지 않은 카드 어둡게 */
-.portfolio-container:hover .portfolio-slide:not(:hover) {
-  opacity: 0.7;
-}
-
-.portfolio-container:hover .portfolio-slide:not(:hover) .portfolio-image-container img {
-  filter: brightness(0.6);
-}
-
-/* JavaScript로 제어할 클래스들 */
+/* JavaScript로 제어할 클래스들 - 더 구체적으로 */
 .portfolio-expanded {
   flex: 0 0 50% !important;
 }
@@ -458,6 +446,16 @@ body.mobile {
 
 .portfolio-shrunk .portfolio-image-container img {
   filter: brightness(0.6);
+}
+
+/* 호버 시 이미지 스케일 효과 */
+.portfolio-expanded .portfolio-image-container img {
+  transform: scale(1.05);
+}
+
+/* 호버 시 브랜드명 표시 */
+.portfolio-expanded .portfolio-slide-title {
+  transform: translateY(0);
 }
 
 /* 각 카드별 고유 색상 오버레이 (선택사항) */
