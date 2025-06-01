@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressFill  = document.querySelector('.progress-fill');
   const hamburger     = document.getElementById('hamburger');
   const menuOverlay   = document.getElementById('menu-overlay');
+  const scrollingContainer = document.querySelector('.scrolling-container');
+  const scrollingText = document.querySelector('.scrolling-text');
 
   console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay });
 
@@ -418,4 +420,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   console.log('Main.js initialization complete');
+  // ─── 무한 롤링 텍스트 설정 ───
+document.addEventListener('DOMContentLoaded', () => {
+  const scrollingContainer = document.querySelector('.scrolling-container');
+  const scrollingText = document.querySelector('.scrolling-text');
+  
+  if (scrollingContainer && scrollingText) {
+    // 텍스트 복제하여 끊김 없는 롤링 구현
+    const clone = scrollingText.cloneNode(true);
+    clone.classList.add('scrolling-text-clone');
+    scrollingContainer.appendChild(clone);
+    
+    // 애니메이션 동기화
+    const texts = scrollingContainer.querySelectorAll('.scrolling-text, .scrolling-text-clone');
+    texts.forEach((text, index) => {
+      text.style.animationDelay = `${index * 10}s`;
+    });
+  }
+});
 });
