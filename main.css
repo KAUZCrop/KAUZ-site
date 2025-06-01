@@ -1,3 +1,7 @@
+/* ═══════════════════════════════════════════════════════════════
+   수정된 main.css - 문제점 해결
+   ═══════════════════════════════════════════════════════════════ */
+
 /* 전체 배경 및 텍스트 색상 전역 설정 */
 html, body {
   background-color: #0D0D0D;
@@ -24,7 +28,7 @@ a:hover {
   color: #ccc;
 }
 
-/* LOADING SCREEN */
+/* LOADING SCREEN - 최고 우선순위 */
 #loading-screen {
   position: fixed;
   inset: 0;
@@ -33,7 +37,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 99999; /* 🔥 최고 우선순위로 변경 */
   flex-direction: column;
   transition: opacity 0.5s ease-out;
 }
@@ -48,10 +52,6 @@ a:hover {
   letter-spacing: 1px;
 }
 
-#loading-screen + .hamburger {
-  display: none;
-}
-
 .progress-bar {
   width: 200px;
   height: 8px;
@@ -64,12 +64,7 @@ a:hover {
   width: 0%;
   height: 100%;
   background: #fff;
-  animation: fillBar 2s forwards;
-}
-
-@keyframes fillBar {
-  0% { width: 0%; }
-  100% { width: 100%; }
+  transition: width 0.3s ease; /* 🔥 animation 대신 transition 사용 */
 }
 
 /* NAVIGATION BAR */
@@ -77,7 +72,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0rem 1rem;  /* ✅ 상단 패딩 완전 제거 */
+  padding: 0rem 1rem;
   margin: 0;
 }
 
@@ -86,7 +81,7 @@ a:hover {
   top: 1.5rem;
   left: 1.5rem;
   z-index: 10000;
-  height: 66px; /* ✅ 기존 높이 유지 */
+  height: 66px;
 }
 
 .logo-img {
@@ -95,13 +90,7 @@ a:hover {
   display: block;
 }
 
-@media (max-width: 768px) {
-  .logo {
-    height: 52px; /* 모바일에서 축소 */
-  }
-}
-
-/* 햄버거 아이콘 */
+/* 햄버거 아이콘 - 수정된 버전 */
 .hamburger {
   position: fixed;
   top: 1.5rem;
@@ -110,10 +99,16 @@ a:hover {
   height: 28px;
   z-index: 10001;
   cursor: pointer;
-  display: flex;
+  display: none; /* 🔥 초기에는 숨김 */
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  visibility: hidden; /* 🔥 추가 */
+  opacity: 0; /* 🔥 추가 */
+  transition: all 0.3s ease; /* 🔥 추가 */
 }
 
 .hamburger span {
@@ -124,9 +119,10 @@ a:hover {
   border-radius: 2px;
   transition: all 0.3s ease;
   transform-origin: center;
+  display: block; /* 🔥 명시적으로 추가 */
 }
 
-/* 기본 햄버거 상태 */
+/* 기본 햄버거 상태 - 수정 */
 .hamburger span:nth-child(1) {
   transform: translateY(-6px);
 }
@@ -135,56 +131,48 @@ a:hover {
   transform: translateY(6px);
 }
 
+/* 활성화된 햄버거 (X 모양) - 수정 */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(0.5px, 0.5px);
+  transform: rotate(45deg) translateY(0px); /* 🔥 수정 */
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: rotate(-45deg) translate(0.5px, -0.5px);
+  transform: rotate(-45deg) translateY(0px); /* 🔥 수정 */
 }
 
-.menu-overlay .hamburger {
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 28px;
-  height: 28px;
-  z-index: 10001;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+/* 중복 햄버거 CSS 제거 */
 
-/* 메뉴 오버레이 */
+/* 메뉴 오버레이 - 완전 수정된 버전 */
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background-color: #0D0D0D;
+  background-color: rgba(13, 13, 13, 0.98); /* 🔥 약간 투명하게 */
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 9999;
+  visibility: hidden; /* 🔥 추가 */
+  pointer-events: none; /* 🔥 비활성화 상태에서는 클릭 불가 */
+  transition: all 0.4s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px); /* 🔥 블러 효과 */
 }
 
 .menu-overlay.active {
   opacity: 1;
-  pointer-events: auto;
+  visibility: visible; /* 🔥 보이게 */
+  pointer-events: auto; /* 🔥 활성화 상태에서만 클릭 가능 */
 }
 
+/* 메뉴 콘텐츠 - 수정된 버전 */
 .menu-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
   align-items: center;
   text-align: center;
+  z-index: 10001;
 }
 
 .menu-content a {
@@ -194,37 +182,48 @@ a:hover {
   text-decoration: none;
   opacity: 0;
   transform: translateY(20px);
-  animation: menuFadeIn 0.6s ease forwards;
+  transition: all 0.3s ease;
+  cursor: pointer; /* 🔥 명시적 커서 */
 }
 
-.menu-overlay.active .menu-content a:nth-child(1) { animation-delay: 0.1s; }
-.menu-overlay.active .menu-content a:nth-child(2) { animation-delay: 0.2s; }
-.menu-overlay.active .menu-content a:nth-child(3) { animation-delay: 0.3s; }
-.menu-overlay.active .menu-content a:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes menuFadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.menu-content a:hover {
+  color: #ccc;
+  transform: translateY(-2px);
 }
+
+/* 메뉴 활성화 시 애니메이션 - 수정 */
+.menu-overlay.active .menu-content a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-overlay.active .menu-content a:nth-child(1) { 
+  transition-delay: 0.1s; 
+}
+.menu-overlay.active .menu-content a:nth-child(2) { 
+  transition-delay: 0.2s; 
+}
+.menu-overlay.active .menu-content a:nth-child(3) { 
+  transition-delay: 0.3s; 
+}
+.menu-overlay.active .menu-content a:nth-child(4) { 
+  transition-delay: 0.4s; 
+}
+
+/* 기존 keyframes는 제거하고 transition 사용 */
 
 h1, h2, h3 {
   margin: 0 0 1rem;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
 }
 
 /* HERO SECTION */
 .hero {
   background: linear-gradient(to bottom, #000 60%, #111);
   color: #fff;
-  padding: 1rem 1rem 4rem;  /* ✅ 상단 패딩 최소화 */
+  padding: 1rem 1rem 4rem;
   text-align: center;
 }
+
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -271,108 +270,65 @@ section h2 {
   max-width: none;
   margin: 0 auto;
   gap: 1.5rem;
-}
-
-body.mobile .about-row {
-}
-
-/* 1. 반드시 box-sizing 추가! */
-.about-row,
-.about-left,
-.about-right,
-main {
   box-sizing: border-box;
 }
 
-/* 2. 모바일에서 padding 최소화 */
-body.mobile .about-left,
-body.mobile .about-right {
-  padding-left: 0.2rem !important;
-  padding-right: 0.2rem !important;
-}
-
-.about-left, .about-right {
+.about-left,
+.about-right {
   flex: 1 1 45%;
   line-height: 1.8;
   padding: 0 0.8rem;
+  box-sizing: border-box;
 }
 
-/* (4) 필요시 한 줄 강제 */
-.about-left p,
-.about-right p {
-  font-size: var(--about-p-font-size);
-  line-height: 1.8;
-  margin-top: 7px;
-  margin-bottom: 2rem;
-  /* white-space: nowrap; (강제 한 줄, 필요시만) */
-}
-
-/* WEB: Who We Are 맞춤 설정 */
 .about-left {
-  flex: 0 0 50%;          /* 정확히 절반 */
+  flex: 0 0 50%;
   text-align: left;
   padding: 0;
   margin: 0;
   line-height: 1.8;
 }
 
-.about-left p {
-  line-height: 1.8;
-  margin-top: 7px;
-}
-
-.about-left h3 {
-  margin-bottom: 5px;
-  text-align: left;
-}
-
 .about-left.aligned-left {
-  margin-left: clamp(3.2vw, 3.7vw, 4vw); /* 슬로건 from의 F에 정렬 */
+  margin-left: clamp(3.2vw, 3.7vw, 4vw);
   text-align: left;
   flex: 0 0 50%;
 }
 
 .about-right {
-  flex: 0 0 50%;          /* 정확히 절반 */
+  flex: 0 0 50%;
   text-align: right;
   padding: 0;
-  margin-left: auto;      /* ✅ 오른쪽 끝 정렬 */
+  margin-left: auto;
   line-height: 1.8;
   margin-top: 25px;
 }
 
-.about-right p {
-  line-height: 1.8;
-  margin-top: 7px;
-}
-
-.about-right h3 {
-  margin-bottom: 5px;
-  text-align: right;
-}
-
 .about-right.aligned-right {
-  margin-right: clamp(3.4vw, 4.1vw, 4.8vw); /* 슬로건 Mark.의 마침표에 정렬 */
+  margin-right: clamp(3.4vw, 4.1vw, 4.8vw);
   margin-left: auto;
   text-align: right;
   flex: 0 0 50%;
 }
 
-/* 폰트 변수 방식 - 모든 font-size 관리 */
+/* 폰트 변수 방식 */
 :root {
   --about-h3-font-size: 4rem;
   --about-p-font-size: 1.8rem;
 }
+
 body.mobile {
   --about-h3-font-size: 1.25rem;
   --about-p-font-size: 0.77rem;
 }
+
 .about-left h3, .about-right h3 {
   font-size: var(--about-h3-font-size);
   font-weight: 850;
   margin-bottom: 1rem;
   line-height: 1.4;
 }
+
 .about-left p, .about-right p {
   font-size: var(--about-p-font-size);
   line-height: 1.8;
@@ -380,43 +336,15 @@ body.mobile {
   margin-bottom: 2rem;
 }
 
-@media (max-width: 768px) {
-  .about-row {
-    flex-direction: column !important;
-    gap: 0.5rem;
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-  .about-left,
-  .about-right {
-    flex: 1 1 100% !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    text-align: left !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    margin: 0 !important;
-  }
-  .about-right {
-    text-align: left !important;
-  }
-  .about-right h3 {
-    text-align: left !important;
-  }
-}
-
-/* === Portfolio 영역: 클리핑 + 좌우 확장 & 이웃 축소 === */
-/* ─── Portfolio: transform-only 양방향 확장 & 축소 ─── */
+/* Portfolio 영역 */
 :root {
   --gap: 16px;
-  /* 호버된 카드의 X축 확장 배율 */
   --expand-scale: 1.15;
-  /* 축소된 카드의 X/Y축 축소 배율 */
   --shrink-scale: 0.92;
 }
 
 #PortfolioSlider {
-  overflow-x: hidden; /* 전체 절대 넘침 금지 */
+  overflow-x: hidden;
   padding: 0 15px;
   box-sizing: border-box;
 }
@@ -429,35 +357,30 @@ body.mobile {
   padding-bottom: 2rem;
 }
 
-/* ── 포트폴리오 카드 부모 (.portfolio-slide) ── */
 .portfolio-slide {
   width: calc((100% - 3 * var(--gap)) / 4);
   flex-shrink: 0;
   box-sizing: border-box;
-
-  /* 가로 넘침 숨김, 세로 넘침 표시 */
   overflow-x: hidden;
   overflow-y: visible;
-
   transition: transform .3s ease, opacity .3s ease;
   position: relative;
   background: transparent;
 }
 
-/* 플레이스홀더(이미지 없을 때 흰 박스) */
 .portfolio-placeholder {
   width: 100%;
-  padding-bottom: 75%; /* 3:4 비율 */
+  padding-bottom: 75%;
   background: #fff;
 }
 
-/* 이미지 컨테이너 */
 .portfolio-image-container {
   width: 100%;
   padding-bottom: 75%;
   position: relative;
   overflow: hidden;
 }
+
 .portfolio-image-container img {
   position: absolute;
   inset: 0;
@@ -466,36 +389,27 @@ body.mobile {
   object-fit: cover;
 }
 
-/* ── 카드 제목 (.portfolio-slide-title) ── */
 .portfolio-slide-title {
   margin-top: .5rem;
   font-size: .9rem;
   color: white;
   text-align: left;
-
   white-space: normal;
   overflow: visible;
   text-overflow: unset;
-
-  /* 긴 단어도 무조건 줄 바꿈 */
   word-break: break-all;
-  /* 또는 필요 시 아래 한 줄만 사용
-     overflow-wrap: break-word;
-  */
 }
 
-/* 1) 호버되지 않은 카드만 축소 + 반투명 */
+/* Portfolio 호버 효과 */
 .portfolio-slider:hover .portfolio-slide:not(:hover) {
   transform: scaleX(var(--shrink-scale)) scaleY(var(--shrink-scale));
   opacity: 0.6;
 }
 
-/* 2) 호버된 카드만 불투명 (scale은 아래에서 따로) */
 .portfolio-slider:hover .portfolio-slide:hover {
   opacity: 1;
 }
 
-/* 3) 좌측 두 카드: 왼쪽을 기준으로 확장 */
 .portfolio-slide:nth-child(1):hover,
 .portfolio-slide:nth-child(2):hover {
   transform-origin: left center;
@@ -503,7 +417,6 @@ body.mobile {
   z-index: 2;
 }
 
-/* 4) 우측 두 카드: 오른쪽을 기준으로 확장 */
 .portfolio-slide:nth-child(3):hover,
 .portfolio-slide:nth-child(4):hover {
   transform-origin: right center;
@@ -511,25 +424,12 @@ body.mobile {
   z-index: 2;
 }
 
-/* 모바일(≤768px): 2열, 호버 무효화 */
-@media (max-width: 768px) {
-  .portfolio-slider {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .portfolio-slide {
-    width: calc((100% - var(--gap)) / 2) !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-}
-
-/* neighbor-shrink: 호버 이웃만 너비 줄임 */
 .portfolio-slide.neighbor-shrink {
-  flex:    0 0 calc((100% - (3 * var(--gap)) - var(--expand)) / 3) !important;
+  flex: 0 0 calc((100% - (3 * var(--gap)) - var(--expand)) / 3) !important;
   opacity: 0.6 !important;
 }
 
+/* Contact 섹션 */
 #contact {
   margin-top: 50px;
 }
@@ -560,7 +460,7 @@ body.mobile {
   background: #333;
 }
 
-/* FOOTER */
+/* Footer */
 .site-footer {
   background-color: #000;
   color: #fff;
@@ -605,7 +505,7 @@ header.hero {
   background: #0D0D0D;
 }
 
-/* ✨ 타자 효과 슬로건 스타일 */
+/* 타자 효과 슬로건 스타일 - 수정된 버전 */
 .hero-slogan {
   padding: 0 1rem;
   text-align: center;
@@ -613,7 +513,7 @@ header.hero {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(35vh + 50px);  /* ✅ 기존보다 35px 높이 증가 */
+  min-height: calc(35vh + 50px);
   font-weight: bold;
   color: white;
   line-height: 1.4;
@@ -623,33 +523,17 @@ header.hero {
 
 .slogan-line {
   font-size: 3.5vw;
-  min-height: 4vw;        /* ✅ 초기 공간 확보 (한 줄) */
+  min-height: 4vw;
   white-space: nowrap;
   overflow: hidden;
 }
 
-@media (max-width: 768px) {
-  .hero-slogan {
-    height: 36vh;                /* ✅ 명확히 높이 지정 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;     /* ✅ 수직 정중앙 정렬 보장 */
-    align-items: center;
-    padding: 0 1rem;
-  }
-
-  .slogan-line {
-    font-size: 5vw;
-    white-space: normal;
-    text-align: center;
-    min-height: 5vw;
-  }
-}
-
+/* 타이핑 커서 애니메이션 - 수정된 버전 */
 .typing-cursor {
   display: inline-block;
   width: 0.8ch;
   animation: blink 0.7s infinite;
+  color: white; /* 🔥 명시적 색상 */
 }
 
 @keyframes blink {
@@ -666,11 +550,11 @@ header.hero {
 
 .hero-slogan-video {
   position: absolute;
-  inset: 0;                   /* top/left/right/bottom 모두 0 */
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 40%;   /* ←  가로 50% 중앙, 세로 40% 지점으로 포커싱 */
+  object-position: 50% 40%;
   z-index: 0;
   opacity: 0.25;
   pointer-events: none;
@@ -688,44 +572,17 @@ header.hero {
   z-index: 1;
 }
 
-/* 위의 텍스트가 영상 위에 올라가게 설정 */
 .navbar, .hero-slogan {
   position: relative;
   z-index: 2;
 }
 
-.menu-logo {
-  position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
-  z-index: 10000;
-  font-size: 44px;
-  font-weight: bold;
-  color: #fff;
-  text-transform: uppercase;
-  line-height: 1;
-  padding: 0.2rem 0;
-  font-family: 'Pretendard', sans-serif;
-}
-
-.menu-logo .mark {
-  color: #239FD7;
-}
-
-@media (max-width: 768px) {
-  .menu-logo {
-    font-size: 32px;
-    top: 1rem;
-    left: 1rem;
-  }
-}
-
 /* 전체 텍스트 복사 방지 */
 body {
   user-select: none;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none;    /* Firefox */
-  -ms-user-select: none;     /* IE10+ */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* fade-up 애니메이션 */
@@ -734,24 +591,87 @@ body {
   transform: translateY(20px);
   transition: opacity .6s ease-out, transform .6s ease-out;
 }
+
 .fade-up.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ─── 로딩 프로그레스 바 스타일 ─── */
-#loading-bar-container {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 4px;
-  background: rgba(255,255,255,0.2);
+/* 스크롤 비활성화 (메뉴 열린 상태) */
+body.menu-open {
+  overflow: hidden;
+  height: 100vh;
 }
-#loading-bar {
-  width: 0%;
-  height: 100%;
-  background: #E46F19;
-  transition: width .3s ease;
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .logo {
+    height: 52px;
+  }
+  
+  .hamburger {
+    top: 1rem;
+    right: 1rem;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .menu-content a {
+    font-size: 2.5rem;
+  }
+  
+  .hero-slogan {
+    height: 36vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .slogan-line {
+    font-size: 5vw;
+    white-space: normal;
+    text-align: center;
+    min-height: 5vw;
+  }
+
+  .about-row {
+    flex-direction: column !important;
+    gap: 0.5rem;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  .about-left,
+  .about-right {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    margin: 0 !important;
+  }
+  
+  .about-right h3 {
+    text-align: left !important;
+  }
+
+  .portfolio-slider {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .portfolio-slide {
+    width: calc((100% - var(--gap)) / 2) !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  body.mobile .about-left,
+  body.mobile .about-right {
+    padding-left: 0.2rem !important;
+    padding-right: 0.2rem !important;
+  }
 }
