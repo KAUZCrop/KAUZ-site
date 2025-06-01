@@ -172,9 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /// main.js에서 Airtable 포트폴리오 부분을 이렇게 교체하세요
+// main.js에서 Airtable 포트폴리오 부분을 이렇게 교체하세요
 
-// ─── Airtable Portfolio Loading (정확한 요구사항 적용) ───
+// ─── Airtable Portfolio Loading (와이드 확장 애니메이션) ───
 const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
 const baseId = 'appglO0MOXGY7CITU';
 const tableName = 'Table%201';
@@ -229,14 +229,14 @@ fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
         } else {
           // 이미지가 없는 경우 - 흰색 박스
           slide.innerHTML = `
-            <div class="portfolio-placeholder"></div>
+            <div class="portfolio-placeholder">No Image</div>
             <div class="portfolio-slide-title">${title}</div>
           `;
         }
       } else {
         // 데이터가 없는 경우 - 빈 흰색 박스
         slide.innerHTML = `
-          <div class="portfolio-placeholder"></div>
+          <div class="portfolio-placeholder">No Content</div>
           <div class="portfolio-slide-title">제목 없음</div>
         `;
       }
@@ -244,40 +244,54 @@ fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
       container.appendChild(slide);
     }
 
-    // 정확한 호버 효과를 위한 이벤트 리스너
+    // 확장 애니메이션을 위한 이벤트 리스너 (터치 디바이스 고려)
     const slides = container.querySelectorAll('.portfolio-slide');
     
     slides.forEach((slide, index) => {
+      // 마우스 이벤트
       slide.addEventListener('mouseenter', () => {
-        // 모든 특수 클래스 제거
-        slides.forEach(s => {
-          s.classList.remove('portfolio-expanded', 'neighbor-shrink');
-        });
-        
-        // 현재 슬라이드 확장
-        slide.classList.add('portfolio-expanded');
-        
-        // 이웃 슬라이드 축소 규칙 적용
-        if (index === 0 && slides[1]) {
-          slides[1].classList.add('neighbor-shrink'); // 1→2
-        } else if (index === 1 && slides[2]) {
-          slides[2].classList.add('neighbor-shrink'); // 2→3
-        } else if (index === 2 && slides[1]) {
-          slides[1].classList.add('neighbor-shrink'); // 3→2
-        } else if (index === 3 && slides[2]) {
-          slides[2].classList.add('neighbor-shrink'); // 4→3
-        }
+        handleSlideHover(slides, index);
       });
       
-      slide.addEventListener('mouseleave', () => {
-        // 모든 효과 제거
-        slides.forEach(s => {
-          s.classList.remove('portfolio-expanded', 'neighbor-shrink');
-        });
+      // 터치 이벤트 (모바일)
+      slide.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        handleSlideHover(slides, index);
+      });
+      
+      // 클릭 이벤트 (상세 페이지로 이동 등)
+      slide.addEventListener('click', () => {
+        console.log(`Portfolio item ${index + 1} clicked`);
+        // 여기에 상세 페이지 이동 로직 추가 가능
       });
     });
 
-    console.log('Portfolio with exact hover effects created successfully');
+    // 컨테이너에서 마우스가 벗어나면 초기화
+    container.addEventListener('mouseleave', () => {
+      resetSlides(slides);
+    });
+
+    // 확장 효과 처리 함수
+    function handleSlideHover(slides, activeIndex) {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+        
+        if (index === activeIndex) {
+          slide.classList.add('portfolio-expanded');
+        } else {
+          slide.classList.add('portfolio-shrunk');
+        }
+      });
+    }
+
+    // 슬라이드 초기화 함수
+    function resetSlides(slides) {
+      slides.forEach(slide => {
+        slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+      });
+    }
+
+    console.log('Portfolio with expansion animation created successfully');
   })
   .catch(err => {
     console.error('Airtable fetch error:', err);
