@@ -81,40 +81,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 500);
   });
 
- // 햄버거 토글
+ // 메뉴 닫기 함수 (중복방지, 항상 한 번에 처리)
+  function closeMenu() {
+    menuOverlay.classList.remove('active');
+    hamburger.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // 햄버거 토글
   if (hamburger && menuOverlay) {
     hamburger.addEventListener('click', () => {
+      const willOpen = !menuOverlay.classList.contains('active');
       menuOverlay.classList.toggle('active');
       hamburger.classList.toggle('active');
-      document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
+      document.body.style.overflow = willOpen ? 'hidden' : '';
     });
 
     // 메뉴(링크) 클릭 시 닫기
     const menuLinks = document.querySelectorAll('#menu-overlay .menu-content a');
     menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        menuOverlay.classList.remove('active');
-        hamburger.classList.remove('active');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeMenu);
     });
   }
-});
 
-// ESC키로 오버레이 닫기 (전역에서 단 한 번만 등록)
-window.addEventListener('keydown', (e) => {
-  const menuOverlay = document.getElementById('menu-overlay');
-  const hamburger = document.getElementById('hamburger');
-  if (
-    e.key === 'Escape' &&
-    menuOverlay &&
-    hamburger &&
-    menuOverlay.classList.contains('active')
-  ) {
-    menuOverlay.classList.remove('active');
-    hamburger.classList.remove('active');
-    document.body.style.overflow = '';
-  }
+  // ESC키로 메뉴 닫기 (전역, 중복등록 방지)
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+      closeMenu();
+    }
+  });
 });
 
   // ─── Airtable Portfolio Slide Loading ───
