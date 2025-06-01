@@ -12,6 +12,16 @@
 
 
 
+/* common.css 최상단: 메인 페이지와 동일한 배경/텍스트/폰트 설정 */
+html, body {
+  background-color: #0D0D0D;      /* main.css와 동일한 어두운 배경 */
+  color: white;                   /* main.css와 동일한 기본 텍스트 색상 */
+  margin: 0;
+  padding: 0;
+  font-family: 'Pretendard', sans-serif; /* main.css와 동일한 폰트 패밀리 */
+  overflow-x: hidden;             /* 가로 스크롤 방지 */
+}
+
 /* 1) 모바일 스크롤 부드럽게 처리 */
 * {
   -webkit-overflow-scrolling: touch; /* iOS에서 스크롤 끊김 없이 부드럽게 */
