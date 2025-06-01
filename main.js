@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // ─── 전역 변수 선언 ───
+  // ─── 전역 변수 선언 (요소 존재 확인) ───
   const loadingScreen = document.getElementById('loading-screen');
   const progressFill  = document.querySelector('.progress-fill');
   const hamburger     = document.getElementById('hamburger');
   const menuOverlay   = document.getElementById('menu-overlay');
+
+  console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay });
 
   // ─── Body mobile class toggle ───
   function setBodyMobileClass() {
@@ -16,21 +18,32 @@ document.addEventListener('DOMContentLoaded', () => {
   setBodyMobileClass();
   window.addEventListener('resize', setBodyMobileClass);
 
-  // ─── 메뉴 닫기 함수 (전역으로 선언) ───
+  // ─── 메뉴 닫기 함수 (강화된 버전) ───
   function closeMenu() {
-    if (menuOverlay && hamburger) {
+    console.log('Closing menu...');
+    if (menuOverlay) {
       menuOverlay.classList.remove('active');
-      hamburger.classList.remove('active');
-      document.body.style.overflow = '';
     }
+    if (hamburger) {
+      hamburger.classList.remove('active');
+    }
+    document.body.style.overflow = '';
   }
 
   // ─── Typing Animation Function ───
   function startTypingAnimation() {
-    const line1 = "Your brand's journey —";
-    const line2 = "from insight in the Mind to impact that leaves a Mark.";
     const target1 = document.getElementById('typing-line1');
     const target2 = document.getElementById('typing-line2');
+    
+    console.log('Starting typing animation...', { target1, target2 });
+    
+    if (!target1 || !target2) {
+      console.error('Typing targets not found');
+      return;
+    }
+
+    const line1 = "Your brand's journey —";
+    const line2 = "from insight in the Mind to impact that leaves a Mark.";
     const cursor  = '<span class="typing-cursor">|</span>';
     const totalDuration = 1700;
     const interval = totalDuration / (line1.length + line2.length);
@@ -47,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(type2, interval);
       }
     }
+    
     function type2() {
       if (i2 < line2.length) {
         target2.innerHTML = line2.slice(0, i2) + cursor;
@@ -56,47 +70,63 @@ document.addEventListener('DOMContentLoaded', () => {
         target2.textContent = line2;
       }
     }
+    
     type1();
   }
 
-  // ─── 로딩 스크린 처리 ───
-  // Initialize loading progress to 50%
-  if (progressFill) progressFill.style.width = '50%';
+  // ─── 로딩 스크린 처리 (강화된 버전) ───
+  if (progressFill) {
+    progressFill.style.width = '50%';
+    console.log('Loading progress initialized');
+  }
 
-  // On full load: fill to 100%, fade out overlay, show hamburger, start typing
+  // 페이지 로드 완료 시
   window.addEventListener('load', () => {
-    if (progressFill) progressFill.style.width = '100%';
+    console.log('Page loaded, starting animations...');
+    
+    if (progressFill) {
+      progressFill.style.width = '100%';
+    }
 
     setTimeout(() => {
-      // Fade out overlay
+      // 로딩 스크린 페이드 아웃
       if (loadingScreen) {
         loadingScreen.style.transition = 'opacity .5s ease';
-        loadingScreen.style.opacity    = '0';
+        loadingScreen.style.opacity = '0';
+        console.log('Loading screen fading out...');
       }
 
-      // Show hamburger menu
+      // 햄버거 메뉴 표시
       if (hamburger) {
-        hamburger.style.display    = 'flex';
+        hamburger.style.display = 'flex';
         hamburger.style.visibility = 'visible';
-        hamburger.style.opacity    = '1';
+        hamburger.style.opacity = '1';
+        console.log('Hamburger menu shown');
       }
 
-      // Unlock scroll & remove loading class
+      // 스크롤 잠금 해제
       document.body.style.overflow = '';
       document.body.classList.remove('loading');
 
-      // After fade-out, remove overlay and start typing
+      // 로딩 스크린 완전 제거 및 타이핑 시작
       setTimeout(() => {
-        if (loadingScreen) loadingScreen.style.display = 'none';
+        if (loadingScreen) {
+          loadingScreen.style.display = 'none';
+          console.log('Loading screen removed');
+        }
         startTypingAnimation();
       }, 500);
     }, 500);
   });
 
-  // ─── 햄버거 메뉴 토글 ───
+  // ─── 햄버거 메뉴 토글 (디버깅 강화) ───
   if (hamburger && menuOverlay) {
-    hamburger.addEventListener('click', () => {
+    hamburger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
       const isMenuOpen = menuOverlay.classList.contains('active');
+      console.log('Hamburger clicked, menu open:', isMenuOpen);
       
       if (isMenuOpen) {
         closeMenu();
@@ -104,22 +134,43 @@ document.addEventListener('DOMContentLoaded', () => {
         menuOverlay.classList.add('active');
         hamburger.classList.add('active');
         document.body.style.overflow = 'hidden';
+        console.log('Menu opened');
       }
     });
 
-    // 메뉴(링크) 클릭 시 닫기
+    // 메뉴 링크 클릭 시 닫기
     const menuLinks = document.querySelectorAll('#menu-overlay .menu-content a');
-    menuLinks.forEach(link => {
-      link.addEventListener('click', closeMenu);
+    console.log('Menu links found:', menuLinks.length);
+    
+    menuLinks.forEach((link, index) => {
+      link.addEventListener('click', (e) => {
+        console.log(`Menu link ${index} clicked`);
+        closeMenu();
+      });
     });
+  } else {
+    console.error('Hamburger or menu overlay not found!');
   }
 
-  // ─── ESC키로 메뉴 닫기 (수정된 버전) ───
+  // ─── ESC키로 메뉴 닫기 ───
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menuOverlay && menuOverlay.classList.contains('active')) {
-      closeMenu();
+    if (e.key === 'Escape') {
+      console.log('ESC key pressed');
+      if (menuOverlay && menuOverlay.classList.contains('active')) {
+        closeMenu();
+      }
     }
   });
+
+  // ─── 메뉴 오버레이 배경 클릭 시 닫기 ───
+  if (menuOverlay) {
+    menuOverlay.addEventListener('click', (e) => {
+      if (e.target === menuOverlay) {
+        console.log('Menu overlay background clicked');
+        closeMenu();
+      }
+    });
+  }
 
   // ─── Airtable Portfolio Slide Loading ───
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
@@ -129,35 +180,32 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
     headers: { Authorization: `Bearer ${token}` }
   })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
-      // Sort by createdTime and take latest 4
+      console.log('Airtable data loaded:', data);
+      
       const records = data.records
         .sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime))
         .slice(0, 4);
+      
       const sliderContainer = document.getElementById('PortfolioSliderList');
-
-      if (!sliderContainer) return;
-
-      // Optional toggle-more button logic
-      const toggleBtn = document.getElementById('toggle-more');
-      if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-          const hiddenCards = document.querySelectorAll('.hidden-card');
-          const isExpanded = toggleBtn.innerText === 'Show Less';
-          hiddenCards.forEach(card => {
-            card.style.display = isExpanded ? 'none' : 'block';
-          });
-          toggleBtn.innerText = isExpanded ? '+ More' : 'Show Less';
-        });
+      
+      if (!sliderContainer) {
+        console.error('Portfolio slider container not found!');
+        return;
       }
 
       // Create slides
-      records.forEach(record => {
-        const fields      = record.fields;
-        const title       = fields.Title || '제목 없음';
+      records.forEach((record, index) => {
+        const fields = record.fields;
+        const title = fields.Title || '제목 없음';
         const attachments = fields.ImageURL;
-        const imageUrl    = Array.isArray(attachments) && attachments.length > 0
+        const imageUrl = Array.isArray(attachments) && attachments.length > 0
           ? attachments[0].url
           : null;
 
@@ -174,25 +222,30 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="portfolio-placeholder"></div>
             <div class="portfolio-slide-title">${title}</div>
           `;
+        
         sliderContainer.appendChild(slide);
+        console.log(`Portfolio slide ${index + 1} created: ${title}`);
       });
 
-      // ─── Portfolio 이웃 카드 축소 제어 (fetch 완료 후 실행) ───
+      // ─── Portfolio 이웃 카드 축소 제어 ───
       const portfolioSlides = document.querySelectorAll('.portfolio-slide');
+      console.log('Portfolio slides found:', portfolioSlides.length);
+      
       portfolioSlides.forEach((slide, idx) => {
         slide.addEventListener('mouseenter', () => {
-          // 호버된 카드 제외 나머지 전체 축소 룰은 CSS가 이미 적용
-          // 대신 "이웃 하나"만 flex-basis 줄이기 위해 강제 클래스 토글
           portfolioSlides.forEach(s => s.classList.remove('neighbor-shrink'));
+          
           let neighbor;
-          if (idx === 0) neighbor = 1;      // 1호버→2
-          if (idx === 1) neighbor = 2;      // 2호버→3
-          if (idx === 2) neighbor = 1;      // 3호버→2
-          if (idx === 3) neighbor = 2;      // 4호버→3
+          if (idx === 0) neighbor = 1;
+          if (idx === 1) neighbor = 2;
+          if (idx === 2) neighbor = 1;
+          if (idx === 3) neighbor = 2;
+          
           if (neighbor !== undefined && portfolioSlides[neighbor]) {
             portfolioSlides[neighbor].classList.add('neighbor-shrink');
           }
         });
+        
         slide.addEventListener('mouseleave', () => {
           portfolioSlides.forEach(s => s.classList.remove('neighbor-shrink'));
         });
@@ -207,12 +260,14 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       }, { threshold: 0.2 });
+      
       portfolioSlides.forEach(card => portfolioObserver.observe(card));
     })
-    .catch(err => console.error('Airtable fetch error:', err));
+    .catch(err => {
+      console.error('Airtable fetch error:', err);
+    });
 
   // ─── Scroll-Fade Animations ───
-  // fade-up elements
   const fadeEls = document.querySelectorAll('.fade-up');
   if (fadeEls.length > 0) {
     const fadeObserver = new IntersectionObserver(entries => {
@@ -223,7 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { threshold: 0.1 });
+    
     fadeEls.forEach(el => fadeObserver.observe(el));
+    console.log('Fade-up elements initialized:', fadeEls.length);
   }
 
   // about-card elements
@@ -237,6 +294,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { threshold: 0.2 });
+    
     aboutCards.forEach(card => cardObserver.observe(card));
+    console.log('About cards initialized:', aboutCards.length);
   }
+
+  console.log('Main.js initialization complete');
 });
