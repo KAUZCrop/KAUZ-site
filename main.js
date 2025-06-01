@@ -269,7 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(slide);
       }
 
-         // 모바일이 아닐 때만 호버 효과 적용
+ // loadPortfolio 함수 내에서 이벤트 리스너 부분을 다음과 같이 수정:
+
+      // 모바일이 아닐 때만 호버 효과 적용
       const isMobile = window.innerWidth <= 768;
       const slides = container.querySelectorAll('.portfolio-slide');
       
@@ -292,8 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-// 그리고 handleSlideHover 함수도 단순화:
-
       // 개선된 확장 효과 처리 함수
       function handleSlideHover(slides, activeIndex) {
         requestAnimationFrame(() => {
@@ -312,6 +312,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 slide.classList.add('portfolio-shrunk');
               }
             });
+          });
+        });
+      }
+
+      // 슬라이드 초기화 함수
+      function resetSlides(slides) {
+        requestAnimationFrame(() => {
+          slides.forEach(slide => {
+            slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
           });
         });
       }
