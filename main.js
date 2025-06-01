@@ -269,28 +269,53 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(slide);
       }
 
-      // 확장 애니메이션을 위한 이벤트 리스너 (터치 디바이스 고려)
+         // 모바일이 아닐 때만 호버 효과 적용
+      const isMobile = window.innerWidth <= 768;
       const slides = container.querySelectorAll('.portfolio-slide');
       
-      slides.forEach((slide, index) => {
-        // 마우스 이벤트
-        slide.addEventListener('mouseenter', () => {
-          handleSlideHover(slides, index);
+      if (!isMobile) {
+        slides.forEach((slide, index) => {
+          // 마우스 이벤트 (데스크톱만)
+          slide.addEventListener('mouseenter', () => {
+            handleSlideHover(slides, index);
+          });
+          
+          // 클릭 이벤트
+          slide.addEventListener('click', () => {
+            console.log(`Portfolio item ${index + 1} clicked`);
+          });
         });
-        
-        // 터치 이벤트 (모바일)
-        slide.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          handleSlideHover(slides, index);
-        });
-        
-        // 클릭 이벤트 (상세 페이지로 이동 등)
-        slide.addEventListener('click', () => {
-          console.log(`Portfolio item ${index + 1} clicked`);
-          // 여기에 상세 페이지 이동 로직 추가 가능
-        });
-      });
 
+        // 컨테이너에서 마우스가 벗어나면 초기화
+        container.addEventListener('mouseleave', () => {
+          resetSlides(slides);
+        });
+      }
+
+// 그리고 handleSlideHover 함수도 단순화:
+
+      // 개선된 확장 효과 처리 함수
+      function handleSlideHover(slides, activeIndex) {
+        requestAnimationFrame(() => {
+          // 모든 클래스 초기화
+          slides.forEach(slide => {
+            slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+          });
+          
+          requestAnimationFrame(() => {
+            // 활성화된 슬라이드 확장
+            slides[activeIndex].classList.add('portfolio-expanded');
+            
+            // 나머지 슬라이드 축소
+            slides.forEach((slide, index) => {
+              if (index !== activeIndex) {
+                slide.classList.add('portfolio-shrunk');
+              }
+            });
+          });
+        });
+      }
+      
       // 컨테이너에서 마우스가 벗어나면 초기화
       container.addEventListener('mouseleave', () => {
         resetSlides(slides);
