@@ -131,13 +131,13 @@ a:hover {
   transform: translateY(6px);
 }
 
-/* 활성화된 햄버거 (X 모양) - 수정 */
+/* 활성화된 햄버거 (X 모양) - 완벽한 대칭 */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(0px); /* 🔥 수정 */
+  transform: translateY(0) rotate(45deg);
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: rotate(-45deg) translateY(0px); /* 🔥 수정 */
+  transform: translateY(0) rotate(-45deg);
 }
 
 /* 중복 햄버거 CSS 제거 */
