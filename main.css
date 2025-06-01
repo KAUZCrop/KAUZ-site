@@ -425,35 +425,88 @@ body.mobile {
   opacity: 0.6 !important;
 }
 
-/* Contact 섹션 */
+//* ═══════════════════════════════════════════════════════════════
+   왼쪽으로 흘러가는 Contact Us 섹션 (main.css에 추가)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 기존 #contact 스타일 교체 */
 #contact {
   margin-top: 50px;
+  padding: 2rem 0;
+  background-color: #0D0D0D;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
 }
 
-#contact input,
-#contact textarea {
-  display: block;
-  width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+/* 기존 #contact input, textarea, button 스타일 모두 제거 */
+
+.scrolling-text {
+  display: flex;
+  white-space: nowrap;
+  animation: scrollLeft 20s linear infinite;
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 
-#contact button {
-  padding: 0.8rem 1.5rem;
-  background: #000;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
+.scrolling-item {
+  padding-right: 8rem; /* 텍스트 간 간격 */
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: white;
 }
 
-#contact button:hover {
-  background: #333;
+.scrolling-item:hover {
+  color: #ccc;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* 무한 스크롤 애니메이션 */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* 애니메이션 일시정지 (호버 시) */
+#contact:hover .scrolling-text {
+  animation-play-state: paused;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .scrolling-text {
+    font-size: 2.5rem;
+    animation-duration: 15s;
+  }
+  
+  .scrolling-item {
+    padding-right: 4rem;
+  }
+  
+  #contact {
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .scrolling-text {
+    font-size: 1.8rem;
+    animation-duration: 12s;
+  }
+  
+  .scrolling-item {
+    padding-right: 2rem;
+  }
 }
 
 /* Footer */
