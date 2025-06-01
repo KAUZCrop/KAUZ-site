@@ -338,14 +338,15 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   포트폴리오 섹션 - 와이드 풀스크린 (좌우 25px만 남김)
+   포트폴리오 섹션 - 와이드 풀스크린 (오버플로우 방지)
    ═══════════════════════════════════════════════════════════════ */
 
 #PortfolioSlider {
   padding: 3rem 0;
   background-color: #0D0D0D;
-  overflow: hidden;
+  overflow: hidden; /* 중요: 오버플로우 숨김 */
   width: 100%;
+  position: relative;
 }
 
 #PortfolioSlider h2 {
@@ -364,9 +365,10 @@ body.mobile {
   height: 600px;
   margin: 0 25px; /* 좌우 25px 마진 */
   box-sizing: border-box;
+  position: relative;
 }
 
-/* 포트폴리오 카드 */
+/* 포트폴리오 카드 - 기본 상태 */
 .portfolio-slide {
   flex: 0 0 calc(25% - 1.125rem);
   height: 100%;
@@ -394,7 +396,7 @@ body.mobile {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* 플레이스홀더 */
@@ -419,6 +421,7 @@ body.mobile {
   justify-content: space-between;
   align-items: center;
   height: 50px;
+  min-height: 50px; /* 고정 높이 보장 */
 }
 
 .portfolio-brand-name {
@@ -432,16 +435,22 @@ body.mobile {
   text-align: right;
 }
 
-/* 호버 시 확장 효과 - 현재 크기 유지 */
+/* ═══════════════════════════════════════════════════════════════
+   호버 효과 - 오버플로우 방지를 위한 개선
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 확장된 슬라이드 */
 .portfolio-expanded {
-  flex: 0 0 calc(40% - 0.75rem) !important;
+  flex: 0 0 calc(35% - 0.75rem) !important; /* 40%에서 35%로 줄임 */
 }
 
+/* 축소된 슬라이드 */
 .portfolio-shrunk {
-  flex: 0 0 calc(20% - 1rem) !important;
+  flex: 0 0 calc(21.66% - 1rem) !important; /* 균형 맞춤 */
   opacity: 0.7;
 }
 
+/* 호버 효과 스타일 */
 .portfolio-shrunk .portfolio-image-container img {
   filter: brightness(0.6);
 }
@@ -454,8 +463,14 @@ body.mobile {
   opacity: 0.5;
 }
 
+/* 특정 위치의 슬라이드 확장 시 조정 */
+.portfolio-slide:nth-child(3).portfolio-expanded,
+.portfolio-slide:nth-child(4).portfolio-expanded {
+  flex: 0 0 calc(33% - 0.75rem) !important; /* 오른쪽 슬라이드는 더 작게 */
+}
+
 /* ═══════════════════════════════════════════════════════════════
-   모바일 대응 - 2x2 그리드, 스크롤 문제 해결
+   모바일 대응 - 2x2 그리드
    ═══════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
@@ -463,7 +478,6 @@ body.mobile {
     padding: 2rem 0;
     overflow: visible !important;
     width: 100%;
-    position: relative;
   }
   
   #PortfolioSlider h2 {
@@ -482,7 +496,6 @@ body.mobile {
     margin: 0 1rem;
     width: calc(100% - 2rem);
     overflow: visible !important;
-    position: relative;
   }
   
   /* 모바일 슬라이드 */
@@ -492,15 +505,14 @@ body.mobile {
     height: 200px;
     display: block;
     cursor: default;
-    position: relative;
-    pointer-events: none; /* 이미지 영역 터치 이벤트 비활성화 */
+    pointer-events: none;
   }
   
   /* 모바일 이미지 컨테이너 */
   .portfolio-image-container {
     width: 100%;
     height: 100%;
-    pointer-events: none; /* 터치 이벤트 비활성화 */
+    pointer-events: none;
   }
   
   /* 모바일에서 브랜드명 숨김 */
@@ -523,6 +535,13 @@ body.mobile {
     transform: none !important;
     filter: none !important;
   }
+  
+  /* 3번째, 4번째 슬라이드도 동일하게 처리 */
+  .portfolio-slide:nth-child(3).portfolio-expanded,
+  .portfolio-slide:nth-child(4).portfolio-expanded {
+    flex: none !important;
+    width: 100% !important;
+  }
 }
 
 /* 작은 모바일 */
@@ -540,6 +559,40 @@ body.mobile {
   #PortfolioSlider h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   모바일 스크롤 보장
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  html {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+  
+  body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    position: relative !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  main {
+    overflow: visible !important;
+  }
+  
+  /* 포트폴리오 영역 터치 설정 */
+  #PortfolioSlider,
+  .portfolio-container,
+  .portfolio-slide,
+  .portfolio-image-container {
+    touch-action: pan-y;
   }
 }
 
@@ -673,14 +726,14 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Footer - 중앙 정렬, 배경색 통일
+   Footer - 웹: 중앙 정렬, 모바일: 좌우 정렬
    ═══════════════════════════════════════════════════════════════ */
 
 .site-footer {
   background-color: #0D0D0D; /* 배경색과 동일하게 */
   color: #fff;
   display: flex;
-  justify-content: center; /* 중앙 정렬 */
+  justify-content: center; /* 웹에서는 중앙 정렬 */
   align-items: center;
   gap: 2rem; /* 두 요소 사이 간격 */
   padding: 2rem;
@@ -718,16 +771,55 @@ body.mobile {
   height: 20px;
 }
 
-/* 모바일 푸터 */
+/* ═══════════════════════════════════════════════════════════════
+   모바일 푸터 - 좌우 정렬
+   ═══════════════════════════════════════════════════════════════ */
+
 @media (max-width: 768px) {
   .site-footer {
-    flex-direction: column;
+    justify-content: space-between; /* 좌우 정렬 */
+    align-items: center;
+    flex-direction: row; /* 가로 배치 유지 */
+    flex-wrap: nowrap; /* 줄바꿈 방지 */
     gap: 1rem;
-    padding: 1.5rem;
+    padding: 1.5rem 1rem; /* 좌우 패딩 추가 */
+  }
+  
+  .footer-left {
+    font-size: 0.8rem; /* 모바일에서 약간 작게 */
   }
   
   .footer-right {
     margin-top: 0;
+    font-size: 0.8rem; /* 모바일에서 약간 작게 */
+  }
+  
+  .footer-follow-link {
+    gap: 0.3rem; /* 간격 조정 */
+  }
+  
+  .share-icon,
+  .footer-logo {
+    width: 16px; /* 아이콘 크기 조정 */
+    height: 16px;
+  }
+}
+
+/* 작은 모바일 대응 */
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 1rem 0.5rem; /* 더 작은 패딩 */
+  }
+  
+  .footer-left,
+  .footer-right {
+    font-size: 0.75rem; /* 더 작은 폰트 */
+  }
+  
+  .share-icon,
+  .footer-logo {
+    width: 14px;
+    height: 14px;
   }
 }
 
