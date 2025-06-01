@@ -172,101 +172,117 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── Airtable Portfolio Slide Loading ───
-  const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
-  const baseId = 'appglO0MOXGY7CITU';
-  const tableName = 'Table%201';
+  /// main.js에서 Airtable 포트폴리오 부분을 이렇게 교체하세요
 
-  fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
-    headers: { Authorization: `Bearer ${token}` }
+// ─── Airtable Portfolio Loading (정확한 요구사항 적용) ───
+const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
+const baseId = 'appglO0MOXGY7CITU';
+const tableName = 'Table%201';
+
+fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
+  headers: { Authorization: `Bearer ${token}` }
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Airtable data loaded:', data);
-      
-      const records = data.records
-        .sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime))
-        .slice(0, 4);
-      
-      const sliderContainer = document.getElementById('PortfolioSliderList');
-      
-      if (!sliderContainer) {
-        console.error('Portfolio slider container not found!');
-        return;
-      }
+  .then(data => {
+    console.log('Airtable data loaded:', data);
+    
+    // 최신 4개만 가져오기
+    const records = data.records
+      .sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime))
+      .slice(0, 4);
+    
+    const container = document.getElementById('PortfolioSliderList');
+    
+    if (!container) {
+      console.error('Portfolio container not found!');
+      return;
+    }
 
-      // Create slides
-      records.forEach((record, index) => {
+    // 기존 내용 제거
+    container.innerHTML = '';
+
+    // 정확히 4개 항목 생성 (빈 슬롯도 포함)
+    for (let i = 0; i < 4; i++) {
+      const record = records[i];
+      const slide = document.createElement('div');
+      slide.className = 'portfolio-slide';
+      
+      if (record) {
         const fields = record.fields;
         const title = fields.Title || '제목 없음';
         const attachments = fields.ImageURL;
-        const imageUrl = Array.isArray(attachments) && attachments.length > 0
-          ? attachments[0].url
-          : null;
-
-        const slide = document.createElement('div');
-        slide.className = 'portfolio-slide';
-        slide.innerHTML = imageUrl
-          ? `
+        const hasImage = Array.isArray(attachments) && attachments.length > 0;
+        
+        if (hasImage) {
+          // 이미지가 있는 경우
+          slide.innerHTML = `
             <div class="portfolio-image-container">
-              <img src="${imageUrl}" alt="${title}" loading="lazy" />
+              <img src="${attachments[0].url}" alt="${title}" loading="lazy" />
             </div>
             <div class="portfolio-slide-title">${title}</div>
-          `
-          : `
+          `;
+        } else {
+          // 이미지가 없는 경우 - 흰색 박스
+          slide.innerHTML = `
             <div class="portfolio-placeholder"></div>
             <div class="portfolio-slide-title">${title}</div>
           `;
-        
-        sliderContainer.appendChild(slide);
-        console.log(`Portfolio slide ${index + 1} created: ${title}`);
-      });
-
-      // ─── Portfolio 이웃 카드 축소 제어 ───
-      const portfolioSlides = document.querySelectorAll('.portfolio-slide');
-      console.log('Portfolio slides found:', portfolioSlides.length);
+        }
+      } else {
+        // 데이터가 없는 경우 - 빈 흰색 박스
+        slide.innerHTML = `
+          <div class="portfolio-placeholder"></div>
+          <div class="portfolio-slide-title">제목 없음</div>
+        `;
+      }
       
-      portfolioSlides.forEach((slide, idx) => {
-        slide.addEventListener('mouseenter', () => {
-          portfolioSlides.forEach(s => s.classList.remove('neighbor-shrink'));
-          
-          let neighbor;
-          if (idx === 0) neighbor = 1;
-          if (idx === 1) neighbor = 2;
-          if (idx === 2) neighbor = 1;
-          if (idx === 3) neighbor = 2;
-          
-          if (neighbor !== undefined && portfolioSlides[neighbor]) {
-            portfolioSlides[neighbor].classList.add('neighbor-shrink');
-          }
+      container.appendChild(slide);
+    }
+
+    // 정확한 호버 효과를 위한 이벤트 리스너
+    const slides = container.querySelectorAll('.portfolio-slide');
+    
+    slides.forEach((slide, index) => {
+      slide.addEventListener('mouseenter', () => {
+        // 모든 특수 클래스 제거
+        slides.forEach(s => {
+          s.classList.remove('portfolio-expanded', 'neighbor-shrink');
         });
         
-        slide.addEventListener('mouseleave', () => {
-          portfolioSlides.forEach(s => s.classList.remove('neighbor-shrink'));
+        // 현재 슬라이드 확장
+        slide.classList.add('portfolio-expanded');
+        
+        // 이웃 슬라이드 축소 규칙 적용
+        if (index === 0 && slides[1]) {
+          slides[1].classList.add('neighbor-shrink'); // 1→2
+        } else if (index === 1 && slides[2]) {
+          slides[2].classList.add('neighbor-shrink'); // 2→3
+        } else if (index === 2 && slides[1]) {
+          slides[1].classList.add('neighbor-shrink'); // 3→2
+        } else if (index === 3 && slides[2]) {
+          slides[2].classList.add('neighbor-shrink'); // 4→3
+        }
+      });
+      
+      slide.addEventListener('mouseleave', () => {
+        // 모든 효과 제거
+        slides.forEach(s => {
+          s.classList.remove('portfolio-expanded', 'neighbor-shrink');
         });
       });
-
-      // Portfolio slides intersection observer
-      const portfolioObserver = new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      
-      portfolioSlides.forEach(card => portfolioObserver.observe(card));
-    })
-    .catch(err => {
-      console.error('Airtable fetch error:', err);
     });
 
+    console.log('Portfolio with exact hover effects created successfully');
+  })
+  .catch(err => {
+    console.error('Airtable fetch error:', err);
+  });
+  
   // ─── Scroll-Fade Animations ───
   const fadeEls = document.querySelectorAll('.fade-up');
   if (fadeEls.length > 0) {
