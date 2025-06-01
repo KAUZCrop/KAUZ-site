@@ -170,7 +170,7 @@ a:hover {
   z-index: 9999;
 }
 
-.menu-overlay.active {
+.menu-overlay.open {
   opacity: 1;
   pointer-events: auto;
 }
