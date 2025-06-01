@@ -332,108 +332,170 @@ body.mobile {
   margin-bottom: 2rem;
 }
 
-/* Portfolio 영역 */
-:root {
-  --gap: 16px;
-  --expand-scale: 1.15;
-  --shrink-scale: 0.92;
-}
-
 /* ═══════════════════════════════════════════════════════════════
-   포트폴리오 호버 시 텍스트 잘림 방지 수정
-   main.css에서 해당 부분을 찾아 교체하세요
+   정확한 요구사항에 따른 포트폴리오 스타일
    ═══════════════════════════════════════════════════════════════ */
 
-/* 포트폴리오 슬라이더 컨테이너 수정 */
+/* 기존 포트폴리오 관련 CSS 모두 삭제하고 아래 코드로 교체 */
+
 #PortfolioSlider {
-  overflow: visible; /* hidden에서 visible로 변경 */
-  padding: 0 15px;
-  box-sizing: border-box;
+  padding: 4rem 2rem;
+  background-color: #0D0D0D;
+  overflow: hidden; /* 좌우 스크롤 방지 */
 }
 
-.portfolio-slider {
+#PortfolioSlider h2 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: white;
+}
+
+/* 포트폴리오 컨테이너 - 한 줄로 고정 */
+.portfolio-container {
   display: flex;
-  gap: var(--gap);
-  justify-content: space-between;
-  overflow: visible; /* hidden에서 visible로 변경 */
-  padding-bottom: 4rem; /* 텍스트 공간 확보 위해 증가 */
+  gap: 16px;
+  width: 100%;
+  overflow: hidden; /* 스크롤 방지 */
 }
 
-/* 포트폴리오 카드 수정 */
+/* 포트폴리오 카드 */
 .portfolio-slide {
-  width: calc((100% - 3 * var(--gap)) / 4);
-  flex-shrink: 0;
-  box-sizing: border-box;
-  overflow: visible; /* 모든 overflow를 visible로 변경 */
-  transition: transform .3s ease, opacity .3s ease;
+  flex: 1; /* 4등분 */
+  min-width: 0; /* flex 축소 허용 */
+  transition: all 0.3s ease;
   position: relative;
-  background: transparent;
 }
 
-/* 카드 제목 스타일 개선 */
+/* 이미지 컨테이너 */
+.portfolio-image-container {
+  width: 100%;
+  padding-bottom: 75%; /* 4:3 비율 */
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff; /* 이미지 없을 때 흰색 */
+}
+
+.portfolio-image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 플레이스홀더 (이미지 없을 때) */
+.portfolio-placeholder {
+  width: 100%;
+  padding-bottom: 75%;
+  background-color: #ffffff;
+}
+
+/* 브랜드명 스타일 - 박스 없음 */
 .portfolio-slide-title {
-  margin-top: .5rem;
-  font-size: .9rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
   color: white;
   text-align: left;
-  white-space: normal;
-  overflow: visible; /* visible로 변경 */
-  text-overflow: unset;
-  word-break: break-word; /* break-all에서 break-word로 변경 */
-  line-height: 1.4; /* 줄 간격 추가 */
-  min-height: 3rem; /* 최소 높이 보장 */
-  z-index: 10; /* 다른 요소 위에 표시 */
-  position: relative;
+  line-height: 1.4;
+  word-break: break-word;
+  /* 박스 관련 스타일 제거 */
 }
 
-/* 호버된 카드의 제목이 위에 표시되도록 */
-.portfolio-slide:hover .portfolio-slide-title {
-  z-index: 20;
-  background-color: rgba(0, 0, 0, 0.8); /* 배경 추가로 가독성 향상 */
-  padding: 0.5rem;
-  border-radius: 4px;
-  margin-top: 0.5rem;
+/* 호버 효과 - 정확한 규칙 적용 */
+
+/* 1번 이미지 호버 시 왼쪽으로 확장, 2번 우측 30px 감소 */
+.portfolio-slide:nth-child(1):hover {
+  flex: 1.3; /* 확장 */
+}
+.portfolio-slide:nth-child(1):hover + .portfolio-slide:nth-child(2) {
+  margin-right: 30px; /* 2번 우측 30px 감소 */
 }
 
-/* 호버 시 확장된 카드가 다른 요소를 가리지 않도록 z-index 조정 */
-.portfolio-slide:nth-child(1):hover,
+/* 2번 이미지 호버 시 왼쪽으로 확장, 3번 우측 30px 감소 */
 .portfolio-slide:nth-child(2):hover {
-  transform-origin: left center;
-  transform: scaleX(var(--expand-scale)) scaleY(var(--expand-scale));
-  z-index: 15; /* 기존 2에서 15로 증가 */
+  flex: 1.3; /* 확장 */
+}
+.portfolio-slide:nth-child(2):hover + .portfolio-slide:nth-child(3) {
+  margin-right: 30px; /* 3번 우측 30px 감소 */
 }
 
-.portfolio-slide:nth-child(3):hover,
+/* 3번 이미지 호버 시 오른쪽으로 확장, 2번 우측 30px 감소 */
+.portfolio-slide:nth-child(3):hover {
+  flex: 1.3; /* 확장 */
+}
+.portfolio-container:has(.portfolio-slide:nth-child(3):hover) .portfolio-slide:nth-child(2) {
+  margin-right: 30px; /* 2번 우측 30px 감소 */
+}
+
+/* 4번 이미지 호버 시 오른쪽으로 확장, 3번 우측 30px 감소 */
 .portfolio-slide:nth-child(4):hover {
-  transform-origin: right center;
-  transform: scaleX(var(--expand-scale)) scaleY(var(--expand-scale));
-  z-index: 15; /* 기존 2에서 15로 증가 */
+  flex: 1.3; /* 확장 */
+}
+.portfolio-container:has(.portfolio-slide:nth-child(4):hover) .portfolio-slide:nth-child(3) {
+  margin-right: 30px; /* 3번 우측 30px 감소 */
 }
 
-/* 모바일에서는 기존 스타일 유지 */
+/* 호버 해제 시 원상복귀 */
+.portfolio-slide {
+  margin-right: 0;
+  transition: all 0.3s ease;
+}
+
+/* :has() 지원하지 않는 브라우저용 대체 방법 */
+.portfolio-slide:nth-child(3):hover ~ .portfolio-slide:nth-child(2),
+.portfolio-slide:nth-child(4):hover ~ .portfolio-slide:nth-child(3) {
+  margin-right: 30px;
+}
+
+/* JavaScript로 제어할 클래스들 */
+.neighbor-shrink {
+  margin-right: 30px !important;
+}
+
+.portfolio-expanded {
+  flex: 1.3 !important;
+}
+
+/* 모바일 대응 */
 @media (max-width: 768px) {
-  .portfolio-slider {
-    flex-wrap: wrap;
-    gap: 8px;
-    overflow: hidden; /* 모바일에서는 hidden 유지 */
+  .portfolio-container {
+    flex-direction: column;
+    gap: 1rem;
   }
   
   .portfolio-slide {
-    width: calc((100% - var(--gap)) / 2) !important;
-    transform: none !important;
-    opacity: 1 !important;
-    overflow: hidden; /* 모바일에서는 hidden 유지 */
+    flex: none;
   }
   
-  .portfolio-slide-title {
-    background-color: transparent;
-    padding: 0;
-    min-height: auto;
+  .portfolio-slide:hover {
+    flex: none;
   }
   
-  .portfolio-slide:hover .portfolio-slide-title {
-    background-color: transparent;
-    padding: 0;
+  /* 모바일에서는 호버 효과 제거 */
+  .portfolio-slide:nth-child(1):hover + .portfolio-slide:nth-child(2),
+  .portfolio-slide:nth-child(2):hover + .portfolio-slide:nth-child(3),
+  .portfolio-container:has(.portfolio-slide:nth-child(3):hover) .portfolio-slide:nth-child(2),
+  .portfolio-container:has(.portfolio-slide:nth-child(4):hover) .portfolio-slide:nth-child(3) {
+    margin-right: 0;
+  }
+  
+  .neighbor-shrink {
+    margin-right: 0 !important;
+  }
+  
+  .portfolio-expanded {
+    flex: none !important;
+  }
+  
+  #PortfolioSlider {
+    padding: 2rem 1rem;
+  }
+  
+  #PortfolioSlider h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
   }
 }
 
