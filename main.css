@@ -425,14 +425,17 @@ body.mobile {
   opacity: 0.6 !important;
 }
 
-//* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    왼쪽으로 흘러가는 Contact Us 섹션 (main.css에 추가)
    ═══════════════════════════════════════════════════════════════ */
+
+/* 세로로 긴 상업용 폰트 import */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 /* 기존 #contact 스타일 교체 */
 #contact {
   margin-top: 50px;
-  padding: 2rem 0;
+  padding: 4rem 0; /* 영역 확대 */
   background-color: #0D0D0D;
   color: white;
   overflow: hidden;
@@ -446,16 +449,18 @@ body.mobile {
 .scrolling-text {
   display: flex;
   white-space: nowrap;
-  animation: scrollLeft 20s linear infinite;
-  font-size: 4rem;
-  font-weight: bold;
+  animation: scrollLeft 15s linear infinite; /* 웹 15초로 수정 */
+  font-size: 6rem; /* 웹에서 40p 크게 (4rem → 6rem) */
+  font-weight: 400;
   color: white;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0; /* 자간 제거 */
+  font-family: 'Bebas Neue', sans-serif; /* 세로로 긴 폰트 */
+  line-height: 1;
 }
 
 .scrolling-item {
-  padding-right: 8rem; /* 텍스트 간 간격 */
+  padding-right: 3rem; /* 간격 조정 */
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -465,6 +470,13 @@ body.mobile {
 .scrolling-item:hover {
   color: #ccc;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* 구분자 스타일 */
+.divider {
+  padding: 0 3rem; /* 구분자 양쪽 간격 */
+  color: white;
+  font-weight: 400;
 }
 
 /* 무한 스크롤 애니메이션 */
@@ -486,26 +498,38 @@ body.mobile {
 @media (max-width: 768px) {
   .scrolling-text {
     font-size: 2.5rem;
-    animation-duration: 15s;
+    animation-duration: 12s;
   }
   
   .scrolling-item {
-    padding-right: 4rem;
+    padding-right: 2rem;
+  }
+  
+  .divider {
+    padding: 0 2rem;
   }
   
   #contact {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
   }
 }
 
 @media (max-width: 480px) {
   .scrolling-text {
     font-size: 1.8rem;
-    animation-duration: 12s;
+    animation-duration: 10s;
   }
   
   .scrolling-item {
-    padding-right: 2rem;
+    padding-right: 1.5rem;
+  }
+  
+  .divider {
+    padding: 0 1.5rem;
+  }
+  
+  #contact {
+    padding: 1.5rem 0;
   }
 }
 
