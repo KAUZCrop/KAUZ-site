@@ -170,7 +170,7 @@ a:hover {
   z-index: 9999;
 }
 
-.menu-overlay.open {
+.menu-overlay.active {
   opacity: 1;
   pointer-events: auto;
 }
@@ -197,10 +197,10 @@ a:hover {
   animation: menuFadeIn 0.6s ease forwards;
 }
 
-.menu-overlay.open .menu-content a:nth-child(1) { animation-delay: 0.1s; }
-.menu-overlay.open .menu-content a:nth-child(2) { animation-delay: 0.2s; }
-.menu-overlay.open .menu-content a:nth-child(3) { animation-delay: 0.3s; }
-.menu-overlay.open .menu-content a:nth-child(4) { animation-delay: 0.4s; }
+.menu-overlay.active .menu-content a:nth-child(1) { animation-delay: 0.1s; }
+.menu-overlay.active .menu-content a:nth-child(2) { animation-delay: 0.2s; }
+.menu-overlay.active .menu-content a:nth-child(3) { animation-delay: 0.3s; }
+.menu-overlay.active .menu-content a:nth-child(4) { animation-delay: 0.4s; }
 
 @keyframes menuFadeIn {
   to {
