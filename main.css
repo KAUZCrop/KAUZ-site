@@ -426,7 +426,7 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   왼쪽으로 흘러가는 Contact Us 섹션 (main.css에 추가)
+   왼쪽으로 흘러가는 Contact Us 섹션
    ═══════════════════════════════════════════════════════════════ */
 
 /* 세로로 긴 상업용 폰트 import */
@@ -435,7 +435,7 @@ body.mobile {
 /* 기존 #contact 스타일 교체 */
 #contact {
   margin-top: 50px;
-  padding: 4rem 0; /* 영역 확대 */
+  padding: 4rem 0;
   background-color: #0D0D0D;
   color: white;
   overflow: hidden;
@@ -444,23 +444,21 @@ body.mobile {
   border-bottom: 1px solid #333;
 }
 
-/* 기존 #contact input, textarea, button 스타일 모두 제거 */
-
 .scrolling-text {
   display: flex;
   white-space: nowrap;
-  animation: scrollLeft 15s linear infinite; /* 웹 15초로 수정 */
-  font-size: 6rem; /* 웹에서 40p 크게 (4rem → 6rem) */
+  animation: scrollLeft 15s linear infinite;
+  font-size: 6rem;
   font-weight: 400;
   color: white;
   text-transform: uppercase;
-  letter-spacing: 0; /* 자간 제거 */
-  font-family: 'Bebas Neue', sans-serif; /* 세로로 긴 폰트 */
+  letter-spacing: 0;
+  font-family: 'Bebas Neue', sans-serif;
   line-height: 1;
 }
 
 .scrolling-item {
-  padding-right: 3rem; /* 간격 조정 */
+  padding-right: 0;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -469,14 +467,15 @@ body.mobile {
 
 .scrolling-item:hover {
   color: #ccc;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 /* 구분자 스타일 */
 .divider {
-  padding: 0 3rem; /* 구분자 양쪽 간격 */
+  padding: 0 1rem;
   color: white;
   font-weight: 400;
+  font-size: 6rem;
+  line-height: 1;
 }
 
 /* 무한 스크롤 애니메이션 */
@@ -489,11 +488,6 @@ body.mobile {
   }
 }
 
-/* 애니메이션 일시정지 (호버 시) */
-#contact:hover .scrolling-text {
-  animation-play-state: paused;
-}
-
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .scrolling-text {
@@ -502,11 +496,12 @@ body.mobile {
   }
   
   .scrolling-item {
-    padding-right: 2rem;
+    padding-right: 0;
   }
   
   .divider {
-    padding: 0 2rem;
+    padding: 0 0.8rem;
+    font-size: 2.5rem;
   }
   
   #contact {
@@ -521,11 +516,12 @@ body.mobile {
   }
   
   .scrolling-item {
-    padding-right: 1.5rem;
+    padding-right: 0;
   }
   
   .divider {
-    padding: 0 1.5rem;
+    padding: 0 0.6rem;
+    font-size: 1.8rem;
   }
   
   #contact {
