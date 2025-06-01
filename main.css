@@ -480,79 +480,166 @@ body.mobile {
   background: linear-gradient(transparent, rgba(255, 215, 87, 0.9));
 }
 
-/* 태블릿 대응 */
-@media (max-width: 1024px) {
-  #PortfolioSlider {
-    height: 500px;
-  }
-  
-  .portfolio-container {
-    height: 400px;
-  }
-  
-  .portfolio-slide-title {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-}
-
-/* 모바일 대응 - 세로 스택 */
+/* 모바일 대응 - 한줄 배치 + 스크롤 문제 해결 */
 @media (max-width: 768px) {
   #PortfolioSlider {
     padding: 2rem 0;
-    height: auto;
-    margin-left: 0;
+    height: auto; /* 고정 높이 제거 */
+    margin-left: 0; /* 와이드 효과 제거 */
     width: 100%;
+    overflow: visible; /* 스크롤 허용 */
   }
   
   .portfolio-container {
-    flex-direction: column;
-    height: auto;
-    gap: 1rem;
-    padding: 0 1rem;
+    display: flex; /* grid에서 flex로 변경 */
+    flex-direction: row; /* 가로 배치 강제 */
+    gap: 0.8rem;
+    height: auto; /* 고정 높이 제거 */
+    margin: 0 0.5rem; /* 좌우 마진 축소 */
+    width: calc(100% - 1rem);
+    overflow-x: auto; /* 가로 스크롤 허용 */
+    overflow-y: visible;
+    padding-bottom: 1rem; /* 하단 여백 */
   }
   
   .portfolio-slide {
-    flex: none;
-    height: 300px;
+    flex: 0 0 250px; /* 고정 너비로 4개 배치 */
+    height: 300px; /* 고정 높이 */
+    min-width: 250px; /* 최소 너비 보장 */
   }
   
-  .portfolio-slide:hover {
-    flex: none;
-  }
-  
-  .portfolio-container:hover .portfolio-slide:not(:hover) {
-    flex: none;
-    opacity: 1;
+  .portfolio-image-container,
+  .portfolio-placeholder {
+    height: calc(100% - 60px); /* 텍스트 공간 확보 */
   }
   
   .portfolio-slide-title {
-    position: static;
-    transform: none;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 1rem;
-    font-size: 0.9rem;
-  }
-  
-  #PortfolioSlider h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-}
-
-/* 작은 모바일 대응 */
-@media (max-width: 480px) {
-  .portfolio-slide {
-    height: 250px;
-  }
-  
-  .portfolio-slide-title {
-    font-size: 0.8rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px; /* 고정 높이 */
     padding: 0.8rem;
+    font-size: 0.8rem;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column; /* 모바일에서는 세로 배치 */
+    justify-content: center;
+  }
+  
+  .portfolio-slide-category {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 0.2rem;
+  }
+  
+  /* 모바일에서는 모든 호버 효과 제거 */
+  .portfolio-slide:hover {
+    flex: 0 0 250px !important;
+  }
+  
+  .portfolio-expanded,
+  .portfolio-shrunk {
+    flex: 0 0 250px !important;
+    opacity: 1 !important;
+  }
+  
+  .portfolio-expanded .portfolio-slide-title {
+    padding: 0.8rem;
+    font-size: 0.8rem;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .portfolio-expanded .portfolio-slide-category {
+    opacity: 0.7;
+    transform: none;
   }
   
   #PortfolioSlider h2 {
     font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+/* 작은 모바일 대응 - 더 작은 카드 */
+@media (max-width: 480px) {
+  .portfolio-slide {
+    flex: 0 0 200px; /* 더 작은 고정 너비 */
+    height: 250px;
+    min-width: 200px;
+  }
+  
+  .portfolio-container {
+    margin: 0 0.3rem;
+    width: calc(100% - 0.6rem);
+    gap: 0.5rem;
+  }
+  
+  .portfolio-slide-title {
+    height: 50px;
+    padding: 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  .portfolio-slide-category {
+    font-size: 0.65rem;
+  }
+  
+  .portfolio-image-container,
+  .portfolio-placeholder {
+    height: calc(100% - 50px);
+  }
+  
+  #PortfolioSlider h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* 웹 스크롤링 텍스트 모바일 수정 (기존 main.css에서 수정) */
+@media (max-width: 768px) {
+  .scrolling-text {
+    font-size: 2.5rem;
+    animation-duration: 12s;
+    transform: none; /* 모바일에서 높이 변형 제거 */
+  }
+  
+  .scrolling-item {
+    padding-right: 0;
+  }
+  
+  .divider {
+    padding: 0 0.8rem;
+    font-size: 2.5rem;
+  }
+  
+  #contact {
+    padding: 2rem 0;
+    overflow: hidden; /* 가로 스크롤 방지 */
+  }
+}
+
+@media (max-width: 480px) {
+  .scrolling-text {
+    font-size: 1.8rem;
+    animation-duration: 10s;
+    transform: none; /* 작은 모바일에서도 높이 변형 제거 */
+  }
+  
+  .scrolling-item {
+    padding-right: 0;
+  }
+  
+  .divider {
+    padding: 0 0.6rem;
+    font-size: 1.8rem;
+  }
+  
+  #contact {
+    padding: 1.5rem 0;
+    overflow: hidden; /* 가로 스크롤 방지 유지 */
   }
 }
 
@@ -802,8 +889,20 @@ body.menu-open {
   height: 100vh;
 }
 
-/* 모바일 대응 */
+/* main.css의 기존 모바일 부분을 이렇게 교체하세요 */
+
+/* 모바일 대응 - 스크롤 문제 해결 */
 @media (max-width: 768px) {
+  /* 전역 설정 */
+  body {
+    overflow-x: hidden;
+    overflow-y: auto; /* 세로 스크롤 보장 */
+  }
+  
+  main {
+    overflow: visible;
+  }
+  
   .logo {
     height: 52px;
   }
@@ -857,20 +956,48 @@ body.menu-open {
     text-align: left !important;
   }
 
-  .portfolio-slider {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .portfolio-slide {
-    width: calc((100% - var(--gap)) / 2) !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
   body.mobile .about-left,
   body.mobile .about-right {
     padding-left: 0.2rem !important;
     padding-right: 0.2rem !important;
+  }
+  
+  /* Contact 스크롤링 텍스트 */
+  .scrolling-text {
+    font-size: 2.5rem;
+    animation-duration: 12s;
+    transform: none; /* 모바일에서 scaleY 제거 */
+  }
+  
+  .scrolling-item {
+    padding-right: 0;
+  }
+  
+  .divider {
+    padding: 0 0.8rem;
+    font-size: 2.5rem;
+  }
+  
+  #contact {
+    padding: 2rem 0;
+    overflow: hidden; /* 가로 스크롤만 방지 */
+  }
+}
+
+/* 작은 모바일 추가 설정 */
+@media (max-width: 480px) {
+  .scrolling-text {
+    font-size: 1.8rem;
+    animation-duration: 10s;
+    transform: none; /* 작은 모바일에서도 변형 제거 */
+  }
+  
+  .divider {
+    padding: 0 0.6rem;
+    font-size: 1.8rem;
+  }
+  
+  #contact {
+    padding: 1.5rem 0;
   }
 }
