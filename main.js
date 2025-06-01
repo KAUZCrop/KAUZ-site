@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Hamburger menu toggle
   if (hamburger && menuOverlay) {
     hamburger.addEventListener('click', () => {
-      menuOverlay.classList.toggle('open');
+      menuOverlay.classList.toggle('active');
     });
   }
 
