@@ -90,7 +90,7 @@ a:hover {
   display: block;
 }
 
-/* 햄버거 아이콘 - 수정된 버전 */
+* 햄버거 아이콘 - 수정된 버전 */
 .hamburger {
   position: fixed;
   top: 1.5rem;
@@ -99,16 +99,13 @@ a:hover {
   height: 28px;
   z-index: 10001;
   cursor: pointer;
-  display: none; /* 🔥 초기에는 숨김 */
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: transparent;
   border: none;
   padding: 0;
-  visibility: hidden; /* 🔥 추가 */
-  opacity: 0; /* 🔥 추가 */
-  transition: all 0.3s ease; /* 🔥 추가 */
 }
 
 .hamburger span {
@@ -119,10 +116,10 @@ a:hover {
   border-radius: 2px;
   transition: all 0.3s ease;
   transform-origin: center;
-  display: block; /* 🔥 명시적으로 추가 */
+  display: block;
 }
 
-/* 기본 햄버거 상태 - 수정 */
+/* 기본 햄버거 상태 */
 .hamburger span:nth-child(1) {
   transform: translateY(-6px);
 }
@@ -131,7 +128,7 @@ a:hover {
   transform: translateY(6px);
 }
 
-/* 활성화된 햄버거 (X 모양) - 완벽한 대칭 */
+/* 활성화된 햄버거 (완벽한 대칭 X 모양) */
 .hamburger.active span:nth-child(1) {
   transform: translateY(0) rotate(45deg);
 }
