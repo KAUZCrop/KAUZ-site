@@ -4,15 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KAUZ</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/about.css" />
-  <link rel="icon" href="LOGO/LOGO.png" type="image/png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../LOGO/LOGO.png" type="image/png">
+
+  <!-- 마우스 오른쪽 클릭 방지 -->
   <script>
-  document.addEventListener('contextmenu', e => e.preventDefault());
-</script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+  </script>
 </head>
 <body>
-  <!-- Loading Overlay -->
+
+<!-- ✅ 로딩 화면 -->
 <div id="loading-screen">
   <div class="loading-content">
     <p>Loading...</p>
@@ -22,16 +29,17 @@
   </div>
 </div>
 
- <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-    </div>
-  
-  <!-- 메뉴 오버레이 -->
-<div id="menu-overlay" class="menu-overlay">
- <div class="logo">
-  <img src="LOGO/LOGO_1.png" alt="MIND MARK Logo" class="logo-img" />
+<!-- ✅ 햄버거 메뉴 -->
+<div class="hamburger" id="hamburger">
+  <span></span>
+  <span></span>
 </div>
+
+<!-- ✅ 메뉴 오버레이 -->
+<div id="menu-overlay" class="menu-overlay">
+  <div class="logo">
+    <img src="../LOGO/LOGO_1.png" alt="MIND MARK Logo" class="logo-img" />
+  </div>
   <div class="menu-content">
     <a href="#top">HOME</a>
     <a href="#about">ABOUT US</a>
@@ -40,17 +48,17 @@
   </div>
 </div>
 
-<!-- ✅ 영상 배경 포함된 상단 전체 구조 -->
+<!-- ✅ 영상 배경 포함 상단 -->
 <div class="hero-video-section">
   <video class="hero-slogan-video" autoplay muted loop playsinline>
-    <source src="Video/plight-bg.mp4" type="video/mp4" />
+    <source src="../VIdeo/Plight-Bg.mp4" type="video/mp4" />
   </video>
 
- <div class="navbar">
- <div class="logo">
-  <img src="LOGO/LOGO_1.png" alt="MIND MARK Logo" class="logo-img" />
-</div>
-</div>
+  <div class="navbar">
+    <div class="logo">
+      <img src="../LOGO/LOGO_1.png" alt="MIND MARK Logo" class="logo-img" />
+    </div>
+  </div>
 
   <div class="hero-slogan">
     <div class="slogan-line" id="typing-line1"></div>
@@ -58,53 +66,55 @@
   </div>
 </div>
 
-  <main>
-   <section id="about" class="about-custom">
-  <div class="about-row">
-    <div class="about-left aligned-left">
-      <h3 class="fade-up">Who We Are</h3>
-      <p class="fade-up">
-        Insight에서 시작해 소비자까지 연결되는 브랜드 여정.<br />
-        그 여정에서 MIND·MARK 브랜드와 소비자를 이어줍니다.<br /> 
-        남과는 다른 우리의 아이디어는 소비자 경험에서부터 출발했습니다.<br />
-        작은 생각이 세상을 뒤집는 Slogan이 될때까지<br />
-        MIND·MARK가 함께하겠습니다.
-      </p>
+<!-- ✅ 본문 -->
+<main>
+  <section id="about" class="about-custom">
+    <div class="about-row">
+      <div class="about-left aligned-left">
+        <h3 class="fade-up">Who We Are</h3>
+        <p class="fade-up">
+          Insight에서 시작해 소비자까지 연결되는 브랜드 여정.<br />
+          그 여정에서 MIND·MARK 브랜드와 소비자를 이어줍니다.<br /> 
+          남과는 다른 우리의 아이디어는 소비자 경험에서부터 출발했습니다.<br />
+          작은 생각이 세상을 뒤집는 Slogan이 될때까지<br />
+          MIND·MARK가 함께하겠습니다.
+        </p>
       </div>
-    <div class="about-right aligned-right">
-      <h3 class="fade-up">What We Do</h3>
-      <p class="fade-up">
-        무심코 지나칠 수 있는 크리에이티브와 차별화된 캠페인 전략,<br />
-        그리고 심도 깊은 데이터 마이닝을 통한 맞춤형 솔루션을 제공하여<br />
-        브랜드를 구축하고 나아갈 길을 제안합니다.
-      </p>
+      <div class="about-right aligned-right">
+        <h3 class="fade-up">What We Do</h3>
+        <p class="fade-up">
+          무심코 지나칠 수 있는 크리에이티브와 차별화된 캠페인 전략,<br />
+          그리고 심도 깊은 데이터 마이닝을 통한 맞춤형 솔루션을 제공하여<br />
+          브랜드를 구축하고 나아갈 길을 제안합니다.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
-    
+  </section>
+
   <section id="PortfolioSlider">
     <h2>Portfolio</h2>
     <div class="portfolio-slider" id="PortfolioSliderList">
       <!-- Airtable 데이터로 이미지가 삽입됩니다 -->
     </div>
   </section>
-    
-    <section id="contact">
-      <h2>Contact Us</h2>
-      <p>
-        새로운 캠페인, 브랜드 론칭, 또는 데이터 기반 전략이 필요하신가요?<br>
-        MIND·MARK와 함께할 준비가 되셨다면, 메시지를 남겨주세요.
-      </p>
-      <form action="https://formspree.io/f/mkgrljlv" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send</button>
-      </form>
-    </section>
-  </main>
 
-  <footer class="site-footer">
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>
+      새로운 캠페인, 브랜드 론칭, 또는 데이터 기반 전략이 필요하신가요?<br>
+      MIND·MARK와 함께할 준비가 되셨다면, 메시지를 남겨주세요.
+    </p>
+    <form action="https://formspree.io/f/mkgrljlv" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</main>
+
+<!-- ✅ 푸터 -->
+<footer class="site-footer">
   <div class="footer-left">ⓒ 2025. MINDMARK CORP.</div>
   <div class="footer-right">
     <a href="https://www.instagram.com/mindmark.official" target="_blank" class="footer-follow-link">
@@ -112,9 +122,9 @@
     </a>
   </div>
 </footer>
-  
-  <!-- 외부 JS 파일 연결 -->
- <script src="js/main.js"></script>
- <script src="js/about.js"></script>
+
+<!-- ✅ 스크립트 -->
+<script src="js/main.js"></script>
+<script src="js/about.js"></script>
 </body>
 </html>
