@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KAUZ</title>
 
-  <!-- CSS -->
+  <!-- CSS 경로 수정 -->
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/about.css" />
+  
+  <!-- 파비콘 경로 수정 -->
+  <link rel="icon" href="LOGO/LOGO.png" type="image/png" />
 
-  <!-- Favicon -->
-  <link rel="icon" href="../LOGO/LOGO.png" type="image/png">
-
-  <!-- 마우스 오른쪽 클릭 방지 -->
+  <!-- 마우스 우클릭 방지 -->
   <script>
     document.addEventListener('contextmenu', e => e.preventDefault());
   </script>
@@ -38,25 +38,25 @@
 <!-- ✅ 메뉴 오버레이 -->
 <div id="menu-overlay" class="menu-overlay">
   <div class="logo">
-    <img src="../LOGO/LOGO_1.png" alt="MIND MARK Logo" class="logo-img" />
+    <img src="LOGO/LOGO_1.png" alt="MIND MARK Logo" class="logo-img" />
   </div>
   <div class="menu-content">
     <a href="#top">HOME</a>
     <a href="#about">ABOUT US</a>
-    <a href="#PortFolio">PORTFOLIO</a>
+    <a href="#PortfolioSlider">PORTFOLIO</a>
     <a href="#contact">CONTACT US</a>
   </div>
 </div>
 
-<!-- ✅ 영상 배경 포함 상단 -->
+<!-- ✅ 히어로 영상 영역 -->
 <div class="hero-video-section">
   <video class="hero-slogan-video" autoplay muted loop playsinline>
-    <source src="../VIdeo/Plight-Bg.mp4" type="video/mp4" />
+    <source src="Video/Plight-Bg.mp4" type="video/mp4" />
   </video>
 
   <div class="navbar">
     <div class="logo">
-      <img src="../LOGO/LOGO_1.png" alt="MIND MARK Logo" class="logo-img" />
+      <img src="LOGO/LOGO_1.png" alt="MIND MARK Logo" class="logo-img" />
     </div>
   </div>
 
@@ -66,7 +66,7 @@
   </div>
 </div>
 
-<!-- ✅ 본문 -->
+<!-- ✅ 본문 섹션 -->
 <main>
   <section id="about" class="about-custom">
     <div class="about-row">
@@ -74,7 +74,7 @@
         <h3 class="fade-up">Who We Are</h3>
         <p class="fade-up">
           Insight에서 시작해 소비자까지 연결되는 브랜드 여정.<br />
-          그 여정에서 MIND·MARK 브랜드와 소비자를 이어줍니다.<br /> 
+          그 여정에서 MIND·MARK 브랜드와 소비자를 이어줍니다.<br />
           남과는 다른 우리의 아이디어는 소비자 경험에서부터 출발했습니다.<br />
           작은 생각이 세상을 뒤집는 Slogan이 될때까지<br />
           MIND·MARK가 함께하겠습니다.
@@ -94,19 +94,19 @@
   <section id="PortfolioSlider">
     <h2>Portfolio</h2>
     <div class="portfolio-slider" id="PortfolioSliderList">
-      <!-- Airtable 데이터로 이미지가 삽입됩니다 -->
+      <!-- Airtable 데이터 삽입 영역 -->
     </div>
   </section>
 
   <section id="contact">
     <h2>Contact Us</h2>
     <p>
-      새로운 캠페인, 브랜드 론칭, 또는 데이터 기반 전략이 필요하신가요?<br>
+      새로운 캠페인, 브랜드 론칭, 또는 데이터 기반 전략이 필요하신가요?<br />
       MIND·MARK와 함께할 준비가 되셨다면, 메시지를 남겨주세요.
     </p>
     <form action="https://formspree.io/f/mkgrljlv" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" placeholder="Your Message" required></textarea>
       <button type="submit">Send</button>
     </form>
@@ -123,7 +123,7 @@
   </div>
 </footer>
 
-<!-- ✅ 스크립트 -->
+<!-- ✅ JS 경로 수정 -->
 <script src="js/main.js"></script>
 <script src="js/about.js"></script>
 </body>
