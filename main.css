@@ -436,31 +436,33 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   호버 효과 - 개선된 계산식
+   호버 효과 - 위치별 다른 확장 비율 적용
    ═══════════════════════════════════════════════════════════════ */
 
-/* 확장된 슬라이드 */
-.portfolio-expanded {
-  flex: 0 0 calc(34% - 0.75rem) !important; /* 35%에서 34%로 더 줄임 */
+/* 1번 카드 호버 시 */
+.portfolio-slide:nth-child(1).portfolio-expanded {
+  flex: 0 0 calc(32% - 0.75rem) !important;
 }
 
-/* 축소된 슬라이드 */
+/* 2번 카드 호버 시 - 더 작게 */
+.portfolio-slide:nth-child(2).portfolio-expanded {
+  flex: 0 0 calc(30% - 0.75rem) !important;
+}
+
+/* 3번 카드 호버 시 - 더 작게 */
+.portfolio-slide:nth-child(3).portfolio-expanded {
+  flex: 0 0 calc(30% - 0.75rem) !important;
+}
+
+/* 4번 카드 호버 시 */
+.portfolio-slide:nth-child(4).portfolio-expanded {
+  flex: 0 0 calc(32% - 0.75rem) !important;
+}
+
+/* 축소된 슬라이드 - 균등하게 */
 .portfolio-shrunk {
-  flex: 0 0 calc(22% - 1rem) !important; /* 균형 조정 */
+  flex: 0 0 calc(23.33% - 1rem) !important;
   opacity: 0.7;
-}
-
-/* 호버 효과 스타일 */
-.portfolio-shrunk .portfolio-image-container img {
-  filter: brightness(0.6);
-}
-
-.portfolio-expanded .portfolio-image-container img {
-  transform: scale(1.05);
-}
-
-.portfolio-shrunk .portfolio-slide-title {
-  opacity: 0.5;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -685,10 +687,14 @@ body.mobile {
   }
   
   /* 모바일에서 모든 호버/확장 효과 제거 */
-  .portfolio-slide:hover,
-  .portfolio-slide:active,
-  .portfolio-expanded,
-  .portfolio-shrunk {
+.portfolio-slide:hover,
+.portfolio-slide:active,
+.portfolio-expanded,
+.portfolio-shrunk,
+.portfolio-slide:nth-child(1).portfolio-expanded,
+.portfolio-slide:nth-child(2).portfolio-expanded,
+.portfolio-slide:nth-child(3).portfolio-expanded,
+.portfolio-slide:nth-child(4).portfolio-expanded {
     flex: none !important;
     width: 100% !important;
     opacity: 1 !important;
