@@ -224,20 +224,29 @@ fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
             <div class="portfolio-image-container">
               <img src="${attachments[0].url}" alt="${title}" loading="lazy" />
             </div>
-            <div class="portfolio-slide-title">${title}</div>
+            <div class="portfolio-slide-title">
+              <span class="portfolio-brand-name">${title}</span>
+              <span class="portfolio-slide-category">Digital Campaign</span>
+            </div>
           `;
         } else {
           // 이미지가 없는 경우 - 흰색 박스
           slide.innerHTML = `
             <div class="portfolio-placeholder">No Image</div>
-            <div class="portfolio-slide-title">${title}</div>
+            <div class="portfolio-slide-title">
+              <span class="portfolio-brand-name">${title}</span>
+              <span class="portfolio-slide-category">Portfolio</span>
+            </div>
           `;
         }
       } else {
         // 데이터가 없는 경우 - 빈 흰색 박스
         slide.innerHTML = `
           <div class="portfolio-placeholder">No Content</div>
-          <div class="portfolio-slide-title">제목 없음</div>
+          <div class="portfolio-slide-title">
+            <span class="portfolio-brand-name">제목 없음</span>
+            <span class="portfolio-slide-category">Coming Soon</span>
+          </div>
         `;
       }
       
