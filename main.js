@@ -292,55 +292,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-    // handleSlideHover 함수를 다음과 같이 수정:
-
-function handleSlideHover(slides, activeIndex) {
-  // 애니메이션 딜레이 제거하여 즉각 반응
-  slides.forEach((slide, index) => {
-    // 모든 클래스 즉시 제거
-    slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
-  });
-  
-  // requestAnimationFrame으로 부드러운 전환
-  requestAnimationFrame(() => {
-    // 활성화된 슬라이드 확장
-    slides[activeIndex].classList.add('portfolio-expanded');
-    
-    // 나머지 슬라이드 축소
-    slides.forEach((slide, index) => {
-      if (index !== activeIndex) {
-        slide.classList.add('portfolio-shrunk');
-      }
-    });
-  });
-}
-
-// resetSlides 함수도 수정:
-function resetSlides(slides) {
-  // 모든 클래스 즉시 제거하여 원상복구
-  slides.forEach(slide => {
-    slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
-  });
-}
-          
-          // 새 클래스 적용
-          if (index === activeIndex) {
-            slide.classList.add('portfolio-expanded');
-          } else {
-            slide.classList.add('portfolio-shrunk');
-          }
+      // 확장 효과 처리 함수 - 수정된 버전
+      function handleSlideHover(slides, activeIndex) {
+        // 애니메이션 딜레이 제거하여 즉각 반응
+        slides.forEach((slide, index) => {
+          // 모든 클래스 즉시 제거
+          slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
         });
         
-        // 애니메이션 완료 후 플래그 제거
-        setTimeout(() => {
-          container.classList.remove('animating');
-        }, 600);
+        // requestAnimationFrame으로 부드러운 전환
+        requestAnimationFrame(() => {
+          // 활성화된 슬라이드 확장
+          slides[activeIndex].classList.add('portfolio-expanded');
+          
+          // 나머지 슬라이드 축소
+          slides.forEach((slide, index) => {
+            if (index !== activeIndex) {
+              slide.classList.add('portfolio-shrunk');
+            }
+          });
+        });
       }
 
-      // 슬라이드 초기화 함수
+      // 슬라이드 초기화 함수 - 수정된 버전
       function resetSlides(slides) {
-        if (container.classList.contains('animating')) return;
-        
+        // 모든 클래스 즉시 제거하여 원상복구
         slides.forEach(slide => {
           slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
         });
@@ -362,27 +338,39 @@ function resetSlides(slides) {
 
     container.innerHTML = `
       <div class="portfolio-slide">
-        <div class="portfolio-placeholder">Portfolio 1</div>
+        <div class="portfolio-image-container">
+          <div class="portfolio-placeholder">Portfolio 1</div>
+        </div>
         <div class="portfolio-slide-title">
           <span class="portfolio-brand-name">샘플 프로젝트 1</span>
+          <span class="portfolio-slide-category">Portfolio</span>
         </div>
       </div>
       <div class="portfolio-slide">
-        <div class="portfolio-placeholder">Portfolio 2</div>
+        <div class="portfolio-image-container">
+          <div class="portfolio-placeholder">Portfolio 2</div>
+        </div>
         <div class="portfolio-slide-title">
           <span class="portfolio-brand-name">샘플 프로젝트 2</span>
+          <span class="portfolio-slide-category">Portfolio</span>
         </div>
       </div>
       <div class="portfolio-slide">
-        <div class="portfolio-placeholder">Portfolio 3</div>
+        <div class="portfolio-image-container">
+          <div class="portfolio-placeholder">Portfolio 3</div>
+        </div>
         <div class="portfolio-slide-title">
           <span class="portfolio-brand-name">샘플 프로젝트 3</span>
+          <span class="portfolio-slide-category">Portfolio</span>
         </div>
       </div>
       <div class="portfolio-slide">
-        <div class="portfolio-placeholder">Portfolio 4</div>
+        <div class="portfolio-image-container">
+          <div class="portfolio-placeholder">Portfolio 4</div>
+        </div>
         <div class="portfolio-slide-title">
           <span class="portfolio-brand-name">샘플 프로젝트 4</span>
+          <span class="portfolio-slide-category">Portfolio</span>
         </div>
       </div>
     `;
