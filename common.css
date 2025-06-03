@@ -1,7 +1,7 @@
 /*=================================================================================
   common.css
   ─────────────────────────────────────────────────────────────────────────────────
-  이 파일은 About / Portfolio / Contact 페이지에서만 불러옵니다.
+  이 파일은 About / Portfolio / Contact / (필요 시 다른 서브 페이지)에서 불러옵니다.
   메인(index.html)에서는 이 파일을 사용하지 않고, 오직 main.css만 불러옵니다.
 =================================================================================*/
 
@@ -9,11 +9,11 @@
   1) html, body 전역 설정 (main.css와 동일하게)
 -------------------------------------------------------------------------------*/
 html, body {
-  background-color: #0D0D0D;       /* main.css와 동일한 어두운 배경 */
-  color: white;                    /* main.css와 동일한 기본 텍스트 색깔 */
+  background-color: #0D0D0D;       /* 메인 페이지와 동일한 어두운 배경 */
+  color: white;                    /* 메인 페이지와 동일한 기본 텍스트 색 */
   margin: 0;
   padding: 0;
-  font-family: 'Pretendard', sans-serif;  /* main.css와 동일한 폰트 패밀리 */
+  font-family: 'Pretendard', sans-serif;  /* 메인 페이지와 동일한 폰트 패밀리 */
   overflow-x: hidden;              /* 가로 스크롤 방지 */
 }
 
@@ -21,7 +21,7 @@ html, body {
   2) 모바일 스크롤 부드럽게 처리
 -------------------------------------------------------------------------------*/
 * {
-  -webkit-overflow-scrolling: touch;  /* iOS에서 스크롤 끊김 없이 부드럽게 */
+  -webkit-overflow-scrolling: touch;  /* iOS에서 스크롤 부드럽게 */
 }
 
 /*-------------------------------------------------------------------------------
@@ -29,18 +29,18 @@ html, body {
 -------------------------------------------------------------------------------*/
 a {
   text-decoration: none;
-  color: inherit;        /* 부모의 색을 물려받음(흰색) */
+  color: inherit;        /* 부모 색을 따름(흰색) */
   transition: color 0.2s ease;
 }
 a:hover {
-  color: #ccc;           /* hover 시 회색(메인과 동일) */
+  color: #ccc;           /* hover 시 연회색(메인 페이지와 동일) */
 }
 
 /*-------------------------------------------------------------------------------
   3-2) 공통 텍스트 요소 스타일: 헤딩(h1/h2/h3)
 -------------------------------------------------------------------------------*/
 h1, h2, h3 {
-  margin: 0 0 1rem;      /* 아래에만 1rem 여백(메인과 동일) */
+  margin: 0 0 1rem;      /* 아래만 1rem 여백 */
 }
 
 /*-------------------------------------------------------------------------------
@@ -49,26 +49,25 @@ h1, h2, h3 {
 .logo-img {
   height: 100%;
   width: auto;
-  display: block;        /* 컨테이너 높이에 맞춰 자동 비율 */
+  display: block;        /* 부모 컨테이너 높이에 맞춰서 자동 비율 유지 */
 }
 
 /*-------------------------------------------------------------------------------
   5) 햄버거 메뉴 아이콘 스타일 (.hamburger)
-  → main.css와 동일하게, 단 항상 표시하도록 display:flex로 변경
+   → main.css와 완전히 동일하게, 항상 화면 우측 상단에 표시
 -------------------------------------------------------------------------------*/
 .hamburger {
   position: fixed;
-  top: 1.5rem;            /* 화면 상단에서 1.5rem 아래 */
-  right: 1.5rem;          /* 화면 우측에서 1.5rem 안쪽 */
+  top: 1.5rem;            /* 메인과 동일한 위치 (위에서 1.5rem) */
+  right: 1.5rem;          /* 메인과 동일한 위치 (오른쪽에서 1.5rem) */
   width: 28px;
   height: 28px;
   z-index: 10001;
   cursor: pointer;
-  display: flex;          /* ← 기존 display:none → display:flex로 변경 */
+  display: flex;          /* 항상 보이도록 flex */
   flex-direction: column;
   justify-content: space-between;
 }
-
 .hamburger span {
   display: block;
   width: 100%;
@@ -77,8 +76,7 @@ h1, h2, h3 {
   border-radius: 2px;
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
-
-/* 햄버거가 열렸을 때 (active 상태) */
+/* 햄버거가 열렸을 때(= .active 상태) */
 .hamburger.active span:nth-child(1) {
   transform: translateY(12px) rotate(45deg);
 }
@@ -100,18 +98,18 @@ h1, h2, h3 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  opacity: 0;            /* 초기에는 투명 */
-  visibility: hidden;    /* 초기에는 숨김 */
+  opacity: 0;            /* 기본적으로 숨김 */
+  visibility: hidden;    /* 기본적으로 숨김 */
   transition: opacity 0.5s ease, visibility 0.5s ease;
   z-index: 10000;
 }
 .menu-overlay.active {
   opacity: 1;            /* 활성화 시 서서히 나타남 */
-  visibility: visible;   /* 활성화 시 보이도록 */
+  visibility: visible;   /* 활성화 시 보임 */
 }
 
 /*-------------------------------------------------------------------------------
-  7) 메뉴 콘텐츠(링크) 애니메이션 및 순차 등장 효과 (.menu-content a)
+  7) 메뉴 콘텐츠(링크) 애니메이션 및 순차 등장 (.menu-content a)
 -------------------------------------------------------------------------------*/
 .menu-content {
   display: flex;
@@ -120,15 +118,14 @@ h1, h2, h3 {
 }
 
 .menu-content a {
-  font-size: 2rem;       /* 메뉴 항목 글자 크기 */
-  color: white;          /* 흰색 텍스트(메인과 동일) */
+  font-size: 2rem;       /* 메뉴 글자 크기 */
+  color: white;          /* 흰색 텍스트 */
   margin: 1rem 0;
   opacity: 0;            /* 초기에는 투명 */
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   cursor: pointer;       /* 포인터 커서 */
 }
-
 .menu-overlay.active .menu-content a:nth-child(1) {
   opacity: 1;
   transform: translateY(0);
@@ -150,105 +147,12 @@ h1, h2, h3 {
   transition-delay: 0.4s;
 }
 
-
-
-
-/* 7) 메뉴 컨텐츠(링크) 애니메이션 및 순차 등장 */
-/* ────────────────────────────────────────────────────────────────────────────── */
-.menu-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/*-------------------------------------------------------------------------------
+  8) 공통 푸터 스타일 (모든 페이지에서 메인과 동일한 푸터 색상을 적용)
+-------------------------------------------------------------------------------*/
+footer {
+  background-color: #0D0D0D;  /* 메인 페이지 배경과 동일 */
+  color: white;               /* 흰색 텍스트 */
+  padding: 1rem 0;
+  text-align: center;
 }
-
-.menu-content a {
-  font-size: 2rem;       /* 메뉴 항목 글자 크기 */
-  color: white;
-  margin: 1rem 0;
-  opacity: 0;            /* 기본적으로 보이지 않음 */
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-/* 메뉴 오버레이가 active 될 때 순차적으로 등장시키는 딜레이 설정 */
-.menu-overlay.active .menu-content a:nth-child(1) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.1s;
-}
-.menu-overlay.active .menu-content a:nth-child(2) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.2s;
-}
-.menu-overlay.active .menu-content a:nth-child(3) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.3s;
-}
-.menu-overlay.active .menu-content a:nth-child(4) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.4s;
-}
-
-
-/*=================================================================================
-  ※ 사용법
-  1. 각 HTML 문서(<head> 태그 안)에 아래 순서대로 CSS 파일을 불러오세요.
-     ─────────────────────────────────────────────────────────────────────────────
-     <link rel="stylesheet" href="common.css" />   ← 이 파일 (⭐ 공통)
-     <link rel="stylesheet" href="main.css"   />   ← index 전용
-     <link rel="stylesheet" href="about.css"  />   ← about 전용
-     <link rel="stylesheet" href="portfolio.css" />← portfolio 전용
-     <link rel="stylesheet" href="contact.css" />  ← contact 전용
-     ※ 공통영역 스타일 → 각 페이지 전용 스타일 순으로 로드해야, 
-        공통-페이지 중복되는 클래스가 있을 때 페이지 전용이 덮어씌워집니다.
-
-  2. JavaScript로 햄버거 토글 시 `.hamburger`에 `active` 클래스를 붙이고 뗄 것입니다.
-     예를 들면:
-     ┌───────────────────────────────────────────────────────────────
-     document.getElementById('hamburger').addEventListener('click', () => {
-       document.getElementById('hamburger').classList.toggle('active');
-       document.getElementById('menu-overlay').classList.toggle('active');
-     });
-     └───────────────────────────────────────────────────────────────
-
-  3. 각 페이지에 header/nav가 동일한 구조로 되어 있으면, 공통 CSS가 그대로 적용됩니다.
-     예를 들어 index.html, about.html, portfolio.html, contact.html 에 아래와 
-     같은 header 구조가 있다면 모두 공통 CSS가 적용됩니다.
-
-     ```html
-     <!-- 예시 header 구조 (각 페이지 최상단) -->
-     <header>
-       <div class="logo">
-         <a href="index.html">
-           <img src="logo/logo_1.png" alt="Logo" class="logo-img" />
-         </a>
-       </div>
-       <div id="hamburger" class="hamburger">
-         <span></span>
-         <span></span>
-         <span></span>
-       </div>
-     </header>
-
-     <!-- 메뉴 오버레이도 공통으로 -->
-     <div id="menu-overlay" class="menu-overlay">
-       <div class="logo">
-         <img src="logo/logo_1.png" alt="Logo" class="logo-img" />
-       </div>
-       <div class="menu-content">
-         <a href="index.html">HOME</a>
-         <a href="about.html">ABOUT US</a>
-         <a href="portfolio.html">PORTFOLIO</a>
-         <a href="contact.html">CONTACT US</a>
-       </div>
-     </div>
-     ```
-
-  4. 페이지 전용 영역(예: HERO 섹션, ABOUT, PORTFOLIO, CONTACT 영역 등)의 
-     레이아웃 및 색상/애니메이션은 `main.css`, `about.css`, `portfolio.css`, 
-     `contact.css` 에서 각각 작성하여 덮어씌워 주시면 됩니다.
-
-=================================================================================*/ 
