@@ -269,8 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(slide);
       }
 
- // loadPortfolio 함수 내에서 이벤트 리스너 부분을 다음과 같이 수정:
-
       // 모바일이 아닐 때만 호버 효과 적용
       const isMobile = window.innerWidth <= 768;
       const slides = container.querySelectorAll('.portfolio-slide');
@@ -294,112 +292,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
- // handleSlideHover 함수를 다음과 같이 수정:
-
-function handleSlideHover(slides, activeIndex) {
-  // 애니메이션 중복 방지
-  if (container.classList.contains('animating')) return;
-  
-  container.classList.add('animating');
-  
-  slides.forEach((slide, index) => {
-    // 모든 클래스 즉시 제거
-    slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
-    
-    // 새 클래스 적용
-    if (index === activeIndex) {
-      slide.classList.add('portfolio-expanded');
-    } else {
-      slide.classList.add('portfolio-shrunk');
-    }
-  });
-  
-  // 애니메이션 완료 후 플래그 제거
-  setTimeout(() => {
-    container.classList.remove('animating');
-  }, 600);
-}
-
-// resetSlides 함수도 수정:
-function resetSlides(slides) {
-  if (container.classList.contains('animating')) return;
-  
-  slides.forEach(slide => {
-    slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
-  });
-}
+      // 확장 효과 처리 함수 - 안정적인 애니메이션
+      function handleSlideHover(slides, activeIndex) {
+        // 애니메이션 중복 방지
+        if (container.classList.contains('animating')) return;
+        
+        container.classList.add('animating');
+        
+        slides.forEach((slide, index) => {
+          // 모든 클래스 즉시 제거
+          slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
           
-          requestAnimationFrame(() => {
-            // 활성화된 슬라이드 확장
-            slides[activeIndex].classList.add('portfolio-expanded');
-            
-            // 나머지 슬라이드 축소
-            slides.forEach((slide, index) => {
-              if (index !== activeIndex) {
-                slide.classList.add('portfolio-shrunk');
-              }
-            });
-          });
+          // 새 클래스 적용
+          if (index === activeIndex) {
+            slide.classList.add('portfolio-expanded');
+          } else {
+            slide.classList.add('portfolio-shrunk');
+          }
         });
+        
+        // 애니메이션 완료 후 플래그 제거
+        setTimeout(() => {
+          container.classList.remove('animating');
+        }, 600);
       }
 
       // 슬라이드 초기화 함수
       function resetSlides(slides) {
-        requestAnimationFrame(() => {
-          slides.forEach(slide => {
-            slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
-          });
-        });
-      }
-      
-      // 컨테이너에서 마우스가 벗어나면 초기화
-      container.addEventListener('mouseleave', () => {
-        resetSlides(slides);
-      });
-
-      // 확장 효과 처리 함수 - 안정적인 애니메이션
-      function handleSlideHover(slides, activeIndex) {
-        // 기존 클래스 제거를 위한 타이머 제거로 더 안정적으로
-        requestAnimationFrame(() => {
-          slides.forEach((slide, index) => {
-            slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
-          });
-          
-          // 다음 프레임에서 새 클래스 적용
-          requestAnimationFrame(() => {
-            // 활성화된 슬라이드 확장
-            slides[activeIndex].classList.add('portfolio-expanded');
-            
-            // 각 카드별 축소 패턴 - 부드럽게 적용
-            if (activeIndex === 0) {
-              // 1번 호버: 2,3,4번 축소
-              slides[1]?.classList.add('portfolio-shrunk');
-              slides[2]?.classList.add('portfolio-shrunk');
-              slides[3]?.classList.add('portfolio-shrunk');
-            } else if (activeIndex === 1) {
-              // 2번 호버: 3,4번 축소
-              slides[2]?.classList.add('portfolio-shrunk');
-              slides[3]?.classList.add('portfolio-shrunk');
-            } else if (activeIndex === 2) {
-              // 3번 호버: 1,2번 축소
-              slides[0]?.classList.add('portfolio-shrunk');
-              slides[1]?.classList.add('portfolio-shrunk');
-            } else if (activeIndex === 3) {
-              // 4번 호버: 1,2,3번 축소
-              slides[0]?.classList.add('portfolio-shrunk');
-              slides[1]?.classList.add('portfolio-shrunk');
-              slides[2]?.classList.add('portfolio-shrunk');
-            }
-          });
-        });
-      }
-
-      // 슬라이드 초기화 함수 - 더 부드럽게
-      function resetSlides(slides) {
-        requestAnimationFrame(() => {
-          slides.forEach(slide => {
-            slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
-          });
+        if (container.classList.contains('animating')) return;
+        
+        slides.forEach(slide => {
+          slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
         });
       }
 
@@ -480,12 +403,7 @@ function resetSlides(slides) {
     console.log('About cards initialized:', aboutCards.length);
   }
 
-  console.log('Main.js initialization complete');
   // ─── 무한 롤링 텍스트 설정 ───
-document.addEventListener('DOMContentLoaded', () => {
-  const scrollingContainer = document.querySelector('.scrolling-container');
-  const scrollingText = document.querySelector('.scrolling-text');
-  
   if (scrollingContainer && scrollingText) {
     // 텍스트 복제하여 끊김 없는 롤링 구현
     const clone = scrollingText.cloneNode(true);
@@ -498,5 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
       text.style.animationDelay = `${index * 10}s`;
     });
   }
-});
+
+  console.log('Main.js initialization complete');
 });
