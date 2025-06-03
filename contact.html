@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CONTACT US — KAUZ</title>
 
-  <!-- ① 메인 공통 CSS (헤더/메뉴/푸터 등) -->
+  <!-- 서브 공통 CSS (헤더·메뉴·푸터) -->
   <link rel="stylesheet" href="common.css" />
 
-  <!-- ② Contact 페이지 전용 CSS -->
+  <!-- Contact 전용 CSS -->
   <link rel="stylesheet" href="contact.css" />
 </head>
 <body>
@@ -17,9 +17,8 @@
     ─────────────────────────────────────────────────────────────────────────── -->
   <header>
     <div class="logo">
-      <a href="main.html">
-        <!-- 헤더 로고: 컬러 버전 -->
-        <img src="../logo/lwhite-logo.png" alt="KAUZ Logo" class="logo-img" />
+      <a href="index.html">
+        <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </a>
     </div>
     <div id="hamburger" class="hamburger">
@@ -30,11 +29,10 @@
 
   <div id="menu-overlay" class="menu-overlay">
     <div class="logo">
-      <!-- 메뉴 오버레이 로고: 흰색 버전 -->
-      <img src="../logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+      <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
     </div>
     <div class="menu-content">
-      <a href="main.html">HOME</a>
+      <a href="index.html">HOME</a>
       <a href="about.html">ABOUT US</a>
       <a href="portfolio.html">PORTFOLIO</a>
       <a href="contact.html">CONTACT US</a>
@@ -42,7 +40,7 @@
   </div>
 
   <!-- ───────────────────────────────────────────────────────────────────────────
-       Contact 페이지 본문
+       CONTACT 페이지 본문
     ─────────────────────────────────────────────────────────────────────────── -->
   <section class="hero-contact fade-up">
     <div class="hero-text">
@@ -51,20 +49,55 @@
     </div>
   </section>
 
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       ① 폼 태그에 반드시 action, method 지정
+       ② 각 입력필드에 name 속성 추가
+       ③ _subject나 _next 같은 숨김 필드를 추가하면 Formspree 동작을 커스터마이징 가능
+    ─────────────────────────────────────────────────────────────────────────── -->
   <main class="contact-form-section container fade-up">
-    <form id="contactForm" class="contact-form">
+    <form
+      id="contactForm"
+      class="contact-form"
+      action="https://formspree.io/f/mkgrljlv"
+      method="POST"
+    >
+      <!-- 옵션: 보낸 사람 이메일을 REPLY-TO 헤더로 지정하려면 _replyto 사용 -->
+      <input type="hidden" name="_subject" value="New contact from KAUZ 사이트" />
+      <!-- 옵션: 전송 완료 후 리다이렉트할 URL -->
+      <!-- <input type="hidden" name="_next" value="thankyou.html" /> -->
+
       <div class="form-group">
-        <label for="name">Name<span class="required">*</span></label>
-        <input type="text" id="name" name="name" placeholder="홍길동" required />
+        <label for="name">Name <span class="required">*</span></label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="홍길동"
+          required
+        />
       </div>
+
       <div class="form-group">
-        <label for="email">Email<span class="required">*</span></label>
-        <input type="email" id="email" name="email" placeholder="example@domain.com" required />
+        <label for="email">Email <span class="required">*</span></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="example@domain.com"
+          required
+        />
       </div>
+
       <div class="form-group">
         <label for="company">Company</label>
-        <input type="text" id="company" name="company" placeholder="회사명 (선택)" />
+        <input
+          type="text"
+          id="company"
+          name="company"
+          placeholder="회사명 (선택)"
+        />
       </div>
+
       <div class="form-group">
         <label for="budget">Budget Range</label>
         <select id="budget" name="budget">
@@ -74,17 +107,25 @@
           <option value="50M+">50M+ KRW</option>
         </select>
       </div>
+
       <div class="form-group">
-        <label for="message">Message<span class="required">*</span></label>
-        <textarea id="message" name="message" rows="5" placeholder="문의 내용을 작성해주세요." required></textarea>
+        <label for="message">Message <span class="required">*</span></label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          placeholder="문의 내용을 작성해주세요."
+          required
+        ></textarea>
       </div>
+
       <button type="submit" class="btn-submit">Send Message</button>
       <div id="formResponse" class="form-response"></div>
     </form>
   </main>
 
   <!-- ───────────────────────────────────────────────────────────────────────────
-       FOOTER (메인과 동일하게 복사: .site-footer 클래스 반드시 포함)
+       FOOTER (메인과 동일한 스타일, common.css에서 제어)
     ─────────────────────────────────────────────────────────────────────────── -->
   <footer class="site-footer">
     <div class="footer-left">
@@ -97,10 +138,10 @@
 
   <!-- ───────────────────────────────────────────────────────────────────────────
        JavaScript 로드 순서
-       1) main.js (공통 햄버거 토글 / ESC / 백그라운드 클릭 닫기)
-       2) contact.js (Contact 고유 로직: AJAX, 이벤트 등)
+       1) common.js (햄버거 토글 / ESC / 배경 클릭 닫기)
+       2) contact.js (페이지 고유 로직: 예를 들면 스크롤 애니메이션 등)
     ─────────────────────────────────────────────────────────────────────────── -->
-  <script src=".common.js"></script>
+  <script src="common.js"></script>
   <script src="contact.js"></script>
 </body>
 </html>
