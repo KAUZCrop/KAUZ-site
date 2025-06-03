@@ -1,158 +1,238 @@
 /*=================================================================================
   common.css
   ─────────────────────────────────────────────────────────────────────────────────
-  이 파일은 About / Portfolio / Contact / (필요 시 다른 서브 페이지)에서 불러옵니다.
-  메인(index.html)에서는 이 파일을 사용하지 않고, 오직 main.css만 불러옵니다.
+  This file manages shared styles for About, Portfolio, and Contact pages.
+  핵심: 햄버거 아이콘, 메뉴 오버레이, 메뉴 아이템 애니메이션, 푸터 등 공통 스타일
 =================================================================================*/
 
-/*-------------------------------------------------------------------------------
-  1) html, body 전역 설정 (main.css와 동일하게)
--------------------------------------------------------------------------------*/
+/*===============================================================================
+  1) html, body 전역 설정 (서브 페이지 공통)
+===============================================================================*/
 html, body {
-  background-color: #0D0D0D;       /* 메인 페이지와 동일한 어두운 배경 */
-  color: white;                    /* 메인 페이지와 동일한 기본 텍스트 색 */
+  background-color: #0D0D0D;       /* 어두운 배경 유지 */
+  color: white;                    /* 기본 텍스트 흰색 */
   margin: 0;
   padding: 0;
-  font-family: 'Pretendard', sans-serif;  /* 메인 페이지와 동일한 폰트 패밀리 */
-  overflow-x: hidden;              /* 가로 스크롤 방지 */
+  font-family: 'Pretendard', sans-serif;
+  overflow-x: hidden;
 }
 
-/*-------------------------------------------------------------------------------
-  2) 모바일 스크롤 부드럽게 처리
--------------------------------------------------------------------------------*/
-* {
-  -webkit-overflow-scrolling: touch;  /* iOS에서 스크롤 부드럽게 */
-}
-
-/*-------------------------------------------------------------------------------
-  3-1) 공통 텍스트 요소 스타일: 링크(a)
--------------------------------------------------------------------------------*/
+/*===============================================================================
+  2) 공통 텍스트/링크 스타일
+===============================================================================*/
 a {
   text-decoration: none;
-  color: inherit;        /* 부모 색을 따름(흰색) */
+  color: inherit;   /* 흰색 상속 */
   transition: color 0.2s ease;
+  font-weight: bold; /* 링크는 항상 볼드 */
+  line-height: 1.1;  /* 행간을 최대한 붙임 */
 }
 a:hover {
-  color: #ccc;           /* hover 시 연회색(메인 페이지와 동일) */
+  color: #ccc;
 }
-
-/*-------------------------------------------------------------------------------
-  3-2) 공통 텍스트 요소 스타일: 헤딩(h1/h2/h3)
--------------------------------------------------------------------------------*/
 h1, h2, h3 {
-  margin: 0 0 1rem;      /* 아래만 1rem 여백 */
+  margin: 0 0 1rem;
+  font-weight: bold;
 }
 
-/*-------------------------------------------------------------------------------
-  4) 로고 이미지 스타일 (.logo-img)
--------------------------------------------------------------------------------*/
+/*===============================================================================
+  3) 로고 위치 (메인과 동일하게 고정)
+===============================================================================*/
+.logo {
+  position: fixed;
+  top: 1.5rem;   /* 메인과 동일 */
+  left: 1.5rem;  /* 메인과 동일 */
+  z-index: 10002;
+  height: 66px;
+}
 .logo-img {
   height: 100%;
   width: auto;
-  display: block;        /* 부모 컨테이너 높이에 맞춰서 자동 비율 유지 */
+  display: block;
 }
 
-/*-------------------------------------------------------------------------------
-  5) 햄버거 메뉴 아이콘 스타일 (.hamburger)
-   → main.css와 완전히 동일하게, 항상 화면 우측 상단에 표시
--------------------------------------------------------------------------------*/
+/*===============================================================================
+  4) 햄버거 아이콘 스타일
+===============================================================================*/
 .hamburger {
   position: fixed;
-  top: 1.5rem;            /* 메인과 동일한 위치 (위에서 1.5rem) */
-  right: 1.5rem;          /* 메인과 동일한 위치 (오른쪽에서 1.5rem) */
+  top: 1.5rem;     /* 메인과 동일 */
+  right: 1.5rem;   /* 메인과 동일 */
   width: 28px;
   height: 28px;
-  z-index: 10001;
+  z-index: 10003;
   cursor: pointer;
-  display: flex;          /* 항상 보이도록 flex */
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.3s ease;
 }
 .hamburger span {
+  position: relative;
   display: block;
   width: 100%;
   height: 3px;
-  background-color: white;
+  background: white;
   border-radius: 2px;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: all 0.3s ease;
 }
-/* 햄버거가 열렸을 때(= .active 상태) */
+.hamburger span:nth-child(1) {
+  transform: translateY(-6px);
+}
+.hamburger span:nth-child(2) {
+  transform: translateY(6px);
+}
 .hamburger.active span:nth-child(1) {
-  transform: translateY(12px) rotate(45deg);
+  transform: translateY(0) rotate(45deg);
 }
 .hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-12px) rotate(-45deg);
+  transform: translateY(0) rotate(-45deg);
 }
 
-/*-------------------------------------------------------------------------------
-  6) 메뉴 오버레이(전체 화면 팝업) 스타일 (.menu-overlay)
--------------------------------------------------------------------------------*/
+/*===============================================================================
+  5) 메뉴 오버레이 (전체 화면 팝업)
+===============================================================================*/
 .menu-overlay {
   position: fixed;
-  inset: 0;  /* top:0; right:0; bottom:0; left:0; */
-  background-color: rgba(13, 13, 13, 0.98); /* 거의 불투명한 검정 */
+  inset: 0;                    /* top:0; right:0; bottom:0; left:0; */
+  background-color: rgba(13, 13, 13, 0.98);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  opacity: 0;            /* 기본적으로 숨김 */
-  visibility: hidden;    /* 기본적으로 숨김 */
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-  z-index: 10000;
+  justify-content: flex-end;  /* 하단에서 메뉴가 올라오도록 */
+  opacity: 0;
+  visibility: hidden;          /* 초기에는 보이지 않음 */
+  pointer-events: none;        /* 클릭 방지 */
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  z-index: 10001;
 }
+
+/* 활성화 시 오버레이 보이기 */
 .menu-overlay.active {
-  opacity: 1;            /* 활성화 시 서서히 나타남 */
-  visibility: visible;   /* 활성화 시 보임 */
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-/*-------------------------------------------------------------------------------
-  7) 메뉴 콘텐츠(링크) 애니메이션 및 순차 등장 (.menu-content a)
--------------------------------------------------------------------------------*/
+/*===============================================================================
+  6) 메뉴 내용(아이템) 컨테이너
+===============================================================================*/
+/* 하단에서 올라오는 애니메이션을 위해 fixed로 위치 지정 */
 .menu-content {
+  position: fixed;
+  bottom: 2rem;           /* 화면 하단에서 2rem 위에서 나타남 */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;            /* 아이템 간 거의 붙어 있음 */
+  transition: opacity 0.2s ease, transform 0.3s ease;
 }
 
-.menu-content a {
-  font-size: 2rem;       /* 메뉴 글자 크기 */
-  color: white;          /* 흰색 텍스트 */
-  margin: 1rem 0;
-  opacity: 0;            /* 초기에는 투명 */
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  cursor: pointer;       /* 포인터 커서 */
+/* 메뉴 오버레이 비활성화 상태: 아이템은 화면 아래로 숨겨놓기 */
+.menu-overlay:not(.active) .menu-content {
+  opacity: 0;
+  transform: translate(-50%, 100px); /* 아래로 100px 내려서 숨김 */
 }
-.menu-overlay.active .menu-content a:nth-child(1) {
+
+/* 메뉴 오버레이 활성화 상태: opacity 1, 원위치로 슬라이드 인 */
+.menu-overlay.active .menu-content {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/*===============================================================================
+  7) 메뉴 항목(a) 스타일
+===============================================================================*/
+.menu-content a {
+  color: #fff;
+  font-size: 5rem;            /* 기존 3rem에서 +2rem(약 32px) 크게 */
+  font-weight: bold;          /* 볼드체 */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.15s ease, transform 0.3s ease;
+  line-height: 1.1;           /* 줄간격 거의 붙음 */
+}
+
+/* 활성 상태에서 각 링크 순차적으로 나타나도록 */
+.menu-overlay.active .menu-content a {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.1s;
+}
+
+/* 순차적인 지연 (0.05초 단위) */
+.menu-overlay.active .menu-content a:nth-child(1) {
+  transition-delay: 0.05s;
 }
 .menu-overlay.active .menu-content a:nth-child(2) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.2s;
+  transition-delay: 0.10s;
 }
 .menu-overlay.active .menu-content a:nth-child(3) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.3s;
+  transition-delay: 0.15s;
 }
 .menu-overlay.active .menu-content a:nth-child(4) {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.4s;
+  transition-delay: 0.20s;
 }
 
-/*-------------------------------------------------------------------------------
-  8) 공통 푸터 스타일 (모든 페이지에서 메인과 동일한 푸터 색상을 적용)
--------------------------------------------------------------------------------*/
-footer {
-  background-color: #0D0D0D;  /* 메인 페이지 배경과 동일 */
-  color: white;               /* 흰색 텍스트 */
-  padding: 1rem 0;
-  text-align: center;
+/*===============================================================================
+  8) 공통 푸터 스타일
+===============================================================================*/
+.site-footer {
+  background-color: #0D0D0D;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+.footer-left {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.footer-follow-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-follow-link:hover {
+  color: #ccc;
+}
+
+/*===============================================================================
+  9) 반응형 모바일
+===============================================================================*/
+@media (max-width: 768px) {
+  .site-footer {
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+  }
+  .footer-left { font-size: 0.8rem; }
+  .footer-right { font-size: 0.8rem; }
+  .footer-follow-link { gap: 0.3rem; }
+
+  /* 메뉴 항목 모바일 폰트 크기 조정 */
+  .menu-content a {
+    font-size: 3rem;  /* 작은 화면에서는 3rem으로 조정 */
+  }
 }
