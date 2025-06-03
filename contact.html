@@ -50,7 +50,7 @@
   </section>
 
   <!-- ───────────────────────────────────────────────────────────────────────────
-       수정된 Formspree 폼 (아래 폼 부분을 기존 <form>…</form> 태그 전체와 교체)
+       수정된 Formspree 폼
     ─────────────────────────────────────────────────────────────────────────── -->
   <main class="contact-form-section container fade-up">
     <form
@@ -59,17 +59,7 @@
       action="https://formspree.io/f/mkgrljlv"
       method="POST"
     >
-      <!-- (선택) 전송 후 리다이렉트할 페이지가 있으면 _next 값을 적어줍니다.
-           예: <input type="hidden" name="_next" value="thankyou.html" /> -->
-      <!--
-      <input
-        type="hidden"
-        name="_next"
-        value="thankyou.html"
-      />
-      -->
-
-      <!-- (선택) 메일 제목을 지정하고 싶으면 _subject 항목을 추가하세요. -->
+      <!-- (선택) 메일 제목을 지정하고 싶으면 _subject 항목을 추가 -->
       <input
         type="hidden"
         name="_subject"
@@ -159,7 +149,7 @@
   <!-- ───────────────────────────────────────────────────────────────────────────
        JavaScript 로드 순서
        1) common.js (햄버거 토글 / ESC / 배경 클릭 닫기)
-       2) contact.js (페이지 고유 로직: 스크롤 애니메이션 등)
+       2) contact.js (페이지만 고유 로직: 예를 들어 fade-up 애니메이션)
     ─────────────────────────────────────────────────────────────────────────── -->
   <script src="common.js"></script>
   <script src="contact.js"></script>
