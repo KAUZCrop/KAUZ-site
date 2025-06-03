@@ -1,42 +1,28 @@
-/* 기본 리셋 */
-* {
+/*───────────────────────────────────────────────────────────────────────────
+  portfolio.css (Portfolio 전용 스타일) : common.css로 대부분 처리
+  ────────────────────────────────────────────────────────────────────────────*/
+
+/* 1) “body” 설정 → 삭제
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  background-color: #0D0D0D;  (common.css 적용)
+  color: white;               (common.css 적용)
 }
+*/
 
-/* 컨테이너 공통 클래스 */
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* 헤더 스타일 */
+/* 2) .header 관련 스타일 삭제 (common.css에서 로고/햄버거 처리)
 .header {
-  background-color: #1F2A44; /* 다크 네이비 계열 */
+  background-color: #1F2A44; 
   padding: 1rem 0;
 }
-.header .logo {
-  height: 40px;
-  vertical-align: middle;
-}
-.header .nav {
-  display: inline-block;
-  float: right;
-}
-.header .nav a {
-  color: #ffffff;
-  text-decoration: none;
-  margin-left: 1.5rem;
-  font-weight: 500;
-}
-.header .nav a.active,
-.header .nav a:hover {
-  color: #FF6F61; /* 브랜드 주홍색 */
-}
+.header .logo { … }
+.header .nav { … }
+.header .nav a { … }
+…
+*/
 
-/* 히어로 섹션 */
+/* 3) 히어로 섹션 (Portfolio 고유) */
 .hero-portfolio {
   background: url('../image/hero-portfolio.jpg') no-repeat center/cover;
   height: 50vh;
@@ -55,7 +41,7 @@
   font-size: 1.25rem;
 }
 
-/* 필터 버튼 섹션 */
+/* 4) 필터 버튼 섹션 */
 .filter-section {
   margin: 2rem auto;
   text-align: center;
@@ -76,7 +62,7 @@
   color: #ffffff;
 }
 
-/* 프로젝트 카드 그리드 */
+/* 5) 프로젝트 카드 그리드 */
 .project-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -125,9 +111,9 @@
   transform: translateY(-5px);
 }
 
-/* 모달 공통 스타일 */
+/* 6) 모달 공통 스타일 (Portfolio 고유) */
 .modal {
-  display: none; /* JS로 열리면 block */
+  display: none; /* JS로 열리면 flex */
   position: fixed;
   top: 0;
   left: 0;
@@ -168,7 +154,8 @@
   cursor: pointer;
 }
 
-/* 푸터 스타일 */
+/* 7) 푸터 (common.css에서 처리하므로 삭제) */
+/*
 .footer {
   background-color: #1F2A44;
   padding: 1rem 0;
@@ -176,8 +163,9 @@
   color: #ffffff;
   font-size: 0.9rem;
 }
+*/
 
-/* 반응형 */
+/* 8) 반응형 */
 @media (max-width: 768px) {
   .hero-portfolio .hero-text h1 {
     font-size: 2rem;
