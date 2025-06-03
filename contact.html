@@ -3,34 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us | MIND·MARK</title>
-  <!-- Contact 전용 CSS -->
+  <title>CONTACT US — KAUZ</title>
+
+  <!-- ① common.css (메인과 동일한 배경/폰트/햄버거/메뉴) -->
+  <link rel="stylesheet" href="../css/common.css" />
+
+  <!-- ② Contact 페이지 전용 CSS (common.css 다음에) -->
   <link rel="stylesheet" href="../css/contact.css" />
 </head>
 <body>
-  <!-- 헤더: 로고 + 네비게이션 -->
-  <header class="header">
-    <div class="container">
-      <img src="../LOGO/LOGO.png" alt="MIND·MARK Logo" class="logo" />
-      <nav class="nav">
-        <a href="main.html">HOME</a>
-        <a href="about.html">ABOUT US</a>
-        <a href="portfolio.html">PORTFOLIO</a>
-        <a href="contact.html" class="active">CONTACT US</a>
-      </nav>
+  <!-- ============================================================
+       ③ 헤더 + 햄버거 + 메뉴 오버레이: 메인(index.html)과 100% 동일하게
+       ============================================================ -->
+  <header>
+    <div class="logo">
+      <a href="main.html">
+        <img src="../LOGO/LOGO.png" alt="KAUZ Logo" class="logo-img" />
+      </a>
+    </div>
+    <div id="hamburger" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </header>
 
-  <!-- 히어로 섹션 -->
-  <section class="hero-contact">
+  <div id="menu-overlay" class="menu-overlay">
+    <div class="logo">
+      <img src="../LOGO/LOGO.png" alt="KAUZ Logo" class="logo-img" />
+    </div>
+    <div class="menu-content">
+      <a href="main.html">HOME</a>
+      <a href="about.html">ABOUT US</a>
+      <a href="portfolio.html">PORTFOLIO</a>
+      <a href="contact.html">CONTACT US</a>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ④ Contact 페이지 본문
+       ============================================================ -->
+  <section class="hero-contact fade-up">
     <div class="hero-text">
       <h1>Contact Us</h1>
       <p>새로운 캠페인, 브랜드 전략이 필요하신가요? 지금 문의주세요.</p>
     </div>
   </section>
 
-  <!-- 문의 폼 섹션 -->
-  <main class="contact-form-section container">
+  <main class="contact-form-section container fade-up">
     <form id="contactForm" class="contact-form">
       <div class="form-group">
         <label for="name">Name<span class="required">*</span></label>
@@ -62,14 +82,16 @@
     </form>
   </main>
 
-  <!-- 푸터 -->
-  <footer class="footer">
+  <!-- ============================================================
+       ⑤ 푸터 (common.css에서 동일하게 스타일 적용)
+       ============================================================ -->
+  <footer>
     <div class="container">
-      &copy; 2025. MIND·MARK CORP. All rights reserved.
+      &copy; 2025 KAUZ CORP. All rights reserved.
     </div>
   </footer>
 
-  <!-- Contact 전용 JS -->
+  <!-- ⑥ Contact 전용 JS: 햄버거 토글 + AJAX (기본 예시) -->
   <script src="../js/contact.js"></script>
 </body>
 </html>
