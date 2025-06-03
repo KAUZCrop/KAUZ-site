@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ABOUT US — KAUZ</title>
-
-  <!-- ① common.css → 반드시 맨 위에 불러옵니다 (메인과 같은 배경/폰트/햄버거 적용) -->
-  <link rel="stylesheet" href="common.css" />
-
-  <!-- ② About 페이지 전용 CSS (common.css 다음에 로드해야, 덮어씌워집니다) -->
-  <link rel="stylesheet" href="about.css" />
+  …  
+  <link rel="stylesheet" href="css/main (2).css" />
+  <link rel="stylesheet" href="css/about.css" />
+  <link rel="stylesheet" href="css/portfolio.css" />
+  <link rel="stylesheet" href="css/contact.css" />
 </head>
-
 <body>
+  <!-- ① 헤더 + 햄버거 + 메뉴 오버레이 (메인과 동일하게 복사) -->
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+      </a>
+    </div>
+    <div id="hamburger" class="hamburger">
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <div id="menu-overlay" class="menu-overlay">
+    <div class="logo">
+      <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+    </div>
+    <div class="menu-content">
+      <a href="index.html">HOME</a>
+      <a href="about.html">ABOUT US</a>
+      <a href="portfolio.html">PORTFOLIO</a>
+      <a href="contact.html">CONTACT US</a>
+    </div>
+  </div>
+  
   <!-- ============================================================
        ③ 헤더 + 햄버거 + 메뉴 오버레이: 메인(index.html)과 100% 동일하게
        ============================================================ -->
   <header>
     <div class="logo">
       <a href="index.html">
-        <img src="logo/logo_1.png" alt="KAUZ Logo" class="logo-img" />
+        <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </a>
     </div>
     <div id="hamburger" class="hamburger">
@@ -31,7 +51,7 @@
 
   <div id="menu-overlay" class="menu-overlay">
     <div class="logo">
-      <img src="logo/logo_1.png" alt="KAUZ Logo" class="logo-img" />
+      <img src="logo/hwite-logo.png" alt="KAUZ Logo" class="logo-img" />
     </div>
     <div class="menu-content">
       <a href="index.html">HOME</a>
@@ -74,7 +94,7 @@
       <h2>OUR TEAM</h2>
       <div class="team-grid">
         <div class="team-member">
-          <img src="images/ceo.jpg" alt="홍길동 - CEO" class="team-photo" />
+          <img src="images/ceo.jpg" alt="정재익 - CEO" class="team-photo" />
           <h3 class="team-name">홍길동</h3>
           <p class="team-role">CEO / Creative Director</p>
         </div>
@@ -95,16 +115,18 @@
   <!-- ============================================================
        ⑤ 푸터: common.css에서 스타일 적용 (메인과 동일한 배경)
        ============================================================ -->
-  <footer>
-    <p>© 2025 KAUZ. All rights reserved.</p>
-    <ul class="footer-social">
-      <li><a href="#">Instagram</a></li>
-      <li><a href="#">Facebook</a></li>
-      <li><a href="#">LinkedIn</a></li>
-    </ul>
+  <footer class="site-footer">
+    <div class="footer-left">
+      © 2025 KAUZ. All rights reserved.
+    </div>
+    <div class="footer-right">
+      <a href="#" class="footer-follow-link">Instagram</a>
+    </div>
   </footer>
 
-  <!-- ⑥ About 페이지 전용 JS: 햄버거 토글, fade-up 인터랙션 -->
-  <script src="about.js"></script>
+  <script src="js/main (2).js"></script>
+  <script src="js/about.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script src="js/contact.js"></script>
 </body>
 </html>
