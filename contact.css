@@ -1,42 +1,8 @@
-/* 기본 리셋 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/*───────────────────────────────────────────────────────────────────────────
+  contact.css (Contact Us 전용 스타일) : common.css로 대부분 처리
+  ────────────────────────────────────────────────────────────────────────────*/
 
-/* 컨테이너 공통 클래스 */
-.container {
-  width: 90%;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* 헤더 스타일 (Portfolio와 동일) */
-.header {
-  background-color: #1F2A44;
-  padding: 1rem 0;
-}
-.header .logo {
-  height: 40px;
-  vertical-align: middle;
-}
-.header .nav {
-  display: inline-block;
-  float: right;
-}
-.header .nav a {
-  color: #ffffff;
-  text-decoration: none;
-  margin-left: 1.5rem;
-  font-weight: 500;
-}
-.header .nav a.active,
-.header .nav a:hover {
-  color: #FF6F61;
-}
-
-/* 히어로 섹션 */
+/* 4) 히어로 섹션 */
 .hero-contact {
   background: url('../image/hero-contact.jpg') no-repeat center/cover;
   height: 40vh;
@@ -55,7 +21,7 @@
   font-size: 1.1rem;
 }
 
-/* 문의 폼 섹션 */
+/* 5) 문의 폼 섹션 */
 .contact-form-section {
   margin: 2rem auto 4rem;
 }
@@ -114,16 +80,7 @@
   visibility: hidden;
 }
 
-/* 푸터 스타일 (Portfolio와 동일) */
-.footer {
-  background-color: #1F2A44;
-  padding: 1rem 0;
-  text-align: center;
-  color: #ffffff;
-  font-size: 0.9rem;
-}
-
-/* 반응형 */
+/* 6) 모바일 대응 */
 @media (max-width: 480px) {
   .hero-contact .hero-text h1 {
     font-size: 2rem;
