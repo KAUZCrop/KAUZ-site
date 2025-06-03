@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  …  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PORTFOLIO — KAUZ</title>
+
+  <!-- ① 메인 공통 CSS (헤더/메뉴/푸터 등) -->
   <link rel="stylesheet" href="../css/main.css" />
+
+  <!-- ② Portfolio 전용 CSS -->
   <link rel="stylesheet" href="../css/portfolio.css" />
-  <link rel="stylesheet" href="../css/about.css" />
-  <link rel="stylesheet" href="../css/contact.css" />
 </head>
 <body>
-  <!-- ① 헤더 + 햄버거 + 메뉴 오버레이 (메인과 동일) -->
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       HEADER + HAMBURGER + MENU OVERLAY (메인과 100% 동일하게 복사)
+    ─────────────────────────────────────────────────────────────────────────── -->
   <header>
     <div class="logo">
       <a href="main.html">
+        <!-- 메인 헤더 로고 (컬러 버전) -->
         <img src="../logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </a>
     </div>
@@ -23,6 +30,7 @@
 
   <div id="menu-overlay" class="menu-overlay">
     <div class="logo">
+      <!-- 메뉴 오버레이 로고 (흰색 버전) -->
       <img src="../logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
     </div>
     <div class="menu-content">
@@ -33,9 +41,9 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       ④ Portfolio 페이지 본문
-       ============================================================ -->
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       Portfolio 페이지 본문
+    ─────────────────────────────────────────────────────────────────────────── -->
   <section class="hero-portfolio fade-up">
     <div class="hero-text">
       <h1>Our Portfolio</h1>
@@ -44,7 +52,6 @@
   </section>
 
   <main class="project-list container fade-up">
-    <!-- 각 프로젝트 카드 -->
     <div class="project-card" data-filter="branding">
       <img src="../image/project1-thumbnail.jpg" alt="Client A 리브랜딩 캠페인" />
       <div class="card-content">
@@ -80,7 +87,7 @@
     <button class="filter-btn" data-filter="social">Social</button>
   </section>
 
-  <!-- 모달 팝업 (데이터 속성 동일) -->
+  <!-- 모달 팝업 (Portfolio 고유) -->
   <div id="modalA" class="modal">
     <div class="modal-content">
       <span class="close-btn" data-modal="modalA">&times;</span>
@@ -141,10 +148,10 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       ⑤ 푸터 (common.css에서 자동으로 스타일 적용)
-       ============================================================ -->
- <footer class="site-footer">
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       FOOTER (메인과 동일한 스타일, main.css에서 제어)
+    ─────────────────────────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
     <div class="footer-left">
       © 2025 KAUZ CORP. All rights reserved.
     </div>
@@ -153,9 +160,12 @@
     </div>
   </footer>
 
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       JavaScript 로드 순서
+       1) main.js (공통 햄버거 토글 / ESC / 백그라운드 클릭 닫기)
+       2) portfolio.js (Portfolio 고유 로직)
+    ─────────────────────────────────────────────────────────────────────────── -->
   <script src="../js/main.js"></script>
   <script src="../js/portfolio.js"></script>
-  <script src="../js/about.js"></script>
-  <script src="../js/contact.js"></script>
 </body>
 </html>
