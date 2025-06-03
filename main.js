@@ -292,16 +292,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // 확장 효과 처리 함수 - 안정적인 애니메이션
-      function handleSlideHover(slides, activeIndex) {
-        // 애니메이션 중복 방지
-        if (container.classList.contains('animating')) return;
-        
-        container.classList.add('animating');
-        
-        slides.forEach((slide, index) => {
-          // 모든 클래스 즉시 제거
-          slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+    // handleSlideHover 함수를 다음과 같이 수정:
+
+function handleSlideHover(slides, activeIndex) {
+  // 애니메이션 딜레이 제거하여 즉각 반응
+  slides.forEach((slide, index) => {
+    // 모든 클래스 즉시 제거
+    slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+  });
+  
+  // requestAnimationFrame으로 부드러운 전환
+  requestAnimationFrame(() => {
+    // 활성화된 슬라이드 확장
+    slides[activeIndex].classList.add('portfolio-expanded');
+    
+    // 나머지 슬라이드 축소
+    slides.forEach((slide, index) => {
+      if (index !== activeIndex) {
+        slide.classList.add('portfolio-shrunk');
+      }
+    });
+  });
+}
+
+// resetSlides 함수도 수정:
+function resetSlides(slides) {
+  // 모든 클래스 즉시 제거하여 원상복구
+  slides.forEach(slide => {
+    slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
+  });
+}
           
           // 새 클래스 적용
           if (index === activeIndex) {
