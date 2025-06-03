@@ -439,18 +439,6 @@ body.mobile {
    호버 효과 - 위치별 다른 확장 방향 적용 (호환성 개선)
    ═══════════════════════════════════════════════════════════════ */
 
-/* 포트폴리오 컨테이너 플렉스 설정 */
-.portfolio-container {
-  display: flex;
-  gap: 1.5rem;
-  width: calc(100% - 50px);
-  height: 600px;
-  margin: 0 25px;
-  box-sizing: border-box;
-  position: relative;
-  justify-content: space-between; /* 양쪽 정렬 */
-}
-
 /* 1번 카드 호버 시 - 왼쪽 고정 */
 .portfolio-slide:nth-child(1).portfolio-expanded {
   flex: 0 0 calc(35% - 0.75rem) !important;
@@ -479,17 +467,6 @@ body.mobile {
 .portfolio-shrunk {
   flex: 0 0 calc(21.66% - 1rem) !important;
   opacity: 0.7;
-}
-
-/* 기본 order 설정 */
-.portfolio-slide:nth-child(1) { order: 1; }
-.portfolio-slide:nth-child(2) { order: 2; }
-.portfolio-slide:nth-child(3) { order: 3; }
-.portfolio-slide:nth-child(4) { order: 4; }
-
-/* 3번 카드 호버 시 다른 카드들의 순서 */
-.portfolio-slide:nth-child(3).portfolio-expanded ~ .portfolio-slide:nth-child(4) {
-  order: 3; /* 3번 앞으로 */
 }
 
 /* 호버 효과 스타일 */
@@ -642,7 +619,7 @@ body.mobile {
   background-color: #0D0D0D;
   color: #fff;
   display: flex;
-  justify-content: center; /* 웹: 중앙 정렬 */
+  justify-content: space-between;
   align-items: center;
   gap: 2rem;
   padding: 2rem;
