@@ -3,35 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio | MIND·MARK</title>
-  <!-- Portfolio 전용 CSS -->
+  <title>PORTFOLIO — KAUZ</title>
+
+  <!-- ① common.css (메인과 같은 배경/폰트/햄버거/메뉴) -->
+  <link rel="stylesheet" href="../css/common.css" />
+
+  <!-- ② Portfolio 전용 CSS (common.css 다음에) -->
   <link rel="stylesheet" href="../css/portfolio.css" />
 </head>
 <body>
-  <!-- 헤더: 로고 + 네비게이션 -->
-  <header class="header">
-    <div class="container">
-      <img src="../LOGO/LOGO.png" alt="MIND·MARK Logo" class="logo" />
-      <nav class="nav">
-        <a href="main.html">HOME</a>
-        <a href="about.html">ABOUT US</a>
-        <a href="portfolio.html" class="active">PORTFOLIO</a>
-        <a href="contact.html">CONTACT US</a>
-      </nav>
+  <!-- ============================================================
+       ③ 헤더 + 햄버거 + 메뉴 오버레이: 메인(index.html)과 100% 동일하게 복사
+       ============================================================ -->
+  <header>
+    <div class="logo">
+      <a href="main.html">
+        <img src="../LOGO/LOGO.png" alt="KAUZ Logo" class="logo-img" />
+      </a>
+    </div>
+    <div id="hamburger" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </header>
 
-  <!-- 히어로 섹션 -->
-  <section class="hero-portfolio">
+  <div id="menu-overlay" class="menu-overlay">
+    <div class="logo">
+      <img src="../LOGO/LOGO.png" alt="KAUZ Logo" class="logo-img" />
+    </div>
+    <div class="menu-content">
+      <a href="main.html">HOME</a>
+      <a href="about.html">ABOUT US</a>
+      <a href="portfolio.html">PORTFOLIO</a>
+      <a href="contact.html">CONTACT US</a>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ④ Portfolio 페이지 본문
+       ============================================================ -->
+  <section class="hero-portfolio fade-up">
     <div class="hero-text">
       <h1>Our Portfolio</h1>
       <p>성과로 증명된 광고 캠페인 사례를 확인하세요.</p>
     </div>
   </section>
 
-  <!-- 포트폴리오 리스트 -->
-  <main class="project-list container">
-    <!-- 각 프로젝트를 카드 형태로 표시 -->
+  <main class="project-list container fade-up">
+    <!-- 각 프로젝트 카드 -->
     <div class="project-card" data-filter="branding">
       <img src="../image/project1-thumbnail.jpg" alt="Client A 리브랜딩 캠페인" />
       <div class="card-content">
@@ -58,19 +78,16 @@
         <button class="btn-more" data-modal="modalC">자세히 보기</button>
       </div>
     </div>
-
-    <!-- 필요하다면 더 많은 프로젝트 카드 추가 -->
   </main>
 
-  <!-- 필터 버튼 (추가 기능 예시) -->
-  <section class="filter-section container">
+  <section class="filter-section container fade-up">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="branding">Branding</button>
     <button class="filter-btn" data-filter="digital">Digital</button>
     <button class="filter-btn" data-filter="social">Social</button>
   </section>
 
-  <!-- 모달 팝업 예시: Client A 상세 -->
+  <!-- 모달 팝업 (데이터 속성 동일) -->
   <div id="modalA" class="modal">
     <div class="modal-content">
       <span class="close-btn" data-modal="modalA">&times;</span>
@@ -91,7 +108,6 @@
     </div>
   </div>
 
-  <!-- 모달 팝업 예시: Client B 상세 -->
   <div id="modalB" class="modal">
     <div class="modal-content">
       <span class="close-btn" data-modal="modalB">&times;</span>
@@ -112,7 +128,6 @@
     </div>
   </div>
 
-  <!-- 모달 팝업 예시: Client C 상세 -->
   <div id="modalC" class="modal">
     <div class="modal-content">
       <span class="close-btn" data-modal="modalC">&times;</span>
@@ -133,14 +148,16 @@
     </div>
   </div>
 
-  <!-- 푸터 -->
-  <footer class="footer">
+  <!-- ============================================================
+       ⑤ 푸터 (common.css에서 자동으로 스타일 적용)
+       ============================================================ -->
+  <footer>
     <div class="container">
-      &copy; 2025. MIND·MARK CORP. All rights reserved.
+      &copy; 2025 KAUZ CORP. All rights reserved.
     </div>
   </footer>
 
-  <!-- Portfolio 전용 JS -->
+  <!-- ⑥ Portfolio 전용 JS: 햄버거 토글 + 모달 + 필터 기능 -->
   <script src="../js/portfolio.js"></script>
 </body>
 </html>
