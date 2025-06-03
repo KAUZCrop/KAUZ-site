@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contactForm');
   const formResponse = document.getElementById('formResponse');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault(); // 기본 제출(페이지 리로드) 방지
-
+  
     // 입력 값 가져오기
     const name = form.querySelector('#name').value.trim();
     const email = form.querySelector('#email').value.trim();
