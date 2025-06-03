@@ -1,87 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────
-   about.css (About Us 전용 스타일)
+   about.css (About Us 전용 스타일) : common.css로 대부분 스타일링 처리
    ───────────────────────────────────────────────────────────────────── */
-
-/* 1) 기본 바디 설정 (메인 공통 스타일이 이미 common.css에 있다면, 여기에 다시 쓰지 않아도 됩니다) */
-body {
-  margin: 0;
-  padding: 0;
-  background: #000;
-  color: #fff;
-  font-family: 'Pretendard', sans-serif;
-  overflow-x: hidden;
-  user-select: none;
-  scroll-behavior: smooth;
-}
-
-/* 2) 햄버거 메뉴 & 오버레이 (common.css에 없는 경우에만 추가) */
-.hamburger {
-  position: fixed;
-  top: 1.2rem;
-  right: 1.2rem;
-  width: 2rem;
-  height: 2rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 1001;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.hamburger-line {
-  background: #fff;
-  height: 0.2rem;
-  border-radius: 0.1rem;
-  transition: transform 0.3s ease;
-}
-.menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.menu-overlay.open {
-  display: flex;
-  opacity: 1;
-}
-.menu-overlay nav ul {
-  list-style: none;
-  text-align: center;
-}
-.menu-overlay nav ul li {
-  margin: 1rem 0;
-}
-.menu-overlay nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 2rem;
-  transition: color 0.3s ease;
-}
-.menu-overlay nav ul li a:hover,
-.menu-overlay nav ul li a.active {
-  color: #00c8c8;
-}
-
-/* 3) fade-up 애니메이션 */
-.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* 4) About Us 히어로 섹션 */
 .about-hero-section {
@@ -174,29 +93,13 @@ body {
   color: #aaa;
 }
 
-/* 7) 푸터 (common.css에 없다면 포함) */
-.site-footer {
-  text-align: center;
-  padding: 2rem 1rem;
-  background: #111;
-  color: #777;
-}
-.footer-social {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-.footer-social li a {
-  color: #aaa;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-.footer-social li a:hover {
-  color: #fff;
-}
+/* 7) 푸터 (common.css에서 처리하므로 이 부분은 없어도 됩니다) */
+/*
+.site-footer { … }
+.footer-social { … }
+.footer-social li a { … }
+.footer-social li a:hover { … }
+*/
 
 /* 8) 모바일 대응(반응형) */
 @media (max-width: 768px) {
