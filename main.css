@@ -368,6 +368,7 @@ body.mobile {
   margin: 0 25px; /* 좌우 25px 마진 */
   box-sizing: border-box;
   position: relative;
+  justify-content: space-between; /* 이 줄 추가 또는 수정 */
 }
 
 /* 포트폴리오 카드 - 기본 상태 */
@@ -440,14 +441,26 @@ body.mobile {
 /* 찾아서 교체할 부분: 364번째 줄부터 시작하는 호버 효과 전체를 아래 코드로 교체 */
 
 /* ═══════════════════════════════════════════════════════════════
-   호버 효과 - 완전히 재설계 (원상복구 및 우측 고정)
+   호버 효과 - 4번 이미지 우측 고정 해결
    ═══════════════════════════════════════════════════════════════ */
 
-/* 기본 상태에서 transition 강화 */
+/* 포트폴리오 컨테이너 - flexbox 정렬 추가 */
+.portfolio-container {
+  display: flex;
+  gap: 1.5rem;
+  width: calc(100% - 50px);
+  height: 600px;
+  margin: 0 25px;
+  box-sizing: border-box;
+  position: relative;
+  justify-content: flex-start; /* 왼쪽 정렬 기본값 */
+}
+
+/* 기본 상태 */
 .portfolio-slide {
   flex: 0 0 calc(25% - 1.125rem);
   height: 100%;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* 더 빠른 반응 */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   cursor: pointer;
   display: flex;
@@ -457,9 +470,10 @@ body.mobile {
   -webkit-backface-visibility: hidden;
 }
 
-/* 1번 카드 호버 시 */
+/* 1번 카드 호버 시 - 왼쪽 고정 */
 .portfolio-slide:nth-child(1).portfolio-expanded {
   flex: 0 0 calc(31% - 0.75rem) !important;
+  margin-right: auto !important; /* 나머지 공간을 오른쪽으로 밀기 */
 }
 
 /* 2번 카드 호버 시 */
@@ -472,15 +486,40 @@ body.mobile {
   flex: 0 0 calc(31% - 0.75rem) !important;
 }
 
-/* 4번 카드 호버 시 */
+/* 4번 카드 호버 시 - 오른쪽 고정 */
 .portfolio-slide:nth-child(4).portfolio-expanded {
   flex: 0 0 calc(31% - 0.75rem) !important;
+  margin-left: auto !important; /* 왼쪽에 자동 마진으로 오른쪽 고정 */
 }
 
 /* 축소된 슬라이드 */
 .portfolio-shrunk {
   flex: 0 0 calc(23% - 1rem) !important;
   opacity: 0.7;
+}
+
+/* 1,2,3번이 확장될 때 4번 카드 우측 고정 */
+.portfolio-container:has(.portfolio-slide:nth-child(1).portfolio-expanded) .portfolio-slide:nth-child(4),
+.portfolio-container:has(.portfolio-slide:nth-child(2).portfolio-expanded) .portfolio-slide:nth-child(4),
+.portfolio-container:has(.portfolio-slide:nth-child(3).portfolio-expanded) .portfolio-slide:nth-child(4) {
+  margin-left: auto !important;
+}
+
+/* :has 미지원 브라우저를 위한 대체 방법 */
+.portfolio-slide:nth-child(4) {
+  position: relative;
+}
+
+.portfolio-container {
+  display: flex;
+  justify-content: space-between; /* 전체적으로 공간 분배 */
+}
+
+/* 1,2,3번 호버 시 레이아웃 조정 */
+.portfolio-slide:nth-child(1).portfolio-expanded ~ .portfolio-slide:nth-child(4),
+.portfolio-slide:nth-child(2).portfolio-expanded ~ .portfolio-slide:nth-child(4),
+.portfolio-slide:nth-child(3).portfolio-expanded ~ .portfolio-slide:nth-child(4) {
+  margin-left: auto !important;
 }
 
 /* 호버 효과 스타일 */
@@ -506,10 +545,12 @@ body.mobile {
   transition: opacity 0.4s ease;
 }
 
-/* 원상복구를 위한 hover 해제 시 스타일 */
+/* 원상복구를 위한 스타일 */
 .portfolio-slide:not(.portfolio-expanded):not(.portfolio-shrunk) {
   flex: 0 0 calc(25% - 1.125rem) !important;
   opacity: 1;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .portfolio-slide:not(.portfolio-expanded):not(.portfolio-shrunk) .portfolio-image-container img {
