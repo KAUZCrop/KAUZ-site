@@ -3,127 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ABOUT US — Your Company Name</title>
+  <title>ABOUT US — KAUZ</title>
 
-  <!-- ── ① 공통 CSS (네비게이션, 기본 레이아웃, fade-up 애니메이션 등) -->
-  <!-- 경로: css/common.css -->
-  <link rel="stylesheet" href="css/common.css" />
+  <!-- ★ ① common.css → 반드시 맨 위에 불러옵니다 (메인과 같은 배경/폰트 적용) -->
+  <link rel="stylesheet" href="common.css" />
 
-  <!-- ── ② About Us 전용 CSS (히어로 섹션, 팀원 그리드 등) -->
-  <!-- 경로: css/about.css -->
-  <link rel="stylesheet" href="css/about.css" />
+  <!-- ★ ② About 페이지 전용 CSS (common.css 다음에 로드해야, 덮어씌워집니다) -->
+  <link rel="stylesheet" href="about.css" />
 </head>
-<body>
 
-  <!-- ─────────────────────────────────────────────────────────────────────
-       ① 상단 햄버거 버튼 & 메뉴 오버레이 (index.html과 동일해야 합니다)
-       ───────────────────────────────────────────────────────────────────── -->
-  <button class="hamburger" aria-label="Open menu">
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-  </button>
+<body>
+  <!-- ============================================================
+       ③ 헤더 + 햄버거 + 메뉴 오버레이: 메인(index.html)과 “100% 동일하게” 복사 붙여넣기
+       ============================================================ -->
+  <header>
+    <div class="logo">
+      <!-- 로고 링크는 index.html (메인) 로 돌아가도록 -->
+      <a href="index.html">
+        <img src="logo/logo_1.png" alt="KAUZ Logo" class="logo-img" />
+      </a>
+    </div>
+
+    <!-- ★ 햄버거: common.css에서 display:flex로 수정했으므로, 페이지에서 항상 보입니다 -->
+    <div id="hamburger" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- ★ 메뉴 오버레이: common.css 스타일 사용 -->
   <div id="menu-overlay" class="menu-overlay">
-    <nav>
-      <ul>
-        <!-- 메인 페이지로 돌아가기 -->
-        <li><a href="index.html">HOME</a></li>
-        <!-- 현재 페이지 강조를 위해 class="active" 추가 -->
-        <li><a href="about.html" class="active">ABOUT US</a></li>
-        <!-- Portfolio, Contact 등 다른 페이지 링크 -->
-        <li><a href="portfolio.html">PORTFOLIO</a></li>
-        <li><a href="contact.html">CONTACT</a></li>
-      </ul>
-    </nav>
+    <div class="logo">
+      <img src="logo/logo_1.png" alt="KAUZ Logo" class="logo-img" />
+    </div>
+    <div class="menu-content">
+      <a href="index.html">HOME</a>
+      <a href="about.html">ABOUT US</a>
+      <a href="portfolio.html">PORTFOLIO</a>
+      <a href="contact.html">CONTACT US</a>
+    </div>
   </div>
 
-  <!-- ─────────────────────────────────────────────────────────────────────
-       ② About Us 페이지 메인 콘텐츠
-       ───────────────────────────────────────────────────────────────────── -->
+  <!-- ============================================================
+       ④ About 페이지 본문 내용 (예시는 임의로 작성한 샘플)
+       ============================================================ -->
   <main id="about-page">
-    <!-- About 히어로 섹션 -->
-    <section id="about-hero" class="about-hero-section">
-      <div class="about-hero-overlay">
-        <h1 class="about-hero-title">ABOUT US</h1>
-        <p class="about-hero-subtitle">Your story, our passion. Let's create together.</p>
+    <section class="about-intro">
+      <h1>ABOUT US</h1>
+      <p>Your story, our passion. Let's create together.</p>
+    </section>
+
+    <section class="who-we-are">
+      <h2>WHO WE ARE</h2>
+      <p>저희는 광고 기획과 디지털 마케팅을 전문으로 하는 에이전시입니다. 전략적 인사이트와 창의적 아이디어를 융합하여 브랜드 경험을 설계합니다.</p>
+    </section>
+
+    <section class="what-we-do">
+      <h2>WHAT WE DO</h2>
+      <ul>
+        <li>광고 캠페인 전략 수립 및 실행</li>
+        <li>콘텐츠 제작(영상, 그래픽, 카피라이팅)</li>
+        <li>디지털 채널 운영 및 퍼포먼스 최적화</li>
+        <li>브랜드 컨설팅 및 리브랜딩</li>
+      </ul>
+    </section>
+
+    <section class="our-mission">
+      <h2>OUR MISSION</h2>
+      <p>“브랜드의 본질을 직관적으로 전달하고, 소비자와 진정성 있게 연결합니다.” <br> 데이터 기반의 인사이트와 크리에이티브를 결합하여 새로운 가치를 창출합니다.</p>
+    </section>
+
+    <section class="our-team">
+      <h2>OUR TEAM</h2>
+      <div class="team-member">
+        <img src="images/ceo.jpg" alt="홍길동 - CEO" />
+        <h3>홍길동</h3>
+        <p>CEO / Creative Director</p>
+      </div>
+      <div class="team-member">
+        <img src="images/account.jpg" alt="김영희 - Account Manager" />
+        <h3>김영희</h3>
+        <p>Account Manager</p>
+      </div>
+      <div class="team-member">
+        <img src="images/designer.jpg" alt="박철수 - Designer" />
+        <h3>박철수</h3>
+        <p>Designer</p>
       </div>
     </section>
 
-    <!-- About Content -->
-    <section id="about-content" class="about-content-section fade-up">
-      <!-- WHO WE ARE -->
-      <div class="about-block">
-        <h2 class="about-heading">WHO WE ARE</h2>
-        <p class="about-text">
-          저희는 광고 기획과 디지털 마케팅을 전문으로 하는 에이전시입니다.  
-          전략적 인사이트와 창의적 아이디어를 융합하여 브랜드 경험을 설계합니다.
-        </p>
-      </div>
-
-      <!-- WHAT WE DO -->
-      <div class="about-block">
-        <h2 class="about-heading">WHAT WE DO</h2>
-        <p class="about-text">
-          • 광고 캠페인 전략 수립 및 실행<br />
-          • 콘텐츠 제작(영상, 그래픽, 카피라이팅)<br />
-          • 디지털 채널 운영 및 퍼포먼스 최적화<br />
-          • 브랜드 컨설팅 및 리브랜딩  
-        </p>
-      </div>
-
-      <!-- OUR MISSION -->
-      <div class="about-block">
-        <h2 class="about-heading">OUR MISSION</h2>
-        <p class="about-text">
-          “브랜드의 본질을 직관적으로 전달하고, 소비자와 진정성 있게 연결합니다.”  
-          데이터 기반의 인사이트와 크리에이티브를 결합하여 새로운 가치를 창출합니다.
-        </p>
-      </div>
-
-      <!-- OUR TEAM -->
-      <div class="about-block">
-        <h2 class="about-heading">OUR TEAM</h2>
-        <div class="team-grid">
-          <div class="team-member fade-up">
-            <img src="images/team_member_1.jpg" alt="홍길동 – CEO" class="team-photo" />
-            <h3 class="team-name">홍길동</h3>
-            <p class="team-role">CEO / Creative Director</p>
-          </div>
-          <div class="team-member fade-up">
-            <img src="images/team_member_2.jpg" alt="김영희 – Account Manager" class="team-photo" />
-            <h3 class="team-name">김영희</h3>
-            <p class="team-role">Account Manager</p>
-          </div>
-          <div class="team-member fade-up">
-            <img src="images/team_member_3.jpg" alt="박철수 – Designer" class="team-photo" />
-            <h3 class="team-name">박철수</h3>
-            <p class="team-role">Designer</p>
-          </div>
-          <!-- 필요에 따라 더 많은 팀원 추가 -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ─────────────────────────────────────────────────────────────────────
-         ③ Footer (index.html과 동일)
-         ───────────────────────────────────────────────────────────────────── -->
-    <footer class="site-footer fade-up">
-      <p>&copy; 2025 Your Company Name. All rights reserved.</p>
-      <ul class="footer-social">
-        <li><a href="https://www.instagram.com/yourcompany" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://www.facebook.com/yourcompany" target="_blank" rel="noopener">Facebook</a></li>
-        <li><a href="https://www.linkedin.com/company/yourcompany" target="_blank" rel="noopener">LinkedIn</a></li>
+    <footer>
+      <p>© 2025 KAUZ. All rights reserved.</p>
+      <ul class="social-links">
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">LinkedIn</a></li>
       </ul>
     </footer>
   </main>
 
-  <!-- ─────────────────────────────────────────────────────────────────────
-       ④ 공통 JavaScript (햄버거 메뉴 토글, fade-up 애니메이션)
-       ───────────────────────────────────────────────────────────────────── -->
-  <!-- 경로: js/common.js -->
-  <script src="js/common.js"></script>
-
-  <!-- ⑤ About Us 전용 JavaScript (필요한 경우에만) -->
-  <!-- 경로: js/about.js -->
-  <script src="js/about.js"></script>
+  <!-- ⑤ About 페이지 전용 JS: 햄버거 토글, 기타 인터랙션 -->
+  <script src="about.js"></script>
 </body>
 </html>
