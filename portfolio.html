@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PORTFOLIO — KAUZ</title>
-
-  <!-- ① common.css (메인과 같은 배경/폰트/햄버거/메뉴) -->
-  <link rel="stylesheet" href="../css/common.css" />
-
-  <!-- ② Portfolio 전용 CSS (common.css 다음에) -->
+  …  
+  <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/portfolio.css" />
+  <link rel="stylesheet" href="../css/about.css" />
+  <link rel="stylesheet" href="../css/contact.css" />
 </head>
 <body>
-  <!-- ============================================================
-       ③ 헤더 + 햄버거 + 메뉴 오버레이: 메인(index.html)과 100% 동일하게 복사
-       ============================================================ -->
+  <!-- ① 헤더 + 햄버거 + 메뉴 오버레이 (메인과 동일) -->
   <header>
     <div class="logo">
       <a href="main.html">
-        <img src="../LOGO/LOGO.png" alt="KAUZ Logo" class="logo-img" />
+        <img src="../logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </a>
     </div>
     <div id="hamburger" class="hamburger">
-      <span></span>
       <span></span>
       <span></span>
     </div>
@@ -30,7 +23,7 @@
 
   <div id="menu-overlay" class="menu-overlay">
     <div class="logo">
-      <img src="../LOGO/LOGO.png" alt="KAUZ Logo" class="logo-img" />
+      <img src="../logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
     </div>
     <div class="menu-content">
       <a href="main.html">HOME</a>
@@ -151,13 +144,18 @@
   <!-- ============================================================
        ⑤ 푸터 (common.css에서 자동으로 스타일 적용)
        ============================================================ -->
-  <footer>
-    <div class="container">
-      &copy; 2025 KAUZ CORP. All rights reserved.
+ <footer class="site-footer">
+    <div class="footer-left">
+      © 2025 KAUZ CORP. All rights reserved.
+    </div>
+    <div class="footer-right">
+      <a href="#" class="footer-follow-link">Instagram</a>
     </div>
   </footer>
 
-  <!-- ⑥ Portfolio 전용 JS: 햄버거 토글 + 모달 + 필터 기능 -->
+  <script src="../js/main.js"></script>
   <script src="../js/portfolio.js"></script>
+  <script src="../js/about.js"></script>
+  <script src="../js/contact.js"></script>
 </body>
 </html>
