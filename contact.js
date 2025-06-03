@@ -32,4 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
       formResponse.style.visibility = 'hidden';
     }, 5000);
   });
+
+  document
+  .getElementById('contactForm')
+  .addEventListener('submit', (e) => {
+    e.preventDefault();
+    // ... AJAX 로직 혹은 다른 처리가 있다면 여기서 중단됨
+  });
+
 });
