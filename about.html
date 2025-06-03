@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  …  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABOUT US — KAUZ</title>
+
+  <!-- ① 메인 공통 CSS (헤더/메뉴/푸터 등) -->
   <link rel="stylesheet" href="css/main.css" />
+
+  <!-- ② About 페이지 전용 CSS -->
   <link rel="stylesheet" href="css/about.css" />
-  <link rel="stylesheet" href="css/portfolio.css" />
-  <link rel="stylesheet" href="css/contact.css" />
 </head>
 <body>
-  <!-- ① 헤더 + 햄버거 + 메뉴 오버레이 (메인과 동일하게 복사) -->
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       HEADER + HAMBURGER + MENU OVERLAY (메인과 100% 동일하게 복사)
+    ─────────────────────────────────────────────────────────────────────────── -->
   <header>
     <div class="logo">
       <a href="index.html">
+        <!-- 메인 헤더 로고는 컬러 버전이든 흰색 버전이든, 여기서는 컬러 로고로 예시 -->
         <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </a>
     </div>
@@ -23,6 +30,7 @@
 
   <div id="menu-overlay" class="menu-overlay">
     <div class="logo">
+      <!-- 메뉴 오버레이 로고는 흰색 버전으로 통일 -->
       <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
     </div>
     <div class="menu-content">
@@ -32,38 +40,10 @@
       <a href="contact.html">CONTACT US</a>
     </div>
   </div>
-  
-  <!-- ============================================================
-       ③ 헤더 + 햄버거 + 메뉴 오버레이: 메인(index.html)과 100% 동일하게
-       ============================================================ -->
-  <header>
-    <div class="logo">
-      <a href="index.html">
-        <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
-      </a>
-    </div>
-    <div id="hamburger" class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </header>
 
-  <div id="menu-overlay" class="menu-overlay">
-    <div class="logo">
-      <img src="logo/hwite-logo.png" alt="KAUZ Logo" class="logo-img" />
-    </div>
-    <div class="menu-content">
-      <a href="index.html">HOME</a>
-      <a href="about.html">ABOUT US</a>
-      <a href="portfolio.html">PORTFOLIO</a>
-      <a href="contact.html">CONTACT US</a>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       ④ About 페이지 본문 내용 (기존 콘텐츠 유지)
-       ============================================================ -->
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       About 페이지 본문 (기존 콘텐츠 그대로)
+    ─────────────────────────────────────────────────────────────────────────── -->
   <main id="about-page">
     <section class="about-intro fade-up">
       <h1>ABOUT US</h1>
@@ -112,9 +92,9 @@
     </section>
   </main>
 
-  <!-- ============================================================
-       ⑤ 푸터: common.css에서 스타일 적용 (메인과 동일한 배경)
-       ============================================================ -->
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       FOOTER (메인과 동일한 스타일, main.css에서 제어)
+    ─────────────────────────────────────────────────────────────────────────── -->
   <footer class="site-footer">
     <div class="footer-left">
       © 2025 KAUZ. All rights reserved.
@@ -124,9 +104,12 @@
     </div>
   </footer>
 
+  <!-- ───────────────────────────────────────────────────────────────────────────
+       JavaScript 로드 순서
+       1) main.js (공통 햄버거 토글 / ESC / 백그라운드 클릭 닫기)
+       2) about.js (About 고유 로직: fade-up, 이벤트 등)
+    ─────────────────────────────────────────────────────────────────────────── -->
   <script src="js/main.js"></script>
   <script src="js/about.js"></script>
-  <script src="js/portfolio.js"></script>
-  <script src="js/contact.js"></script>
 </body>
 </html>
