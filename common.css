@@ -43,7 +43,7 @@ h1, h2, h3 {
   top: 1.5rem;   /* 메인과 동일 */
   left: 1.5rem;  /* 메인과 동일 */
   z-index: 10000; /* 메인과 동일 */
-  height: 66px;  /* 메인과 동일 */
+  height: 46px;  /* 메인과 동일 */
 }
 .logo-img {
   height: 100%;
