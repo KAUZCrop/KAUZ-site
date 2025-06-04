@@ -170,21 +170,25 @@ a:hover {
 .menu-content {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1rem; /* 🔥 2.5rem → 1rem으로 줄임 (더 촘촘한 행간) */
   align-items: center;
   text-align: center;
   z-index: 10001;
+  position: relative; /* common.css용 */
 }
 
 .menu-content a {
   color: #fff;
-  font-size: 3rem;
+  font-size: 4.5rem; /* 🔥 3rem → 4.5rem으로 증가 */
   font-weight: 500;
   text-decoration: none;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.3s ease;
-  cursor: pointer; /* 🔥 명시적 커서 */
+  cursor: pointer;
+  line-height: 0.9; /* 🔥 1.1 → 0.9로 줄임 (더 촘촘한 행간) */
+  margin: 0.2rem 0; /* 🔥 각 메뉴 항목 간 약간의 여백 */
+  letter-spacing: -0.02em; /* 🔥 글자 간격 약간 줄임 */
 }
 
 .menu-content a:hover {
@@ -192,7 +196,7 @@ a:hover {
   transform: translateY(-2px);
 }
 
-/* 메뉴 활성화 시 애니메이션 - 수정 */
+/* 메뉴 활성화 시 애니메이션 */
 .menu-overlay.active .menu-content a {
   opacity: 1;
   transform: translateY(0);
@@ -209,6 +213,26 @@ a:hover {
 }
 .menu-overlay.active .menu-content a:nth-child(4) { 
   transition-delay: 0.4s; 
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .menu-content {
+    gap: 0.8rem; /* 모바일에서도 줄임 */
+  }
+  
+  .menu-content a {
+    font-size: 3rem; /* 🔥 2.5rem → 3rem으로 증가 */
+    line-height: 0.9;
+    margin: 0.1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-content a {
+    font-size: 2.5rem;
+    line-height: 0.9;
+  }
 }
 
 /* 기존 keyframes는 제거하고 transition 사용 */
