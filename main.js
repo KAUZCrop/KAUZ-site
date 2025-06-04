@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuOverlay   = document.getElementById('menu-overlay');
   const scrollingContainer = document.querySelector('.scrolling-container');
   const scrollingText = document.querySelector('.scrolling-text');
+  const contactSection = document.getElementById('contact');
 
   console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay });
 
@@ -30,6 +31,71 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburger.classList.remove('active');
     }
     document.body.style.overflow = '';
+    document.body.classList.remove('menu-open');
+  }
+
+  // ─── Contact 섹션 클릭 처리 (스크롤 방해 없이) ───
+  if (contactSection) {
+    let isScrolling = false;
+    let scrollTimeout;
+    let startY = 0;
+    let startTime = 0;
+
+    // 터치/마우스 시작 지점 기록
+    contactSection.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+      startTime = Date.now();
+      isScrolling = false;
+      
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 150);
+    }, { passive: true });
+
+    contactSection.addEventListener('mousedown', (e) => {
+      startY = e.clientY;
+      startTime = Date.now();
+      isScrolling = false;
+    });
+
+    // 스크롤 감지
+    contactSection.addEventListener('touchmove', (e) => {
+      const currentY = e.touches[0].clientY;
+      const deltaY = Math.abs(currentY - startY);
+      
+      if (deltaY > 10) { // 10px 이상 움직이면 스크롤로 간주
+        isScrolling = true;
+      }
+    }, { passive: true });
+
+    contactSection.addEventListener('mousemove', (e) => {
+      const currentY = e.clientY;
+      const deltaY = Math.abs(currentY - startY);
+      
+      if (deltaY > 10) {
+        isScrolling = true;
+      }
+    });
+
+    // 클릭/터치 종료 시 처리
+    contactSection.addEventListener('touchend', (e) => {
+      const endTime = Date.now();
+      const duration = endTime - startTime;
+      
+      // 스크롤이 아니고, 짧은 터치(300ms 이하)면 클릭으로 간주
+      if (!isScrolling && duration < 300) {
+        e.preventDefault();
+        window.location.href = 'contact.html';
+      }
+    });
+
+    contactSection.addEventListener('click', (e) => {
+      if (!isScrolling) {
+        e.preventDefault();
+        window.location.href = 'contact.html';
+      }
+    });
   }
 
   // ─── Typing Animation Function ───
@@ -146,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         menuOverlay.classList.add('active');
         hamburger.classList.add('active');
         document.body.style.overflow = 'hidden';
+        document.body.classList.add('menu-open');
         console.log('Menu opened');
       }
     });
