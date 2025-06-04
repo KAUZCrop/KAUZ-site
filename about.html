@@ -12,13 +12,10 @@
   <link rel="stylesheet" href="about.css" />
 </head>
 <body>
-  <!-- ───────────────────────────────────────────────────────────────────────────
-       HEADER + HAMBURGER + MENU OVERLAY (메인과 100% 동일하게 복사)
-    ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- 헤더 + 햄버거 + 메뉴 오버레이 -->
   <header>
     <div class="logo">
       <a href="index.html">
-        <!-- 메인 헤더 로고는 컬러 버전이든 흰색 버전이든, 여기서는 컬러 로고로 예시 -->
         <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </a>
     </div>
@@ -28,14 +25,11 @@
     </div>
   </header>
 
- <div id="menu-overlay" class="menu-overlay">
-  <div class="logo">
-    <a href="index.html">  <!-- 🔥 링크 추가 -->
-      <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
-    </a>
-  </div>
-      <!-- 메뉴 오버레이 로고는 흰색 버전으로 통일 -->
-      <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+  <div id="menu-overlay" class="menu-overlay">
+    <div class="logo">
+      <a href="index.html">
+        <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+      </a>
     </div>
     <div class="menu-content">
       <a href="index.html">HOME</a>
@@ -45,9 +39,7 @@
     </div>
   </div>
 
-  <!-- ───────────────────────────────────────────────────────────────────────────
-       About 페이지 본문 (기존 콘텐츠 그대로)
-    ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- About 페이지 본문 -->
   <main id="about-page">
     <section class="about-intro fade-up">
       <h1>ABOUT US</h1>
@@ -71,7 +63,7 @@
 
     <section class="our-mission fade-up">
       <h2>OUR MISSION</h2>
-      <p>“브랜드의 본질을 직관적으로 전달하고, 소비자와 진정성 있게 연결합니다.” <br> 데이터 기반의 인사이트와 크리에이티브를 결합하여 새로운 가치를 창출합니다.</p>
+      <p>"브랜드의 본질을 직관적으로 전달하고, 소비자와 진정성 있게 연결합니다." <br> 데이터 기반의 인사이트와 크리에이티브를 결합하여 새로운 가치를 창출합니다.</p>
     </section>
 
     <section class="our-team fade-up">
@@ -96,9 +88,7 @@
     </section>
   </main>
 
-  <!-- ───────────────────────────────────────────────────────────────────────────
-       FOOTER (메인과 동일한 스타일, main.css에서 제어)
-    ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- 푸터 -->
   <footer class="site-footer">
     <div class="footer-left">
       © 2025 KAUZ. All rights reserved.
@@ -108,11 +98,7 @@
     </div>
   </footer>
 
-  <!-- ───────────────────────────────────────────────────────────────────────────
-       JavaScript 로드 순서
-       1) common.js (공통 햄버거 토글 / ESC / 백그라운드 클릭 닫기)
-       2) about.js (About 고유 로직: fade-up, 이벤트 등)
-    ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- JavaScript 파일들 -->
   <script src="common.js"></script>
   <script src="about.js"></script>
 </body>
