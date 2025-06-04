@@ -1279,7 +1279,9 @@ body.menu-open {
 /* ═══════════════════════════════════════════════════════════════
    Our Client 섹션 - 아래쪽 페이드 효과 수정
    ═══════════════════════════════════════════════════════════════ */
-/* Our Client 섹션 - 웹에서 3줄 + 페이드 효과, 모바일에서 3x3 그리드 */
+/* Our Client 섹션 전체 수정 - 웹과 모바일 모두 포함 */
+
+/* 기본 웹 버전 */
 #our-client {
   padding: 4rem 0 2rem 0;
   background-color: #0D0D0D;
@@ -1301,7 +1303,7 @@ body.menu-open {
   padding-bottom: 15px;
 }
 
-/* 웹 버전 - 3줄 모두 표시 */
+/* 웹 버전 - row 방식 */
 .client-row {
   display: flex;
   justify-content: center;
@@ -1339,12 +1341,11 @@ body.menu-open {
   filter: grayscale(0%);
 }
 
-/* 1번째 줄 - 완전 선명 */
+/* 웹 버전 페이드 효과 */
 .client-row:nth-child(1) {
   opacity: 1;
 }
 
-/* 2번째 줄 - 약간 페이드 */
 .client-row:nth-child(2) {
   opacity: 0.7;
   position: relative;
@@ -1362,7 +1363,6 @@ body.menu-open {
   z-index: 2;
 }
 
-/* 3번째 줄 - 거의 안보이게 */
 .client-row:nth-child(3) {
   opacity: 0.3;
   transform: translateY(10px);
@@ -1382,7 +1382,6 @@ body.menu-open {
   z-index: 2;
 }
 
-/* 전체 그리드에 마스크 오버레이 */
 .client-grid::after {
   content: '';
   position: absolute;
@@ -1395,7 +1394,6 @@ body.menu-open {
   z-index: 3;
 }
 
-/* More 링크 */
 .client-more {
   text-align: center;
   margin-top: 15px;
@@ -1417,46 +1415,60 @@ body.menu-open {
   opacity: 0.7;
 }
 
-/* 모바일 Our Client 섹션 - 3x3 그리드 + 페이드 효과 */
+/* 모바일 버전 - 완전히 새로운 구조 */
 @media (max-width: 768px) {
   #our-client {
-    padding: 2rem 0 1rem 0;
+    padding: 2rem 0 1rem 0 !important;
   }
   
   .client-title {
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
+    font-size: 1.6rem !important;
+    margin-bottom: 2rem !important;
   }
   
-  /* 모바일에서 3x3 그리드로 변경 */
-  .client-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    padding: 0 1rem;
-    position: relative;
-  }
-  
-  /* 모바일에서 row 대신 grid 사용하므로 숨김 */
+  /* 웹 버전 숨기기 */
   .client-row {
-    display: none;
+    display: none !important;
   }
   
-  /* 모바일 클라이언트 로고 */
+  /* 모바일 grid 강제 적용 */
+  .client-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+    position: relative !important;
+  }
+  
+  /* 웹 버전 오버레이 제거 */
+  .client-grid::after {
+    display: none !important;
+  }
+  
+  /* 모바일 로고 스타일 강제 적용 */
   .client-logo {
-    width: 100%;
-    height: 70px;
-    padding: 0.7rem;
-    margin: 0;
-    grid-column: span 1;
+    width: 100% !important;
+    height: 70px !important;
+    padding: 0.7rem !important;
+    margin: 0 !important;
+    grid-column: span 1 !important;
+    display: flex !important;
+    position: relative !important;
   }
   
-  /* 2번째 줄(4,5,6번째 아이템)에 페이드 효과 */
+  /* 1번째 줄 - 선명 */
+  .client-logo:nth-child(1),
+  .client-logo:nth-child(2),
+  .client-logo:nth-child(3) {
+    opacity: 1 !important;
+  }
+  
+  /* 2번째 줄 - 페이드 */
   .client-logo:nth-child(4),
   .client-logo:nth-child(5),
   .client-logo:nth-child(6) {
-    opacity: 0.6;
-    position: relative;
+    opacity: 0.6 !important;
+    position: relative !important;
   }
   
   .client-logo:nth-child(4)::after,
@@ -1473,12 +1485,12 @@ body.menu-open {
     z-index: 2;
   }
   
-  /* 3번째 줄(7,8,9번째 아이템)에 강한 페이드 효과 */
+  /* 3번째 줄 - 거의 안보임 */
   .client-logo:nth-child(7),
   .client-logo:nth-child(8),
   .client-logo:nth-child(9) {
-    opacity: 0.3;
-    position: relative;
+    opacity: 0.3 !important;
+    position: relative !important;
   }
   
   .client-logo:nth-child(7)::after,
@@ -1495,8 +1507,8 @@ body.menu-open {
     z-index: 2;
   }
   
-  /* 전체 그리드에 하단 페이드 오버레이 */
-  .client-grid::after {
+  /* 모바일 전용 오버레이 */
+  .client-grid::before {
     content: '';
     position: absolute;
     bottom: 0;
@@ -1509,32 +1521,32 @@ body.menu-open {
   }
   
   .client-more {
-    margin-top: 10px;
+    margin-top: 10px !important;
   }
   
   .client-more a {
-    font-size: 20px;
+    font-size: 20px !important;
   }
 }
 
-/* 작은 모바일 대응 */
+/* 작은 모바일 */
 @media (max-width: 480px) {
   .client-grid {
-    gap: 0.7rem;
-    padding: 0 0.5rem;
+    gap: 0.7rem !important;
+    padding: 0 0.5rem !important;
   }
   
   .client-logo {
-    height: 56px;
-    padding: 0.42rem;
+    height: 56px !important;
+    padding: 0.42rem !important;
   }
   
   .client-title {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.4rem !important;
+    margin-bottom: 1.5rem !important;
   }
   
   .client-more a {
-    font-size: 16px;
+    font-size: 16px !important;
   }
 }
