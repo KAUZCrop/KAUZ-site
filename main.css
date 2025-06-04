@@ -846,37 +846,44 @@ body.mobile {
    모바일 대응
    ═══════════════════════════════════════════════════════════════ */
 
+/* 모바일 포트폴리오 섹션 - 한 줄에 4개 이미지 */
 @media (max-width: 768px) {
-  /* 포트폴리오 모바일 */
   #PortfolioSlider {
-    padding: 2rem 0;
+    padding: 0;
     overflow: visible !important;
     width: 100%;
   }
   
   #PortfolioSlider h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    padding: 0 1rem;
+    font-size: 20px !important;
+    padding: 2rem 0 1rem 1rem !important;
+    text-align: left !important;
+    margin: 0 !important;
   }
   
-  /* 모바일 컨테이너 - 2x2 그리드 */
+  .portfolio-more-link {
+    right: 1rem !important;
+    top: 2rem !important;
+    font-size: 20px !important;
+  }
+  
+  /* 모바일 컨테이너 - 한 줄에 4개 */
   .portfolio-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+    height: 150px;
     padding: 0;
-    margin: 0 1rem;
+    margin: 0 1rem 2rem 1rem;
     width: calc(100% - 2rem);
     overflow: visible !important;
   }
   
   /* 모바일 슬라이드 */
   .portfolio-slide {
-    flex: none;
-    width: 100%;
-    height: 200px;
+    flex: 1;
+    width: auto;
+    height: 100%;
     display: block;
     cursor: default;
     pointer-events: none;
@@ -895,16 +902,16 @@ body.mobile {
   }
   
   /* 모바일에서 모든 호버/확장 효과 제거 */
-.portfolio-slide:hover,
-.portfolio-slide:active,
-.portfolio-expanded,
-.portfolio-shrunk,
-.portfolio-slide:nth-child(1).portfolio-expanded,
-.portfolio-slide:nth-child(2).portfolio-expanded,
-.portfolio-slide:nth-child(3).portfolio-expanded,
-.portfolio-slide:nth-child(4).portfolio-expanded {
-    flex: none !important;
-    width: 100% !important;
+  .portfolio-slide:hover,
+  .portfolio-slide:active,
+  .portfolio-expanded,
+  .portfolio-shrunk,
+  .portfolio-slide:nth-child(1).portfolio-expanded,
+  .portfolio-slide:nth-child(2).portfolio-expanded,
+  .portfolio-slide:nth-child(3).portfolio-expanded,
+  .portfolio-slide:nth-child(4).portfolio-expanded {
+    flex: 1 !important;
+    width: auto !important;
     opacity: 1 !important;
     transform: none !important;
   }
@@ -913,6 +920,7 @@ body.mobile {
     transform: none !important;
     filter: none !important;
   }
+}
   
   /* 푸터 모바일 - 좌우 정렬 */
   .site-footer {
@@ -966,30 +974,45 @@ body.mobile {
   }
 }
 
-/* 작은 모바일 */
+/* 작은 모바일 대응 */
 @media (max-width: 480px) {
+  /* 포트폴리오 */
   .portfolio-container {
-    gap: 0.3rem;
-    margin: 0 0.5rem;
+    gap: 0.2rem;
+    margin: 0 0.5rem 2rem 0.5rem;
     width: calc(100% - 1rem);
-  }
-  
-  .portfolio-slide {
-    height: 150px;
+    height: 120px;
   }
   
   #PortfolioSlider h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 18px !important;
+    padding: 1.5rem 0 0.8rem 0.5rem !important;
   }
   
-  .site-footer {
-    padding: 1rem 0.5rem;
+  .portfolio-more-link {
+    right: 0.5rem !important;
+    top: 1.5rem !important;
+    font-size: 18px !important;
   }
   
-  .footer-left,
-  .footer-right {
-    font-size: 0.75rem;
+  /* Our Client */
+  .client-grid {
+    gap: 0.7rem;
+    padding: 0 0.5rem;
+  }
+  
+  .client-logo {
+    height: 56px;
+    padding: 0.42rem;
+  }
+  
+  .client-title {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .client-more a {
+    font-size: 16px;
   }
 }
 
@@ -1399,51 +1422,95 @@ body.menu-open {
   opacity: 0.7;
 }
 
-/* 모바일 대응 */
+/* 모바일 Our Client 섹션 - 3x3 그리드 + 페이드 효과 */
 @media (max-width: 768px) {
   #our-client {
     padding: 2rem 0 1rem 0;
   }
   
   .client-title {
-    font-size: 1.6rem; /* 🔥 slogan과 비슷한 비율로 조정 */
+    font-size: 1.6rem;
     margin-bottom: 2rem;
   }
   
- .client-row {
-    gap: 1.4rem; /* 🔥 1rem → 1.4rem (40% 증가) */
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .client-logo {
-    width: 112px; /* 🔥 80px → 112px (40% 증가) */
-    height: 70px; /* 🔥 50px → 70px (40% 증가) */
-    padding: 0.7rem; /* 🔥 0.5rem → 0.7rem (40% 증가) */
-  }
-}
-  
+  /* 모바일에서 3x3 그리드로 변경 */
   .client-grid {
-    padding-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+    position: relative;
   }
   
-  .client-row:nth-child(1)::after {
-    height: 20px;
-    bottom: -5px;
+  /* 모바일에서 row 대신 grid 사용하므로 숨김 */
+  .client-row {
+    display: none;
   }
   
-  .client-row:nth-child(2)::after {
-    height: 35px;
+  /* 모바일 클라이언트 로고 */
+  .client-logo {
+    width: 100%;
+    height: 70px;
+    padding: 0.7rem;
+    margin: 0;
+    grid-column: span 1;
+  }
+  
+  /* 2번째 줄(4,5,6번째 아이템)에 페이드 효과 */
+  .client-logo:nth-child(4),
+  .client-logo:nth-child(5),
+  .client-logo:nth-child(6) {
+    opacity: 0.6;
+    position: relative;
+  }
+  
+  .client-logo:nth-child(4)::after,
+  .client-logo:nth-child(5)::after,
+  .client-logo:nth-child(6)::after {
+    content: '';
+    position: absolute;
     bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.5) 70%, rgba(13, 13, 13, 0.8) 100%);
+    pointer-events: none;
+    z-index: 2;
   }
   
-  .client-row.almost-hidden {
-    display: none; /* 모바일에서는 3번째 줄 완전히 숨김 */
+  /* 3번째 줄(7,8,9번째 아이템)에 강한 페이드 효과 */
+  .client-logo:nth-child(7),
+  .client-logo:nth-child(8),
+  .client-logo:nth-child(9) {
+    opacity: 0.3;
+    position: relative;
   }
   
+  .client-logo:nth-child(7)::after,
+  .client-logo:nth-child(8)::after,
+  .client-logo:nth-child(9)::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.7) 40%, #0D0D0D 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+  
+  /* 전체 그리드에 하단 페이드 오버레이 */
   .client-grid::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     height: 60px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.4) 50%, #0D0D0D 100%);
+    pointer-events: none;
+    z-index: 3;
   }
   
   .client-more {
