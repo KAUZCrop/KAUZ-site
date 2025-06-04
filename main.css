@@ -91,6 +91,12 @@ a:hover {
   display: block;
 }
 
+@media (max-width: 768px) {
+  .logo {
+    height: 28px; /* 46px에서 40% 줄임 (46 * 0.6 = 27.6px ≈ 28px) */
+  }
+}
+
 /* 햄버거 아이콘 - 수정된 버전 */
 .hamburger {
   position: fixed;
@@ -1279,9 +1285,7 @@ body.menu-open {
 /* ═══════════════════════════════════════════════════════════════
    Our Client 섹션 - 아래쪽 페이드 효과 수정
    ═══════════════════════════════════════════════════════════════ */
-/* Our Client 섹션 전체 수정 - 웹과 모바일 모두 포함 */
-
-/* 기본 웹 버전 */
+/* 웹 버전 Our Client */
 #our-client {
   padding: 4rem 0 2rem 0;
   background-color: #0D0D0D;
@@ -1303,7 +1307,6 @@ body.menu-open {
   padding-bottom: 15px;
 }
 
-/* 웹 버전 - row 방식 */
 .client-row {
   display: flex;
   justify-content: center;
@@ -1415,8 +1418,8 @@ body.menu-open {
   opacity: 0.7;
 }
 
-/* 모바일 버전 - 완전히 새로운 구조 */
-@media (max-width: 768px) {
+/* 모바일 전용 Our Client - 완전히 새로운 구조 */
+@media screen and (max-width: 768px) {
   #our-client {
     padding: 2rem 0 1rem 0 !important;
   }
@@ -1426,18 +1429,9 @@ body.menu-open {
     margin-bottom: 2rem !important;
   }
   
-  /* 웹 버전 숨기기 */
+  /* 웹 버전 완전 숨김 */
   .client-row {
     display: none !important;
-  }
-  
-  /* 모바일 grid 강제 적용 */
-  .client-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 1rem !important;
-    padding: 0 1rem !important;
-    position: relative !important;
   }
   
   /* 웹 버전 오버레이 제거 */
@@ -1445,7 +1439,18 @@ body.menu-open {
     display: none !important;
   }
   
-  /* 모바일 로고 스타일 강제 적용 */
+  /* 모바일 그리드 강제 적용 */
+  .client-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 모바일 로고 강제 스타일 */
   .client-logo {
     width: 100% !important;
     height: 70px !important;
@@ -1453,7 +1458,20 @@ body.menu-open {
     margin: 0 !important;
     grid-column: span 1 !important;
     display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
     position: relative !important;
+  }
+  
+  /* 모바일 이미지 스타일 */
+  .client-logo img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    filter: grayscale(100%) !important;
   }
   
   /* 1번째 줄 - 선명 */
@@ -1468,7 +1486,6 @@ body.menu-open {
   .client-logo:nth-child(5),
   .client-logo:nth-child(6) {
     opacity: 0.6 !important;
-    position: relative !important;
   }
   
   .client-logo:nth-child(4)::after,
@@ -1490,7 +1507,6 @@ body.menu-open {
   .client-logo:nth-child(8),
   .client-logo:nth-child(9) {
     opacity: 0.3 !important;
-    position: relative !important;
   }
   
   .client-logo:nth-child(7)::after,
@@ -1507,7 +1523,7 @@ body.menu-open {
     z-index: 2;
   }
   
-  /* 모바일 전용 오버레이 */
+  /* 모바일 전용 하단 오버레이 */
   .client-grid::before {
     content: '';
     position: absolute;
@@ -1530,7 +1546,7 @@ body.menu-open {
 }
 
 /* 작은 모바일 */
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .client-grid {
     gap: 0.7rem !important;
     padding: 0 0.5rem !important;
