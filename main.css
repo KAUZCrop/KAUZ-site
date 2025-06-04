@@ -1230,7 +1230,7 @@ body.menu-open {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Our Client 섹션 - 아래쪽 페이드 효과
+   Our Client 섹션 - 아래쪽 페이드 효과 수정
    ═══════════════════════════════════════════════════════════════ */
 
 #our-client {
@@ -1251,6 +1251,7 @@ body.menu-open {
 .client-grid {
   width: 100%;
   position: relative;
+  padding-bottom: 15px; /* More 링크와의 간격 */
 }
 
 .client-row {
@@ -1290,26 +1291,33 @@ body.menu-open {
   filter: grayscale(0%);
 }
 
-/* 각 줄에 아래쪽 페이드 효과 적용 */
-.client-row::after {
+/* 1번째 줄 - 살짝 페이드 */
+.client-row:nth-child(1)::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -10px; /* 위치 조정 */
   left: 0;
   width: 100%;
-  height: 40px; /* 페이드 높이 */
-  background: linear-gradient(to bottom, transparent 0%, #0D0D0D 100%);
+  height: 30px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.3) 70%, rgba(13, 13, 13, 0.6) 100%);
   pointer-events: none;
   z-index: 2;
 }
 
-/* 2번째 줄 더 강한 페이드 */
+/* 2번째 줄 - 더 강한 페이드 */
 .client-row:nth-child(2)::after {
+  content: '';
+  position: absolute;
+  bottom: -15px; /* 위치 조정 */
+  left: 0;
+  width: 100%;
   height: 50px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.8) 50%, #0D0D0D 100%);
+  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.5) 40%, rgba(13, 13, 13, 0.8) 80%, #0D0D0D 100%);
+  pointer-events: none;
+  z-index: 2;
 }
 
-/* 3번째 줄 거의 숨김 + 강한 아래쪽 페이드 */
+/* 3번째 줄 - 거의 숨김 + 강한 아래쪽 페이드 */
 .client-row.almost-hidden {
   opacity: 0.3;
   transform: translateY(10px);
@@ -1317,19 +1325,34 @@ body.menu-open {
 }
 
 .client-row.almost-hidden::after {
-  height: 60px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.6) 30%, #0D0D0D 100%);
+  content: '';
+  position: absolute;
+  bottom: -20px; /* 위치 조정 */
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.6) 20%, rgba(13, 13, 13, 0.9) 60%, #0D0D0D 100%);
+  pointer-events: none;
+  z-index: 2;
 }
 
-/* 기존 오른쪽 페이드 제거 */
-.client-logo.fade-right::after {
-  display: none;
+/* 전체 그리드에 마스크 오버레이 추가 */
+.client-grid::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.2) 30%, rgba(13, 13, 13, 0.6) 70%, #0D0D0D 100%);
+  pointer-events: none;
+  z-index: 3;
 }
 
-/* More 링크 */
+/* More 링크 - 마진 추가 */
 .client-more {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 15px; /* 요청한 15px 마진 */
   position: relative;
   z-index: 10;
 }
@@ -1372,16 +1395,30 @@ body.menu-open {
     padding: 0.5rem;
   }
   
-  .client-row::after {
-    height: 30px;
+  .client-grid {
+    padding-bottom: 10px;
+  }
+  
+  .client-row:nth-child(1)::after {
+    height: 20px;
+    bottom: -5px;
   }
   
   .client-row:nth-child(2)::after {
     height: 35px;
+    bottom: -10px;
   }
   
   .client-row.almost-hidden {
     display: none; /* 모바일에서는 3번째 줄 완전히 숨김 */
+  }
+  
+  .client-grid::after {
+    height: 60px;
+  }
+  
+  .client-more {
+    margin-top: 10px;
   }
   
   .client-more a {
@@ -1408,11 +1445,17 @@ body.menu-open {
     font-size: 16px;
   }
   
-  .client-row::after {
-    height: 25px;
+  .client-row:nth-child(1)::after {
+    height: 15px;
+    bottom: -3px;
   }
   
   .client-row:nth-child(2)::after {
-    height: 30px;
+    height: 25px;
+    bottom: -7px;
+  }
+  
+  .client-grid::after {
+    height: 40px;
   }
 }
