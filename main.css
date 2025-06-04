@@ -1213,3 +1213,162 @@ body.menu-open {
     padding: 1.5rem 0;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Our Client 섹션
+   ═══════════════════════════════════════════════════════════════ */
+
+#our-client {
+  padding: 4rem 0 2rem 0;
+  background-color: #0D0D0D;
+  overflow: hidden;
+  position: relative;
+}
+
+.client-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+  font-weight: normal;
+}
+
+.client-grid {
+  width: 100%;
+  position: relative;
+}
+
+.client-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 4rem;
+  width: 100%;
+}
+
+.client-logo {
+  width: 120px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-sizing: border-box;
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.client-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.client-logo:hover img {
+  filter: grayscale(0%);
+}
+
+/* 5번째 로고 페이드 효과 */
+.client-logo.fade-right {
+  position: relative;
+}
+
+.client-logo.fade-right::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent 0%, #0D0D0D 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 3번째 줄 거의 숨김 */
+.client-row.almost-hidden {
+  opacity: 0.2;
+  transform: translateY(20px);
+  margin-bottom: 1rem;
+}
+
+/* More 링크 */
+.client-more {
+  text-align: center;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.client-more a {
+  font-size: 30px;
+  color: #BFBFBF;
+  text-decoration: none;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.client-more a:hover {
+  opacity: 0.7;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  #our-client {
+    padding: 2rem 0 1rem 0;
+  }
+  
+  .client-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .client-row {
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .client-logo {
+    width: 80px;
+    height: 50px;
+    padding: 0.5rem;
+  }
+  
+  .client-row.almost-hidden {
+    display: none; /* 모바일에서는 3번째 줄 완전히 숨김 */
+  }
+  
+  .client-more a {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .client-row {
+    gap: 0.5rem;
+  }
+  
+  .client-logo {
+    width: 60px;
+    height: 40px;
+    padding: 0.3rem;
+  }
+  
+  .client-title {
+    font-size: 1.5rem;
+  }
+  
+  .client-more a {
+    font-size: 16px;
+  }
+}
