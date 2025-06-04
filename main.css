@@ -337,12 +337,12 @@ body.mobile {
   margin-bottom: 2rem;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   포트폴리오 섹션 - 4번째 이미지 우측 완전 고정
+//* ═══════════════════════════════════════════════════════════════
+   포트폴리오 섹션 - 헤더 수정 (타이틀 + more+ 링크)
    ═══════════════════════════════════════════════════════════════ */
 
 #PortfolioSlider {
-  padding: 3rem 0;
+  padding: 0; /* 패딩 제거 */
   background-color: #0D0D0D;
   overflow: hidden !important;
   width: 100%;
@@ -351,34 +351,57 @@ body.mobile {
   overflow-x: hidden !important;
 }
 
+/* 기존 h2 스타일 제거하고 새로운 헤더 추가 */
 #PortfolioSlider h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: white;
-  padding: 0 2rem;
+  display: none; /* 기존 타이틀 숨김 */
 }
 
-/* 포트폴리오 컨테이너 - 새로운 접근법 */
+/* 새로운 포트폴리오 헤더 */
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 25px 1.5rem 25px; /* 상단 3rem, 하단 1.5rem, 좌우 25px */
+  margin: 0;
+  width: calc(100% - 50px);
+  box-sizing: border-box;
+}
+
+.portfolio-title {
+  font-size: 10px; /* 요청한 10p 크기 */
+  color: white;
+  margin: 0;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+}
+
+.portfolio-more-link {
+  font-size: 10px; /* 같은 크기 */
+  color: white;
+  text-decoration: none;
+  margin: 0;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.portfolio-more-link:hover {
+  color: #ccc;
+}
+
+/* 포트폴리오 컨테이너 위치 조정 */
 .portfolio-container {
   display: flex;
   width: calc(100% - 50px);
   height: 600px;
-  margin: 0 25px;
+  margin: 0 25px 3rem 25px; /* 하단에 3rem 마진 추가 */
   box-sizing: border-box;
   position: relative;
   gap: 1.5rem;
 }
 
-/* 좌측 3개 카드를 담는 컨테이너 */
-.portfolio-left-group {
-  display: flex;
-  gap: 1.5rem;
-  flex: 1;
-  height: 100%;
-}
-
-/* 우측 4번째 카드 */
+/* 나머지 포트폴리오 스타일은 기존과 동일하게 유지 */
 .portfolio-slide:nth-child(4) {
   flex: 0 0 calc(25% - 1.125rem);
   height: 100%;
@@ -389,7 +412,6 @@ body.mobile {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 포트폴리오 카드 - 기본 상태 (1,2,3번) */
 .portfolio-slide:not(:nth-child(4)) {
   flex: 1;
   height: 100%;
@@ -403,7 +425,6 @@ body.mobile {
   -webkit-backface-visibility: hidden;
 }
 
-/* 이미지 컨테이너 */
 .portfolio-image-container {
   width: 100%;
   flex: 1;
@@ -415,7 +436,6 @@ body.mobile {
   transition: all 0.4s ease;
 }
 
-/* 이미지 */
 .portfolio-image-container img {
   position: absolute;
   top: 0;
@@ -426,7 +446,6 @@ body.mobile {
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* 플레이스홀더 */
 .portfolio-placeholder {
   width: 100%;
   height: 100%;
@@ -438,7 +457,6 @@ body.mobile {
   font-size: 1.2rem;
 }
 
-/* 브랜드명 - 이미지 밖 하단 */
 .portfolio-slide-title {
   padding: 1rem 0;
   font-size: 1rem;
@@ -461,6 +479,81 @@ body.mobile {
   font-size: 0.9rem;
   opacity: 0.7;
   text-align: right;
+}
+
+/* 호버 효과는 기존과 동일 */
+.portfolio-slide:nth-child(1).portfolio-expanded,
+.portfolio-slide:nth-child(2).portfolio-expanded,
+.portfolio-slide:nth-child(3).portfolio-expanded {
+  flex: 2.5 !important;
+}
+
+.portfolio-slide:nth-child(4).portfolio-expanded {
+  flex: 0 0 calc(40% - 1.125rem) !important;
+}
+
+.portfolio-slide:not(:nth-child(4)).portfolio-shrunk {
+  flex: 0.7 !important;
+  opacity: 0.7;
+}
+
+.portfolio-slide:nth-child(4):not(.portfolio-expanded) {
+  flex: 0 0 calc(25% - 1.125rem) !important;
+  opacity: 1 !important;
+}
+
+.portfolio-shrunk .portfolio-image-container img {
+  filter: brightness(0.6);
+  transform: scale(1);
+}
+
+.portfolio-expanded .portfolio-image-container img {
+  transform: scale(1.05);
+}
+
+.portfolio-shrunk .portfolio-slide-title {
+  opacity: 0.5;
+}
+
+.portfolio-slide:nth-child(4) .portfolio-slide-title {
+  opacity: 1 !important;
+}
+
+.portfolio-slide:nth-child(4) .portfolio-image-container img {
+  filter: none !important;
+}
+
+.portfolio-slide:not(.portfolio-expanded):not(.portfolio-shrunk):not(:nth-child(4)) {
+  flex: 1 !important;
+  opacity: 1;
+}
+
+.portfolio-slide:not(.portfolio-expanded):not(.portfolio-shrunk) .portfolio-image-container img {
+  filter: none;
+  transform: scale(1);
+}
+
+.portfolio-slide:not(.portfolio-expanded):not(.portfolio-shrunk) .portfolio-slide-title {
+  opacity: 1;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .portfolio-header {
+    padding: 2rem 1rem 1rem 1rem;
+    width: calc(100% - 2rem);
+    margin: 0 1rem;
+  }
+  
+  .portfolio-title,
+  .portfolio-more-link {
+    font-size: 8px; /* 모바일에서 약간 작게 */
+  }
+  
+  .portfolio-container {
+    margin: 0 1rem 2rem 1rem;
+    width: calc(100% - 2rem);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
