@@ -351,56 +351,54 @@ body.mobile {
   overflow-x: hidden !important;
 }
 
-/* 기존 h2 스타일 제거하고 새로운 헤더 추가 */
+/* 기존 h2를 수정해서 Portfolio 타이틀로 사용 */
 #PortfolioSlider h2 {
-  display: none; /* 기존 타이틀 숨김 */
+  display: block !important; /* 기존 숨김 해제 */
+  font-size: 30px !important;
+  color: #BFBFBF !important;
+  text-align: left !important; /* 왼쪽 정렬 */
+  margin: 0 !important;
+  padding: 3rem 0 1.5rem 25px !important; /* 상단 3rem, 좌측 25px */
+  font-weight: normal !important;
+  letter-spacing: 0.5px !important;
+  cursor: default !important;
+  transition: opacity 0.3s ease !important;
+  position: relative !important;
+  z-index: 1000 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-/* 새로운 포트폴리오 헤더 - 절대 위치로 배치 */
-.portfolio-header {
-  position: relative;
-  width: calc(100% - 50px);
-  margin: 0 25px;
-  padding-top: 3rem;
-  padding-bottom: 1.5rem;
-  height: 30px; /* 텍스트 높이만큼 */
+#PortfolioSlider h2:hover {
+  opacity: 0.7 !important;
 }
 
-.portfolio-title {
-  position: absolute;
-  left: 0; /* 1번 이미지 위 가장 좌측 */
-  top: 3rem;
-  font-size: 30px; /* 30px로 증가 */
-  color: #BFBFBF !important; /* 요청한 색상 */
-  margin: 0;
-  font-weight: normal;
-  letter-spacing: 0.5px;
-  z-index: 1000; /* z-index 높임 */
-  cursor: default;
-  transition: opacity 0.3s ease;
-}
-
-.portfolio-title:hover {
-  opacity: 0.7; /* 호버 시 불투명도 */
-}
-
+/* More+ 링크만 별도로 배치 */
 .portfolio-more-link {
-  position: absolute;
-  right: 0; /* 4번 이미지 위 가장 우측 */
-  top: 3rem;
-  font-size: 30px; /* 30px로 증가 */
-  color: #BFBFBF !important; /* 요청한 색상 */
-  text-decoration: none;
-  margin: 0;
-  font-weight: normal;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-  z-index: 1000; /* z-index 높임 */
+  position: absolute !important;
+  right: 25px !important; /* 우측 25px 마진 */
+  top: 3rem !important; /* h2와 같은 높이 */
+  font-size: 30px !important;
+  color: #BFBFBF !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-weight: normal !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: opacity 0.3s ease !important;
+  z-index: 1001 !important; /* h2보다 위에 */
+  pointer-events: auto !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  text-shadow: none !important;
+  line-height: 1 !important;
 }
 
 .portfolio-more-link:hover {
-  opacity: 0.7; /* 호버 시 불투명도 */
+  opacity: 0.7 !important;
 }
 
 /* 포트폴리오 컨테이너 위치 조정 */
@@ -552,23 +550,16 @@ body.mobile {
 
 /* 모바일 대응 */
 @media (max-width: 768px) {
-  .portfolio-header {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-    width: calc(100% - 2rem);
-    margin: 0 1rem;
-  }
-  
-  .portfolio-title {
-    top: 2rem;
-    font-size: 20px; /* 모바일에서 약간 작게 */
-    color: #BFBFBF !important; /* 모바일에서도 같은 색상 */
+  #PortfolioSlider h2 {
+    font-size: 20px !important;
+    padding: 2rem 0 1rem 1rem !important; /* 모바일에서 좌측 1rem */
   }
   
   .portfolio-more-link {
-    top: 2rem;
-    font-size: 20px; /* 모바일에서 약간 작게 */
-    color: #BFBFBF !important; /* 모바일에서도 같은 색상 */
+    right: 1rem !important; /* 모바일에서 우측 1rem */
+    top: 2rem !important;
+    font-size: 20px !important;
+    color: #BFBFBF !important;
   }
   
   .portfolio-container {
