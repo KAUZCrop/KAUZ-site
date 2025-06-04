@@ -640,6 +640,10 @@ body.mobile {
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
+/* ═══════════════════════════════════════════════════════════════
+   Contact Us 무한 롤링 - 스크롤 방해 없는 클릭 처리
+   ═══════════════════════════════════════════════════════════════ */
+
 #contact {
   margin-top: 50px;
   padding: 6rem 0;
@@ -647,6 +651,8 @@ body.mobile {
   color: white;
   overflow: hidden;
   position: relative;
+  cursor: pointer; /* 전체 영역 클릭 가능 표시 */
+  user-select: none; /* 텍스트 선택 방지 */
 }
 
 /* 스크롤 컨테이너 */
@@ -654,6 +660,7 @@ body.mobile {
   position: relative;
   width: 100%;
   overflow: hidden;
+  pointer-events: none; /* 스크롤 방해 방지 */
 }
 
 .scrolling-text {
@@ -668,9 +675,9 @@ body.mobile {
   font-family: 'Bebas Neue', sans-serif;
   line-height: 1;
   transform: scaleY(1.2);
+  pointer-events: none; /* 애니메이션 요소는 클릭 방지 */
 }
 
-/* 두 번째 복사본을 위한 클래스 */
 .scrolling-text-clone {
   display: flex;
   white-space: nowrap;
@@ -686,19 +693,16 @@ body.mobile {
   position: absolute;
   top: 0;
   left: 100%;
+  pointer-events: none; /* 애니메이션 요소는 클릭 방지 */
 }
 
 .scrolling-item {
   padding-right: 0;
-  cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
   color: white;
   display: inline-block;
-}
-
-.scrolling-item:hover {
-  color: #ccc;
+  pointer-events: none; /* 개별 아이템 클릭 방지 */
 }
 
 .divider {
@@ -708,6 +712,18 @@ body.mobile {
   font-size: 9rem;
   line-height: 1;
   display: inline-block;
+  pointer-events: none; /* 구분자 클릭 방지 */
+}
+
+/* 전체 섹션 호버 효과 */
+#contact:hover {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+#contact:active {
+  opacity: 0.6;
+  transition: opacity 0.1s ease;
 }
 
 /* 끊김 없는 무한 스크롤 애니메이션 */
@@ -719,8 +735,7 @@ body.mobile {
     transform: translateX(-50%) scaleY(1.2);
   }
 }
-
-/* 모바일 대응 */
+* 모바일 대응 */
 @media (max-width: 768px) {
   .scrolling-text, .scrolling-text-clone {
     font-size: 2.5rem;
