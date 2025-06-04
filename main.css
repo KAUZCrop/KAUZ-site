@@ -337,7 +337,7 @@ body.mobile {
   margin-bottom: 2rem;
 }
 
-//* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    포트폴리오 섹션 - 헤더 수정 (타이틀 + more+ 링크)
    ═══════════════════════════════════════════════════════════════ */
 
@@ -356,27 +356,33 @@ body.mobile {
   display: none; /* 기존 타이틀 숨김 */
 }
 
-/* 새로운 포트폴리오 헤더 */
+/* 새로운 포트폴리오 헤더 - 절대 위치로 배치 */
 .portfolio-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 3rem 25px 1.5rem 25px; /* 상단 3rem, 하단 1.5rem, 좌우 25px */
-  margin: 0;
+  position: relative;
   width: calc(100% - 50px);
-  box-sizing: border-box;
+  margin: 0 25px;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
+  height: 30px; /* 텍스트 높이만큼 */
 }
 
 .portfolio-title {
-  font-size: 10px; /* 요청한 10p 크기 */
+  position: absolute;
+  left: 0; /* 1번 이미지 위 가장 좌측 */
+  top: 3rem;
+  font-size: 30px; /* 30px로 증가 */
   color: white;
   margin: 0;
   font-weight: normal;
   letter-spacing: 0.5px;
+  z-index: 10;
 }
 
 .portfolio-more-link {
-  font-size: 10px; /* 같은 크기 */
+  position: absolute;
+  right: 0; /* 4번 이미지 위 가장 우측 */
+  top: 3rem;
+  font-size: 30px; /* 30px로 증가 */
   color: white;
   text-decoration: none;
   margin: 0;
@@ -384,6 +390,7 @@ body.mobile {
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: color 0.3s ease;
+  z-index: 10;
 }
 
 .portfolio-more-link:hover {
@@ -540,14 +547,20 @@ body.mobile {
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .portfolio-header {
-    padding: 2rem 1rem 1rem 1rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
     width: calc(100% - 2rem);
     margin: 0 1rem;
   }
   
-  .portfolio-title,
+  .portfolio-title {
+    top: 2rem;
+    font-size: 20px; /* 모바일에서 약간 작게 */
+  }
+  
   .portfolio-more-link {
-    font-size: 8px; /* 모바일에서 약간 작게 */
+    top: 2rem;
+    font-size: 20px; /* 모바일에서 약간 작게 */
   }
   
   .portfolio-container {
