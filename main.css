@@ -371,11 +371,17 @@ body.mobile {
   left: 0; /* 1번 이미지 위 가장 좌측 */
   top: 3rem;
   font-size: 30px; /* 30px로 증가 */
-  color: white;
+  color: #BFBFBF !important; /* 요청한 색상 */
   margin: 0;
   font-weight: normal;
   letter-spacing: 0.5px;
-  z-index: 10;
+  z-index: 1000; /* z-index 높임 */
+  cursor: default;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-title:hover {
+  opacity: 0.7; /* 호버 시 불투명도 */
 }
 
 .portfolio-more-link {
@@ -383,18 +389,18 @@ body.mobile {
   right: 0; /* 4번 이미지 위 가장 우측 */
   top: 3rem;
   font-size: 30px; /* 30px로 증가 */
-  color: white;
+  color: #BFBFBF !important; /* 요청한 색상 */
   text-decoration: none;
   margin: 0;
   font-weight: normal;
   letter-spacing: 0.5px;
   cursor: pointer;
-  transition: color 0.3s ease;
-  z-index: 10;
+  transition: opacity 0.3s ease;
+  z-index: 1000; /* z-index 높임 */
 }
 
 .portfolio-more-link:hover {
-  color: #ccc;
+  opacity: 0.7; /* 호버 시 불투명도 */
 }
 
 /* 포트폴리오 컨테이너 위치 조정 */
@@ -556,11 +562,13 @@ body.mobile {
   .portfolio-title {
     top: 2rem;
     font-size: 20px; /* 모바일에서 약간 작게 */
+    color: #BFBFBF !important; /* 모바일에서도 같은 색상 */
   }
   
   .portfolio-more-link {
     top: 2rem;
     font-size: 20px; /* 모바일에서 약간 작게 */
+    color: #BFBFBF !important; /* 모바일에서도 같은 색상 */
   }
   
   .portfolio-container {
