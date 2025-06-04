@@ -5,21 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PORTFOLIO — KAUZ</title>
 
- <!-- ① 서브 페이지 공통 CSS (헤더/메뉴/푸터) -->
+  <!-- ① 서브 페이지 공통 CSS (헤더/메뉴/푸터) -->
   <link rel="stylesheet" href="common.css" />
 
   <!-- ② Portfolio 페이지 전용 CSS -->
   <link rel="stylesheet" href="portfolio.css" />
 </head>
 <body>
-  <!-- ───────────────────────────────────────────────────────────────────────────
-       HEADER + HAMBURGER + MENU OVERLAY (메인과 100% 동일하게 복사)
-    ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- 헤더 + 햄버거 + 메뉴 오버레이 -->
   <header>
     <div class="logo">
-      <a href="main.html">
-        <!-- 메인 헤더 로고 (컬러 버전) -->
-        <img src="../logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+      <a href="index.html">
+        <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </a>
     </div>
     <div id="hamburger" class="hamburger">
@@ -29,25 +26,20 @@
   </header>
 
   <div id="menu-overlay" class="menu-overlay">
-  <div class="logo">
-    <a href="index.html">  <!-- 🔥 링크 추가 -->
-      <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
-    </a>
-  </div>
-      <!-- 메뉴 오버레이 로고 (흰색 버전) -->
-      <img src="../logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+    <div class="logo">
+      <a href="index.html">
+        <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+      </a>
     </div>
     <div class="menu-content">
-      <a href="main.html">HOME</a>
+      <a href="index.html">HOME</a>
       <a href="about.html">ABOUT US</a>
       <a href="portfolio.html">PORTFOLIO</a>
       <a href="contact.html">CONTACT US</a>
     </div>
   </div>
 
-  <!-- ───────────────────────────────────────────────────────────────────────────
-       Portfolio 페이지 본문
-    ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- Portfolio 페이지 본문 -->
   <section class="hero-portfolio fade-up">
     <div class="hero-text">
       <h1>Our Portfolio</h1>
@@ -57,7 +49,7 @@
 
   <main class="project-list container fade-up">
     <div class="project-card" data-filter="branding">
-      <img src="../image/project1-thumbnail.jpg" alt="Client A 리브랜딩 캠페인" />
+      <img src="images/project1-thumbnail.jpg" alt="Client A 리브랜딩 캠페인" />
       <div class="card-content">
         <h3>Client A: 리브랜딩 캠페인</h3>
         <p>• 소비자 인지도 25% 상승<br>• 클릭률 3.2% 기록</p>
@@ -66,7 +58,7 @@
     </div>
 
     <div class="project-card" data-filter="digital">
-      <img src="../image/project2-thumbnail.jpg" alt="Client B 디지털 퍼포먼스 캠페인" />
+      <img src="images/project2-thumbnail.jpg" alt="Client B 디지털 퍼포먼스 캠페인" />
       <div class="card-content">
         <h3>Client B: 디지털 퍼포먼스 캠페인</h3>
         <p>• 전환율 15% 증가<br>• ROAS 400% 달성</p>
@@ -75,7 +67,7 @@
     </div>
 
     <div class="project-card" data-filter="social">
-      <img src="../image/project3-thumbnail.jpg" alt="Client C 소셜 미디어 캠페인" />
+      <img src="images/project3-thumbnail.jpg" alt="Client C 소셜 미디어 캠페인" />
       <div class="card-content">
         <h3>Client C: 소셜 미디어 캠페인</h3>
         <p>• 팔로워 5만 명 증가<br>• 인게이지먼트 8% 증가</p>
@@ -152,9 +144,7 @@
     </div>
   </div>
 
-  <!-- ───────────────────────────────────────────────────────────────────────────
-       FOOTER (메인과 동일한 스타일, main.css에서 제어)
-    ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- 푸터 -->
   <footer class="site-footer">
     <div class="footer-left">
       © 2025 KAUZ CORP. All rights reserved.
@@ -164,11 +154,7 @@
     </div>
   </footer>
 
-  <!-- ───────────────────────────────────────────────────────────────────────────
-       JavaScript 로드 순서
-       1) main.js (공통 햄버거 토글 / ESC / 백그라운드 클릭 닫기)
-       2) portfolio.js (Portfolio 고유 로직)
-    ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- JavaScript 파일들 -->
   <script src="common.js"></script>
   <script src="portfolio.js"></script>
 </body>
