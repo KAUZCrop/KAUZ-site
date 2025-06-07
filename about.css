@@ -180,9 +180,9 @@
   font-weight: bold;
 }
 
-/* 🔥 OUR CLIENT 섹션 스타일 - 전체 와이드 사용 */
+/* 🔥 OUR CLIENT 섹션 스타일 - 전체 와이드 사용 (25px 마진) */
 .our-client {
-  padding: 4rem 10px 2rem 10px; /* 양옆 10px만 남기고 전체 사용 */
+  padding: 4rem 25px 2rem 25px; /* 양옆 25px만 남기고 전체 사용 */
   background-color: #0D0D0D;
   width: 100%;
   box-sizing: border-box;
@@ -194,7 +194,7 @@
   margin-bottom: 3rem;
   color: white;
   font-weight: 700;
-  padding-left: 1.5rem; /* 제목만 약간의 좌측 패딩 */
+  padding-left: 0; /* 패딩 제거하여 25px 마진과 정렬 */
 }
 
 .client-grid {
@@ -298,18 +298,18 @@
   
   /* 모바일 클라이언트 그리드 */
   .our-client {
-    padding: 2rem 5px 1rem 5px; /* 모바일에서 양옆 5px */
+    padding: 2rem 15px 1rem 15px; /* 모바일에서 양옆 15px */
   }
   
   .our-client h2 {
-    padding-left: 1rem;
+    padding-left: 0; /* 모바일에서도 패딩 제거 */
   }
   
   .client-row {
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 0 5px; /* 모바일 클라이언트 로우에 약간의 패딩 */
+    padding: 0; /* 모바일 클라이언트 로우 패딩 제거 */
   }
   
   .client-logo {
