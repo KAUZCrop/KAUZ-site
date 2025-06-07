@@ -291,28 +291,19 @@ section h2 {
 
 /* About 섹션 클릭 가능하게 만들기 + 커서 애니메이션 */
 
-/* About 섹션 클릭 가능하게 만들기 + 커서 애니메이션 (마우스 커서 유지) */
+/* About 섹션 클릭 가능하게 만들기 (깔끔한 버전) */
 .about-custom {
   padding: 4rem 2rem;
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
-  overflow: hidden;
 }
 
-/* 호버 시 전체 영역에 살짝 어두운 오버레이 */
-.about-custom:hover {
-  background-color: rgba(255, 255, 255, 0.02);
-  /* cursor: none; 제거 - 마우스 커서 유지 */
-}
-
-/* 클릭 시 애니메이션 */
+/* 클릭 시 애니메이션만 유지 */
 .about-custom:active {
   transform: scale(0.998);
   transition: transform 0.1s ease;
 }
-
-/* 기존 CSS ::before, ::after 제거 (JavaScript로 동적 생성하므로) */
 
 /* 모바일에서는 모든 애니메이션 제거 */
 @media (max-width: 768px) {
