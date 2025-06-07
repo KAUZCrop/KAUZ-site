@@ -1091,6 +1091,7 @@ body.mobile {
 }
 
 /* 타자 효과 슬로건 스타일 - 수정된 버전 */
+/* 🔥 수정된 타자 효과 슬로건 스타일 - 한 줄로 줄어든 높이 */
 .hero-slogan {
   padding: 0 1rem;
   text-align: center;
@@ -1098,7 +1099,7 @@ body.mobile {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(35vh + 50px);
+  min-height: calc(20vh + 30px); /* 🔥 35vh + 50px → 20vh + 30px로 대폭 줄임 */
   font-weight: bold;
   color: white;
   line-height: 1.4;
@@ -1217,14 +1218,10 @@ body.menu-open {
     font-size: 2.5rem;
   }
   
-  .hero-slogan {
-    height: 36vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 1rem;
-  }
+ .hero-slogan {
+  min-height: calc(15vh + 20px); /* 🔥 모바일에서도 높이 줄임 */
+  padding: 0 1rem;
+}
 
   .slogan-line {
     font-size: 5vw;
@@ -1233,6 +1230,16 @@ body.menu-open {
     min-height: 5vw;
   }
 
+@media (max-width: 480px) {
+  .hero-slogan {
+    min-height: calc(12vh + 15px); /* 🔥 작은 모바일에서 더욱 줄임 */
+  }
+  
+  .slogan-line {
+    font-size: 4.5vw;
+  }
+}
+  
   .about-row {
     flex-direction: column !important;
     gap: 0.5rem;
