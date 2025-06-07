@@ -20,7 +20,7 @@
 }
 
 .about-main-title {
-  font-size: 100px; /* 65px + 35px = 100px */
+  font-size: 125px; /* 100px + 25px = 125px */
   font-weight: 700;
   color: white;
   margin: 0 0 0.5rem 0;
@@ -46,7 +46,7 @@
   }
   
   .about-main-title {
-    font-size: 60px; /* 모바일에서도 비례적으로 증가 */
+    font-size: 85px; /* 모바일에서도 비례적으로 증가 */
   }
   
   .about-subtitle {
@@ -60,7 +60,7 @@
   }
   
   .about-main-title {
-    font-size: 45px;
+    font-size: 65px;
   }
   
   .about-subtitle {
@@ -180,9 +180,9 @@
   font-weight: bold;
 }
 
-/* 🔥 OUR CLIENT 섹션 스타일 */
+/* 🔥 OUR CLIENT 섹션 스타일 - 전체 와이드 사용 */
 .our-client {
-  padding: 4rem 2rem 2rem 2rem;
+  padding: 4rem 10px 2rem 10px; /* 양옆 10px만 남기고 전체 사용 */
   background-color: #0D0D0D;
   width: 100%;
   box-sizing: border-box;
@@ -194,6 +194,7 @@
   margin-bottom: 3rem;
   color: white;
   font-weight: 700;
+  padding-left: 1.5rem; /* 제목만 약간의 좌측 패딩 */
 }
 
 .client-grid {
@@ -202,6 +203,7 @@
   flex-direction: column;
   gap: 2rem;
   margin-bottom: 35px; /* More+ 위 35px 마진 */
+  padding: 0; /* 패딩 제거하여 전체 와이드 사용 */
 }
 
 .client-row {
@@ -295,10 +297,19 @@
   }
   
   /* 모바일 클라이언트 그리드 */
+  .our-client {
+    padding: 2rem 5px 1rem 5px; /* 모바일에서 양옆 5px */
+  }
+  
+  .our-client h2 {
+    padding-left: 1rem;
+  }
+  
   .client-row {
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 0 5px; /* 모바일 클라이언트 로우에 약간의 패딩 */
   }
   
   .client-logo {
