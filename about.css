@@ -4,7 +4,7 @@
 
 /* 🔥 새로운 About 히어로 섹션 */
 .about-hero {
-  padding-top: calc(46px + 30px); /* 로고 높이 46px + 간격 30px */
+  padding-top: calc(46px + 35px); /* 로고 높이 46px + 간격 35px */
   padding-bottom: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -20,7 +20,7 @@
 }
 
 .about-main-title {
-  font-size: 4rem;
+  font-size: 65px;
   font-weight: 700;
   color: white;
   margin: 0 0 0.5rem 0;
@@ -40,13 +40,13 @@
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .about-hero {
-    padding-top: calc(28px + 25px); /* 모바일 로고 높이 28px + 간격 25px */
+    padding-top: calc(28px + 30px); /* 모바일 로고 높이 28px + 간격 30px */
     padding-left: 1rem;
     padding-right: 1rem;
   }
   
   .about-main-title {
-    font-size: 2.5rem;
+    font-size: 45px;
   }
   
   .about-subtitle {
@@ -56,11 +56,11 @@
 
 @media (max-width: 480px) {
   .about-hero {
-    padding-top: calc(28px + 20px); /* 작은 모바일에서 간격 조정 */
+    padding-top: calc(28px + 25px); /* 작은 모바일에서 간격 조정 */
   }
   
   .about-main-title {
-    font-size: 2rem;
+    font-size: 35px;
   }
   
   .about-subtitle {
