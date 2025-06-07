@@ -1453,9 +1453,7 @@ body.menu-open {
   opacity: 0.7;
 }
 
-/* 모바일 전용 Our Client - 완전히 새로운 구조 */
-@media screen and (max-width: 768px) {
-  /* 🔥 기존의 모든 코드를 지우고 이것으로 교체 */
+/@media screen and (max-width: 768px) {
   .desktop-only {
     display: none !important;
   }
@@ -1469,25 +1467,95 @@ body.menu-open {
     margin-bottom: 2rem !important;
   }
   
+  /* 🔥 웹 버전 .client-row는 숨기기 */
   .client-row {
-    gap: 1rem !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    padding: 0 1rem !important;
+    display: none !important;
   }
   
+  /* 🔥 모바일에서 .client-grid를 3x2 그리드로 */
+  .client-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    max-height: 180px !important; /* 2줄 높이 제한 */
+    overflow: hidden !important;
+  }
+  
+  /* 🔥 모바일 전용 .client-logo 직접 배치 */
+  .client-grid::after {
+    content: '';
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+  }
+  
+  /* 🔥 기존 .client-logo는 모두 숨기고 새로 생성 */
   .client-logo {
-    width: calc((100% - 2rem) / 3) !important;
-    min-width: 90px !important;
-    height: 70px !important;
-    padding: 0.7rem !important;
+    display: none !important;
+  }
+  
+  /* 🔥 모바일 전용 가상 클라이언트 로고들 생성 */
+  .client-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 100%;
+    background: 
+      /* 첫 번째 줄 */
+      linear-gradient(to right, 
+        #ffffff 0%, #ffffff calc(33.33% - 0.33rem),
+        transparent calc(33.33% - 0.33rem), transparent calc(33.33% + 0.33rem),
+        #ffffff calc(33.33% + 0.33rem), #ffffff calc(66.66% - 0.33rem),
+        transparent calc(66.66% - 0.33rem), transparent calc(66.66% + 0.33rem),
+        #ffffff calc(66.66% + 0.33rem), #ffffff 100%
+      ),
+      /* 두 번째 줄 */
+      linear-gradient(to right, 
+        #ffffff 0%, #ffffff calc(33.33% - 0.33rem),
+        transparent calc(33.33% - 0.33rem), transparent calc(33.33% + 0.33rem),
+        #ffffff calc(33.33% + 0.33rem), #ffffff calc(66.66% - 0.33rem),
+        transparent calc(66.66% - 0.33rem), transparent calc(66.66% + 0.33rem),
+        #ffffff calc(66.66% + 0.33rem), #ffffff 100%
+      );
+    background-size: 100% calc(50% - 0.5rem);
+    background-position: 0 0, 0 calc(50% + 0.5rem);
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    z-index: 1;
   }
   
   .client-more {
-    margin-top: 10px !important;
+    margin-top: 20px !important;
   }
   
   .client-more a {
     font-size: 20px !important;
+  }
+}
+
+/* 작은 모바일 */
+@media screen and (max-width: 480px) {
+  .client-grid {
+    gap: 0.7rem !important;
+    padding: 0 0.5rem !important;
+    max-height: 150px !important;
+  }
+  
+  .client-title {
+    font-size: 1.4rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .client-more a {
+    font-size: 16px !important;
   }
 }
