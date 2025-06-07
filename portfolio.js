@@ -1,5 +1,11 @@
 // DOMContentLoaded 시점에 실행될 이벤트 등록
 document.addEventListener('DOMContentLoaded', () => {
+  // 🔥 페이지 새로고침 감지 및 메인페이지로 리다이렉트
+  if (performance.getEntriesByType('navigation')[0].type === 'reload') {
+    window.location.href = 'index.html';
+    return;
+  }
+
   // 1) 모달 열기/닫기 기능
   const modalButtons = document.querySelectorAll('.btn-more');
   const closeButtons = document.querySelectorAll('.close-btn');
@@ -40,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const filterValue = button.getAttribute('data-filter');
       projectCards.forEach(card => {
-        // “all”이면 모두 보이기, 아니면 data-filter 속성과 비교
+        // "all"이면 모두 보이기, 아니면 data-filter 속성과 비교
         if (filterValue === 'all' || card.getAttribute('data-filter') === filterValue) {
           card.style.display = 'block';
         } else {
