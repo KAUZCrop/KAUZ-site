@@ -1314,6 +1314,12 @@ body.menu-open {
 /* ═══════════════════════════════════════════════════════════════
    Our Client 섹션 - 아래쪽 페이드 효과 수정
    ═══════════════════════════════════════════════════════════════ */
+
+/* 🔥 이 주석 바로 아래에 추가 */
+.desktop-only {
+  display: block;
+}
+
 /* 웹 버전 Our Client */
 #our-client {
   padding: 4rem 0 2rem 0;
@@ -1447,7 +1453,13 @@ body.menu-open {
   opacity: 0.7;
 }
 
+/* 모바일 전용 Our Client - 완전히 새로운 구조 */
 @media screen and (max-width: 768px) {
+  /* 🔥 기존의 모든 코드를 지우고 이것으로 교체 */
+  .desktop-only {
+    display: none !important;
+  }
+  
   #our-client {
     padding: 2rem 0 1rem 0 !important;
   }
@@ -1457,122 +1469,18 @@ body.menu-open {
     margin-bottom: 2rem !important;
   }
   
-  /* 🔥 웹 버전 .client-row는 숨기되, .client-logo는 보이게 */
   .client-row {
-    display: none !important;
-  }
-  
-  /* 🔥 모바일에서 .client-logo를 직접 그리드로 배치 */
-  .client-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
     gap: 1rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
     padding: 0 1rem !important;
-    position: relative !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
   }
   
-  /* 🔥 모바일에서 .client-logo를 grid의 직접 자식으로 배치 */
-  .client-grid .client-logo {
-    width: 100% !important;
-    height: 70px !important;
-    padding: 0.7rem !important;
-    margin: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: #ffffff !important;
-    border-radius: 8px !important;
-    box-sizing: border-box !important;
-    position: relative !important;
-  }
-}
-  
-  /* 모바일 로고 강제 스타일 */
   .client-logo {
-    width: 100% !important;
+    width: calc((100% - 2rem) / 3) !important;
+    min-width: 90px !important;
     height: 70px !important;
     padding: 0.7rem !important;
-    margin: 0 !important;
-    grid-column: span 1 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: #ffffff !important;
-    border-radius: 8px !important;
-    box-sizing: border-box !important;
-    position: relative !important;
-  }
-  
-  /* 모바일 이미지 스타일 */
-  .client-logo img {
-    max-width: 100% !important;
-    max-height: 100% !important;
-    object-fit: contain !important;
-    filter: grayscale(100%) !important;
-  }
-  
-  /* 1번째 줄 - 선명 */
-  .client-logo:nth-child(1),
-  .client-logo:nth-child(2),
-  .client-logo:nth-child(3) {
-    opacity: 1 !important;
-  }
-  
-  /* 2번째 줄 - 페이드 */
-  .client-logo:nth-child(4),
-  .client-logo:nth-child(5),
-  .client-logo:nth-child(6) {
-    opacity: 0.6 !important;
-  }
-  
-  .client-logo:nth-child(4)::after,
-  .client-logo:nth-child(5)::after,
-  .client-logo:nth-child(6)::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 30px;
-    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.5) 70%, rgba(13, 13, 13, 0.8) 100%);
-    pointer-events: none;
-    z-index: 2;
-  }
-  
-  /* 3번째 줄 - 거의 안보임 */
-  .client-logo:nth-child(7),
-  .client-logo:nth-child(8),
-  .client-logo:nth-child(9) {
-    opacity: 0.3 !important;
-  }
-  
-  .client-logo:nth-child(7)::after,
-  .client-logo:nth-child(8)::after,
-  .client-logo:nth-child(9)::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.7) 40%, #0D0D0D 100%);
-    pointer-events: none;
-    z-index: 2;
-  }
-  
-  /* 모바일 전용 하단 오버레이 */
-  .client-grid::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.4) 50%, #0D0D0D 100%);
-    pointer-events: none;
-    z-index: 3;
   }
   
   .client-more {
@@ -1581,27 +1489,5 @@ body.menu-open {
   
   .client-more a {
     font-size: 20px !important;
-  }
-}
-
-/* 작은 모바일 */
-@media screen and (max-width: 480px) {
-  .client-grid {
-    gap: 0.7rem !important;
-    padding: 0 0.5rem !important;
-  }
-  
-  .client-logo {
-    height: 56px !important;
-    padding: 0.42rem !important;
-  }
-  
-  .client-title {
-    font-size: 1.4rem !important;
-    margin-bottom: 1.5rem !important;
-  }
-  
-  .client-more a {
-    font-size: 16px !important;
   }
 }
