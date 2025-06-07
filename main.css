@@ -93,7 +93,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .logo {
-    height: 18px; /* 28px * 0.65 = 18.2px ≈ 18px */
+    height: 28px; /* 46px에서 40% 줄임 (46 * 0.6 = 27.6px ≈ 28px) */
   }
 }
 
@@ -1091,7 +1091,7 @@ body.mobile {
 }
 
 /* 타자 효과 슬로건 스타일 - 수정된 버전 */
-/* 수정된 코드 - 기본에 패딩탑 추가 */
+/* 🔥 수정된 타자 효과 슬로건 스타일 - 한 줄로 줄어든 높이 */
 .hero-slogan {
   padding: 0 1rem;
   text-align: center;
@@ -1099,13 +1099,12 @@ body.mobile {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(20vh + 30px);
+  min-height: calc(20vh + 30px); /* 🔥 35vh + 50px → 20vh + 30px로 대폭 줄임 */
   font-weight: bold;
   color: white;
   line-height: 1.4;
   position: relative;
   z-index: 2;
-  padding-top: 55px; /* 🔥 모든 디바이스에서 로고 아래 간격 */
 }
 
 .slogan-line {
@@ -1219,10 +1218,9 @@ body.menu-open {
     font-size: 2.5rem;
   }
   
-  .hero-slogan {
-    min-height: calc(15vh + 20px);
-    padding: 0 1rem;
-  }
+ .hero-slogan {
+  min-height: calc(15vh + 20px); /* 🔥 모바일에서도 높이 줄임 */
+  padding: 0 1rem;
 }
 
   .slogan-line {
@@ -1234,9 +1232,8 @@ body.menu-open {
 
 @media (max-width: 480px) {
   .hero-slogan {
-    min-height: calc(12vh + 15px);
+    min-height: calc(12vh + 15px); /* 🔥 작은 모바일에서 더욱 줄임 */
   }
-}
   
   .slogan-line {
     font-size: 4.5vw;
@@ -1314,12 +1311,6 @@ body.menu-open {
 /* ═══════════════════════════════════════════════════════════════
    Our Client 섹션 - 아래쪽 페이드 효과 수정
    ═══════════════════════════════════════════════════════════════ */
-
-/* 🔥 이 주석 바로 아래에 추가 */
-.desktop-only {
-  display: block;
-}
-
 /* 웹 버전 Our Client */
 #our-client {
   padding: 4rem 0 2rem 0;
@@ -1453,11 +1444,8 @@ body.menu-open {
   opacity: 0.7;
 }
 
-/@media screen and (max-width: 768px) {
-  .desktop-only {
-    display: none !important;
-  }
-  
+/* 모바일 전용 Our Client - 완전히 새로운 구조 */
+@media screen and (max-width: 768px) {
   #our-client {
     padding: 2rem 0 1rem 0 !important;
   }
@@ -1467,74 +1455,115 @@ body.menu-open {
     margin-bottom: 2rem !important;
   }
   
-  /* 🔥 웹 버전 .client-row는 숨기기 */
+  /* 웹 버전 완전 숨김 */
   .client-row {
     display: none !important;
   }
   
-  /* 🔥 모바일에서 .client-grid를 3x2 그리드로 */
+  /* 웹 버전 오버레이 제거 */
+  .client-grid::after {
+    display: none !important;
+  }
+  
+  /* 모바일 그리드 강제 적용 */
   .client-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    grid-template-rows: repeat(2, 1fr) !important;
     gap: 1rem !important;
     padding: 0 1rem !important;
     position: relative !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    max-height: 180px !important; /* 2줄 높이 제한 */
-    overflow: hidden !important;
   }
   
-  /* 🔥 모바일 전용 .client-logo 직접 배치 */
-  .client-grid::after {
-    content: '';
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-  }
-  
-  /* 🔥 기존 .client-logo는 모두 숨기고 새로 생성 */
+  /* 모바일 로고 강제 스타일 */
   .client-logo {
-    display: none !important;
+    width: 100% !important;
+    height: 70px !important;
+    padding: 0.7rem !important;
+    margin: 0 !important;
+    grid-column: span 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    position: relative !important;
   }
   
-  /* 🔥 모바일 전용 가상 클라이언트 로고들 생성 */
+  /* 모바일 이미지 스타일 */
+  .client-logo img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    filter: grayscale(100%) !important;
+  }
+  
+  /* 1번째 줄 - 선명 */
+  .client-logo:nth-child(1),
+  .client-logo:nth-child(2),
+  .client-logo:nth-child(3) {
+    opacity: 1 !important;
+  }
+  
+  /* 2번째 줄 - 페이드 */
+  .client-logo:nth-child(4),
+  .client-logo:nth-child(5),
+  .client-logo:nth-child(6) {
+    opacity: 0.6 !important;
+  }
+  
+  .client-logo:nth-child(4)::after,
+  .client-logo:nth-child(5)::after,
+  .client-logo:nth-child(6)::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.5) 70%, rgba(13, 13, 13, 0.8) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+  
+  /* 3번째 줄 - 거의 안보임 */
+  .client-logo:nth-child(7),
+  .client-logo:nth-child(8),
+  .client-logo:nth-child(9) {
+    opacity: 0.3 !important;
+  }
+  
+  .client-logo:nth-child(7)::after,
+  .client-logo:nth-child(8)::after,
+  .client-logo:nth-child(9)::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.7) 40%, #0D0D0D 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+  
+  /* 모바일 전용 하단 오버레이 */
   .client-grid::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 1rem;
-    right: 1rem;
-    height: 100%;
-    background: 
-      /* 첫 번째 줄 */
-      linear-gradient(to right, 
-        #ffffff 0%, #ffffff calc(33.33% - 0.33rem),
-        transparent calc(33.33% - 0.33rem), transparent calc(33.33% + 0.33rem),
-        #ffffff calc(33.33% + 0.33rem), #ffffff calc(66.66% - 0.33rem),
-        transparent calc(66.66% - 0.33rem), transparent calc(66.66% + 0.33rem),
-        #ffffff calc(66.66% + 0.33rem), #ffffff 100%
-      ),
-      /* 두 번째 줄 */
-      linear-gradient(to right, 
-        #ffffff 0%, #ffffff calc(33.33% - 0.33rem),
-        transparent calc(33.33% - 0.33rem), transparent calc(33.33% + 0.33rem),
-        #ffffff calc(33.33% + 0.33rem), #ffffff calc(66.66% - 0.33rem),
-        transparent calc(66.66% - 0.33rem), transparent calc(66.66% + 0.33rem),
-        #ffffff calc(66.66% + 0.33rem), #ffffff 100%
-      );
-    background-size: 100% calc(50% - 0.5rem);
-    background-position: 0 0, 0 calc(50% + 0.5rem);
-    background-repeat: no-repeat;
-    border-radius: 8px;
-    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.4) 50%, #0D0D0D 100%);
+    pointer-events: none;
+    z-index: 3;
   }
   
   .client-more {
-    margin-top: 20px !important;
+    margin-top: 10px !important;
   }
   
   .client-more a {
@@ -1547,7 +1576,11 @@ body.menu-open {
   .client-grid {
     gap: 0.7rem !important;
     padding: 0 0.5rem !important;
-    max-height: 150px !important;
+  }
+  
+  .client-logo {
+    height: 56px !important;
+    padding: 0.42rem !important;
   }
   
   .client-title {
