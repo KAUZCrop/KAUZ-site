@@ -98,65 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── About 섹션 클릭 이벤트 + 커서 추적 애니메이션 ───
+  // ─── About 섹션 클릭 이벤트 (커서 애니메이션 제거) ───
   const aboutSection = document.querySelector('.about-custom');
 
   if (aboutSection) {
-    console.log('About section found, initializing interaction...');
+    console.log('About section found, initializing click only...');
     
-    // 커스텀 커서 요소 생성 (마우스 커서만)
-    const customCursor = document.createElement('div');
-    
-    customCursor.style.cssText = `
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%) scale(0);
-      transition: transform 0.2s ease, opacity 0.2s ease;
-      opacity: 0;
-      mix-blend-mode: difference;
-    `;
-    
-    document.body.appendChild(customCursor);
-    
-    // 마우스가 About 섹션에 진입할 때
-    aboutSection.addEventListener('mouseenter', function() {
-      if (window.innerWidth > 768) {
-        customCursor.style.opacity = '1';
-        customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      }
-    });
-    
-    // 마우스가 About 섹션을 벗어날 때
-    aboutSection.addEventListener('mouseleave', function() {
-      customCursor.style.opacity = '0';
-      customCursor.style.transform = 'translate(-50%, -50%) scale(0)';
-    });
-    
-    // 마우스 움직임 추적 (About 섹션 내에서만)
-    aboutSection.addEventListener('mousemove', function(e) {
-      if (window.innerWidth > 768) {
-        const x = e.clientX;
-        const y = e.clientY;
-        
-        customCursor.style.left = x + 'px';
-        customCursor.style.top = y + 'px';
-      }
-    });
-    
-    // 클릭 시 About 페이지로 이동
+    // 클릭 시 About 페이지로 이동만 처리
     aboutSection.addEventListener('click', function(e) {
       console.log('About section clicked');
-      
-      // 클릭 시 커서 확대 효과
-      customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-      setTimeout(() => {
-        customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      }, 150);
       
       // 부드러운 페이지 전환 효과
       document.body.style.opacity = '0.8';
@@ -167,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 200);
     });
     
-    console.log('About section interaction initialized');
+    console.log('About section click-only initialized');
   }
 
   // 리플 애니메이션 CSS 추가
