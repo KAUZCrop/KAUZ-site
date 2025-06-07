@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.15s ease-out;
       opacity: 0;
     `;
     
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(10px);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.15s ease-out;
         position: relative;
         display: flex;
         align-items: center;
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         left: 50%;
         transform: translate(-50%, -50%);
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.15s ease-out;
         pointer-events: none;
         font-family: 'Pretendard', sans-serif;
         text-align: center;
@@ -155,20 +155,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       .cursor-line1, .cursor-line2 {
-        font-size: 8px;
+        font-size: 11px;
         color: white;
         font-weight: 600;
         white-space: nowrap;
         letter-spacing: 0.3px;
         display: block;
-        width: 32px;
+        width: 40px;
         text-align: center;
         line-height: 1.2;
       }
       
       .cursor-expanded .cursor-circle {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
         border: 1px solid rgba(255, 255, 255, 0.6);
         background: rgba(0, 0, 0, 0.8);
       }
