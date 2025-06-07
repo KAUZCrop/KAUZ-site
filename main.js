@@ -248,24 +248,22 @@ document.addEventListener('DOMContentLoaded', () => {
   `;
   document.head.appendChild(aboutStyle);
 
-  // ─── Typing Animation Function ───
+  // ─── 🔥 수정된 Typing Animation Function (한 줄만) ───
   function startTypingAnimation() {
     const target1 = document.getElementById('typing-line1');
-    const target2 = document.getElementById('typing-line2');
     
-    console.log('Starting typing animation...', { target1, target2 });
+    console.log('Starting typing animation...', { target1 });
     
-    if (!target1 || !target2) {
-      console.error('Typing targets not found');
+    if (!target1) {
+      console.error('Typing target not found');
       return;
     }
 
-    const line1 = "Your brand's journey —";
-    const line2 = "from insight in the Mind to impact that leaves a Mark.";
+    const line1 = "Knowledge Artistry Understanding Zenith";
     const cursor  = '<span class="typing-cursor">|</span>';
-    const totalDuration = 1700;
-    const interval = totalDuration / (line1.length + line2.length);
-    let i1 = 0, i2 = 0;
+    const totalDuration = 2000; // 2초 동안 타이핑
+    const interval = totalDuration / line1.length;
+    let i1 = 0;
 
     function type1() {
       if (i1 < line1.length) {
@@ -273,19 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         i1++;
         setTimeout(type1, interval);
       } else {
-        target1.textContent = line1;
-        target2.innerHTML = cursor;
-        setTimeout(type2, interval);
-      }
-    }
-    
-    function type2() {
-      if (i2 < line2.length) {
-        target2.innerHTML = line2.slice(0, i2) + cursor;
-        i2++;
-        setTimeout(type2, interval);
-      } else {
-        target2.textContent = line2;
+        target1.textContent = line1; // 타이핑 완료 후 커서 제거
       }
     }
     
