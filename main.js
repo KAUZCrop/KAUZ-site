@@ -98,6 +98,87 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ─── About 섹션 클릭 이벤트 + 커서 추적 애니메이션 ───
+  const aboutSection = document.querySelector('.about-custom');
+
+  if (aboutSection) {
+    console.log('About section found, initializing interaction...');
+    
+    // 클릭 시 About 페이지로 이동
+    aboutSection.addEventListener('click', function(e) {
+      console.log('About section clicked');
+      
+      // 부드러운 페이지 전환 효과
+      document.body.style.opacity = '0.8';
+      document.body.style.transition = 'opacity 0.3s ease';
+      
+      setTimeout(() => {
+        window.location.href = 'about.html'; // About 페이지 URL로 변경하세요
+      }, 200);
+    });
+    
+    // 마우스 추적 커서 애니메이션 (데스크톱만)
+    if (window.innerWidth > 768) {
+      aboutSection.addEventListener('mousemove', function(e) {
+        const rect = aboutSection.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        aboutSection.style.setProperty('--cursor-x', x + '%');
+        aboutSection.style.setProperty('--cursor-y', y + '%');
+      });
+      
+      // 마우스가 섹션을 벗어날 때 커서 초기화
+      aboutSection.addEventListener('mouseleave', function() {
+        aboutSection.style.setProperty('--cursor-x', '50%');
+        aboutSection.style.setProperty('--cursor-y', '50%');
+      });
+    }
+    
+    // 클릭 시 리플 효과
+    aboutSection.addEventListener('click', function(e) {
+      const ripple = document.createElement('div');
+      const rect = aboutSection.getBoundingClientRect();
+      const size = 100;
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      
+      ripple.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: aboutRipple 0.6s ease-out;
+        left: ${x}px;
+        top: ${y}px;
+        pointer-events: none;
+        z-index: 1001;
+      `;
+      
+      aboutSection.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+    
+    console.log('About section interaction initialized');
+  }
+
+  // 리플 애니메이션 CSS 추가
+  const aboutStyle = document.createElement('style');
+  aboutStyle.textContent = `
+    @keyframes aboutRipple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(aboutStyle);
+
   // ─── Typing Animation Function ───
   function startTypingAnimation() {
     const target1 = document.getElementById('typing-line1');
