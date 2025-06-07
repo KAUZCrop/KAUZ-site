@@ -488,11 +488,6 @@ document.addEventListener('DOMContentLoaded', () => {
           slide.addEventListener('mouseenter', () => {
             handleSlideHover(slides, index);
           });
-          
-          // 클릭 이벤트
-          slide.addEventListener('click', () => {
-            console.log(`Portfolio item ${index + 1} clicked`);
-          });
         });
 
         // 컨테이너에서 마우스가 벗어나면 초기화
@@ -500,6 +495,25 @@ document.addEventListener('DOMContentLoaded', () => {
           resetSlides(slides);
         });
       }
+
+      // 🔥 포트폴리오 클릭 이벤트 추가 (모든 디바이스에서 작동)
+      slides.forEach((slide, index) => {
+        slide.addEventListener('click', (e) => {
+          console.log(`Portfolio item ${index + 1} clicked`);
+          
+          // 부드러운 페이지 전환 효과
+          document.body.style.opacity = '0.9';
+          document.body.style.transition = 'opacity 0.2s ease';
+          
+          // 포트폴리오 페이지로 이동
+          setTimeout(() => {
+            window.location.href = 'portfolio.html';
+          }, 100);
+        });
+        
+        // 클릭 가능하다는 시각적 피드백 추가
+        slide.style.cursor = 'pointer';
+      });
 
       // 확장 효과 처리 함수 - 수정된 버전
       function handleSlideHover(slides, activeIndex) {
@@ -531,7 +545,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      console.log('Portfolio with expansion animation created successfully');
+      console.log('Portfolio with expansion animation and click events created successfully');
     })
     .catch(err => {
       console.error('Airtable fetch error:', err);
@@ -583,6 +597,26 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
     `;
+    
+    // 기본 포트폴리오에도 클릭 이벤트 추가
+    const defaultSlides = container.querySelectorAll('.portfolio-slide');
+    defaultSlides.forEach((slide, index) => {
+      slide.addEventListener('click', (e) => {
+        console.log(`Default portfolio item ${index + 1} clicked`);
+        
+        // 부드러운 페이지 전환 효과
+        document.body.style.opacity = '0.9';
+        document.body.style.transition = 'opacity 0.2s ease';
+        
+        // 포트폴리오 페이지로 이동
+        setTimeout(() => {
+          window.location.href = 'portfolio.html';
+        }, 100);
+      });
+      
+      // 클릭 가능하다는 시각적 피드백 추가
+      slide.style.cursor = 'pointer';
+    });
   }
 
   // 포트폴리오 로드 실행
