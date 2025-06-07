@@ -2,9 +2,9 @@
    about.css (About Us 전용 스타일) : common.css로 대부분 스타일링 처리
    ───────────────────────────────────────────────────────────────────── */
 
-/* 🔥 새로운 About 히어로 섹션 */
+/* 🔥 수정된 About 히어로 섹션 - 더 큰 간격과 더 큰 글씨 */
 .about-hero {
-  padding-top: calc(46px + 35px); /* 로고 높이 46px + 간격 35px */
+  padding-top: calc(46px + 70px); /* 로고 높이 46px + 간격 70px (35px 더 추가) */
   padding-bottom: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -20,7 +20,7 @@
 }
 
 .about-main-title {
-  font-size: 65px;
+  font-size: 100px; /* 65px + 35px = 100px */
   font-weight: 700;
   color: white;
   margin: 0 0 0.5rem 0;
@@ -40,13 +40,13 @@
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .about-hero {
-    padding-top: calc(28px + 30px); /* 모바일 로고 높이 28px + 간격 30px */
+    padding-top: calc(28px + 50px); /* 모바일 로고 높이 28px + 간격 50px */
     padding-left: 1rem;
     padding-right: 1rem;
   }
   
   .about-main-title {
-    font-size: 45px;
+    font-size: 60px; /* 모바일에서도 비례적으로 증가 */
   }
   
   .about-subtitle {
@@ -56,11 +56,11 @@
 
 @media (max-width: 480px) {
   .about-hero {
-    padding-top: calc(28px + 25px); /* 작은 모바일에서 간격 조정 */
+    padding-top: calc(28px + 40px); /* 작은 모바일에서 간격 조정 */
   }
   
   .about-main-title {
-    font-size: 35px;
+    font-size: 45px;
   }
   
   .about-subtitle {
@@ -128,20 +128,20 @@
   display: none; /* 기존 섹션 숨김 */
 }
 
-/* 본문 섹션들 공통 스타일 */
+/* 🔥 본문 섹션들 공통 스타일 - 웹 최대 와이드 사용 */
 .who-we-are,
 .what-we-do,
 .our-mission,
-.our-team {
-  max-width: 1200px;
-  margin: 3rem auto;
-  padding: 0 2rem;
+.our-client {
+  width: 100%; /* 최대 와이드 사용 */
+  margin: 3rem 0; /* 좌우 마진 제거 */
+  padding: 0 2rem; /* 좌우 패딩만 유지 */
 }
 
 .who-we-are h2,
 .what-we-do h2,
 .our-mission h2,
-.our-team h2 {
+.our-client h2 {
   font-size: 2.5rem;
   font-weight: 700;
   color: white;
@@ -180,47 +180,95 @@
   font-weight: bold;
 }
 
-/* 6) 팀원 그리드 */
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+/* 🔥 OUR CLIENT 섹션 스타일 */
+.our-client {
+  padding: 4rem 2rem 2rem 2rem;
+  background-color: #0D0D0D;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.our-client h2 {
+  font-size: 2.5rem;
+  text-align: left;
+  margin-bottom: 3rem;
+  color: white;
+  font-weight: 700;
+}
+
+.client-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
-  margin-top: 2rem;
+  margin-bottom: 35px; /* More+ 위 35px 마진 */
 }
 
-.team-member {
-  background: #181818;
-  padding: 1.5rem;
+.client-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5.6rem;
+  width: 100%;
+}
+
+.client-logo {
+  width: 168px;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
   border-radius: 8px;
+  padding: 1.4rem;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.client-logo:hover {
+  transform: translateY(-3px);
+}
+
+.client-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.client-logo:hover img {
+  filter: grayscale(0%);
+}
+
+/* More+ 링크 */
+.client-more {
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
 }
 
-.team-member:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+.client-more a {
+  font-size: 30px;
+  color: #BFBFBF;
+  text-decoration: none;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
 }
 
-.team-photo {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 1rem;
-  border: 2px solid #444;
+.client-more a:hover {
+  opacity: 0.7;
 }
 
-.team-name {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: #fff;
-  font-weight: 600;
-}
-
-.team-role {
-  font-size: 1rem;
-  color: #aaa;
-  font-weight: 400;
+/* 🔥 기존 팀원 그리드 삭제 */
+.team-grid,
+.team-member,
+.team-photo,
+.team-name,
+.team-role,
+.our-team {
+  display: none; /* 팀 관련 모든 요소 숨김 */
 }
 
 /* 7) 모바일 대응(반응형) */
@@ -228,15 +276,15 @@
   .who-we-are,
   .what-we-do,
   .our-mission,
-  .our-team {
+  .our-client {
     padding: 0 1rem;
-    margin: 2rem auto;
+    margin: 2rem 0;
   }
   
   .who-we-are h2,
   .what-we-do h2,
   .our-mission h2,
-  .our-team h2 {
+  .our-client h2 {
     font-size: 2rem;
   }
   
@@ -246,14 +294,22 @@
     font-size: 1rem;
   }
   
-  .team-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  /* 모바일 클라이언트 그리드 */
+  .client-row {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   
-  .team-photo {
-    width: 120px;
-    height: 120px;
+  .client-logo {
+    width: calc((100% - 2rem) / 3); /* 3개씩 배치 */
+    min-width: 100px;
+    height: 80px;
+    padding: 0.8rem;
+  }
+  
+  .client-more a {
+    font-size: 20px;
   }
 }
 
@@ -261,11 +317,17 @@
   .who-we-are h2,
   .what-we-do h2,
   .our-mission h2,
-  .our-team h2 {
+  .our-client h2 {
     font-size: 1.7rem;
   }
   
-  .team-member {
-    padding: 1rem;
+  .client-logo {
+    width: calc((100% - 1rem) / 2); /* 2개씩 배치 */
+    height: 70px;
+    padding: 0.5rem;
+  }
+  
+  .client-more a {
+    font-size: 18px;
   }
 }
