@@ -1448,7 +1448,6 @@ body.menu-open {
   opacity: 0.7;
 }
 
-/* 모바일 전용 Our Client - 완전히 새로운 구조 */
 @media screen and (max-width: 768px) {
   #our-client {
     padding: 2rem 0 1rem 0 !important;
@@ -1459,17 +1458,12 @@ body.menu-open {
     margin-bottom: 2rem !important;
   }
   
-  /* 웹 버전 완전 숨김 */
+  /* 🔥 웹 버전 .client-row는 숨기되, .client-logo는 보이게 */
   .client-row {
     display: none !important;
   }
   
-  /* 웹 버전 오버레이 제거 */
-  .client-grid::after {
-    display: none !important;
-  }
-  
-  /* 모바일 그리드 강제 적용 */
+  /* 🔥 모바일에서 .client-logo를 직접 그리드로 배치 */
   .client-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
@@ -1479,6 +1473,22 @@ body.menu-open {
     width: 100% !important;
     box-sizing: border-box !important;
   }
+  
+  /* 🔥 모바일에서 .client-logo를 grid의 직접 자식으로 배치 */
+  .client-grid .client-logo {
+    width: 100% !important;
+    height: 70px !important;
+    padding: 0.7rem !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+  }
+}
   
   /* 모바일 로고 강제 스타일 */
   .client-logo {
