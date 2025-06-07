@@ -136,6 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
         backdrop-filter: blur(10px);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       
       .cursor-text {
@@ -148,29 +151,26 @@ document.addEventListener('DOMContentLoaded', () => {
         pointer-events: none;
         font-family: 'Pretendard', sans-serif;
         text-align: center;
-        line-height: 1.1;
+        z-index: 10;
       }
       
       .cursor-line1, .cursor-line2 {
         font-size: 8px;
         color: white;
-        font-weight: 500;
+        font-weight: 600;
         white-space: nowrap;
         letter-spacing: 0.3px;
-        display: inline-block;
-        min-width: 32px;
+        display: block;
+        width: 32px;
         text-align: center;
-      }
-      
-      .cursor-line1 {
-        margin-bottom: 1px;
+        line-height: 1.2;
       }
       
       .cursor-expanded .cursor-circle {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         border: 1px solid rgba(255, 255, 255, 0.6);
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(0, 0, 0, 0.8);
       }
       
       .cursor-expanded .cursor-text {
