@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay });
 
+  // 🔥 로딩 중 스크롤 비활성화
+  document.body.style.overflow = 'hidden';
+  document.documentElement.style.overflow = 'hidden';
+
   // ─── Body mobile class toggle ───
   function setBodyMobileClass() {
     if (window.innerWidth <= 768) {
@@ -30,7 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburger) {
       hamburger.classList.remove('active');
     }
-    document.body.style.overflow = '';
+    // 메뉴 닫을 때는 로딩이 끝났다면 스크롤 허용
+    if (!loadingScreen || loadingScreen.style.display === 'none') {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
     document.body.classList.remove('menu-open');
   }
 
@@ -301,8 +309,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburger.style.opacity = '1';
     }
 
-    // 스크롤 잠금 해제
+    // 🔥 로딩 완료 후 스크롤 활성화
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
     document.body.classList.remove('loading');
 
     // 로딩 스크린 완전 제거 및 타이핑 시작
@@ -354,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
         menuOverlay.classList.add('active');
         hamburger.classList.add('active');
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
         document.body.classList.add('menu-open');
         console.log('Menu opened');
       }
