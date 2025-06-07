@@ -98,15 +98,123 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── About 섹션 클릭 이벤트 (커서 애니메이션 제거) ───
+  // ─── About 섹션 클릭 이벤트 + 확장 커서 애니메이션 ───
   const aboutSection = document.querySelector('.about-custom');
 
   if (aboutSection) {
-    console.log('About section found, initializing click only...');
+    console.log('About section found, initializing interaction...');
     
-    // 클릭 시 About 페이지로 이동만 처리
+    // 커스텀 커서 요소 생성
+    const customCursor = document.createElement('div');
+    
+    customCursor.innerHTML = `
+      <div class="cursor-circle"></div>
+      <div class="cursor-text">
+        <div class="cursor-line1">Go To</div>
+        <div class="cursor-line2">Page →</div>
+      </div>
+    `;
+    
+    customCursor.style.cssText = `
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+    `;
+    
+    // 커서 스타일 CSS 추가
+    const cursorStyle = document.createElement('style');
+    cursorStyle.textContent = `
+      .cursor-circle {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      }
+      
+      .cursor-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        font-family: 'Pretendard', sans-serif;
+        text-align: center;
+        line-height: 1.1;
+      }
+      
+      .cursor-line1, .cursor-line2 {
+        font-size: 8px;
+        color: white;
+        font-weight: 500;
+        white-space: nowrap;
+        letter-spacing: 0.3px;
+        display: inline-block;
+        min-width: 32px;
+        text-align: center;
+      }
+      
+      .cursor-line1 {
+        margin-bottom: 1px;
+      }
+      
+      .cursor-expanded .cursor-circle {
+        width: 80px;
+        height: 80px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      
+      .cursor-expanded .cursor-text {
+        opacity: 1;
+      }
+    `;
+    document.head.appendChild(cursorStyle);
+    
+    document.body.appendChild(customCursor);
+    
+    // 마우스가 About 섹션에 진입할 때
+    aboutSection.addEventListener('mouseenter', function() {
+      if (window.innerWidth > 768) {
+        customCursor.style.opacity = '1';
+        customCursor.classList.add('cursor-expanded');
+      }
+    });
+    
+    // 마우스가 About 섹션을 벗어날 때
+    aboutSection.addEventListener('mouseleave', function() {
+      customCursor.style.opacity = '0';
+      customCursor.classList.remove('cursor-expanded');
+    });
+    
+    // 마우스 움직임 추적 (About 섹션 내에서만)
+    aboutSection.addEventListener('mousemove', function(e) {
+      if (window.innerWidth > 768) {
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        customCursor.style.left = x + 'px';
+        customCursor.style.top = y + 'px';
+      }
+    });
+    
+    // 클릭 시 About 페이지로 이동
     aboutSection.addEventListener('click', function(e) {
       console.log('About section clicked');
+      
+      // 클릭 시 커서 펄스 효과
+      customCursor.style.transform = 'translate(-50%, -50%) scale(1.1)';
+      setTimeout(() => {
+        customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      }, 150);
       
       // 부드러운 페이지 전환 효과
       document.body.style.opacity = '0.8';
@@ -117,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 200);
     });
     
-    console.log('About section click-only initialized');
+    console.log('About section expandable cursor initialized');
   }
 
   // 리플 애니메이션 CSS 추가
