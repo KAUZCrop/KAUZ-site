@@ -2,7 +2,73 @@
    about.css (About Us 전용 스타일) : common.css로 대부분 스타일링 처리
    ───────────────────────────────────────────────────────────────────── */
 
-/* 4) About Us 히어로 섹션 */
+/* 🔥 새로운 About 히어로 섹션 */
+.about-hero {
+  padding-top: calc(46px + 30px); /* 로고 높이 46px + 간격 30px */
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  min-height: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.about-hero-content {
+  max-width: 100%;
+  text-align: left;
+}
+
+.about-main-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.about-subtitle {
+  font-size: 1.2rem;
+  font-weight: 300; /* 얇은 글씨 */
+  color: #ccc;
+  margin: 0;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .about-hero {
+    padding-top: calc(28px + 25px); /* 모바일 로고 높이 28px + 간격 25px */
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .about-main-title {
+    font-size: 2.5rem;
+  }
+  
+  .about-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero {
+    padding-top: calc(28px + 20px); /* 작은 모바일에서 간격 조정 */
+  }
+  
+  .about-main-title {
+    font-size: 2rem;
+  }
+  
+  .about-subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+/* 4) About Us 히어로 섹션 (기존 코드 - 사용하지 않음) */
 .about-hero-section {
   position: relative;
   height: 60vh;
@@ -57,24 +123,84 @@
   color: #ccc;
 }
 
+/* 🔥 기존 about-intro 섹션을 제거하고 새로운 섹션들 스타일링 */
+.about-intro {
+  display: none; /* 기존 섹션 숨김 */
+}
+
+/* 본문 섹션들 공통 스타일 */
+.who-we-are,
+.what-we-do,
+.our-mission,
+.our-team {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+
+.who-we-are h2,
+.what-we-do h2,
+.our-mission h2,
+.our-team h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.who-we-are p,
+.our-mission p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.what-we-do ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.what-we-do li {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ccc;
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.what-we-do li::before {
+  content: "•";
+  color: white;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
 /* 6) 팀원 그리드 */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
+
 .team-member {
   background: #181818;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 8px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .team-member:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
+
 .team-photo {
   width: 150px;
   height: 150px;
@@ -83,37 +209,63 @@
   margin-bottom: 1rem;
   border: 2px solid #444;
 }
+
 .team-name {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
   color: #fff;
+  font-weight: 600;
 }
+
 .team-role {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #aaa;
+  font-weight: 400;
 }
 
-/* 7) 푸터 (common.css에서 처리하므로 이 부분은 없어도 됩니다) */
-/*
-.site-footer { … }
-.footer-social { … }
-.footer-social li a { … }
-.footer-social li a:hover { … }
-*/
-
-/* 8) 모바일 대응(반응형) */
+/* 7) 모바일 대응(반응형) */
 @media (max-width: 768px) {
-  .about-hero-title {
-    font-size: 2.5rem;
+  .who-we-are,
+  .what-we-do,
+  .our-mission,
+  .our-team {
+    padding: 0 1rem;
+    margin: 2rem auto;
   }
-  .about-hero-subtitle {
+  
+  .who-we-are h2,
+  .what-we-do h2,
+  .our-mission h2,
+  .our-team h2 {
+    font-size: 2rem;
+  }
+  
+  .who-we-are p,
+  .our-mission p,
+  .what-we-do li {
     font-size: 1rem;
   }
-  .about-heading {
-    font-size: 1.75rem;
+  
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
+  
   .team-photo {
     width: 120px;
     height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .who-we-are h2,
+  .what-we-do h2,
+  .our-mission h2,
+  .our-team h2 {
+    font-size: 1.7rem;
+  }
+  
+  .team-member {
+    padding: 1rem;
   }
 }
