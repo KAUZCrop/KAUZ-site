@@ -104,68 +104,30 @@ document.addEventListener('DOMContentLoaded', () => {
   if (aboutSection) {
     console.log('About section found, initializing interaction...');
     
-    // 커스텀 커서 요소 생성
+    // 커스텀 커서 요소 생성 (마우스 커서만)
     const customCursor = document.createElement('div');
-    const cursorRipple = document.createElement('div');
     
     customCursor.style.cssText = `
       position: fixed;
-      width: 60px;
-      height: 60px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
       pointer-events: none;
       z-index: 9999;
-      backdrop-filter: blur(10px);
       transform: translate(-50%, -50%) scale(0);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease;
       opacity: 0;
-    `;
-    
-    cursorRipple.style.cssText = `
-      position: fixed;
-      width: 80px;
-      height: 80px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      animation: cursorPulse 2s infinite;
+      mix-blend-mode: difference;
     `;
     
     document.body.appendChild(customCursor);
-    document.body.appendChild(cursorRipple);
-    
-    // 커서 펄스 애니메이션 CSS 추가
-    const cursorStyle = document.createElement('style');
-    cursorStyle.textContent = `
-      @keyframes cursorPulse {
-        0% {
-          transform: translate(-50%, -50%) scale(0.8);
-          opacity: 0.5;
-        }
-        50% {
-          transform: translate(-50%, -50%) scale(1.2);
-          opacity: 0.2;
-        }
-        100% {
-          transform: translate(-50%, -50%) scale(1.5);
-          opacity: 0;
-        }
-      }
-    `;
-    document.head.appendChild(cursorStyle);
     
     // 마우스가 About 섹션에 진입할 때
     aboutSection.addEventListener('mouseenter', function() {
       if (window.innerWidth > 768) {
         customCursor.style.opacity = '1';
         customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
-        cursorRipple.style.opacity = '0.5';
-        cursorRipple.style.transform = 'translate(-50%, -50%) scale(1)';
       }
     });
     
@@ -173,8 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
     aboutSection.addEventListener('mouseleave', function() {
       customCursor.style.opacity = '0';
       customCursor.style.transform = 'translate(-50%, -50%) scale(0)';
-      cursorRipple.style.opacity = '0';
-      cursorRipple.style.transform = 'translate(-50%, -50%) scale(0)';
     });
     
     // 마우스 움직임 추적 (About 섹션 내에서만)
@@ -185,8 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         customCursor.style.left = x + 'px';
         customCursor.style.top = y + 'px';
-        cursorRipple.style.left = x + 'px';
-        cursorRipple.style.top = y + 'px';
       }
     });
     
@@ -194,31 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
     aboutSection.addEventListener('click', function(e) {
       console.log('About section clicked');
       
-      // 클릭 시 리플 효과
-      const ripple = document.createElement('div');
-      const size = 100;
-      const x = e.clientX - size / 2;
-      const y = e.clientY - size / 2;
-      
-      ripple.style.cssText = `
-        position: fixed;
-        width: ${size}px;
-        height: ${size}px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-        transform: scale(0);
-        animation: aboutRipple 0.6s ease-out;
-        left: ${x}px;
-        top: ${y}px;
-        pointer-events: none;
-        z-index: 10001;
-      `;
-      
-      document.body.appendChild(ripple);
-      
+      // 클릭 시 커서 확대 효과
+      customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
       setTimeout(() => {
-        ripple.remove();
-      }, 600);
+        customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      }, 150);
       
       // 부드러운 페이지 전환 효과
       document.body.style.opacity = '0.8';
