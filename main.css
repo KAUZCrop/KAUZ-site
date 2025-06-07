@@ -289,8 +289,148 @@ section h2 {
   margin-bottom: 2rem;
 }
 
+/* About 섹션 클릭 가능하게 만들기 + 커서 애니메이션 */
+
+/* 기존 about-custom 섹션을 클릭 가능하게 수정 */
 .about-custom {
   padding: 4rem 2rem;
+  cursor: pointer; /* 클릭 가능 표시 */
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden; /* 커서 애니메이션을 위해 */
+}
+
+/* 호버 시 전체 영역에 살짝 어두운 오버레이 */
+.about-custom:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* 클릭 시 애니메이션 */
+.about-custom:active {
+  transform: scale(0.998);
+  transition: transform 0.1s ease;
+}
+
+/* 커스텀 커서 애니메이션 */
+.about-custom::before {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+}
+
+/* 호버 시 커스텀 커서 표시 */
+.about-custom:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* 펄스 애니메이션 추가 */
+.about-custom:hover::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  animation: pulse 2s infinite;
+  opacity: 0.5;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* 마우스 추적 커서 */
+.about-custom {
+  --cursor-x: 50%;
+  --cursor-y: 50%;
+}
+
+.about-custom::before {
+  left: var(--cursor-x);
+  top: var(--cursor-y);
+}
+
+.about-custom::after {
+  left: var(--cursor-x);
+  top: var(--cursor-y);
+}
+
+/* 기본 커서 숨기기 (About 영역에서만) */
+.about-custom:hover {
+  cursor: none;
+}
+
+/* 클릭 힌트 텍스트 (선택사항) */
+.about-custom:hover .about-left::after {
+  content: 'Click to learn more →';
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 모바일에서는 커서 애니메이션 제거 */
+@media (max-width: 768px) {
+  .about-custom::before,
+  .about-custom::after {
+    display: none;
+  }
+  
+  .about-custom:hover {
+    cursor: pointer; /* 모바일에서는 기본 커서 유지 */
+  }
+  
+  .about-custom:hover .about-left::after {
+    display: none; /* 모바일에서는 힌트 텍스트 숨김 */
+  }
+}
+
+/* 터치 디바이스에서 탭 시 피드백 */
+@media (hover: none) and (pointer: coarse) {
+  .about-custom:active {
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: scale(0.995);
+  }
 }
 
 .about-row {
