@@ -1,6 +1,12 @@
 // ── about.js (About Us 전용 스크립트) ──
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 🔥 페이지 새로고침 감지 및 메인페이지로 리다이렉트
+  if (performance.getEntriesByType('navigation')[0].type === 'reload') {
+    window.location.href = 'index.html';
+    return;
+  }
+
   // ✔️ 1) 햄버거 메뉴 토글 (common.js에도 동일 코드가 있을 경우 이 부분은 생략 가능)
   const hamburger = document.querySelector('.hamburger');
   const menuOverlay = document.getElementById('menu-overlay');
