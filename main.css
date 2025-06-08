@@ -93,7 +93,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .logo {
-    height: 20px; /* 46px에서 40% 줄임 (46 * 0.6 = 27.6px ≈ 28px) */
+    height: 28px; /* 46px에서 40% 줄임 (46 * 0.6 = 27.6px ≈ 28px) */
   }
 }
 
@@ -1236,11 +1236,12 @@ body.menu-open {
   }
 }
 
+/* 🔥 2. 1278번째 줄 근처 - 480px 슬로건 수정 */
 @media (max-width: 480px) {
   .hero-slogan {
-    min-height: calc(30vh + 50px); /* 🔥 작은 모바일에서 더 큰 높이 */
-    padding-top: 90px; /* 🔥 더 큰 상단 패딩 */
-    padding-bottom: 25px;
+    min-height: calc(20vh + 30px); /* ✅ 30vh + 50px → 20vh + 30px로 변경 */
+    padding-top: 65px; /* ✅ 90px → 65px로 변경 */
+    padding-bottom: 18px; /* ✅ 25px → 18px로 변경 */
   }
   
    .slogan-line {
@@ -1248,7 +1249,7 @@ body.menu-open {
   }
   
   .logo {
-    height: 24px; /* 🔥 작은 모바일에서 로고 더 작게 */
+    height: 24px;
   }
 }
 
