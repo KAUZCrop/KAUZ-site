@@ -93,7 +93,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .logo {
-    height: 20px; /* 46px에서 40% 줄임 (46 * 0.6 = 27.6px ≈ 28px) */
+    height: 46px; /* 46px에서 40% 줄임 (46 * 0.6 = 27.6px ≈ 28px) */
   }
 }
 
