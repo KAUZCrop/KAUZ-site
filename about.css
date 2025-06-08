@@ -95,7 +95,7 @@
 }
 
 .who-we-are-content h2 {
-  font-size: 3.5rem; /* 큰 크기 유지 */
+  font-size: 5rem; /* 큰 크기 유지 */
   font-weight: 700;
   color: white;
   margin-bottom: 2rem; /* 🔥 자연스러운 간격 복원 */
@@ -104,7 +104,7 @@
 }
 
 .who-we-are-content p {
-  font-size: 1.4rem; /* 큰 크기 유지 */
+  font-size: 2.5rem; /* 큰 크기 유지 */
   line-height: 1.6;
   color: #ccc;
   margin-bottom: 0;
