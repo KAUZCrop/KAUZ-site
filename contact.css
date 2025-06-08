@@ -1,91 +1,273 @@
-/*───────────────────────────────────────────────────────────────────────────
-  contact.css (Contact Us 전용 스타일) : common.css로 대부분 처리
-  ────────────────────────────────────────────────────────────────────────────*/
+/*=================================================================================
+  common.css
+  ─────────────────────────────────────────────────────────────────────────────────
+  서브 페이지(About, Portfolio, Contact)에서 메인과 동일한 헤더(로고/햄버거),
+  메뉴 오버레이, 폰트 크기, z-index 등을 적용하기 위한 공통 스타일입니다.
+=================================================================================*/
 
-/* 4) 히어로 섹션 */
-.hero-contact {
-  background: url('../image/hero-contact.jpg') no-repeat center/cover;
-  height: 40vh;
+/*===============================================================================
+  1) html, body 전역 설정 (서브 페이지 공통)
+===============================================================================*/
+html, body {
+  background-color: #0D0D0D;       /* 메인과 동일한 어두운 배경 */
+  color: white;                    /* 기본 텍스트 흰색 */
+  margin: 0;
+  padding: 0;
+  font-family: 'Pretendard', sans-serif;
+  overflow-x: hidden;
+}
+
+/*===============================================================================
+  2) 공통 텍스트/링크 스타일
+===============================================================================*/
+a {
+  text-decoration: none;
+  color: inherit;   /* 흰색 상속 */
+  transition: color 0.2s ease;
+  font-weight: bold; /* 메인과 동일하게 볼드 */
+  line-height: 1.1;  /* 메인과 비슷한 행간(거의 붙임) */
+}
+a:hover {
+  color: #ccc;      /* 메인과 동일한 hover 색감 */
+}
+h1, h2, h3 {
+  margin: 0 0 1rem;
+  font-weight: bold; /* 볼드체 */
+}
+
+/*===============================================================================
+  3) 로고 위치 (메인과 동일하게 고정) - 🔥 모바일 크기 통일
+===============================================================================*/
+.logo {
+  position: fixed;
+  top: 1.5rem;   /* 메인과 동일 */
+  left: 1.5rem;  /* 메인과 동일 */
+  z-index: 10000; /* 메인과 동일 */
+  height: 46px;  /* 🔥 모든 디바이스에서 동일한 크기 */
+}
+.logo-img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+/* 🔥 모바일에서도 로고 크기 유지 (기존 코드 제거) */
+@media (max-width: 768px) {
+  .logo {
+    height: 46px; /* 🔥 메인과 동일한 크기로 통일 (기존: 20px) */
+  }
+}
+
+/*===============================================================================
+  4) 햄버거 아이콘 스타일 (메인과 동일 위치/크기/색상/트랜지션)
+===============================================================================*/
+.hamburger {
+  position: fixed;
+  top: 1.5rem;     /* 메인과 동일 */
+  right: 1.5rem;   /* 메인과 동일 */
+  width: 28px;     /* 메인과 동일 */
+  height: 28px;    /* 메인과 동일 */
+  z-index: 10001;  /* 메인과 동일 */
+  cursor: pointer;
+  display: flex;           /* 서브 페이지에서는 바로 보이도록 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  visibility: visible;     /* 서브 페이지에서 즉시 보이도록 */
+  opacity: 1;              /* 서브 페이지에서 즉시 보이도록 */
+  transition: all 0.3s ease;
+}
+.hamburger span {
   position: relative;
+  display: block;
+  width: 100%;
+  height: 2px;             /* 메인은 2px */
+  background: white;       /* 흰색 바 */
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+.hamburger span:nth-child(1) {
+  transform: translateY(-6px); /* 메인과 동일 */
+}
+.hamburger span:nth-child(2) {
+  transform: translateY(6px);
+}
+/* 햄버거 클릭 시 X자 모양 (메인과 동일) */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(0) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  transform: translateY(0) rotate(-45deg);
+}
+
+/*===============================================================================
+  5) 메뉴 오버레이 (전체 화면 팝업) - 메인과 동일하게 중앙 배치
+===============================================================================*/
+.menu-overlay {
+  position: fixed;
+  inset: 0;                    /* top:0; right:0; bottom:0; left:0; */
+  background-color: rgba(13, 13, 13, 0.98); /* 메인과 동일 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;     /* 🔥 center로 변경 (기존: flex-end) */
+  opacity: 0;
+  visibility: hidden;          /* 초기에는 숨김 */
+  pointer-events: none;        /* 숨김 상태에서는 클릭 불가 */
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  z-index: 10000;              /* 메인과 동일 */
+  backdrop-filter: blur(10px); /* 메인과 동일한 블러 효과 */
+}
+
+/* 메뉴 오버레이 활성화 시 */
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/*===============================================================================
+  6) 메뉴 내용(아이템) 컨테이너 - 메인과 동일하게 중앙 배치
+===============================================================================*/
+/* 메뉴 콘텐츠 - 수정된 버전 */
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 🔥 2.5rem → 1rem으로 줄임 (더 촘촘한 행간) */
+  align-items: center;
+  text-align: center;
+  z-index: 10001;
+  position: relative; /* common.css용 */
+}
+
+/* 🔥 기존 슬라이드 애니메이션 제거하고 메인과 동일하게 */
+.menu-overlay:not(.active) .menu-content {
+  opacity: 0;
+  transform: translateY(20px); /* 메인과 동일 */
+}
+
+.menu-overlay.active .menu-content {
+  opacity: 1;
+  transform: translateY(0); /* 메인과 동일 */
+}
+
+/*===============================================================================
+  7) 메뉴 항목(a) 스타일 (메인과 동일한 폰트 크기/볼드/행간)
+===============================================================================*/
+.menu-content a {
+  color: #fff;
+  font-size: 4.5rem; /* 🔥 3rem → 4.5rem으로 증가 */
+  font-weight: 500;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  line-height: 0.9; /* 🔥 1.1 → 0.9로 줄임 (더 촘촘한 행간) */
+  margin: 0.2rem 0; /* 🔥 각 메뉴 항목 간 약간의 여백 */
+  letter-spacing: -0.02em; /* 🔥 글자 간격 약간 줄임 */
+}
+
+.menu-content a:hover {
+  color: #ccc;
+  transform: translateY(-2px);
+}
+
+/* 메뉴 활성화 시 애니메이션 */
+.menu-overlay.active .menu-content a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-overlay.active .menu-content a:nth-child(1) { 
+  transition-delay: 0.1s; 
+}
+.menu-overlay.active .menu-content a:nth-child(2) { 
+  transition-delay: 0.2s; 
+}
+.menu-overlay.active .menu-content a:nth-child(3) { 
+  transition-delay: 0.3s; 
+}
+.menu-overlay.active .menu-content a:nth-child(4) { 
+  transition-delay: 0.4s; 
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .menu-content {
+    gap: 0.8rem; /* 모바일에서도 줄임 */
+  }
+  
+  .menu-content a {
+    font-size: 3rem; /* 🔥 2.5rem → 3rem으로 증가 */
+    line-height: 0.9;
+    margin: 0.1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-content a {
+    font-size: 2.5rem;
+    line-height: 0.9;
+  }
+}
+
+/*===============================================================================
+  8) 공통 푸터 스타일 (메인과 동일)
+===============================================================================*/
+.site-footer {
+  background-color: #0D0D0D; /* 메인과 동일 */
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+.footer-left {
+  font-weight: 600;         /* 메인과 동일 */
+  text-transform: uppercase;
+}
+.footer-right {
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #ffffff;
+  gap: 1rem;
 }
-.hero-contact .hero-text h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+.footer-follow-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
-.hero-contact .hero-text p {
-  font-size: 1.1rem;
-}
-
-/* 5) 문의 폼 섹션 */
-.contact-form-section {
-  margin: 2rem auto 4rem;
-}
-.contact-form {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.contact-form .form-group {
-  margin-bottom: 1.25rem;
-}
-.contact-form label {
-  display: block;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  color: #333333;
-}
-.contact-form input,
-.contact-form select,
-.contact-form textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  color: #333333;
-}
-.contact-form input:focus,
-.contact-form select:focus,
-.contact-form textarea:focus {
-  outline: none;
-  border-color: #1F2A44;
-}
-.contact-form .required {
-  color: #FF6F61;
-  margin-left: 0.25rem;
-}
-.btn-submit {
-  background-color: #1F2A44;
-  color: #ffffff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-.btn-submit:hover {
-  background-color: #FF6F61;
-}
-.form-response {
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  color: #FF6F61;
-  visibility: hidden;
+.footer-follow-link:hover {
+  color: #ccc;
 }
 
-/* 6) 모바일 대응 */
-@media (max-width: 480px) {
-  .hero-contact .hero-text h1 {
-    font-size: 2rem;
+/*===============================================================================
+  9) 반응형 모바일 (메인과 동일한 breakpoints)
+===============================================================================*/
+@media (max-width: 768px) {
+  .site-footer {
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
   }
-  .hero-contact .hero-text p {
-    font-size: 1rem;
+  .footer-left { font-size: 0.8rem; }
+  .footer-right { font-size: 0.8rem; }
+  .footer-follow-link { gap: 0.3rem; }
+
+  /* 모바일에서 메뉴 항목 크기 - 메인과 동일 */
+  .menu-content a {
+    font-size: 2.5rem;       /* 메인 모바일 기준과 동일 */
   }
 }
