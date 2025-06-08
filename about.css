@@ -59,7 +59,6 @@
 }
 
 /* 🔥 본문 섹션들 공통 스타일 - 웹 최대 와이드 사용 */
-.who-we-are,
 .what-we-do,
 .our-mission,
 .our-client {
@@ -68,7 +67,71 @@
   padding: 0 2rem; /* 좌우 패딩만 유지 */
 }
 
-.who-we-are h2,
+/* 🔥 WHO WE ARE 전용 스타일 (이미지 레이아웃) */
+.who-we-are {
+  width: 100%;
+  margin: 3rem 0;
+  padding: 0 2rem;
+}
+
+/* WHO WE ARE 섹션 컨테이너 */
+.who-we-are-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 왼쪽 텍스트 영역 */
+.who-we-are-content {
+  flex: 1;
+  max-width: 60%;
+}
+
+.who-we-are-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.who-we-are-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 오른쪽 이미지 영역 */
+.who-we-are-image {
+  flex: 0 0 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.symbol-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.9;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.symbol-image:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* 나머지 섹션들 공통 스타일 */
 .what-we-do h2,
 .our-mission h2,
 .our-client h2 {
@@ -79,7 +142,6 @@
   text-align: left;
 }
 
-.who-we-are p,
 .our-mission p {
   font-size: 1.1rem;
   line-height: 1.7;
@@ -256,6 +318,41 @@
     max-width: 100% !important;
   }
 
+  /* 🔥 WHO WE ARE 모바일 레이아웃 */
+  .who-we-are-container {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .who-we-are-image {
+    flex: none;
+    order: 1; /* 🔥 모바일에서 이미지가 위로 */
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  
+  .who-we-are-content {
+    max-width: 100%;
+    order: 2; /* 🔥 모바일에서 텍스트가 아래로 */
+  }
+  
+  .who-we-are-content h2 {
+    font-size: 1.8rem !important;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .who-we-are-content p {
+    font-size: 0.9rem !important;
+    text-align: center;
+    line-height: 1.6;
+  }
+  
+  .symbol-image {
+    max-width: 150px;
+  }
+
   /* 🔥 본문 섹션들 모바일 스타일 - 텍스트 오버플로우 해결 */
   .who-we-are,
   .what-we-do,
@@ -268,7 +365,6 @@
     overflow: hidden !important; /* 넘치는 내용 숨김 */
   }
   
-  .who-we-are h2,
   .what-we-do h2,
   .our-mission h2,
   .our-client h2 {
@@ -279,8 +375,7 @@
     overflow-wrap: break-word !important;
   }
   
-  /* 🔥 WHO WE ARE, OUR MISSION 텍스트 크기 조정 */
-  .who-we-are p,
+  /* 🔥 OUR MISSION 텍스트 크기 조정 */
   .our-mission p {
     font-size: 0.9rem !important; /* 1rem → 0.9rem로 줄임 */
     line-height: 1.6 !important; /* 줄간격 조정 */
@@ -389,6 +484,27 @@
     text-overflow: ellipsis !important;
   }
 
+  /* 🔥 WHO WE ARE 작은 모바일 대응 */
+  .who-we-are-container {
+    gap: 1.5rem;
+  }
+  
+  .who-we-are-content h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .who-we-are-content p {
+    font-size: 0.8rem !important;
+  }
+  
+  .who-we-are-image {
+    max-width: 120px;
+  }
+  
+  .symbol-image {
+    max-width: 100px;
+  }
+
   /* 🔥 작은 모바일 본문 텍스트 더 작게 */
   .who-we-are,
   .what-we-do,
@@ -397,7 +513,6 @@
     padding: 0 0.8rem !important; /* 패딩 더 줄임 */
   }
 
-  .who-we-are h2,
   .what-we-do h2,
   .our-mission h2,
   .our-client h2 {
@@ -405,7 +520,6 @@
     line-height: 1.2 !important;
   }
   
-  .who-we-are p,
   .our-mission p,
   .what-we-do li {
     font-size: 0.8rem !important; /* 0.9rem → 0.8rem로 더 줄임 */
@@ -441,6 +555,19 @@
     letter-spacing: 0.02em !important;
   }
 
+  /* 🔥 WHO WE ARE 최소 화면 대응 */
+  .who-we-are-content h2 {
+    font-size: 1.3rem !important;
+  }
+  
+  .who-we-are-content p {
+    font-size: 0.75rem !important;
+  }
+  
+  .symbol-image {
+    max-width: 80px;
+  }
+
   /* 🔥 최소 화면에서 본문 텍스트 최적화 */
   .who-we-are,
   .what-we-do,
@@ -449,14 +576,12 @@
     padding: 0 0.5rem !important; /* 최소 패딩 */
   }
 
-  .who-we-are h2,
   .what-we-do h2,
   .our-mission h2,
   .our-client h2 {
     font-size: 1.3rem !important; /* 더 작게 */
   }
   
-  .who-we-are p,
   .our-mission p,
   .what-we-do li {
     font-size: 0.75rem !important; /* 최소 크기 */
