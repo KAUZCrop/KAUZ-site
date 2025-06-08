@@ -1450,6 +1450,16 @@ body.menu-open {
   opacity: 0.7;
 }
 
+/* 🔥 웹에서 디버그 텍스트 숨기기 */
+body {
+  font-size: 0; /* 🔥 body의 모든 텍스트 숨김 */
+}
+
+/* 🔥 필요한 텍스트만 다시 표시 */
+h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, textarea, li {
+  font-size: initial; /* 🔥 필요한 요소들의 폰트 크기 복원 */
+}
+
 /* 웹에서는 모바일 그리드 숨기기 */
 .client-mobile-grid {
   display: none !important;
@@ -1493,8 +1503,7 @@ body.menu-open {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    color: #666 !important;
-    font-size: 0.8rem !important;
+    /* 🔥 텍스트 제거 - 빈 흰색 박스만 표시 */
   }
   
   .client-more {
