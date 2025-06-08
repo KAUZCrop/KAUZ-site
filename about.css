@@ -48,7 +48,7 @@
   line-height: 1.4;
   opacity: 1; /* 0.8 → 1로 변경하여 더 선명하게 */
   text-transform: uppercase; /* 대문자로 */
-  letter-spacing: 0.1em; /* 글자 간격 추가 */
+  letter-spacing: 0.15em; /* 🔥 웹에서 메인타이틀과 길이 맞추기 위해 증가 */
   width: 100%; /* 상단 타이틀과 같은 너비 */
   font-weight: 500; /* 조금 더 두껍게 */
 }
@@ -56,7 +56,7 @@
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .about-hero {
-    padding-top: calc(28px + 50px); /* 모바일 로고 높이 28px + 간격 50px */
+    padding-top: calc(46px + 80px); /* 🔥 로고 크기 통일 + 충분한 간격 */
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -66,6 +66,7 @@
     line-height: 0.85; /* 더 타이트하게 */
     word-break: break-word; /* 긴 단어도 줄바꿈 */
     hyphens: auto; /* 하이픈 자동 추가 */
+    letter-spacing: 0.05em; /* 🔥 ABOUT과 KAUZ 자간 조정 */
   }
   
   /* 모바일에서는 두 줄로 표시 */
@@ -86,13 +87,14 @@
 
 @media (max-width: 480px) {
   .about-hero {
-    padding-top: calc(28px + 40px); /* 작은 모바일에서 간격 조정 */
+    padding-top: calc(46px + 70px); /* 🔥 작은 모바일에서도 로고 크기 통일 */
   }
   
   .about-main-title {
     font-size: 110px; /* 작은 모바일에서도 크게 유지 */
     line-height: 0.8; /* 더 타이트한 줄간격 */
     word-break: break-word; /* 강제 줄바꿈 */
+    letter-spacing: 0.05em; /* 🔥 작은 모바일에서도 자간 조정 */
   }
   
   /* 작은 모바일에서도 두 줄로 표시 */
@@ -346,6 +348,41 @@
   
   .our-client h2 {
     padding-left: 0; /* 모바일에서도 패딩 제거 */
+  }
+  
+  /* 🔥 모바일에서 기존 클라이언트 그리드 숨기기 */
+  .client-grid {
+    display: none !important;
+  }
+  
+  /* 🔥 모바일 전용 클라이언트 그리드 - 3x2 */
+  .mobile-client-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    margin-bottom: 2rem !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  
+  .mobile-client-logo {
+    width: 100% !important;
+    height: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 0.8rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  .mobile-client-logo img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    filter: grayscale(100%) !important;
   }
   
   .client-row {
