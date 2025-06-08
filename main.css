@@ -93,7 +93,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .logo {
-    height: 28px; /* 46px에서 40% 줄임 (46 * 0.6 = 27.6px ≈ 28px) */
+    height: 20px; /* 46px에서 40% 줄임 (46 * 0.6 = 27.6px ≈ 28px) */
   }
 }
 
@@ -1218,10 +1218,10 @@ body.menu-open {
     font-size: 2.5rem;
   }
   
- .hero-slogan {
+  .hero-slogan {
     min-height: calc(12vh + 18px);
     padding-top: 80px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -1232,21 +1232,16 @@ body.menu-open {
     text-align: center;
     min-height: 5vw;
   }
-}
 
 @media (max-width: 480px) {
   .hero-slogan {
     min-height: calc(11vh + 15px);
     padding-top: 70px;
-    padding-bottom: 9px;
+    padding-bottom: 18px;
   }
   
   .slogan-line {
     font-size: 4.5vw;
-  }
-  
-  .logo {
-    height: 24px; /* ✅ 480px에서 로고 크기 추가 */
   }
 }
   
