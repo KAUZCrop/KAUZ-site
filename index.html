@@ -43,7 +43,7 @@
     </div>
   </div>
   
-  <!-- 상단 Hero 섹션 + 비디오 배경 -->
+  <!-- 🔥 상단 Hero 섹션 + 비디오 배경 + 슬로건 -->
   <div class="hero-video-section">
     <video class="hero-slogan-video" autoplay muted loop playsinline>
       <source src="video/plight-Bg.mp4" type="video/mp4" />
@@ -53,7 +53,7 @@
         <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </div>
     </div>
-    <!-- 🔥 한 줄로 수정된 슬로건 -->
+    <!-- 🔥 슬로건 영역 추가 -->
     <div class="hero-slogan">
       <div class="slogan-line" id="typing-line1"></div>
     </div>
@@ -83,118 +83,116 @@
       </div>
     </section>
     
-    <!-- 기존 index.html의 PortfolioSlider 섹션을 이렇게 교체하세요 -->
+    <!-- 포트폴리오 섹션 -->
+    <section id="PortfolioSlider">
+      <h2>Portfolio</h2>
+      <a href="portfolio.html" class="portfolio-more-link">more+</a>
+      
+      <div class="portfolio-container" id="PortfolioSliderList">
+        <!-- Airtable 데이터가 여기에 동적으로 삽입됩니다 -->
+      </div>
+    </section>
 
-<!-- 기존 PortfolioSlider 섹션을 이렇게 교체하세요 -->
-<section id="PortfolioSlider">
-  <!-- 기존 h2를 그대로 사용하고 More+ 링크만 추가 -->
-  <h2>Portfolio</h2>
-  <a href="portfolio.html" class="portfolio-more-link">more+</a>
-  
-  <div class="portfolio-container" id="PortfolioSliderList">
-    <!-- Airtable 데이터가 여기에 동적으로 삽입됩니다 -->
-    <!-- 기본적으로 4개 항목이 한 줄로 표시됩니다 -->
-  </div>
-</section>
+    <!-- Our Client 섹션 -->
+    <section id="our-client">
+      <h2 class="client-title">Our Client</h2>
+      <div class="client-grid">
+        <!-- 1번째 줄 - 5개 완전히 보임 -->
+        <div class="client-row">
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+        </div>
+        
+        <!-- 2번째 줄 - 5개 완전히 보임 -->
+        <div class="client-row">
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+        </div>
+        
+        <!-- 3번째 줄 - 거의 안보임 (웹에서만) -->
+        <div class="client-row almost-hidden desktop-only">
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+          <div class="client-logo">
+            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
+          </div>
+        </div>
+      </div>
 
-<!-- Our Client 섹션 (포트폴리오 섹션 위에 추가) -->
-<section id="our-client">
-  <h2 class="client-title">Our Client</h2>
-  <div class="client-grid">
-    <!-- 1번째 줄 - 5개 완전히 보임 -->
-    <div class="client-row">
-      <div class="client-logo">
-        <img src="client/client1.png" alt="Client 1" />
+      <!-- 🔥 모바일 전용 클라이언트 그리드 (3x2) - 텍스트 제거 -->
+      <div class="client-mobile-grid">
+        <div class="client-mobile-item"></div>
+        <div class="client-mobile-item"></div>
+        <div class="client-mobile-item"></div>
+        <div class="client-mobile-item"></div>
+        <div class="client-mobile-item"></div>
+        <div class="client-mobile-item"></div>
       </div>
-      <div class="client-logo">
-        <img src="client/client2.png" alt="Client 2" />
+      
+      <!-- More 링크 -->
+      <div class="client-more">
+        <a href="portfolio.html">More+</a>
       </div>
-      <div class="client-logo">
-        <img src="client/client3.png" alt="Client 3" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client4.png" alt="Client 4" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client5.png" alt="Client 5" />
-      </div>
-    </div>
+    </section>
     
-    <!-- 2번째 줄 - 5개 완전히 보임 -->
-    <div class="client-row">
-      <div class="client-logo">
-        <img src="client/client6.png" alt="Client 6" />
+    <section id="contact">
+      <div class="scrolling-text">
+        <a href="contact.html" class="scrolling-item">CONTACT US</a>
+        <span class="divider">|</span>
+        <span class="scrolling-item">KAUZ CORP.</span>
+        <span class="divider">|</span>
+        <a href="contact.html" class="scrolling-item">CONTACT US</a>
+        <span class="divider">|</span>
+        <span class="scrolling-item">KAUZ CORP.</span>
+        <span class="divider">|</span>
+        <a href="contact.html" class="scrolling-item">CONTACT US</a>
+        <span class="divider">|</span>
+        <span class="scrolling-item">KAUZ CORP.</span>
+        <span class="divider">|</span>
+        <a href="contact.html" class="scrolling-item">CONTACT US</a>
+        <span class="divider">|</span>
+        <span class="scrolling-item">KAUZ CORP.</span>
+        <span class="divider">|</span>
       </div>
-      <div class="client-logo">
-        <img src="client/client7.png" alt="Client 7" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client8.png" alt="Client 8" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client9.png" alt="Client 9" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client10.png" alt="Client 10" />
-      </div>
-    </div>
-    
-    <!-- 3번째 줄 - 거의 안보임 (웹에서만) -->
-    <div class="client-row almost-hidden desktop-only">
-      <div class="client-logo">
-        <img src="client/client11.png" alt="Client 11" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client12.png" alt="Client 12" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client13.png" alt="Client 13" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client14.png" alt="Client 14" />
-      </div>
-      <div class="client-logo">
-        <img src="client/client15.png" alt="Client 15" />
-      </div>
-    </div>
-  </div>
+    </section>
 
-   <!-- 🔥 모바일 전용 클라이언트 그리드 (3x2) -->
-  <div class="client-mobile-grid">
-    <div class="client-mobile-item">Client 1</div>
-    <div class="client-mobile-item">Client 2</div>
-    <div class="client-mobile-item">Client 3</div>
-    <div class="client-mobile-item">Client 4</div>
-    <div class="client-mobile-item">Client 5</div>
-    <div class="client-mobile-item">Client 6</div>
-  </div>
-  
-  <!-- More 링크 -->
-  <div class="client-more">
-    <a href="portfolio.html">More+</a>
-  </div>
-</section>
-    
-   <section id="contact">
-  <div class="scrolling-text">
-    <a href="contact.html" class="scrolling-item">CONTACT US</a>
-    <span class="divider">|</span>
-    <span class="scrolling-item">KAUZ CORP.</span>
-    <span class="divider">|</span>
-    <a href="contact.html" class="scrolling-item">CONTACT US</a>
-    <span class="divider">|</span>
-    <span class="scrolling-item">KAUZ CORP.</span>
-    <span class="divider">|</span>
-    <a href="contact.html" class="scrolling-item">CONTACT US</a>
-    <span class="divider">|</span>
-    <span class="scrolling-item">KAUZ CORP.</span>
-    <span class="divider">|</span>
-    <a href="contact.html" class="scrolling-item">CONTACT US</a>
-    <span class="divider">|</span>
-    <span class="scrolling-item">KAUZ CORP.</span>
-    <span class="divider">|</span>
-  </div>
-</section>
+  </main>
 
   <footer class="site-footer">
     <div class="footer-left">ⓒ 2025. KAUZCrop.</div>
