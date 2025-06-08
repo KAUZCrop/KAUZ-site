@@ -362,28 +362,30 @@ section h2 {
 }
 
 /* 폰트 변수 방식 */
-:root {
-  --about-h3-font-size: 4rem;
-  --about-p-font-size: 1.8rem;
-}
-
-body.mobile {
-  --about-h3-font-size: 1.25rem;
-  --about-p-font-size: 0.77rem;
-}
-
+/* 폰트 크기 직접 지정 */
 .about-left h3, .about-right h3 {
-  font-size: var(--about-h3-font-size);
+  font-size: 4rem; /* 웹에서 고정 */
   font-weight: 850;
   margin-bottom: 1rem;
   line-height: 1.4;
 }
 
 .about-left p, .about-right p {
-  font-size: var(--about-p-font-size);
+  font-size: 1.8rem; /* 웹에서 고정 */
   line-height: 1.8;
   margin-top: 7px;
   margin-bottom: 2rem;
+}
+
+/* 모바일에서만 작은 폰트 적용 */
+@media (max-width: 768px) {
+  .about-left h3, .about-right h3 {
+    font-size: 1.25rem;
+  }
+  
+  .about-left p, .about-right p {
+    font-size: 0.77rem;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
