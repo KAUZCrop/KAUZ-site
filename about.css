@@ -85,6 +85,8 @@
   line-height: 1.7;
   color: #ccc;
   margin-bottom: 1.5rem;
+  word-wrap: break-word; /* 긴 단어 줄바꿈 */
+  overflow-wrap: break-word; /* 최신 브라우저 지원 */
 }
 
 .what-we-do ul {
@@ -100,6 +102,8 @@
   margin-bottom: 0.8rem;
   padding-left: 1.5rem;
   position: relative;
+  word-wrap: break-word; /* 긴 단어 줄바꿈 */
+  overflow-wrap: break-word; /* 최신 브라우저 지원 */
 }
 
 .what-we-do li::before {
@@ -203,7 +207,7 @@
   display: none; /* 팀 관련 모든 요소 숨김 */
 }
 
-/* 🔥 모바일 대응 - 768px 이하 (수정된 버전) */
+/* 🔥 모바일 대응 - 768px 이하 (최종 수정된 버전) */
 @media (max-width: 768px) {
   .about-hero {
     padding-top: calc(28px + 60px); /* 🔥 common.js 로고 크기 28px + 간격 60px로 줄임 */
@@ -252,35 +256,60 @@
     max-width: 100% !important;
   }
 
-  /* 🔥 본문 섹션들 모바일 스타일 */
+  /* 🔥 본문 섹션들 모바일 스타일 - 텍스트 오버플로우 해결 */
   .who-we-are,
   .what-we-do,
   .our-mission,
   .our-client {
-    padding: 0 1rem;
-    margin: 2rem 0;
+    padding: 0 1rem !important; /* 좌우 패딩 충분히 */
+    margin: 2rem 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important; /* 넘치는 내용 숨김 */
   }
   
   .who-we-are h2,
   .what-we-do h2,
   .our-mission h2,
   .our-client h2 {
-    font-size: 2rem;
+    font-size: 1.8rem !important; /* 2rem → 1.8rem로 줄임 */
+    line-height: 1.3 !important;
+    margin-bottom: 1rem !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
   }
   
+  /* 🔥 WHO WE ARE, OUR MISSION 텍스트 크기 조정 */
   .who-we-are p,
-  .our-mission p,
+  .our-mission p {
+    font-size: 0.9rem !important; /* 1rem → 0.9rem로 줄임 */
+    line-height: 1.6 !important; /* 줄간격 조정 */
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important; /* 자동 하이픈 */
+    text-align: justify !important; /* 양쪽 정렬로 더 깔끔하게 */
+    margin-bottom: 1rem !important;
+  }
+  
+  /* 🔥 WHAT WE DO 리스트 항목 크기 조정 */
   .what-we-do li {
-    font-size: 1rem;
+    font-size: 0.9rem !important; /* 1rem → 0.9rem로 줄임 */
+    line-height: 1.6 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    margin-bottom: 0.6rem !important;
+    padding-left: 1.2rem !important; /* 패딩 줄임 */
   }
   
   /* 모바일 클라이언트 그리드 */
   .our-client {
-    padding: 2rem 15px 1rem 15px; /* 모바일에서 양옆 15px */
+    padding: 2rem 1rem 1rem 1rem !important; /* 양쪽 패딩 1rem으로 통일 */
   }
   
   .our-client h2 {
-    padding-left: 0; /* 모바일에서도 패딩 제거 */
+    padding-left: 0 !important; /* 모바일에서도 패딩 제거 */
+    font-size: 1.8rem !important;
   }
   
   /* 🔥 모바일에서 기존 클라이언트 그리드 숨기기 */
@@ -326,7 +355,7 @@
   }
   
   .client-more a {
-    font-size: 20px;
+    font-size: 18px !important; /* 20px → 18px로 줄임 */
   }
 }
 
@@ -360,11 +389,28 @@
     text-overflow: ellipsis !important;
   }
 
+  /* 🔥 작은 모바일 본문 텍스트 더 작게 */
+  .who-we-are,
+  .what-we-do,
+  .our-mission,
+  .our-client {
+    padding: 0 0.8rem !important; /* 패딩 더 줄임 */
+  }
+
   .who-we-are h2,
   .what-we-do h2,
   .our-mission h2,
   .our-client h2 {
-    font-size: 1.7rem;
+    font-size: 1.5rem !important; /* 1.7rem → 1.5rem로 더 줄임 */
+    line-height: 1.2 !important;
+  }
+  
+  .who-we-are p,
+  .our-mission p,
+  .what-we-do li {
+    font-size: 0.8rem !important; /* 0.9rem → 0.8rem로 더 줄임 */
+    line-height: 1.5 !important;
+    text-align: left !important; /* 작은 화면에서는 왼쪽 정렬 */
   }
   
   .client-logo {
@@ -374,12 +420,17 @@
   }
   
   .client-more a {
-    font-size: 18px;
+    font-size: 16px !important; /* 18px → 16px로 더 줄임 */
   }
 }
 
 /* 🔥 아주 작은 화면 대응 - 360px 이하 */
 @media (max-width: 360px) {
+  .about-hero {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
   .about-main-title {
     font-size: 60px !important; /* 🔥 타이틀 크기 60px */
     letter-spacing: 0 !important; /* 자간 없음 */
@@ -388,5 +439,27 @@
   .about-subtitle {
     font-size: 0.6rem !important; /* 최소 크기 */
     letter-spacing: 0.02em !important;
+  }
+
+  /* 🔥 최소 화면에서 본문 텍스트 최적화 */
+  .who-we-are,
+  .what-we-do,
+  .our-mission,
+  .our-client {
+    padding: 0 0.5rem !important; /* 최소 패딩 */
+  }
+
+  .who-we-are h2,
+  .what-we-do h2,
+  .our-mission h2,
+  .our-client h2 {
+    font-size: 1.3rem !important; /* 더 작게 */
+  }
+  
+  .who-we-are p,
+  .our-mission p,
+  .what-we-do li {
+    font-size: 0.75rem !important; /* 최소 크기 */
+    line-height: 1.4 !important;
   }
 }
