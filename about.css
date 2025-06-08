@@ -19,22 +19,29 @@
   text-align: left;
 }
 
+/* 🔥 메인 타이틀 크기 대폭 증가 - 참고 이미지처럼 */
 .about-main-title {
-  font-size: 125px; /* 100px + 25px = 125px */
+  font-size: 180px; /* 125px → 180px로 대폭 증가 */
   font-weight: 700;
   color: white;
   margin: 0 0 0.5rem 0;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.0; /* 더 타이트하게 */
+  letter-spacing: -0.03em; /* 글자 간격 더 줄임 */
+  text-transform: uppercase; /* 대문자로 */
 }
 
+/* 🔥 서브타이틀 - ABOUT KAUZ와 같은 너비로 맞춤 + 오렌지 색상 */
 .about-subtitle {
   font-size: 1.2rem;
   font-weight: 300; /* 얇은 글씨 */
-  color: #ccc;
+  color: #E37031; /* 🔥 오렌지 색상으로 변경 */
   margin: 0;
   line-height: 1.4;
-  opacity: 0.8;
+  opacity: 1; /* 0.8 → 1로 변경하여 더 선명하게 */
+  text-transform: uppercase; /* 대문자로 */
+  letter-spacing: 0.1em; /* 글자 간격 추가 */
+  max-width: fit-content; /* 텍스트 너비에 맞춤 */
+  font-weight: 500; /* 조금 더 두껍게 */
 }
 
 /* 모바일 대응 */
@@ -46,11 +53,13 @@
   }
   
   .about-main-title {
-    font-size: 85px; /* 모바일에서도 비례적으로 증가 */
+    font-size: 120px; /* 모바일에서도 비례적으로 증가 */
+    line-height: 0.95;
   }
   
   .about-subtitle {
     font-size: 1rem;
+    letter-spacing: 0.08em;
   }
 }
 
@@ -60,11 +69,13 @@
   }
   
   .about-main-title {
-    font-size: 65px;
+    font-size: 85px; /* 작은 모바일에서도 크게 유지 */
+    line-height: 0.9;
   }
   
   .about-subtitle {
     font-size: 0.9rem;
+    letter-spacing: 0.06em;
   }
 }
 
