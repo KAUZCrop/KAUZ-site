@@ -58,88 +58,99 @@
   font-weight: 500; /* 조금 더 두껍게 */
 }
 
-/* 모바일 대응 */
+/* 🔥 기존 about.css의 모바일 부분을 이 코드로 완전히 교체하세요 */
+
+/* 모바일 대응 - 768px 이하 */
 @media (max-width: 768px) {
   .about-hero {
-    padding-top: calc(46px + 80px); /* 🔥 로고 크기 46px + 충분한 간격 80px */
+    padding-top: calc(28px + 60px); /* 🔥 common.js 로고 크기 28px + 간격 60px로 줄임 */
     padding-left: 1rem;
     padding-right: 1rem;
   }
   
   .about-main-title {
-    font-size: 120px !important;
-    line-height: 0.85;
-    word-break: normal !important; /* word-break: break-word 제거 */
-    hyphens: none !important; /* 하이픈 자동 추가 제거 */
-    letter-spacing: 0.05em;
-    white-space: normal; /* 줄바꿈 허용 */
+    font-size: 85px !important; /* 🔥 120px → 85px로 대폭 줄임 */
+    line-height: 0.9 !important; /* 줄간격 더 좁게 */
+    word-break: normal !important;
+    hyphens: none !important;
+    letter-spacing: 0.02em !important; /* 자간 줄임 */
+    white-space: normal;
+    margin-bottom: 1rem !important; /* 서브타이틀과 간격 */
   }
   
- /* 데스크톱 버전 완전 숨김 */
+  /* 데스크톱 버전 완전 숨김 */
   .about-main-title .desktop-title {
     display: none !important;
   }
   
- /* 모바일 버전만 표시하고 줄바꿈 제어 */
-  .about-main-title .mobile-title {
-    display: block !important;
-    white-space: nowrap; /* 각 줄에서 줄바꿈 방지 */
-  }
-  
-  /* ABOUT과 KAUZ를 각각 별도 블록으로 처리 */
-  .about-main-title .mobile-title br {
-    display: block !important; /* <br> 태그 강제 적용 */
-  }
-}
-  
-  .about-subtitle {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    width: 100%; /* 상단 타이틀과 같은 너비 */
-  }
-}
-
-@media (max-width: 480px) {
-  .about-hero {
-    padding-top: calc(46px + 70px); /* 🔥 작은 모바일에서도 로고 크기 46px 유지 */
-  }
-  
-  .about-main-title {
-    font-size: 95px !important;
-    line-height: 0.8;
-    word-break: normal !important;
-    hyphens: none !important;
-    letter-spacing: 0.05em;
-  }
-  
-  /* 작은 모바일에서도 두 줄로 표시 */
-  .about-main-title .desktop-title {
-    display: none;
-  }
-  
-   .about-main-title .mobile-title {
-    white-space: nowrap; /* 각 줄에서 줄바꿈 방지 */
-  }
-  
-  .about-subtitle {
-    font-size: 0.9rem;
-    letter-spacing: 0.06em;
-    width: 100%; /* 상단 타이틀과 같은 너비 */
-  }
-}
-
-/* 🔥 더 강력한 줄바꿈 제어 */
-@media (max-width: 768px) {
+  /* 모바일 버전만 표시하고 줄바꿈 제어 */
   .about-main-title .mobile-title {
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
+    width: 100% !important;
   }
   
   .about-main-title .mobile-title .line1,
   .about-main-title .mobile-title .line2 {
     display: block !important;
     width: 100% !important;
+    white-space: nowrap !important; /* 각 줄에서 줄바꿈 방지 */
+  }
+  
+  /* 🔥 서브타이틀 한 줄로 강제 */
+  .about-subtitle {
+    font-size: 0.75rem !important; /* 크기 줄임 */
+    letter-spacing: 0.05em !important; /* 자간 줄임 */
+    white-space: nowrap !important; /* 강제로 한 줄 */
+    overflow: hidden !important; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis !important; /* 넘치면 ... 표시 */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* 작은 모바일 대응 - 480px 이하 */
+@media (max-width: 480px) {
+  .about-hero {
+    padding-top: calc(28px + 50px); /* 🔥 간격 더 줄임 */
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+  
+  .about-main-title {
+    font-size: 70px !important; /* 🔥 95px → 70px로 더 줄임 */
+    line-height: 0.85 !important;
+    letter-spacing: 0.01em !important; /* 자간 더 줄임 */
+    word-break: normal !important;
+    hyphens: none !important;
+  }
+  
+  .about-main-title .mobile-title .line1,
+  .about-main-title .mobile-title .line2 {
+    white-space: nowrap !important;
+  }
+  
+  /* 🔥 작은 모바일에서 서브타이틀 더 작게 */
+  .about-subtitle {
+    font-size: 0.65rem !important; /* 더 작게 */
+    letter-spacing: 0.03em !important; /* 자간 더 줄임 */
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
+
+/* 🔥 아주 작은 화면 대응 - 360px 이하 */
+@media (max-width: 360px) {
+  .about-main-title {
+    font-size: 60px !important; /* 🔥 더 작게 */
+    letter-spacing: 0 !important; /* 자간 없음 */
+  }
+  
+  .about-subtitle {
+    font-size: 0.6rem !important; /* 최소 크기 */
+    letter-spacing: 0.02em !important;
   }
 }
 
