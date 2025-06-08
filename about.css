@@ -58,162 +58,6 @@
   font-weight: 500; /* 조금 더 두껍게 */
 }
 
-/* 🔥 기존 about.css의 모바일 부분을 이 코드로 완전히 교체하세요 */
-
-/* 모바일 대응 - 768px 이하 */
-@media (max-width: 768px) {
-  .about-hero {
-    padding-top: calc(28px + 60px); /* 🔥 common.js 로고 크기 28px + 간격 60px로 줄임 */
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  .about-main-title {
-    font-size: 85px !important; /* 🔥 120px → 85px로 대폭 줄임 */
-    line-height: 0.9 !important; /* 줄간격 더 좁게 */
-    word-break: normal !important;
-    hyphens: none !important;
-    letter-spacing: 0.02em !important; /* 자간 줄임 */
-    white-space: normal;
-    margin-bottom: 1rem !important; /* 서브타이틀과 간격 */
-  }
-  
-  /* 데스크톱 버전 완전 숨김 */
-  .about-main-title .desktop-title {
-    display: none !important;
-  }
-  
-  /* 모바일 버전만 표시하고 줄바꿈 제어 */
-  .about-main-title .mobile-title {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    width: 100% !important;
-  }
-  
-  .about-main-title .mobile-title .line1,
-  .about-main-title .mobile-title .line2 {
-    display: block !important;
-    width: 100% !important;
-    white-space: nowrap !important; /* 각 줄에서 줄바꿈 방지 */
-  }
-  
-  /* 🔥 서브타이틀 한 줄로 강제 */
-  .about-subtitle {
-    font-size: 0.75rem !important; /* 크기 줄임 */
-    letter-spacing: 0.05em !important; /* 자간 줄임 */
-    white-space: nowrap !important; /* 강제로 한 줄 */
-    overflow: hidden !important; /* 넘치는 텍스트 숨김 */
-    text-overflow: ellipsis !important; /* 넘치면 ... 표시 */
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-}
-
-/* 작은 모바일 대응 - 480px 이하 */
-@media (max-width: 480px) {
-  .about-hero {
-    padding-top: calc(28px + 50px); /* 🔥 간격 더 줄임 */
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-  }
-  
-  .about-main-title {
-    font-size: 70px !important; /* 🔥 95px → 70px로 더 줄임 */
-    line-height: 0.85 !important;
-    letter-spacing: 0.01em !important; /* 자간 더 줄임 */
-    word-break: normal !important;
-    hyphens: none !important;
-  }
-  
-  .about-main-title .mobile-title .line1,
-  .about-main-title .mobile-title .line2 {
-    white-space: nowrap !important;
-  }
-  
-  /* 🔥 작은 모바일에서 서브타이틀 더 작게 */
-  .about-subtitle {
-    font-size: 0.65rem !important; /* 더 작게 */
-    letter-spacing: 0.03em !important; /* 자간 더 줄임 */
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-}
-
-/* 🔥 아주 작은 화면 대응 - 360px 이하 */
-@media (max-width: 360px) {
-  .about-main-title {
-    font-size: 60px !important; /* 🔥 더 작게 */
-    letter-spacing: 0 !important; /* 자간 없음 */
-  }
-  
-  .about-subtitle {
-    font-size: 0.6rem !important; /* 최소 크기 */
-    letter-spacing: 0.02em !important;
-  }
-}
-
-/* 4) About Us 히어로 섹션 (기존 코드 - 사용하지 않음) */
-.about-hero-section {
-  position: relative;
-  height: 60vh;
-  min-height: 400px;
-  background: url('images/about_hero_bg.jpg') center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.about-hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 1rem;
-}
-.about-hero-title {
-  font-size: 3rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
-}
-.about-hero-subtitle {
-  font-size: 1.25rem;
-  color: #ddd;
-}
-
-/* 5) About Us 본문 섹션 */
-.about-content-section {
-  max-width: 800px;
-  margin: 4rem auto;
-  padding: 0 1rem;
-  color: #eee;
-}
-.about-block {
-  margin-bottom: 2.5rem;
-}
-.about-heading {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #fff;
-}
-.about-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #ccc;
-}
-
-/* 🔥 기존 about-intro 섹션을 제거하고 새로운 섹션들 스타일링 */
-.about-intro {
-  display: none; /* 기존 섹션 숨김 */
-}
-
 /* 🔥 본문 섹션들 공통 스타일 - 웹 최대 와이드 사용 */
 .who-we-are,
 .what-we-do,
@@ -359,8 +203,56 @@
   display: none; /* 팀 관련 모든 요소 숨김 */
 }
 
-/* 7) 모바일 대응(반응형) */
+/* 🔥 모바일 대응 - 768px 이하 (수정된 버전) */
 @media (max-width: 768px) {
+  .about-hero {
+    padding-top: calc(28px + 60px); /* 🔥 common.js 로고 크기 28px + 간격 60px로 줄임 */
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .about-main-title {
+    font-size: 85px !important; /* 🔥 타이틀 크기 85px */
+    line-height: 0.9 !important; /* 줄간격 더 좁게 */
+    word-break: normal !important;
+    hyphens: none !important;
+    letter-spacing: 0.02em !important; /* 자간 줄임 */
+    white-space: normal;
+    margin-bottom: 1rem !important; /* 서브타이틀과 간격 */
+  }
+  
+  /* 데스크톱 버전 완전 숨김 */
+  .about-main-title .desktop-title {
+    display: none !important;
+  }
+  
+  /* 모바일 버전만 표시하고 줄바꿈 제어 */
+  .about-main-title .mobile-title {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+  
+  .about-main-title .mobile-title .line1,
+  .about-main-title .mobile-title .line2 {
+    display: block !important;
+    width: 100% !important;
+    white-space: nowrap !important; /* 각 줄에서 줄바꿈 방지 */
+  }
+  
+  /* 🔥 서브타이틀 한 줄로 강제 */
+  .about-subtitle {
+    font-size: 0.75rem !important; /* 크기 줄임 */
+    letter-spacing: 0.05em !important; /* 자간 줄임 */
+    white-space: nowrap !important; /* 강제로 한 줄 */
+    overflow: hidden !important; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis !important; /* 넘치면 ... 표시 */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 🔥 본문 섹션들 모바일 스타일 */
   .who-we-are,
   .what-we-do,
   .our-mission,
@@ -419,13 +311,6 @@
     box-sizing: border-box !important;
   }
   
-  .mobile-client-logo img {
-    max-width: 100% !important;
-    max-height: 100% !important;
-    object-fit: contain !important;
-    filter: grayscale(100%) !important;
-  }
-  
   .client-row {
     gap: 1rem;
     flex-wrap: wrap;
@@ -445,7 +330,36 @@
   }
 }
 
+/* 🔥 작은 모바일 대응 - 480px 이하 */
 @media (max-width: 480px) {
+  .about-hero {
+    padding-top: calc(28px + 50px); /* 🔥 간격 더 줄임 */
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+  
+  .about-main-title {
+    font-size: 70px !important; /* 🔥 타이틀 크기 70px */
+    line-height: 0.85 !important;
+    letter-spacing: 0.01em !important; /* 자간 더 줄임 */
+    word-break: normal !important;
+    hyphens: none !important;
+  }
+  
+  .about-main-title .mobile-title .line1,
+  .about-main-title .mobile-title .line2 {
+    white-space: nowrap !important;
+  }
+  
+  /* 🔥 작은 모바일에서 서브타이틀 더 작게 */
+  .about-subtitle {
+    font-size: 0.65rem !important; /* 더 작게 */
+    letter-spacing: 0.03em !important; /* 자간 더 줄임 */
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
   .who-we-are h2,
   .what-we-do h2,
   .our-mission h2,
@@ -461,5 +375,18 @@
   
   .client-more a {
     font-size: 18px;
+  }
+}
+
+/* 🔥 아주 작은 화면 대응 - 360px 이하 */
+@media (max-width: 360px) {
+  .about-main-title {
+    font-size: 60px !important; /* 🔥 타이틀 크기 60px */
+    letter-spacing: 0 !important; /* 자간 없음 */
+  }
+  
+  .about-subtitle {
+    font-size: 0.6rem !important; /* 최소 크기 */
+    letter-spacing: 0.02em !important;
   }
 }
