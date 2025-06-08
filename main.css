@@ -1219,9 +1219,9 @@ body.menu-open {
   }
   
  .hero-slogan {
-    min-height: calc(25vh + 35px);
+    min-height: calc(12vh + 18px);
     padding-top: 80px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -1232,13 +1232,21 @@ body.menu-open {
     text-align: center;
     min-height: 5vw;
   }
+  
+  /* 🔥 여기에 About 섹션 마진 조정 추가 */
+  .about-custom {
+    padding-top: 2rem; /* 4rem → 2rem로 절반 축소 */
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-slogan {
-    min-height: calc(22vh + 30px);
+    min-height: calc(11vh + 15px);
     padding-top: 70px;
-    padding-bottom: 18px;
+    padding-bottom: 9px;
   }
   
   .slogan-line {
