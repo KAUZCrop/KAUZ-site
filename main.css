@@ -362,30 +362,28 @@ section h2 {
 }
 
 /* 폰트 변수 방식 */
-/* 폰트 크기 직접 지정 */
+:root {
+  --about-h3-font-size: 4rem;
+  --about-p-font-size: 1.8rem;
+}
+
+body.mobile {
+  --about-h3-font-size: 1.25rem;
+  --about-p-font-size: 0.77rem;
+}
+
 .about-left h3, .about-right h3 {
-  font-size: 4rem; /* 웹에서 고정 */
+  font-size: var(--about-h3-font-size);
   font-weight: 850;
   margin-bottom: 1rem;
   line-height: 1.4;
 }
 
 .about-left p, .about-right p {
-  font-size: 1.8rem; /* 웹에서 고정 */
+  font-size: var(--about-p-font-size);
   line-height: 1.8;
   margin-top: 7px;
   margin-bottom: 2rem;
-}
-
-/* 모바일에서만 작은 폰트 적용 */
-@media (max-width: 768px) {
-  .about-left h3, .about-right h3 {
-    font-size: 1.25rem;
-  }
-  
-  .about-left p, .about-right p {
-    font-size: 0.77rem;
-  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1233,14 +1231,6 @@ body.menu-open {
     white-space: normal;
     text-align: center;
     min-height: 5vw;
-  }
-  
-  /* 🔥 여기에 About 섹션 마진 조정 추가 */
-  .about-custom {
-    padding-top: 2rem; /* 4rem → 2rem로 절반 축소 */
-    padding-bottom: 2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
   }
 }
 
