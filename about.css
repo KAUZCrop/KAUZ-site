@@ -61,7 +61,7 @@
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .about-hero {
-    padding-top: calc(46px + 80px); /* 🔥 로고 크기 통일 + 충분한 간격 */
+    padding-top: calc(46px + 80px); /* 🔥 로고 크기 46px + 충분한 간격 80px */
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -92,7 +92,7 @@
 
 @media (max-width: 480px) {
   .about-hero {
-    padding-top: calc(46px + 70px); /* 🔥 작은 모바일에서도 로고 크기 통일 */
+    padding-top: calc(46px + 70px); /* 🔥 작은 모바일에서도 로고 크기 46px 유지 */
   }
   
   .about-main-title {
