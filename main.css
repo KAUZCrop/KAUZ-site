@@ -1455,19 +1455,22 @@ body.menu-open {
   display: none !important;
 }
 
-/* 🔥 웹에서만 디버그 텍스트 숨기기 (모바일 제외) */
-@media screen and (min-width: 769px) {
-  body::before {
-    content: '';
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 200px;
-    height: 200px;
-    background: #0D0D0D;
-    z-index: 9999;
-    pointer-events: none;
-  }
+/* 🔥 모든 디버그 텍스트와 박스 완전 제거 */
+/* 페이지 하단이나 좌측에 나타나는 모든 디버그 요소 숨기기 */
+body > *:not(main):not(header):not(footer):not(#loading-screen):not(#menu-overlay):not(.hamburger):not(.logo) {
+  display: none !important;
+}
+
+/* 가상요소로 생성된 디버그 박스들 제거 */
+*::before,
+*::after {
+  content: none !important;
+}
+
+/* Our Client 섹션의 가상요소는 유지 */
+.client-row::after,
+.client-grid::after {
+  content: '' !important;
 }
 
 /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
