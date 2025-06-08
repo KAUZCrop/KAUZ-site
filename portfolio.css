@@ -1,28 +1,27 @@
 /*───────────────────────────────────────────────────────────────────────────
-  portfolio.css (Portfolio 전용 스타일) : common.css로 대부분 처리
+  portfolio.css (Portfolio 전용 스타일) : common.css로 로고/햄버거 처리
   ────────────────────────────────────────────────────────────────────────────*/
 
-/* 1) “body” 설정 → 삭제
+/* ❌ 제거된 코드들 - 이제 common.css에서 처리 */
+/*
 body {
   margin: 0;
   padding: 0;
-  background-color: #0D0D0D;  (common.css 적용)
-  color: white;               (common.css 적용)
+  background-color: #0D0D0D;  (common.css에서 처리)
+  color: white;               (common.css에서 처리)
 }
+
+.header 관련 스타일들 (common.css에서 로고/햄버거 처리)
+.logo { ... }
+.hamburger { ... }
+.menu-overlay { ... }
+.fade-up { ... }
+.site-footer { ... }
 */
 
-/* 2) .header 관련 스타일 삭제 (common.css에서 로고/햄버거 처리)
-.header {
-  background-color: #1F2A44; 
-  padding: 1rem 0;
-}
-.header .logo { … }
-.header .nav { … }
-.header .nav a { … }
-…
-*/
+/* ✅ Portfolio 페이지 고유 스타일만 유지 */
 
-/* 3) 히어로 섹션 (Portfolio 고유) */
+/* 1) 히어로 섹션 (Portfolio 고유) */
 .hero-portfolio {
   background: url('../image/hero-portfolio.jpg') no-repeat center/cover;
   height: 50vh;
@@ -41,7 +40,7 @@ body {
   font-size: 1.25rem;
 }
 
-/* 4) 필터 버튼 섹션 */
+/* 2) 필터 버튼 섹션 */
 .filter-section {
   margin: 2rem auto;
   text-align: center;
@@ -62,7 +61,7 @@ body {
   color: #ffffff;
 }
 
-/* 5) 프로젝트 카드 그리드 */
+/* 3) 프로젝트 카드 그리드 */
 .project-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -111,7 +110,7 @@ body {
   transform: translateY(-5px);
 }
 
-/* 6) 모달 공통 스타일 (Portfolio 고유) */
+/* 4) 모달 공통 스타일 (Portfolio 고유) */
 .modal {
   display: none; /* JS로 열리면 flex */
   position: fixed;
@@ -154,18 +153,7 @@ body {
   cursor: pointer;
 }
 
-/* 7) 푸터 (common.css에서 처리하므로 삭제) */
-/*
-.footer {
-  background-color: #1F2A44;
-  padding: 1rem 0;
-  text-align: center;
-  color: #ffffff;
-  font-size: 0.9rem;
-}
-*/
-
-/* 8) 반응형 */
+/* 5) 반응형 */
 @media (max-width: 768px) {
   .hero-portfolio .hero-text h1 {
     font-size: 2rem;
