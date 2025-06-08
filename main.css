@@ -1090,8 +1090,9 @@ body.mobile {
   }
 }
 
-/* 타자 효과 슬로건 스타일 - 수정된 버전 */
-/* 🔥 수정된 타자 효과 슬로건 스타일 - 한 줄로 줄어든 높이 */
+/* 🔥 모바일에서 슬로건과 로고 겹침 해결 */
+
+/* 기존 hero-slogan 스타일 수정 */
 .hero-slogan {
   padding: 0 1rem;
   text-align: center;
@@ -1099,12 +1100,13 @@ body.mobile {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(20vh + 30px); /* 🔥 35vh + 50px → 20vh + 30px로 대폭 줄임 */
+  min-height: calc(20vh + 30px); /* 기존 유지 */
   font-weight: bold;
   color: white;
   line-height: 1.4;
   position: relative;
   z-index: 2;
+  margin-top: 0; /* 기본값 */
 }
 
 .slogan-line {
@@ -1203,9 +1205,12 @@ body.menu-open {
     overflow: visible;
   }
   
+  /* 로고 크기 확인 및 조정 */
   .logo {
-    height: 52px;
+    height: 28px; /* 🔥 모바일 로고 크기 명시 */
+    top: 1rem; /* 🔥 상단 여백 확인 */
   }
+}
   
   .hamburger {
     top: 1rem;
@@ -1219,11 +1224,12 @@ body.menu-open {
   }
   
  .hero-slogan {
-  min-height: calc(15vh + 20px); /* 🔥 모바일에서도 높이 줄임 */
-  padding: 0 1rem;
+    min-height: calc(25vh + 40px); /* 🔥 높이 증가: 15vh + 20px → 25vh + 40px */
+    padding-top: 80px; /* 🔥 상단 패딩 추가 (로고 높이 28px + 여백 52px) */
+    padding-bottom: 20px;
 }
 
-  .slogan-line {
+ .slogan-line {
     font-size: 5vw;
     white-space: normal;
     text-align: center;
@@ -1232,11 +1238,42 @@ body.menu-open {
 
 @media (max-width: 480px) {
   .hero-slogan {
-    min-height: calc(12vh + 15px); /* 🔥 작은 모바일에서 더욱 줄임 */
+    min-height: calc(30vh + 50px); /* 🔥 작은 모바일에서 더 큰 높이 */
+    padding-top: 90px; /* 🔥 더 큰 상단 패딩 */
+    padding-bottom: 25px;
+  }
+  
+   .slogan-line {
+    font-size: 4.5vw;
+  }
+  
+  .logo {
+    height: 24px; /* 🔥 작은 모바일에서 로고 더 작게 */
+  }
+}
+
+/* 🔥 추가: 매우 작은 화면 (iPhone SE 등) 대응 */
+@media (max-width: 375px) {
+  .hero-slogan {
+    min-height: calc(35vh + 60px);
+    padding-top: 100px;
+    padding-bottom: 30px;
   }
   
   .slogan-line {
-    font-size: 4.5vw;
+    font-size: 4vw;
+  }
+  
+  .logo {
+    height: 22px;
+  }
+}
+
+/* 🔥 추가: 가로 모드 모바일 대응 */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-slogan {
+    min-height: calc(40vh + 30px);
+    padding-top: 60px;
   }
 }
   
