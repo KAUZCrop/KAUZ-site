@@ -1337,6 +1337,8 @@ body.menu-open {
   width: 100%;
   position: relative;
   padding-bottom: 15px;
+  max-width: 1200px; /* 🔥 최대 너비 설정 */
+  margin: 0 auto; /* 🔥 중앙 정렬 */
 }
 
 .client-row {
@@ -1344,9 +1346,10 @@ body.menu-open {
   justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
-  gap: 5.6rem;
+  gap: 3rem; /* 🔥 5.6rem → 3rem으로 간격 조정 */
   width: 100%;
   position: relative;
+  flex-wrap: nowrap; /* 🔥 줄바꿈 방지 */
 }
 
 .client-logo {
@@ -1362,6 +1365,7 @@ body.menu-open {
   position: relative;
   opacity: 1;
   transition: opacity 0.3s ease;
+  flex-shrink: 0; /* 🔥 크기 고정 */
 }
 
 .client-logo img {
@@ -1455,22 +1459,35 @@ body.menu-open {
   display: none !important;
 }
 
-/* 🔥 모든 디버그 텍스트와 박스 완전 제거 */
-/* 페이지 하단이나 좌측에 나타나는 모든 디버그 요소 숨기기 */
-body > *:not(main):not(header):not(footer):not(#loading-screen):not(#menu-overlay):not(.hamburger):not(.logo) {
-  display: none !important;
+/* 🔥 웹 반응형 대응 개선 */
+@media screen and (max-width: 1400px) {
+  .client-row {
+    gap: 2rem; /* 큰 화면에서 간격 줄임 */
+  }
 }
 
-/* 가상요소로 생성된 디버그 박스들 제거 */
-*::before,
-*::after {
-  content: none !important;
+@media screen and (max-width: 1200px) {
+  .client-row {
+    gap: 1.5rem; /* 중간 화면에서 더 줄임 */
+  }
+  
+  .client-logo {
+    width: 140px;
+    height: 95px;
+    padding: 1rem;
+  }
 }
 
-/* Our Client 섹션의 가상요소는 유지 */
-.client-row::after,
-.client-grid::after {
-  content: '' !important;
+@media screen and (max-width: 1000px) {
+  .client-row {
+    gap: 1rem;
+  }
+  
+  .client-logo {
+    width: 120px;
+    height: 80px;
+    padding: 0.8rem;
+  }
 }
 
 /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
