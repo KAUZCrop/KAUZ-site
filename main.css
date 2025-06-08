@@ -1455,17 +1455,19 @@ body.menu-open {
   display: none !important;
 }
 
-/* 🔥 웹에서 디버그 텍스트 숨기기 */
-body::before {
-  content: '';
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 200px;
-  height: 200px;
-  background: #0D0D0D;
-  z-index: 9999;
-  pointer-events: none;
+/* 🔥 웹에서만 디버그 텍스트 숨기기 (모바일 제외) */
+@media screen and (min-width: 769px) {
+  body::before {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: #0D0D0D;
+    z-index: 9999;
+    pointer-events: none;
+  }
 }
 
 /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
