@@ -30,6 +30,11 @@
   text-transform: uppercase; /* 대문자로 */
 }
 
+/* 🔥 KAUZ만 자간 늘리기 */
+.about-main-title .kauz-spaced {
+  letter-spacing: 0.1em; /* KAUZ만 자간 늘림 */
+}
+
 /* 데스크톱에서는 한 줄로 표시 */
 .about-main-title .mobile-title {
   display: none;
