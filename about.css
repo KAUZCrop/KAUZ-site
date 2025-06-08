@@ -83,7 +83,6 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  min-height: 400px; /* 🔥 최소 높이 설정 */
 }
 
 /* 왼쪽 텍스트 영역 */
@@ -92,37 +91,33 @@
   max-width: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 🔥 공간을 균등 분배하여 하단 맞춤 */
-  height: 400px; /* 🔥 이미지와 동일한 높이 */
+  justify-content: flex-start; /* 🔥 자연스러운 상단 시작 */
 }
 
 .who-we-are-content h2 {
-  font-size: 3.5rem; /* 🔥 2.5rem → 3.5rem으로 대폭 증가 */
+  font-size: 3.5rem; /* 큰 크기 유지 */
   font-weight: 700;
   color: white;
-  margin-bottom: 0; /* 🔥 마진 제거 */
+  margin-bottom: 2rem; /* 🔥 자연스러운 간격 복원 */
   text-align: left;
-  line-height: 1.1; /* 🔥 줄간격 조정 */
+  line-height: 1.1;
 }
 
 .who-we-are-content p {
-  font-size: 1.4rem; /* 🔥 1.1rem → 1.4rem으로 증가 */
-  line-height: 1.6; /* 🔥 줄간격 조정 */
+  font-size: 1.4rem; /* 큰 크기 유지 */
+  line-height: 1.6;
   color: #ccc;
-  margin-bottom: 0; /* 🔥 마진 제거 */
+  margin-bottom: 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  flex-grow: 1; /* 🔥 남은 공간을 차지하도록 */
-  display: flex;
-  align-items: flex-end; /* 🔥 텍스트를 하단에 정렬 */
 }
 
 /* 오른쪽 이미지 영역 - 크기 고정 */
 .who-we-are-image {
-  flex: 0 0 400px; /* 🔥 40% → 400px 고정 크기로 변경 */
-  height: 400px; /* 🔥 고정 높이 추가 */
+  flex: 0 0 400px; /* 400px 고정 크기 유지 */
+  height: auto; /* 🔥 400px → auto로 변경하여 자연스러운 높이 */
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* 🔥 이미지도 상단 정렬 */
   justify-content: center;
   position: relative;
 }
@@ -130,7 +125,7 @@
 .symbol-image {
   width: 100%;
   max-width: 400px;
-  height: 100%; /* 🔥 auto → 100%로 변경하여 컨테이너에 맞춤 */
+  height: auto; /* 🔥 자연스러운 비율 유지 */
   object-fit: contain;
   opacity: 0.9;
   transition: opacity 0.3s ease, transform 0.3s ease;
