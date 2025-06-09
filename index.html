@@ -10,11 +10,15 @@
   <!-- 🔥 메타 설명 추가 -->
   <meta name="description" content="KAUZ는 창의적인 광고 캠페인과 브랜드 전략으로 소비자와 브랜드를 연결하는 종합광고대행사입니다. 디지털 마케팅부터 브랜드 컨설팅까지 전문 서비스를 제공합니다." />
   
-  <!-- 🔥 키워드 추가 -->
-  <meta name="keywords" content="광고대행사, 크리에이티브 에이전시, 브랜드 마케팅, 디지털 광고, 캠페인 기획, 브랜드 컨설팅, KAUZ" />
+  <!-- 🔥 1.1 외부 도메인 연결 속도 개선 -->
+  <link rel="preconnect" href="https://api.airtable.com" />
+  <link rel="preconnect" href="https://www.instagram.com" />
+  
+  <!-- 🔥 1.2 필수 CSS 선로딩 -->
+  <link rel="preload" href="main.css" as="style" />
   
   <!-- 🔥 오픈 그래프 태그 (SNS 공유용) -->
-  <meta property="og:title" content="KAUZ - 종합 광고 대행사" />
+  <meta property="og:title" content="KAUZ - 종합광고대행사" />
   <meta property="og:description" content="창의적인 광고 캠페인과 브랜드 전략으로 소비자와 브랜드를 연결하는 종합광고대행사" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kauzcrop.com" />
@@ -23,7 +27,7 @@
   
   <!-- 🔥 트위터 카드 -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="KAUZ - 종합 광고 대행사" />
+  <meta name="twitter:title" content="KAUZ - 종합광고대행사" />
   <meta name="twitter:description" content="창의적인 광고 캠페인과 브랜드 전략으로 소비자와 브랜드를 연결하는 종합광고대행사" />
   <meta name="twitter:image" content="https://kauzcrop.com/logo/kauz-og-image.jpg" />
   
@@ -45,7 +49,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="logo/apple-touch-icon.png">
   <link rel="icon" href="logo/simbol.png" type="image/png">
   
-  <!-- 🔥 구조화된 데이터 (JSON-LD) -->
+  <!-- 🔥 구조화된 데이터 (JSON-LD) - 홈페이지용 -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -78,8 +82,56 @@
       "브랜드 마케팅",
       "디지털 광고",
       "크리에이티브 디자인",
-      "브랜드 컨설팅"
+      "브랜드 컨설팅",
       "종합광고대행사"
+    ]
+  }
+  </script>
+  
+  <!-- 🔥 3. 사이트 검색 박스 (SearchAction) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://kauzcrop.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://kauzcrop.com/?s={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  
+  <!-- 🔥 3. 빵부스러기 내비게이션 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://kauzcrop.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "About Us",
+        "item": "https://kauzcrop.com/about.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Portfolio",
+        "item": "https://kauzcrop.com/portfolio.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Contact Us",
+        "item": "https://kauzcrop.com/contact.html"
+      }
     ]
   }
   </script>
@@ -106,24 +158,32 @@
     <span></span>
   </div>
   
-  <!-- 메뉴 오버레이 -->
-   <div id="menu-overlay" class="menu-overlay">
+  <!-- 🔥 4. 접근성 개선 - 메뉴에 ARIA 추가 -->
+  <nav id="menu-overlay" class="menu-overlay" role="navigation" aria-label="Main Navigation">
     <div class="logo">
       <a href="index.html">
         <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </a>
     </div>
     <div class="menu-content">
-      <a href="index.html">HOME</a>
+      <a href="index.html" aria-current="page">HOME</a>
       <a href="about.html">ABOUT US</a>
       <a href="portfolio.html">PORTFOLIO</a>
       <a href="contact.html">CONTACT US</a>
     </div>
-  </div>
+  </nav>
   
   <!-- 🔥 상단 Hero 섹션 + 비디오 배경 + 슬로건 -->
   <div class="hero-video-section">
-    <video class="hero-slogan-video" autoplay muted loop playsinline>
+    <!-- 🔥 2. 비디오 최적화 - poster와 loading 추가 -->
+    <video 
+      class="hero-slogan-video" 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      poster="video/hero-poster.jpg"
+      aria-label="Brand Slogan Video Background">
       <source src="video/plight-Bg.mp4" type="video/mp4" />
     </video>
     <div class="navbar">
@@ -281,7 +341,7 @@
     </div>
   </footer>
   
-  <!-- 외부 JS 파일 연결 -->
-  <script src="main.js"></script>
+  <!-- 🔥 1.3 JavaScript 파일 - defer 적용 -->
+  <script src="main.js" defer></script>
 </body>
 </html>
