@@ -94,6 +94,19 @@
   margin-top: 4rem;
 }
 
+/* ===================================================================
+   🔥 NEW: 섹션 넘버링 스타일 (BGROW 스타일)
+   =================================================================== */
+
+.section-number {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
 /* 🔥 WHO WE ARE 섹션 - 중앙 정렬 적용 */
 .who-we-are {
   width: 100%; /* 🔥 전체 와이드 */
@@ -211,7 +224,7 @@
   overflow-wrap: break-word;
 }
 
-/* 🔥 OUR SERVICES 리스트 스타일 */
+/* 🔥 OUR SERVICES 리스트 스타일 - BGROW 스타일로 변경 */
 .our-services-right ul {
   list-style: none;
   padding: 0;
@@ -238,6 +251,38 @@
 }
 
 .our-services-right li:last-child {
+  margin-bottom: 0;
+}
+
+/* ===================================================================
+   🔥 NEW: BGROW 스타일 Services List
+   =================================================================== */
+
+.services-list {
+  margin-top: 2rem;
+}
+
+.service-item {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.2rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #333;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.service-item:hover {
+  color: #E37031;
+  border-bottom-color: #E37031;
+  transform: translateX(5px);
+}
+
+.service-item:last-child {
+  border-bottom: none;
   margin-bottom: 0;
 }
 
@@ -531,6 +576,23 @@
     padding-left: 1.2rem !important;
   }
 
+  /* 🔥 모바일 BGROW 스타일 Services */
+  .services-list {
+    margin-top: 1rem !important;
+  }
+
+  .service-item {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.8rem !important;
+    padding: 0.6rem 0 !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .section-number {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.8rem !important;
+  }
+
   /* 모바일 클라이언트 그리드 */
   .our-client {
     padding: 2rem 0 1rem 0 !important; /* wrapper가 패딩 처리 */
@@ -657,7 +719,7 @@
   .who-we-are-right p,
   .what-we-do-right p,
   .our-mission-right p,
-  .our-services-right li {
+  .our-services-right p {
     font-size: 0.8rem !important; /* 0.9rem → 0.8rem로 더 줄임 */
     line-height: 1.5 !important;
     text-align: left !important; /* 작은 화면에서는 왼쪽 정렬 */
@@ -729,7 +791,7 @@
   .who-we-are-right p,
   .what-we-do-right p,
   .our-mission-right p,
-  .our-services-right li {
+  .our-services-right p {
     font-size: 0.75rem !important; /* 최소 크기 */
     line-height: 1.4 !important;
   }
