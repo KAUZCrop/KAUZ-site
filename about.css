@@ -86,6 +86,42 @@ a:hover {
   left: 0;
 }
 
+/* SCROLL 인디케이터 */
+.scroll-indicator {
+  position: absolute;
+  bottom: -8rem;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 0.7;
+}
+
+.scroll-text {
+  font-size: 0.9rem;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.scroll-arrow {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
+}
+
+.scroll-line {
+  width: 60px;
+  height: 1px;
+  background-color: #E37031;
+}
+
 /* 중앙 정렬 컨테이너 */
 .about-content-wrapper {
   max-width: 1200px;
@@ -323,6 +359,27 @@ body {
     margin-top: 1rem !important;
   }
 
+  /* 모바일 SCROLL 인디케이터 */
+  .scroll-indicator {
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+    margin-top: 2rem !important;
+    gap: 0.8rem !important;
+  }
+
+  .scroll-text {
+    font-size: 0.8rem !important;
+  }
+
+  .scroll-arrow {
+    font-size: 1rem !important;
+  }
+
+  .scroll-line {
+    width: 40px !important;
+  }
+
   /* 중앙 정렬 컨테이너 모바일 */
   .about-content-wrapper {
     max-width: none;
@@ -412,6 +469,24 @@ body {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     margin-top: 0.8rem !important;
+  }
+
+  /* 작은 모바일 SCROLL 인디케이터 */
+  .scroll-indicator {
+    margin-top: 1.5rem !important;
+    gap: 0.6rem !important;
+  }
+
+  .scroll-text {
+    font-size: 0.75rem !important;
+  }
+
+  .scroll-arrow {
+    font-size: 0.9rem !important;
+  }
+
+  .scroll-line {
+    width: 35px !important;
   }
 
   /* 중앙 정렬 컨테이너 작은 모바일 */
