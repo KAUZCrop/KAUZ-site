@@ -137,10 +137,11 @@ a:hover {
   content: '';
   position: absolute;
   top: -2rem;
-  left: 0;
-  width: 100%;
+  left: 10px;
+  right: 10px;
+  width: calc(100% - 20px);
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  background-color: #E37031;
 }
 
 /* 메인 콘텐츠 */
@@ -160,11 +161,13 @@ a:hover {
 
 /* 섹션 구분선 - 하단만 사용 */
 .section-divider-bottom {
-  width: 100%;
+  width: calc(100% - 20px);
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  background-color: #E37031;
   margin-top: 4rem;
   margin-bottom: 0;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /* 기존 section-divider-top 제거 */
@@ -406,7 +409,11 @@ body {
   }
 
   .content-section {
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
+  }
+
+  .content-section:first-child {
+    margin-top: 3rem;
   }
 
   /* 섹션 콘텐츠 - 모바일에서 세로 배치 */
@@ -446,15 +453,6 @@ body {
   .section-divider-bottom {
     margin-top: 3rem;
     margin-bottom: 0;
-  }
-
-  /* 모바일에서 콘텐츠 섹션 간격 */
-  .content-section {
-    margin-bottom: 4rem;
-  }
-
-  .content-section:first-child {
-    margin-top: 3rem;
   }
 }
 
