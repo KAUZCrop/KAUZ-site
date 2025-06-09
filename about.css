@@ -74,6 +74,26 @@
   box-sizing: border-box;
 }
 
+/* ===================================================================
+   🔥 NEW: 섹션 구분선 스타일 (BGROW 스타일 적용)
+   =================================================================== */
+
+.section-divider-top,
+.section-divider-bottom {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  margin: 3rem 0;
+}
+
+.section-divider-top {
+  margin-bottom: 4rem;
+}
+
+.section-divider-bottom {
+  margin-top: 4rem;
+}
+
 /* 🔥 WHO WE ARE 섹션 - 중앙 정렬 적용 */
 .who-we-are {
   width: 100%; /* 🔥 전체 와이드 */
@@ -221,7 +241,7 @@
   margin-bottom: 0;
 }
 
-/* 🔥 OUR CLIENT 섹션 스타일 - 중앙 정렬 적용 */
+/* 🔥 OUR CLIENT 섹션 스타일 - 중앙 정렬 적용 (기존 유지) */
 .our-client {
   padding: 4rem 0 2rem 0; /* 🔥 상하 패딩만, 좌우는 wrapper에서 처리 */
   background-color: #0D0D0D;
@@ -380,6 +400,20 @@
   .about-content-wrapper {
     max-width: none; /* 🔥 모바일에서는 최대 너비 제한 해제 */
     padding: 0 1rem; /* 🔥 모바일 패딩 */
+  }
+
+  /* 🔥 모바일에서 구분선 조정 */
+  .section-divider-top,
+  .section-divider-bottom {
+    margin: 2rem 0;
+  }
+
+  .section-divider-top {
+    margin-bottom: 3rem;
+  }
+
+  .section-divider-bottom {
+    margin-top: 3rem;
   }
 
   /* 🔥 WHO WE ARE 모바일 레이아웃 */
