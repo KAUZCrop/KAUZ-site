@@ -6,17 +6,20 @@
 .about-hero {
   padding-top: calc(46px + 100px); /* 로고 높이 46px + 간격 100px (30px 더 추가) */
   padding-bottom: 2rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 25px; /* 🔥 웹에서 양옆 25px 마진 */
+  padding-right: 25px; /* 🔥 웹에서 양옆 25px 마진 */
   min-height: auto;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  width: 100%; /* 🔥 전체 와이드 사용 */
+  box-sizing: border-box; /* 🔥 패딩 포함 계산 */
 }
 
 .about-hero-content {
   max-width: 100%;
   text-align: left;
+  width: 100%; /* 🔥 전체 너비 사용 */
 }
 
 /* 🔥 메인 타이틀 크기 대폭 증가 - 참고 이미지처럼 */
@@ -58,37 +61,40 @@
   font-weight: 500; /* 조금 더 두껍게 */
 }
 
-/* 🔥 본문 섹션들 공통 스타일 - 웹 최대 와이드 사용 */
+/* 🔥 본문 섹션들 공통 스타일 - 웹 최대 와이드 사용 (양옆 25px 마진) */
+.who-we-are,
 .what-we-do,
 .our-mission,
 .our-client {
-  width: 100%; /* 최대 와이드 사용 */
-  margin: 3rem 0; /* 좌우 마진 제거 */
-  padding: 0 2rem; /* 좌우 패딩만 유지 */
+  width: 100%; /* 🔥 전체 와이드 사용 */
+  margin: 3rem 0; /* 🔥 좌우 마진 제거, 상하만 유지 */
+  padding: 0 25px; /* 🔥 양옆 25px 패딩만 */
+  box-sizing: border-box; /* 🔥 패딩 포함 계산 */
 }
 
-/* 🔥 WHO WE ARE 전용 스타일 (이미지 레이아웃) */
+/* 🔥 WHO WE ARE 전용 스타일 (이미지 레이아웃) - 와이드 적용 */
 .who-we-are {
-  width: 100%;
-  margin: 3rem 0;
-  padding: 0 2rem;
+  width: 100%; /* 🔥 전체 와이드 */
+  margin: 3rem 0; /* 🔥 상하 마진만 */
+  padding: 0 25px; /* 🔥 양옆 25px 패딩 */
+  box-sizing: border-box;
 }
 
-/* WHO WE ARE 섹션 컨테이너 */
+/* WHO WE ARE 섹션 컨테이너 - 와이드 레이아웃 */
 .who-we-are-container {
   display: flex;
   align-items: flex-start; /* 상단 정렬 유지 */
   justify-content: space-between;
   gap: 4rem;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%; /* 🔥 전체 너비 사용 */
+  max-width: none; /* 🔥 최대 너비 제한 제거 */
+  margin: 0; /* 🔥 마진 제거 */
 }
 
-/* 왼쪽 텍스트 영역 */
+/* 왼쪽 텍스트 영역 - 넓게 확장 */
 .who-we-are-content {
   flex: 1;
-  max-width: 60%;
+  max-width: 60%; /* 🔥 60% 너비 유지하되 더 넓어짐 */
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* 🔥 자연스러운 상단 시작 */
@@ -104,7 +110,7 @@
 }
 
 .who-we-are-content p {
-  font-size: 1.7rem; /* 큰 크기 유지 */
+  font-size: 2.5rem; /* 큰 크기 유지 */
   line-height: 1.6;
   color: #ccc;
   margin-bottom: 0;
@@ -136,7 +142,16 @@
   transform: scale(1.05);
 }
 
-/* 나머지 섹션들 공통 스타일 */
+/* 🔥 나머지 섹션들 공통 스타일 - 와이드 레이아웃 */
+.what-we-do,
+.our-mission,
+.our-client {
+  width: 100%; /* 🔥 전체 와이드 */
+  margin: 3rem 0; /* 🔥 상하 마진만 */
+  padding: 0 25px; /* 🔥 양옆 25px 패딩 */
+  box-sizing: border-box;
+}
+
 .what-we-do h2,
 .our-mission h2,
 .our-client h2 {
@@ -183,10 +198,11 @@
 
 /* 🔥 OUR CLIENT 섹션 스타일 - 전체 와이드 사용 (25px 마진) */
 .our-client {
-  padding: 4rem 25px 2rem 25px; /* 양옆 25px만 남기고 전체 사용 */
+  padding: 4rem 25px 2rem 25px; /* 🔥 양옆 25px 패딩 */
   background-color: #0D0D0D;
-  width: 100%;
+  width: 100%; /* 🔥 전체 와이드 */
   box-sizing: border-box;
+  margin: 3rem 0; /* 🔥 상하 마진 추가 */
 }
 
 .our-client h2 {
@@ -199,7 +215,7 @@
 }
 
 .client-grid {
-  width: 100%;
+  width: 100%; /* 🔥 전체 너비 사용 */
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -274,12 +290,13 @@
   display: none; /* 팀 관련 모든 요소 숨김 */
 }
 
-/* 🔥 모바일 대응 - 768px 이하 (최종 수정된 버전) */
+/* 🔥 모바일 대응 - 768px 이하 (모바일에서는 기존 스타일 유지) */
 @media (max-width: 768px) {
+  /* 🔥 모바일에서는 기존 패딩 복원 */
   .about-hero {
     padding-top: calc(28px + 60px); /* 🔥 common.js 로고 크기 28px + 간격 60px로 줄임 */
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1rem; /* 🔥 모바일에서는 1rem으로 복원 */
+    padding-right: 1rem; /* 🔥 모바일에서는 1rem으로 복원 */
   }
   
   .about-main-title {
@@ -324,6 +341,10 @@
   }
 
   /* 🔥 WHO WE ARE 모바일 레이아웃 */
+  .who-we-are {
+    padding: 0 1rem !important; /* 🔥 모바일에서는 1rem 패딩 */
+  }
+  
   .who-we-are-container {
     flex-direction: column;
     gap: 2rem;
@@ -370,7 +391,7 @@
   .what-we-do,
   .our-mission,
   .our-client {
-    padding: 0 1rem !important; /* 좌우 패딩 충분히 */
+    padding: 0 1rem !important; /* 🔥 모바일에서는 1rem 패딩 */
     margin: 2rem 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
