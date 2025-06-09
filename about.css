@@ -6,8 +6,8 @@
 .about-hero {
   padding-top: calc(46px + 100px); /* 로고 높이 46px + 간격 100px (30px 더 추가) */
   padding-bottom: 2rem;
-  padding-left: 40px; /* 🔥 웹에서 양옆 25px 마진 */
-  padding-right: 30px; /* 🔥 웹에서 양옆 25px 마진 */
+  padding-left: 25px; /* 🔥 웹에서 양옆 25px 마진 */
+  padding-right: 25px; /* 🔥 웹에서 양옆 25px 마진 */
   min-height: auto;
   display: flex;
   align-items: flex-start;
@@ -61,17 +61,6 @@
   font-weight: 500; /* 조금 더 두껍게 */
 }
 
-/* 🔥 본문 섹션들 공통 스타일 - 웹 최대 와이드 사용 (양옆 25px 마진) */
-.who-we-are,
-.what-we-do,
-.our-mission,
-.our-client {
-  width: 100%; /* 🔥 전체 와이드 사용 */
-  margin: 3rem 0; /* 🔥 좌우 마진 제거, 상하만 유지 */
-  padding: 0 25px; /* 🔥 양옆 25px 패딩만 */
-  box-sizing: border-box; /* 🔥 패딩 포함 계산 */
-}
-
 /* 🔥 WHO WE ARE 전용 스타일 (이미지 레이아웃) - 와이드 적용 */
 .who-we-are {
   width: 100%; /* 🔥 전체 와이드 */
@@ -101,7 +90,7 @@
 }
 
 .who-we-are-content h2 {
-  font-size: 4.5rem; /* 큰 크기 유지 */
+  font-size: 5rem; /* 큰 크기 유지 */
   font-weight: 700;
   color: white;
   margin-bottom: 2rem; /* 🔥 자연스러운 간격 복원 */
@@ -110,7 +99,7 @@
 }
 
 .who-we-are-content p {
-  font-size: 1.5rem; /* 큰 크기 유지 */
+  font-size: 2.5rem; /* 큰 크기 유지 */
   line-height: 1.6;
   color: #ccc;
   margin-bottom: 0;
@@ -142,58 +131,95 @@
   transform: scale(1.05);
 }
 
-/* 🔥 나머지 섹션들 공통 스타일 - 와이드 레이아웃 */
+/* 🔥 새로운 섹션들 공통 컨테이너 스타일 (WHAT WE DO, OUR SERVICES, OUR MISSION) */
 .what-we-do,
-.our-mission,
-.our-client {
+.our-services,
+.our-mission {
   width: 100%; /* 🔥 전체 와이드 */
   margin: 3rem 0; /* 🔥 상하 마진만 */
   padding: 0 25px; /* 🔥 양옆 25px 패딩 */
   box-sizing: border-box;
 }
 
-.what-we-do h2,
-.our-mission h2,
-.our-client h2 {
+/* 🔥 새로운 플렉스 컨테이너 스타일 (왼쪽 제목, 오른쪽 텍스트) */
+.what-we-do-container,
+.our-services-container,
+.our-mission-container {
+  display: flex;
+  align-items: flex-start; /* 상단 정렬 */
+  justify-content: space-between;
+  gap: 4rem;
+  width: 100%;
+}
+
+/* 🔥 왼쪽 제목 영역 스타일 */
+.what-we-do-left,
+.our-services-left,
+.our-mission-left {
+  flex: 0 0 300px; /* 고정 너비 300px */
+  display: flex;
+  align-items: flex-start;
+}
+
+.what-we-do-left h2,
+.our-services-left h2,
+.our-mission-left h2 {
   font-size: 2.5rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 1.5rem;
+  margin: 0;
   text-align: left;
+  line-height: 1.1;
 }
 
-.our-mission p {
+/* 🔥 오른쪽 텍스트 영역 스타일 */
+.what-we-do-right,
+.our-services-right,
+.our-mission-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.what-we-do-right p,
+.our-mission-right p {
   font-size: 1.1rem;
   line-height: 1.7;
   color: #ccc;
-  margin-bottom: 1.5rem;
-  word-wrap: break-word; /* 긴 단어 줄바꿈 */
-  overflow-wrap: break-word; /* 최신 브라우저 지원 */
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.what-we-do ul {
+/* 🔥 OUR SERVICES 리스트 스타일 */
+.our-services-right ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.what-we-do li {
+.our-services-right li {
   font-size: 1.1rem;
   line-height: 1.7;
   color: #ccc;
   margin-bottom: 0.8rem;
   padding-left: 1.5rem;
   position: relative;
-  word-wrap: break-word; /* 긴 단어 줄바꿈 */
-  overflow-wrap: break-word; /* 최신 브라우저 지원 */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.what-we-do li::before {
+.our-services-right li::before {
   content: "•";
   color: white;
   position: absolute;
   left: 0;
   font-weight: bold;
+}
+
+.our-services-right li:last-child {
+  margin-bottom: 0;
 }
 
 /* 🔥 OUR CLIENT 섹션 스타일 - 전체 와이드 사용 (25px 마진) */
@@ -290,7 +316,7 @@
   display: none; /* 팀 관련 모든 요소 숨김 */
 }
 
-/* 🔥 모바일 대응 - 768px 이하 (모바일에서는 기존 스타일 유지) */
+/* 🔥 모바일 대응 - 768px 이하 (모바일에서는 세로 배치) */
 @media (max-width: 768px) {
   /* 🔥 모바일에서는 기존 패딩 복원 */
   .about-hero {
@@ -386,50 +412,75 @@
     max-width: 150px;
   }
 
-  /* 🔥 본문 섹션들 모바일 스타일 - 텍스트 오버플로우 해결 */
-  .who-we-are,
+  /* 🔥 새로운 섹션들 모바일 스타일 - 세로 배치 */
   .what-we-do,
-  .our-mission,
-  .our-client {
+  .our-services,
+  .our-mission {
     padding: 0 1rem !important; /* 🔥 모바일에서는 1rem 패딩 */
     margin: 2rem 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important; /* 넘치는 내용 숨김 */
   }
-  
-  .what-we-do h2,
-  .our-mission h2,
-  .our-client h2 {
-    font-size: 1.8rem !important; /* 2rem → 1.8rem로 줄임 */
+
+  /* 🔥 모바일에서는 세로 배치 */
+  .what-we-do-container,
+  .our-services-container,
+  .our-mission-container {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: flex-start !important;
+  }
+
+  /* 🔥 모바일에서 왼쪽 제목 영역 */
+  .what-we-do-left,
+  .our-services-left,
+  .our-mission-left {
+    flex: none !important;
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .what-we-do-left h2,
+  .our-services-left h2,
+  .our-mission-left h2 {
+    font-size: 1.8rem !important;
     line-height: 1.3 !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0 !important;
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
   }
-  
-  /* 🔥 OUR MISSION 텍스트 크기 조정 */
-  .our-mission p {
-    font-size: 0.9rem !important; /* 1rem → 0.9rem로 줄임 */
-    line-height: 1.6 !important; /* 줄간격 조정 */
+
+  /* 🔥 모바일에서 오른쪽 텍스트 영역 */
+  .what-we-do-right,
+  .our-services-right,
+  .our-mission-right {
+    flex: none !important;
+    width: 100% !important;
+  }
+
+  .what-we-do-right p,
+  .our-mission-right p {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
-    hyphens: auto !important; /* 자동 하이픈 */
-    text-align: justify !important; /* 양쪽 정렬로 더 깔끔하게 */
+    hyphens: auto !important;
+    text-align: left !important;
     margin-bottom: 1rem !important;
   }
-  
-  /* 🔥 WHAT WE DO 리스트 항목 크기 조정 */
-  .what-we-do li {
-    font-size: 0.9rem !important; /* 1rem → 0.9rem로 줄임 */
+
+  /* 🔥 모바일 OUR SERVICES 리스트 */
+  .our-services-right li {
+    font-size: 0.9rem !important;
     line-height: 1.6 !important;
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
     hyphens: auto !important;
     margin-bottom: 0.6rem !important;
-    padding-left: 1.2rem !important; /* 패딩 줄임 */
+    padding-left: 1.2rem !important;
   }
-  
+
   /* 모바일 클라이언트 그리드 */
   .our-client {
     padding: 2rem 1rem 1rem 1rem !important; /* 양쪽 패딩 1rem으로 통일 */
@@ -541,22 +592,22 @@
   }
 
   /* 🔥 작은 모바일 본문 텍스트 더 작게 */
-  .who-we-are,
   .what-we-do,
-  .our-mission,
-  .our-client {
+  .our-services,
+  .our-mission {
     padding: 0 0.8rem !important; /* 패딩 더 줄임 */
   }
 
-  .what-we-do h2,
-  .our-mission h2,
-  .our-client h2 {
+  .what-we-do-left h2,
+  .our-services-left h2,
+  .our-mission-left h2 {
     font-size: 1.5rem !important; /* 1.7rem → 1.5rem로 더 줄임 */
     line-height: 1.2 !important;
   }
   
-  .our-mission p,
-  .what-we-do li {
+  .what-we-do-right p,
+  .our-mission-right p,
+  .our-services-right li {
     font-size: 0.8rem !important; /* 0.9rem → 0.8rem로 더 줄임 */
     line-height: 1.5 !important;
     text-align: left !important; /* 작은 화면에서는 왼쪽 정렬 */
@@ -606,21 +657,21 @@
   }
 
   /* 🔥 최소 화면에서 본문 텍스트 최적화 */
-  .who-we-are,
   .what-we-do,
-  .our-mission,
-  .our-client {
+  .our-services,
+  .our-mission {
     padding: 0 0.5rem !important; /* 최소 패딩 */
   }
 
-  .what-we-do h2,
-  .our-mission h2,
-  .our-client h2 {
+  .what-we-do-left h2,
+  .our-services-left h2,
+  .our-mission-left h2 {
     font-size: 1.3rem !important; /* 더 작게 */
   }
   
-  .our-mission p,
-  .what-we-do li {
+  .what-we-do-right p,
+  .our-mission-right p,
+  .our-services-right li {
     font-size: 0.75rem !important; /* 최소 크기 */
     line-height: 1.4 !important;
   }
