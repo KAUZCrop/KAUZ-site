@@ -1,83 +1,126 @@
 /* ─────────────────────────────────────────────────────────────────────
-   about.css (About Us 전용 스타일) : common.css로 대부분 스타일링 처리
+   about.css (KAUZ About Us - 기존 KAUZ 스타일 완전 통합)
    ───────────────────────────────────────────────────────────────────── */
 
-/* 🔥 수정된 About 히어로 섹션 - 로고와 타이틀 마진 대폭 증가 */
-.about-hero {
-  padding-top: calc(46px + 200px); /* 🔥 로고 높이 46px + 간격 200px (100px 더 증가) */
-  padding-bottom: 3rem; /* 🔥 하단 패딩도 증가 */
-  padding-left: 25px; /* 🔥 웹에서 양옆 25px 마진 */
-  padding-right: 25px; /* 🔥 웹에서 양옆 25px 마진 */
-  min-height: 70vh; /* 🔥 최소 높이 설정으로 여유 공간 확보 */
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%; /* 🔥 전체 와이드 사용 */
-  box-sizing: border-box; /* 🔥 패딩 포함 계산 */
-}
-
-.about-hero-content {
-  max-width: 100%;
-  text-align: left;
-  width: 100%; /* 🔥 전체 너비 사용 */
-  position: relative; /* 🔥 서브타이틀 위치 조정을 위한 기준점 */
-}
-
-/* 🔥 메인 타이틀 크기 조정 및 위치 */
-.about-main-title {
-  font-size: 200px; /* 🔥 180px → 200px로 더 증가 */
-  font-weight: 700;
-  color: white;
-  margin: 0 0 1rem 0; /* 🔥 하단 마진 증가 */
-  line-height: 0.9; /* 🔥 더 타이트하게 */
-  letter-spacing: -0.05em; /* 🔥 글자 간격 더 줄임 */
-  text-transform: uppercase; /* 대문자로 */
-  position: relative; /* 🔥 위치 조정을 위한 설정 */
-}
-
-/* 🔥 KAUZ만 자간 늘리기 */
-.about-main-title .kauz-spaced {
-  letter-spacing: 0.08em; /* 🔥 자간 조정 */
-}
-
-/* 데스크톱에서는 한 줄로 표시 */
-.about-main-title .mobile-title {
-  display: none;
-}
-
-.about-main-title .desktop-title {
-  display: block;
-}
-
-/* 🔥 서브타이틀 - 위치 및 스타일 조정 */
-.about-subtitle {
-  font-size: 1.3rem; /* 🔥 1.5rem → 1.3rem으로 약간 줄임 */
-  font-weight: 400; /* 🔥 300 → 400으로 약간 두껍게 */
-  color: #E37031; /* 🔥 오렌지 색상 유지 */
+* {
   margin: 0;
-  line-height: 1.2;
-  opacity: 1;
-  text-transform: uppercase; /* 대문자로 */
-  letter-spacing: 0.2em; /* 🔥 자간 조정 */
-  width: 100%;
-  position: absolute; /* 🔥 절대 위치로 정확한 배치 */
-  bottom: -2.5rem; /* 🔥 타이틀 하단에서 2.5rem 아래 */
-  left: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
 }
 
-/* 🔥 콘텐츠 섹션들 중앙 정렬 컨테이너 */
-.about-content-wrapper {
-  max-width: 1200px; /* 🔥 최대 너비 설정 */
-  margin: 0 auto; /* 🔥 중앙 정렬 */
-  width: 100%;
-  padding: 0 25px; /* 🔥 양옆 패딩 */
-  box-sizing: border-box;
+html, body {
+  background-color: #0D0D0D;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* 모든 텍스트 요소 기본 색상 통일 */
+h1, h2, h3, h4, h5, h6,
+p, span, a, li, label, button, input, textarea {
+  color: white;
+}
+
+/* 링크 hover 시 색상 유지 */
+a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #ccc;
 }
 
 /* ===================================================================
-   🔥 NEW: 섹션 구분선 스타일 (BGROW 스타일 적용)
+   🔥 히어로 섹션
    =================================================================== */
 
+/* 히어로 섹션 */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 2rem;
+  position: relative;
+  background: linear-gradient(135deg, #0D0D0D 0%, #1a1a1a 100%);
+}
+
+.hero-title {
+  font-size: clamp(8rem, 15vw, 20rem);
+  font-weight: 900;
+  line-height: 0.8;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, #fff, #666);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #E37031;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: #ccc;
+  max-width: 500px;
+  margin-bottom: 3rem;
+  line-height: 1.7;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #888;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  color: #E37031;
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: #E37031;
+}
+
+/* ===================================================================
+   🔥 메인 콘텐츠
+   =================================================================== */
+
+/* 메인 콘텐츠 */
+.main-content {
+  padding: 5rem 2rem;
+}
+
+.content-section {
+  max-width: 1200px;
+  margin: 0 auto 8rem auto;
+  position: relative;
+}
+
+/* 섹션 구분선 */
 .section-divider-top,
 .section-divider-bottom {
   width: 100%;
@@ -94,10 +137,6 @@
   margin-top: 4rem;
 }
 
-/* ===================================================================
-   🔥 NEW: 섹션 넘버링 스타일 (BGROW 스타일)
-   =================================================================== */
-
 .section-number {
   font-size: 0.9rem;
   color: #666;
@@ -107,254 +146,177 @@
   font-weight: 400;
 }
 
-/* 🔥 WHO WE ARE 섹션 - 중앙 정렬 적용 */
-.who-we-are {
-  width: 100%; /* 🔥 전체 와이드 */
-  margin: 3rem 0; /* 🔥 상하 마진만 */
-  padding: 0; /* 🔥 패딩 제거 */
-  box-sizing: border-box;
-}
-
-/* WHO WE ARE 컨테이너 - 다른 섹션들과 동일한 플렉스 구조 */
-.who-we-are-container {
-  display: flex;
-  align-items: flex-start; /* 상단 정렬 */
-  justify-content: space-between;
-  gap: 4rem;
-  width: 100%;
-}
-
-/* 🔥 왼쪽 제목 영역 (다른 섹션들과 동일) */
-.who-we-are-left {
-  flex: 0 0 300px; /* 고정 너비 300px */
-  display: flex;
-  align-items: flex-start;
-}
-
-.who-we-are-left h2 {
-  font-size: 2.5rem;
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
+  margin-bottom: 2rem;
   color: white;
-  margin: 0;
-  text-align: left;
+  text-transform: uppercase;
   line-height: 1.1;
 }
 
-/* 🔥 오른쪽 텍스트 영역 (다른 섹션들과 동일) */
-.who-we-are-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+.section-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
 }
 
-.who-we-are-right p {
+.content-text {
   font-size: 1.1rem;
-  line-height: 1.7;
+  line-height: 1.8;
   color: #ccc;
-  margin: 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-/* 🔥 새로운 섹션들 공통 컨테이너 스타일 (WHO WE ARE, WHAT WE DO, OUR SERVICES, OUR MISSION) */
-.who-we-are,
-.what-we-do,
-.our-services,
-.our-mission {
-  width: 100%; /* 🔥 전체 와이드 */
-  margin: 3rem 0; /* 🔥 상하 마진만 */
-  padding: 0; /* 🔥 패딩 제거 */
-  box-sizing: border-box;
+.content-text p {
+  margin-bottom: 1.5rem;
 }
 
-/* 🔥 새로운 플렉스 컨테이너 스타일 (왼쪽 제목, 오른쪽 텍스트) */
-.who-we-are-container,
-.what-we-do-container,
-.our-services-container,
-.our-mission-container {
-  display: flex;
-  align-items: flex-start; /* 상단 정렬 */
-  justify-content: space-between;
-  gap: 4rem;
-  width: 100%;
+.content-text p:last-child {
+  margin-bottom: 0;
 }
 
-/* 🔥 왼쪽 제목 영역 스타일 */
-.who-we-are-left,
-.what-we-do-left,
-.our-services-left,
-.our-mission-left {
-  flex: 0 0 300px; /* 고정 너비 300px */
-  display: flex;
-  align-items: flex-start;
+.content-highlight {
+  color: #E37031;
+  font-weight: 600;
 }
 
-.who-we-are-left h2,
-.what-we-do-left h2,
-.our-services-left h2,
-.our-mission-left h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-  text-align: left;
-  line-height: 1.1;
-}
+/* ===================================================================
+   🔥 서비스 리스트
+   =================================================================== */
 
-/* 🔥 오른쪽 텍스트 영역 스타일 */
-.who-we-are-right,
-.what-we-do-right,
-.our-services-right,
-.our-mission-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.who-we-are-right p,
-.what-we-do-right p,
-.our-mission-right p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #ccc;
-  margin: 0;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* 🔥 OUR SERVICES 리스트 스타일 - BGROW 스타일로 변경 */
-.our-services-right ul {
+.services-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.our-services-right li {
+.services-list li {
   font-size: 1.1rem;
-  line-height: 1.7;
+  padding: 1rem 0;
+  border-bottom: 1px solid #333;
   color: #ccc;
-  margin-bottom: 0.8rem;
-  padding-left: 1.5rem;
   position: relative;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  padding-left: 2rem;
+  transition: all 0.3s ease;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 
-.our-services-right li::before {
-  content: "•";
-  color: white;
+.services-list li::before {
+  content: "→";
   position: absolute;
   left: 0;
+  color: #E37031;
   font-weight: bold;
 }
 
-.our-services-right li:last-child {
+.services-list li:hover {
+  color: white;
+  transform: translateX(10px);
+  border-bottom-color: #E37031;
+}
+
+.services-list li:last-child {
+  border-bottom: 1px solid #333;
   margin-bottom: 0;
 }
 
 /* ===================================================================
-   🔥 NEW: BGROW 스타일 Services Section (정확한 구조 복사)
+   🔥 미션 섹션 특별 스타일
    =================================================================== */
 
-/* 서비스 섹션 전체 컨테이너 */
-.our-services-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 6rem; /* BGROW 스타일에 맞게 간격 증가 */
-  width: 100%;
-  margin: 2rem 0;
+.mission-section .section-content {
+  grid-template-columns: 1fr;
+  text-align: center;
 }
 
-/* 왼쪽 영역 - 섹션 넘버 + 제목 + 서비스 리스트 */
-.our-services-left {
-  flex: 0 0 400px; /* 고정 너비를 400px로 증가 */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.our-services-left h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  margin: 0 0 2rem 0; /* 제목 아래 마진 증가 */
-  text-align: left;
-  line-height: 1.1;
-}
-
-/* 오른쪽 영역 - 설명 텍스트 */
-.our-services-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 3rem; /* 상단 패딩으로 텍스트 위치 조정 */
-}
-
-.our-services-right p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #ccc;
-  margin-bottom: 1.5rem;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-.our-services-right p:last-child {
-  margin-bottom: 0;
-}
-
-/* 서비스 리스트 스타일 */
-.services-list {
-  margin-top: 1rem;
-  width: 100%;
-}
-
-.service-item {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #ccc;
-  text-transform: none; /* 대문자 변환 제거 */
-  letter-spacing: 0.02em;
-  margin-bottom: 1rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid #333;
-  transition: all 0.3s ease;
-  cursor: default;
+.mission-quote {
+  font-size: 2rem;
+  font-weight: 300;
   line-height: 1.4;
-}
-
-.service-item:hover {
   color: white;
-  border-bottom-color: #E37031;
-  transform: translateX(3px);
+  margin-bottom: 2rem;
+  font-style: italic;
 }
 
-.service-item:last-child {
-  border-bottom: 1px solid #333; /* 마지막 항목도 하단 라인 유지 */
-  margin-bottom: 0;
+.mission-quote::before,
+.mission-quote::after {
+  content: '"';
+  color: #E37031;
+  font-size: 3rem;
 }
 
-/* 섹션 넘버 스타일 */
-.section-number {
-  font-size: 0.9rem;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 1.5rem;
-  font-weight: 400;
+/* ===================================================================
+   🔥 클라이언트 섹션 (KAUZ 통합)
+   =================================================================== */
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
 }
 
-/* 🔥 OUR CLIENT 섹션 스타일 - 중앙 정렬 적용 (기존 유지) */
-.our-client {
-  padding: 4rem 0 2rem 0; /* 🔥 상하 패딩만, 좌우는 wrapper에서 처리 */
-  background-color: #0D0D0D;
-  width: 100%; /* 🔥 전체 와이드 */
+.client-box {
+  aspect-ratio: 3/2;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.client-box:hover {
+  transform: translateY(-5px);
+}
+
+/* ===================================================================
+   🔥 기존 KAUZ About 스타일 유지 (히어로 제외)
+   =================================================================== */
+
+/* 🔥 기존 About 히어로 스타일 (백업 - 사용 안 함) */
+.about-hero {
+  display: none; /* BGROW 히어로 사용 */
+}
+
+.about-hero-content,
+.about-main-title,
+.about-subtitle {
+  display: none; /* BGROW 히어로 사용 */
+}
+
+/* 🔥 중앙 정렬 컨테이너 (BGROW와 호환) */
+.about-content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0;
   box-sizing: border-box;
-  margin: 3rem 0; /* 🔥 상하 마진 추가 */
+}
+
+/* 🔥 기존 KAUZ 섹션들 (BGROW 스타일로 대체됨) */
+.who-we-are,
+.what-we-do,
+.our-services,
+.our-mission {
+  /* BGROW .content-section으로 대체 */
+}
+
+/* 🔥 기존 OUR CLIENT 섹션 (BGROW 클라이언트와 통합) */
+.our-client {
+  padding: 4rem 0 2rem 0;
+  background-color: #0D0D0D;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 3rem 0;
 }
 
 .our-client h2 {
@@ -363,24 +325,27 @@
   margin-bottom: 3rem;
   color: white;
   font-weight: 700;
-  padding-left: 0; /* 패딩 제거하여 wrapper와 정렬 */
+  padding-left: 0;
 }
 
+/* 웹 버전 클라이언트 그리드 */
 .client-grid {
-  width: 100%; /* 🔥 전체 너비 사용 */
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 35px; /* More+ 위 35px 마진 */
-  padding: 0; /* 패딩 제거하여 전체 와이드 사용 */
+  width: 100%;
+  position: relative;
+  padding-bottom: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .client-row {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5.6rem;
+  margin-bottom: 2rem;
+  gap: 3rem;
   width: 100%;
+  position: relative;
+  flex-wrap: nowrap;
 }
 
 .client-logo {
@@ -393,11 +358,10 @@
   border-radius: 8px;
   padding: 1.4rem;
   box-sizing: border-box;
-  transition: transform 0.3s ease;
-}
-
-.client-logo:hover {
-  transform: translateY(-3px);
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
 }
 
 .client-logo img {
@@ -412,10 +376,29 @@
   filter: grayscale(0%);
 }
 
-/* More+ 링크 */
+/* 웹 버전 페이드 효과 */
+.client-row:nth-child(1) {
+  opacity: 1;
+}
+
+.client-row:nth-child(2) {
+  opacity: 0.7;
+  position: relative;
+}
+
+.client-row:nth-child(3) {
+  opacity: 0.3;
+  transform: translateY(10px);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* More 링크 */
 .client-more {
   text-align: center;
-  width: 100%;
+  margin-top: 15px;
+  position: relative;
+  z-index: 10;
 }
 
 .client-more a {
@@ -432,84 +415,156 @@
   opacity: 0.7;
 }
 
-/* 🔥 기존 팀원 그리드 삭제 */
-.team-grid,
-.team-member,
-.team-photo,
-.team-name,
-.team-role,
-.our-team {
-  display: none; /* 팀 관련 모든 요소 숨김 */
+/* 웹에서는 모바일 그리드 숨기기 */
+.client-mobile-grid,
+.mobile-client-grid {
+  display: none !important;
 }
 
-/* 🔥 모바일 대응 - 768px 이하 (모바일에서는 세로 배치) */
+/* ===================================================================
+   🔥 스크롤 애니메이션 (KAUZ 호환)
+   =================================================================== */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+}
+
+.fade-up.visible,
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 스크롤 비활성화 (메뉴 열린 상태) */
+body.menu-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* 전체 텍스트 복사 방지 */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* ===================================================================
+   🔥 반응형 (모바일 대응) - KAUZ 통합
+   =================================================================== */
+
 @media (max-width: 768px) {
-  /* 🔥 모바일에서는 기존 패딩 복원하되 로고-타이틀 마진 증가 */
-  .about-hero {
-    padding-top: calc(28px + 120px); /* 🔥 common.js 로고 크기 28px + 간격 120px (60px 더 증가) */
-    padding-bottom: 2rem; /* 🔥 하단 패딩 증가 */
-    padding-left: 1rem; /* 🔥 모바일에서는 1rem으로 복원 */
-    padding-right: 1rem; /* 🔥 모바일에서는 1rem으로 복원 */
-    min-height: 60vh; /* 🔥 모바일에서도 충분한 높이 확보 */
+  /* BGROW 히어로 모바일 */
+  .hero-section {
+    padding: 0 1rem;
+    text-align: left;
+    height: 100vh;
+    min-height: 600px;
   }
-  
-  .about-hero-content {
-    position: relative; /* 🔥 모바일에서도 상대 위치 설정 */
+
+  .hero-title {
+    font-size: 4rem;
+    line-height: 0.8;
   }
-  
-  .about-main-title {
-    font-size: 85px !important; /* 🔥 타이틀 크기 85px */
-    line-height: 0.8 !important; /* 🔥 줄간격 더 좁게 */
-    word-break: normal !important;
-    hyphens: none !important;
-    letter-spacing: 0.01em !important; /* 🔥 자간 조정 */
-    white-space: normal;
-    margin-bottom: 2rem !important; /* 🔥 서브타이틀과 간격 증가 */
-    position: relative !important;
+
+  .hero-subtitle {
+    font-size: 1rem;
   }
-  
-  /* 데스크톱 버전 완전 숨김 */
-  .about-main-title .desktop-title {
+
+  .hero-description {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  /* BGROW 메인 콘텐츠 모바일 */
+  .main-content {
+    padding: 3rem 1rem;
+  }
+
+  .content-section {
+    margin-bottom: 5rem;
+  }
+
+  .section-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .content-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .mission-quote {
+    font-size: 1.5rem;
+  }
+
+  .scroll-indicator {
+    left: 1rem;
+    bottom: 1rem;
+  }
+
+  .services-list li {
+    font-size: 1rem;
+    padding: 0.8rem 0;
+    padding-left: 1.5rem;
+  }
+
+  /* 클라이언트 섹션 모바일 */
+  .our-client {
+    padding: 2rem 1rem !important;
+  }
+
+  .our-client h2 {
+    font-size: 1.8rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  /* 🔥 웹 버전 그리드 숨기기 */
+  .client-grid {
     display: none !important;
   }
-  
-  /* 모바일 버전만 표시하고 줄바꿈 제어 */
-  .about-main-title .mobile-title {
+
+  /* BGROW 클라이언트 그리드 모바일 */
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  /* 🔥 모바일 전용 클라이언트 그리드 표시 */
+  .client-mobile-grid,
+  .mobile-client-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .client-mobile-item,
+  .mobile-client-logo {
+    width: 100% !important;
+    height: 80px !important;
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
     display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    width: 100% !important;
-  }
-  
-  .about-main-title .mobile-title .line1,
-  .about-main-title .mobile-title .line2 {
-    display: block !important;
-    width: 100% !important;
-    white-space: nowrap !important; /* 각 줄에서 줄바꿈 방지 */
-  }
-  
-  /* 🔥 서브타이틀 모바일 위치 조정 */
-  .about-subtitle {
-    font-size: 0.9rem !important; /* 🔥 모바일에서 크기 조정 */
-    letter-spacing: 0.08em !important; /* 자간 조정 */
-    position: static !important; /* 🔥 모바일에서는 정적 위치 */
-    bottom: auto !important;
-    left: auto !important;
-    white-space: nowrap !important; /* 강제로 한 줄 */
-    overflow: hidden !important; /* 넘치는 텍스트 숨김 */
-    text-overflow: ellipsis !important; /* 넘치면 ... 표시 */
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: 1rem !important; /* 🔥 타이틀과 간격 */
+    align-items: center !important;
+    justify-content: center !important;
   }
 
-  /* 🔥 모바일 중앙 정렬 컨테이너 */
-  .about-content-wrapper {
-    max-width: none; /* 🔥 모바일에서는 최대 너비 제한 해제 */
-    padding: 0 1rem; /* 🔥 모바일 패딩 */
+  .client-more a {
+    font-size: 20px !important;
   }
 
-  /* 🔥 모바일에서 구분선 조정 */
+  /* 모바일 구분선 조정 */
   .section-divider-top,
   .section-divider-bottom {
     margin: 2rem 0;
@@ -522,607 +577,77 @@
   .section-divider-bottom {
     margin-top: 3rem;
   }
+}
 
-  /* 🔥 WHO WE ARE 모바일 레이아웃 */
-  .who-we-are {
-    padding: 0 !important; /* 🔥 모바일에서는 wrapper가 패딩 처리 */
-  }
-  
-  .who-we-are-container {
-    flex-direction: column !important;
-    gap: 1rem !important;
-    align-items: flex-start !important;
-  }
-  
-  .who-we-are-left {
-    flex: none !important;
-    width: 100% !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  .who-we-are-left h2 {
-    font-size: 1.8rem !important;
-    line-height: 1.3 !important;
-    margin-bottom: 0 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-  }
-  
-  .who-we-are-right {
-    flex: none !important;
-    width: 100% !important;
-  }
-  
-  .who-we-are-right p {
-    font-size: 0.9rem !important;
-    line-height: 1.6 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    hyphens: auto !important;
-    text-align: left !important;
-    margin-bottom: 1rem !important;
+@media (max-width: 480px) {
+  /* BGROW 히어로 작은 모바일 */
+  .hero-section {
+    min-height: 500px;
   }
 
-  /* 🔥 새로운 섹션들 모바일 스타일 - 세로 배치 */
-  .who-we-are,
-  .what-we-do,
-  .our-services,
-  .our-mission {
-    padding: 0 !important; /* 🔥 모바일에서는 wrapper가 패딩 처리 */
-    margin: 2rem 0 !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important; /* 넘치는 내용 숨김 */
+  .hero-title {
+    font-size: 3rem;
   }
 
-  /* 🔥 모바일에서는 세로 배치 */
-  .who-we-are-container,
-  .what-we-do-container,
-  .our-services-container,
-  .our-mission-container {
-    flex-direction: column !important;
-    gap: 1rem !important;
-    align-items: flex-start !important;
+  .section-title {
+    font-size: 2rem;
   }
 
-  /* 🔥 모바일에서 왼쪽 제목 영역 */
-  .who-we-are-left,
-  .what-we-do-left,
-  .our-services-left,
-  .our-mission-left {
-    flex: none !important;
-    width: 100% !important;
-    margin-bottom: 0.5rem !important;
+  .mission-quote {
+    font-size: 1.2rem;
   }
 
-  .who-we-are-left h2,
-  .what-we-do-left h2,
-  .our-services-left h2,
-  .our-mission-left h2 {
-    font-size: 1.8rem !important;
-    line-height: 1.3 !important;
-    margin-bottom: 0 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
+  .services-list li {
+    font-size: 0.9rem;
+    padding: 0.6rem 0;
+    padding-left: 1.2rem;
   }
 
-  /* 🔥 모바일에서 오른쪽 텍스트 영역 */
-  .who-we-are-right,
-  .what-we-do-right,
-  .our-services-right,
-  .our-mission-right {
-    flex: none !important;
-    width: 100% !important;
+  /* 클라이언트 그리드 */
+  .clients-grid {
+    grid-template-columns: 1fr;
   }
 
-  .who-we-are-right p,
-  .what-we-do-right p,
-  .our-mission-right p {
-    font-size: 0.9rem !important;
-    line-height: 1.6 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    hyphens: auto !important;
-    text-align: left !important;
-    margin-bottom: 1rem !important;
-  }
-
-  /* 🔥 모바일 OUR SERVICES 리스트 */
-  .our-services-right li {
-    font-size: 0.9rem !important;
-    line-height: 1.6 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    hyphens: auto !important;
-    margin-bottom: 0.6rem !important;
-    padding-left: 1.2rem !important;
-  }
-
-  /* 🔥 모바일 BGROW 스타일 Services - 완전한 세로 배치 */
-  .our-services-container {
-    flex-direction: column !important;
-    gap: 2rem !important;
-    align-items: flex-start !important;
-  }
-
-  .our-services-left {
-    flex: none !important;
-    width: 100% !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .our-services-left h2 {
-    font-size: 1.8rem !important;
-    margin: 0 0 1.5rem 0 !important;
-  }
-
-  .our-services-right {
-    flex: none !important;
-    width: 100% !important;
-    padding-top: 0 !important;
-  }
-
-  .our-services-right p {
-    font-size: 0.9rem !important;
-    line-height: 1.6 !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .services-list {
-    margin-top: 1rem !important;
-  }
-
-  .service-item {
-    font-size: 0.9rem !important;
-    margin-bottom: 0.8rem !important;
-    padding: 0.6rem 0 !important;
-    letter-spacing: 0.01em !important;
-  }
-
-  .section-number {
-    font-size: 0.8rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  /* 모바일 클라이언트 그리드 */
-  .our-client {
-    padding: 2rem 0 1rem 0 !important; /* wrapper가 패딩 처리 */
-  }
-  
-  .our-client h2 {
-    padding-left: 0 !important; /* 모바일에서도 패딩 제거 */
-    font-size: 1.8rem !important;
-  }
-  
-  /* 🔥 모바일에서 기존 클라이언트 그리드 숨기기 */
-  .client-grid {
-    display: none !important;
-  }
-  
-  /* 🔥 모바일 전용 클라이언트 그리드 - 3x2 */
-  .mobile-client-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    grid-template-rows: repeat(2, 1fr) !important;
-    gap: 1rem !important;
-    margin-bottom: 2rem !important;
-    padding: 0 !important;
-    width: 100% !important;
-  }
-  
+  .client-mobile-item,
   .mobile-client-logo {
-    width: 100% !important;
-    height: 80px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: #ffffff !important;
-    border-radius: 8px !important;
-    padding: 0.8rem !important;
-    box-sizing: border-box !important;
+    height: 70px !important;
+  }
+
+  .client-more a {
+    font-size: 16px !important;
+  }
+}
+
+/* ===================================================================
+   🔥 웹 반응형 대응 개선
+   =================================================================== */
+
+@media screen and (max-width: 1400px) {
+  .client-row {
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .client-row {
+    gap: 1.5rem;
   }
   
+  .client-logo {
+    width: 140px;
+    height: 95px;
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
   .client-row {
     gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 0; /* 모바일 클라이언트 로우 패딩 제거 */
   }
   
   .client-logo {
-    width: calc((100% - 2rem) / 3); /* 3개씩 배치 */
-    min-width: 100px;
+    width: 120px;
     height: 80px;
     padding: 0.8rem;
-  }
-  
-  .client-more a {
-    font-size: 18px !important; /* 20px → 18px로 줄임 */
-  }
-}
-
-/* 🔥 작은 모바일 대응 - 480px 이하 */
-@media (max-width: 480px) {
-  .about-hero {
-    padding-top: calc(28px + 100px); /* 🔥 간격 조정 */
-    padding-bottom: 1.5rem;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    min-height: 50vh; /* 🔥 작은 화면에서도 충분한 높이 */
-  }
-  
-  .about-main-title {
-    font-size: 70px !important; /* 🔥 타이틀 크기 70px */
-    line-height: 0.8 !important;
-    letter-spacing: 0 !important; /* 자간 최소화 */
-    word-break: normal !important;
-    hyphens: none !important;
-    margin-bottom: 1.5rem !important; /* 🔥 서브타이틀과 간격 */
-  }
-  
-  .about-main-title .mobile-title .line1,
-  .about-main-title .mobile-title .line2 {
-    white-space: nowrap !important;
-  }
-  
-  /* 🔥 작은 모바일에서 서브타이틀 조정 */
-  .about-subtitle {
-    font-size: 0.8rem !important; /* 🔥 크기 조정 */
-    letter-spacing: 0.05em !important; /* 자간 조정 */
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    margin-top: 0.8rem !important; /* 🔥 간격 조정 */
-  }
-
-  /* 🔥 작은 모바일 중앙 정렬 컨테이너 */
-  .about-content-wrapper {
-    padding: 0 0.8rem; /* 🔥 더 작은 패딩 */
-  }
-
-  /* 🔥 WHO WE ARE 작은 모바일 대응 */
-  .who-we-are-left h2 {
-    font-size: 1.5rem !important;
-    line-height: 1.2;
-  }
-  
-  .who-we-are-right p {
-    font-size: 0.8rem !important;
-    line-height: 1.5;
-  }
-
-  /* 🔥 작은 모바일 본문 텍스트 더 작게 */
-  .who-we-are,
-  .what-we-do,
-  .our-services,
-  .our-mission {
-    padding: 0 !important; /* wrapper가 처리 */
-  }
-
-  .who-we-are-left h2,
-  .what-we-do-left h2,
-  .our-services-left h2,
-  .our-mission-left h2 {
-    font-size: 1.5rem !important; /* 1.7rem → 1.5rem로 더 줄임 */
-    line-height: 1.2 !important;
-  }
-  
-  .who-we-are-right p,
-  .what-we-do-right p,
-  .our-mission-right p,
-  .our-services-right p {
-    font-size: 0.8rem !important; /* 0.9rem → 0.8rem로 더 줄임 */
-    line-height: 1.5 !important;
-    text-align: left !important; /* 작은 화면에서는 왼쪽 정렬 */
-  }
-  
-  .client-logo {
-    width: calc((100% - 1rem) / 2); /* 2개씩 배치 */
-    height: 70px;
-    padding: 0.5rem;
-  }
-  
-  .client-more a {
-    font-size: 16px !important; /* 18px → 16px로 더 줄임 */
-  }
-}
-
-/* 🔥 아주 작은 화면 대응 - 360px 이하 */
-@media (max-width: 360px) {
-  .about-hero {
-    padding-top: calc(28px + 80px); /* 🔥 최소 화면에서도 충분한 간격 */
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    min-height: 45vh; /* 🔥 최소 높이 설정 */
-  }
-
-  .about-main-title {
-    font-size: 60px !important; /* 🔥 타이틀 크기 60px */
-    letter-spacing: 0 !important; /* 자간 없음 */
-    margin-bottom: 1.2rem !important; /* 🔥 서브타이틀과 간격 */
-  }
-  
-  .about-subtitle {
-    font-size: 0.75rem !important; /* 🔥 최소 크기 */
-    letter-spacing: 0.03em !important;
-    margin-top: 0.6rem !important; /* 🔥 간격 조정 */
-  }
-
-  /* 🔥 최소 화면 중앙 정렬 컨테이너 */
-  .about-content-wrapper {
-    padding: 0 0.5rem; /* 🔥 최소 패딩 */
-  }
-
-  /* 🔥 WHO WE ARE 최소 화면 대응 */
-  .who-we-are-left h2 {
-    font-size: 1.3rem !important;
-    line-height: 1.2;
-  }
-  
-  .who-we-are-right p {
-    font-size: 0.75rem !important;
-    line-height: 1.4;
-  }
-
-  /* 🔥 최소 화면에서 본문 텍스트 최적화 */
-  .who-we-are,
-  .what-we-do,
-  .our-services,
-  .our-mission {
-    padding: 0 !important; /* wrapper가 처리 */
-  }
-
-  .who-we-are-left h2,
-  .what-we-do-left h2,
-  .our-services-left h2,
-  .our-mission-left h2 {
-    font-size: 1.3rem !important; /* 더 작게 */
-  }
-  
-  .who-we-are-right p,
-  .what-we-do-right p,
-  .our-mission-right p,
-  .our-services-right p {
-    font-size: 0.75rem !important; /* 최소 크기 */
-    line-height: 1.4 !important;
-  }
-
-   /* ===================================================================
-   🔥 KAUZ OUR SERVICES - BGROW 스타일 (기존 about.css에 추가할 코드)
-   기존 about.css 파일 맨 아래에 이 코드를 복사해서 붙여넣으세요!
-   =================================================================== */
-
-/* 🔥 구분선 스타일 (모든 섹션에 적용) */
-.section-divider-top,
-.section-divider-bottom {
-  width: 100% !important;
-  height: 1px !important;
-  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%) !important;
-  margin: 3rem 0 !important;
-}
-
-.section-divider-top {
-  margin-bottom: 4rem !important;
-}
-
-.section-divider-bottom {
-  margin-top: 4rem !important;
-}
-
-/* 🔥 섹션 넘버 스타일 (BGROW에서 가져온 / 03 스타일) */
-.section-number {
-  font-size: 0.9rem !important;
-  color: #666 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 2px !important;
-  margin-bottom: 1.5rem !important;
-  font-weight: 400 !important;
-}
-
-/* 🔥 OUR SERVICES 섹션 BGROW 스타일로 완전 재정의 */
-.our-services {
-  width: 100% !important;
-  margin: 3rem 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-}
-
-.our-services-container {
-  display: flex !important;
-  align-items: flex-start !important;
-  justify-content: space-between !important;
-  gap: 6rem !important;
-  width: 100% !important;
-  margin: 2rem 0 !important;
-  box-sizing: border-box !important;
-}
-
-/* 🔥 왼쪽 영역 - 섹션 넘버 + 제목 + 서비스 리스트 */
-.our-services-left {
-  flex: 0 0 400px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  box-sizing: border-box !important;
-}
-
-.our-services-left h2 {
-  font-size: 2.5rem !important;
-  font-weight: 700 !important;
-  color: white !important;
-  margin: 0 0 2rem 0 !important;
-  text-align: left !important;
-  line-height: 1.1 !important;
-}
-
-/* 🔥 오른쪽 영역 - KAUZ 설명 텍스트 */
-.our-services-right {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-start !important;
-  padding-top: 3rem !important;
-  box-sizing: border-box !important;
-}
-
-.our-services-right p {
-  font-size: 1.1rem !important;
-  line-height: 1.8 !important;
-  color: #ccc !important;
-  margin-bottom: 1.5rem !important;
-  word-wrap: break-word !important;
-  overflow-wrap: break-word !important;
-}
-
-.our-services-right p:last-child {
-  margin-bottom: 0 !important;
-}
-
-/* 🔥 기존 ul/li 스타일 무효화 */
-.our-services-right ul {
-  display: none !important;
-}
-
-.our-services-right li {
-  display: none !important;
-}
-
-/* 🔥 KAUZ 서비스 리스트 컨테이너 */
-.services-list {
-  margin-top: 1rem !important;
-  width: 100% !important;
-}
-
-/* 🔥 KAUZ 서비스 항목 스타일 */
-.service-item {
-  font-size: 1.1rem !important;
-  font-weight: 500 !important;
-  color: #ccc !important;
-  letter-spacing: 0.02em !important;
-  margin-bottom: 1rem !important;
-  padding: 0.8rem 0 !important;
-  border-bottom: 1px solid #333 !important;
-  transition: all 0.3s ease !important;
-  cursor: default !important;
-  line-height: 1.4 !important;
-  text-transform: none !important;
-}
-
-.service-item:hover {
-  color: white !important;
-  border-bottom-color: #E37031 !important;
-  transform: translateX(3px) !important;
-}
-
-.service-item:last-child {
-  border-bottom: 1px solid #333 !important;
-  margin-bottom: 0 !important;
-}
-
-/* ===================================================================
-   🔥 모바일 반응형 (768px 이하) - KAUZ 버전
-   =================================================================== */
-
-@media (max-width: 768px) {
-  .our-services-container {
-    flex-direction: column !important;
-    gap: 2rem !important;
-    align-items: flex-start !important;
-  }
-
-  .our-services-left {
-    flex: none !important;
-    width: 100% !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .our-services-left h2 {
-    font-size: 1.8rem !important;
-    margin: 0 0 1.5rem 0 !important;
-  }
-
-  .our-services-right {
-    flex: none !important;
-    width: 100% !important;
-    padding-top: 0 !important;
-  }
-
-  .our-services-right p {
-    font-size: 0.9rem !important;
-    line-height: 1.6 !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .services-list {
-    margin-top: 1rem !important;
-  }
-
-  .service-item {
-    font-size: 0.9rem !important;
-    margin-bottom: 0.8rem !important;
-    padding: 0.6rem 0 !important;
-    letter-spacing: 0.01em !important;
-  }
-
-  .section-number {
-    font-size: 0.8rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  /* 모바일에서 구분선 조정 */
-  .section-divider-top,
-  .section-divider-bottom {
-    margin: 2rem 0 !important;
-  }
-
-  .section-divider-top {
-    margin-bottom: 3rem !important;
-  }
-
-  .section-divider-bottom {
-    margin-top: 3rem !important;
-  }
-}
-
-/* ===================================================================
-   🔥 작은 모바일 (480px 이하) - KAUZ 버전
-   =================================================================== */
-
-@media (max-width: 480px) {
-  .our-services-left h2 {
-    font-size: 1.5rem !important;
-  }
-
-  .our-services-right p {
-    font-size: 0.8rem !important;
-    line-height: 1.5 !important;
-  }
-
-  .service-item {
-    font-size: 0.8rem !important;
-    padding: 0.5rem 0 !important;
-  }
-
-  .section-number {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* ===================================================================
-   🔥 아주 작은 모바일 (360px 이하) - KAUZ 버전
-   =================================================================== */
-
-@media (max-width: 360px) {
-  .our-services-left h2 {
-    font-size: 1.3rem !important;
-  }
-
-  .our-services-right p {
-    font-size: 0.75rem !important;
-    line-height: 1.4 !important;
-  }
-
-  .service-item {
-    font-size: 0.75rem !important;
   }
 }
