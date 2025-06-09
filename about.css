@@ -171,7 +171,6 @@
 /* 🔥 새로운 플렉스 컨테이너 스타일 (왼쪽 제목, 오른쪽 텍스트) */
 .who-we-are-container,
 .what-we-do-container,
-.our-services-container,
 .our-mission-container {
   display: flex;
   align-items: flex-start; /* 상단 정렬 */
@@ -180,85 +179,11 @@
   width: 100%;
 }
 
-/* 🔥 왼쪽 제목 영역 스타일 */
-.who-we-are-left,
-.what-we-do-left,
-.our-services-left,
-.our-mission-left {
-  flex: 0 0 300px; /* 고정 너비 300px */
-  display: flex;
-  align-items: flex-start;
-}
-
-.who-we-are-left h2,
-.what-we-do-left h2,
-.our-services-left h2,
-.our-mission-left h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-  text-align: left;
-  line-height: 1.1;
-}
-
-/* 🔥 오른쪽 텍스트 영역 스타일 */
-.who-we-are-right,
-.what-we-do-right,
-.our-services-right,
-.our-mission-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.who-we-are-right p,
-.what-we-do-right p,
-.our-mission-right p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #ccc;
-  margin: 0;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* 🔥 OUR SERVICES 리스트 스타일 - BGROW 스타일로 변경 */
-.our-services-right ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.our-services-right li {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #ccc;
-  margin-bottom: 0.8rem;
-  padding-left: 1.5rem;
-  position: relative;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-.our-services-right li::before {
-  content: "•";
-  color: white;
-  position: absolute;
-  left: 0;
-  font-weight: bold;
-}
-
-.our-services-right li:last-child {
-  margin-bottom: 0;
-}
-
 /* ===================================================================
-   🔥 NEW: BGROW 스타일 Services Section (정확한 구조 복사)
+   🔥 OUR SERVICES 섹션 - BGROW 스타일 (완전 새로운 구조)
    =================================================================== */
 
-/* 서비스 섹션 전체 컨테이너 */
+/* 서비스 섹션 전체 컨테이너 - BGROW 스타일 */
 .our-services-container {
   display: flex;
   align-items: flex-start;
@@ -338,15 +263,55 @@
   margin-bottom: 0;
 }
 
-/* 섹션 넘버 스타일 */
-.section-number {
-  font-size: 0.9rem;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 1.5rem;
-  font-weight: 400;
+/* 🔥 왼쪽 제목 영역 스타일 */
+.who-we-are-left,
+.what-we-do-left,
+.our-mission-left {
+  flex: 0 0 300px; /* 고정 너비 300px */
+  display: flex;
+  align-items: flex-start;
 }
+
+.who-we-are-left h2,
+.what-we-do-left h2,
+.our-mission-left h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  text-align: left;
+  line-height: 1.1;
+}
+
+/* 🔥 오른쪽 텍스트 영역 스타일 */
+.who-we-are-right,
+.what-we-do-right,
+.our-mission-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.who-we-are-right p,
+.what-we-do-right p,
+.our-mission-right p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ccc;
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 🔥 OUR SERVICES 기존 리스트 스타일 제거 - BGROW 스타일로 완전 교체 */
+/* 기존 ul/li 스타일은 더 이상 사용하지 않음 */
+
+/* ===================================================================
+   🔥 NEW: BGROW 스타일 Services Section (정확한 구조 복사)
+   =================================================================== */
+
+/* 위에서 이미 정의됨 - 중복 제거 */
 
 /* 🔥 OUR CLIENT 섹션 스타일 - 중앙 정렬 적용 (기존 유지) */
 .our-client {
@@ -578,7 +543,6 @@
   /* 🔥 모바일에서는 세로 배치 */
   .who-we-are-container,
   .what-we-do-container,
-  .our-services-container,
   .our-mission-container {
     flex-direction: column !important;
     gap: 1rem !important;
@@ -588,7 +552,6 @@
   /* 🔥 모바일에서 왼쪽 제목 영역 */
   .who-we-are-left,
   .what-we-do-left,
-  .our-services-left,
   .our-mission-left {
     flex: none !important;
     width: 100% !important;
@@ -597,7 +560,6 @@
 
   .who-we-are-left h2,
   .what-we-do-left h2,
-  .our-services-left h2,
   .our-mission-left h2 {
     font-size: 1.8rem !important;
     line-height: 1.3 !important;
@@ -609,7 +571,6 @@
   /* 🔥 모바일에서 오른쪽 텍스트 영역 */
   .who-we-are-right,
   .what-we-do-right,
-  .our-services-right,
   .our-mission-right {
     flex: none !important;
     width: 100% !important;
@@ -801,7 +762,6 @@
 
   .who-we-are-left h2,
   .what-we-do-left h2,
-  .our-services-left h2,
   .our-mission-left h2 {
     font-size: 1.5rem !important; /* 1.7rem → 1.5rem로 더 줄임 */
     line-height: 1.2 !important;
@@ -874,7 +834,6 @@
 
   .who-we-are-left h2,
   .what-we-do-left h2,
-  .our-services-left h2,
   .our-mission-left h2 {
     font-size: 1.3rem !important; /* 더 작게 */
   }
