@@ -65,11 +65,20 @@
   left: 0;
 }
 
-/* 🔥 WHO WE ARE 섹션 - 다른 섹션들과 동일한 구조 적용 */
+/* 🔥 콘텐츠 섹션들 중앙 정렬 컨테이너 */
+.about-content-wrapper {
+  max-width: 1200px; /* 🔥 최대 너비 설정 */
+  margin: 0 auto; /* 🔥 중앙 정렬 */
+  width: 100%;
+  padding: 0 25px; /* 🔥 양옆 패딩 */
+  box-sizing: border-box;
+}
+
+/* 🔥 WHO WE ARE 섹션 - 중앙 정렬 적용 */
 .who-we-are {
   width: 100%; /* 🔥 전체 와이드 */
   margin: 3rem 0; /* 🔥 상하 마진만 */
-  padding: 0 25px; /* 🔥 양옆 25px 패딩 */
+  padding: 0; /* 🔥 패딩 제거 */
   box-sizing: border-box;
 }
 
@@ -122,7 +131,7 @@
 .our-mission {
   width: 100%; /* 🔥 전체 와이드 */
   margin: 3rem 0; /* 🔥 상하 마진만 */
-  padding: 0 25px; /* 🔥 양옆 25px 패딩 */
+  padding: 0; /* 🔥 패딩 제거 */
   box-sizing: border-box;
 }
 
@@ -212,9 +221,9 @@
   margin-bottom: 0;
 }
 
-/* 🔥 OUR CLIENT 섹션 스타일 - 전체 와이드 사용 (25px 마진) */
+/* 🔥 OUR CLIENT 섹션 스타일 - 중앙 정렬 적용 */
 .our-client {
-  padding: 4rem 25px 2rem 25px; /* 🔥 양옆 25px 패딩 */
+  padding: 4rem 0 2rem 0; /* 🔥 상하 패딩만, 좌우는 wrapper에서 처리 */
   background-color: #0D0D0D;
   width: 100%; /* 🔥 전체 와이드 */
   box-sizing: border-box;
@@ -227,7 +236,7 @@
   margin-bottom: 3rem;
   color: white;
   font-weight: 700;
-  padding-left: 0; /* 패딩 제거하여 25px 마진과 정렬 */
+  padding-left: 0; /* 패딩 제거하여 wrapper와 정렬 */
 }
 
 .client-grid {
@@ -367,9 +376,15 @@
     margin-top: 1rem !important; /* 🔥 타이틀과 간격 */
   }
 
+  /* 🔥 모바일 중앙 정렬 컨테이너 */
+  .about-content-wrapper {
+    max-width: none; /* 🔥 모바일에서는 최대 너비 제한 해제 */
+    padding: 0 1rem; /* 🔥 모바일 패딩 */
+  }
+
   /* 🔥 WHO WE ARE 모바일 레이아웃 */
   .who-we-are {
-    padding: 0 1rem !important; /* 🔥 모바일에서는 1rem 패딩 */
+    padding: 0 !important; /* 🔥 모바일에서는 wrapper가 패딩 처리 */
   }
   
   .who-we-are-container {
@@ -412,7 +427,7 @@
   .what-we-do,
   .our-services,
   .our-mission {
-    padding: 0 1rem !important; /* 🔥 모바일에서는 1rem 패딩 */
+    padding: 0 !important; /* 🔥 모바일에서는 wrapper가 패딩 처리 */
     margin: 2rem 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -484,7 +499,7 @@
 
   /* 모바일 클라이언트 그리드 */
   .our-client {
-    padding: 2rem 1rem 1rem 1rem !important; /* 양쪽 패딩 1rem으로 통일 */
+    padding: 2rem 0 1rem 0 !important; /* wrapper가 패딩 처리 */
   }
   
   .our-client h2 {
@@ -573,6 +588,11 @@
     margin-top: 0.8rem !important; /* 🔥 간격 조정 */
   }
 
+  /* 🔥 작은 모바일 중앙 정렬 컨테이너 */
+  .about-content-wrapper {
+    padding: 0 0.8rem; /* 🔥 더 작은 패딩 */
+  }
+
   /* 🔥 WHO WE ARE 작은 모바일 대응 */
   .who-we-are-left h2 {
     font-size: 1.5rem !important;
@@ -589,7 +609,7 @@
   .what-we-do,
   .our-services,
   .our-mission {
-    padding: 0 0.8rem !important; /* 패딩 더 줄임 */
+    padding: 0 !important; /* wrapper가 처리 */
   }
 
   .who-we-are-left h2,
@@ -641,6 +661,11 @@
     margin-top: 0.6rem !important; /* 🔥 간격 조정 */
   }
 
+  /* 🔥 최소 화면 중앙 정렬 컨테이너 */
+  .about-content-wrapper {
+    padding: 0 0.5rem; /* 🔥 최소 패딩 */
+  }
+
   /* 🔥 WHO WE ARE 최소 화면 대응 */
   .who-we-are-left h2 {
     font-size: 1.3rem !important;
@@ -657,7 +682,7 @@
   .what-we-do,
   .our-services,
   .our-mission {
-    padding: 0 0.5rem !important; /* 최소 패딩 */
+    padding: 0 !important; /* wrapper가 처리 */
   }
 
   .who-we-are-left h2,
