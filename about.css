@@ -886,4 +886,244 @@
     font-size: 0.75rem !important; /* 최소 크기 */
     line-height: 1.4 !important;
   }
+
+   /* ===================================================================
+   🔥 KAUZ OUR SERVICES - BGROW 스타일 (기존 about.css에 추가할 코드)
+   기존 about.css 파일 맨 아래에 이 코드를 복사해서 붙여넣으세요!
+   =================================================================== */
+
+/* 🔥 구분선 스타일 (모든 섹션에 적용) */
+.section-divider-top,
+.section-divider-bottom {
+  width: 100% !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%) !important;
+  margin: 3rem 0 !important;
+}
+
+.section-divider-top {
+  margin-bottom: 4rem !important;
+}
+
+.section-divider-bottom {
+  margin-top: 4rem !important;
+}
+
+/* 🔥 섹션 넘버 스타일 (BGROW에서 가져온 / 03 스타일) */
+.section-number {
+  font-size: 0.9rem !important;
+  color: #666 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  margin-bottom: 1.5rem !important;
+  font-weight: 400 !important;
+}
+
+/* 🔥 OUR SERVICES 섹션 BGROW 스타일로 완전 재정의 */
+.our-services {
+  width: 100% !important;
+  margin: 3rem 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.our-services-container {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 6rem !important;
+  width: 100% !important;
+  margin: 2rem 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 🔥 왼쪽 영역 - 섹션 넘버 + 제목 + 서비스 리스트 */
+.our-services-left {
+  flex: 0 0 400px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  box-sizing: border-box !important;
+}
+
+.our-services-left h2 {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  color: white !important;
+  margin: 0 0 2rem 0 !important;
+  text-align: left !important;
+  line-height: 1.1 !important;
+}
+
+/* 🔥 오른쪽 영역 - KAUZ 설명 텍스트 */
+.our-services-right {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  padding-top: 3rem !important;
+  box-sizing: border-box !important;
+}
+
+.our-services-right p {
+  font-size: 1.1rem !important;
+  line-height: 1.8 !important;
+  color: #ccc !important;
+  margin-bottom: 1.5rem !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.our-services-right p:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* 🔥 기존 ul/li 스타일 무효화 */
+.our-services-right ul {
+  display: none !important;
+}
+
+.our-services-right li {
+  display: none !important;
+}
+
+/* 🔥 KAUZ 서비스 리스트 컨테이너 */
+.services-list {
+  margin-top: 1rem !important;
+  width: 100% !important;
+}
+
+/* 🔥 KAUZ 서비스 항목 스타일 */
+.service-item {
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  color: #ccc !important;
+  letter-spacing: 0.02em !important;
+  margin-bottom: 1rem !important;
+  padding: 0.8rem 0 !important;
+  border-bottom: 1px solid #333 !important;
+  transition: all 0.3s ease !important;
+  cursor: default !important;
+  line-height: 1.4 !important;
+  text-transform: none !important;
+}
+
+.service-item:hover {
+  color: white !important;
+  border-bottom-color: #E37031 !important;
+  transform: translateX(3px) !important;
+}
+
+.service-item:last-child {
+  border-bottom: 1px solid #333 !important;
+  margin-bottom: 0 !important;
+}
+
+/* ===================================================================
+   🔥 모바일 반응형 (768px 이하) - KAUZ 버전
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .our-services-container {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    align-items: flex-start !important;
+  }
+
+  .our-services-left {
+    flex: none !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .our-services-left h2 {
+    font-size: 1.8rem !important;
+    margin: 0 0 1.5rem 0 !important;
+  }
+
+  .our-services-right {
+    flex: none !important;
+    width: 100% !important;
+    padding-top: 0 !important;
+  }
+
+  .our-services-right p {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .services-list {
+    margin-top: 1rem !important;
+  }
+
+  .service-item {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.8rem !important;
+    padding: 0.6rem 0 !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  .section-number {
+    font-size: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* 모바일에서 구분선 조정 */
+  .section-divider-top,
+  .section-divider-bottom {
+    margin: 2rem 0 !important;
+  }
+
+  .section-divider-top {
+    margin-bottom: 3rem !important;
+  }
+
+  .section-divider-bottom {
+    margin-top: 3rem !important;
+  }
+}
+
+/* ===================================================================
+   🔥 작은 모바일 (480px 이하) - KAUZ 버전
+   =================================================================== */
+
+@media (max-width: 480px) {
+  .our-services-left h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .our-services-right p {
+    font-size: 0.8rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .service-item {
+    font-size: 0.8rem !important;
+    padding: 0.5rem 0 !important;
+  }
+
+  .section-number {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* ===================================================================
+   🔥 아주 작은 모바일 (360px 이하) - KAUZ 버전
+   =================================================================== */
+
+@media (max-width: 360px) {
+  .our-services-left h2 {
+    font-size: 1.3rem !important;
+  }
+
+  .our-services-right p {
+    font-size: 0.75rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .service-item {
+    font-size: 0.75rem !important;
+  }
+}
 }
