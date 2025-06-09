@@ -116,10 +116,9 @@ a:hover {
   font-weight: bold;
 }
 
+/* SCROLL 라인 제거 */
 .scroll-line {
-  width: 60px;
-  height: 1px;
-  background-color: #E37031;
+  display: none;
 }
 
 /* 중앙 정렬 컨테이너 */
@@ -132,15 +131,16 @@ a:hover {
   position: relative;
 }
 
-/* 히어로 섹션과 메인 콘텐츠 사이 구분선 */
+/* 히어로 섹션과 메인 콘텐츠 사이 구분선 - 화면 전체 너비 */
 .about-content-wrapper::before {
   content: '';
   position: absolute;
   top: -2rem;
-  left: 0;
-  width: 100%;
+  left: -25px;
+  right: -25px;
+  width: calc(100vw);
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  background-color: #E37031;
 }
 
 /* 메인 콘텐츠 */
@@ -160,11 +160,13 @@ a:hover {
 
 /* 섹션 구분선 - 하단만 사용 */
 .section-divider-bottom {
-  width: 100%;
+  width: calc(100% - 20px);
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  background-color: #E37031;
   margin-top: 4rem;
   margin-bottom: 0;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /* 기존 section-divider-top 제거 */
@@ -400,13 +402,25 @@ body {
     padding: 0 1rem;
   }
 
+  /* 모바일에서 상단 라인도 화면 전체 너비 */
+  .about-content-wrapper::before {
+    left: 0;
+    right: 0;
+    width: 100vw;
+    margin-left: -1rem;
+  }
+
   /* 메인 콘텐츠 모바일 */
   .main-content {
     padding: 3rem 0;
   }
 
   .content-section {
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
+  }
+
+  .content-section:first-child {
+    margin-top: 3rem;
   }
 
   /* 섹션 콘텐츠 - 모바일에서 세로 배치 */
@@ -435,26 +449,22 @@ body {
     padding-left: 1.5rem;
   }
 
-  /* 클라이언트 그리드 모바일 */
+  /* 클라이언트 그리드 모바일 - 3x2 */
   .clients-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 1rem;
     margin-top: 2rem;
+  }
+
+  .client-box {
+    aspect-ratio: 3/2;
   }
 
   /* 구분선 조정 */
   .section-divider-bottom {
     margin-top: 3rem;
     margin-bottom: 0;
-  }
-
-  /* 모바일에서 콘텐츠 섹션 간격 */
-  .content-section {
-    margin-bottom: 4rem;
-  }
-
-  .content-section:first-child {
-    margin-top: 3rem;
   }
 }
 
@@ -528,9 +538,15 @@ body {
     padding-left: 1.2rem;
   }
 
-  /* 클라이언트 그리드 작은 모바일 */
+  /* 클라이언트 그리드 작은 모바일 - 3x2 유지 */
   .clients-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .client-box {
+    aspect-ratio: 3/2;
   }
 }
 
