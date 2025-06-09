@@ -158,11 +158,11 @@ a:hover {
   margin-top: 4rem;
 }
 
-/* 섹션 구분선 - 하단만 사용 */
+/* 섹션 구분선 - 하단만 사용 (그라데이션) */
 .section-divider-bottom {
   width: calc(100% - 20px);
   height: 1px;
-  background-color: #E37031;
+  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
   margin-top: 4rem;
   margin-bottom: 0;
   margin-left: 10px;
