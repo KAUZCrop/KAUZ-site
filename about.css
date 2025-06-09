@@ -6,7 +6,7 @@
 .about-hero {
   padding-top: calc(46px + 100px); /* 로고 높이 46px + 간격 100px (30px 더 추가) */
   padding-bottom: 2rem;
-  padding-left: 30px; /* 🔥 웹에서 양옆 25px 마진 */
+  padding-left: 40px; /* 🔥 웹에서 양옆 25px 마진 */
   padding-right: 30px; /* 🔥 웹에서 양옆 25px 마진 */
   min-height: auto;
   display: flex;
