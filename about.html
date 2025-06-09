@@ -4,14 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- 🔥 페이지 제목 수정 -->
+  <!-- 🔥 페이지 제목 -->
   <title>ABOUT US — KAUZ | 종합광고대행사 소개</title>
   
-  <!-- 🔥 메타 설명 추가 -->
+  <!-- 🔥 메타 설명 -->
   <meta name="description" content="KAUZ의 철학과 비전을 확인하세요. Knowledge, Artistry, Understanding, Zenith의 가치로 브랜드와 소비자를 연결하는 종합광고대행사입니다." />
   
-  <!-- 🔥 키워드 추가 -->
-  <meta name="keywords" content="KAUZ 소개, 종합광고대행사 철학, 광고대행사 팀, 브랜드 전략 전문가, 광고 캠페인 기획" />
+  <!-- 🔥 1.1 외부 도메인 연결 속도 개선 (Airtable API용) -->
+  <link rel="preconnect" href="https://api.airtable.com" />
+  
+  <!-- 🔥 1.2 필수 CSS 선로딩 -->
+  <link rel="preload" href="common.css" as="style" />
+  <link rel="preload" href="about.css" as="style" />
   
   <!-- 🔥 오픈 그래프 태그 (SNS 공유용) -->
   <meta property="og:title" content="ABOUT US — KAUZ | 종합광고대행사" />
@@ -36,19 +40,17 @@
   <!-- 🔥 캐노니컬 URL -->
   <link rel="canonical" href="https://kauzcrop.com/about.html" />
 
-  <!-- 🔥 파비콘 추가 -->
+  <!-- 🔥 파비콘 -->
   <link rel="icon" type="image/png" sizes="16x16" href="logo/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="logo/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="logo/apple-touch-icon.png">
   <link rel="icon" href="logo/simbol.png" type="image/png">
 
-  <!-- ① 메인 공통 CSS (헤더/메뉴/푸터 등) -->
+  <!-- CSS 파일들 -->
   <link rel="stylesheet" href="common.css" />
-
-  <!-- ② About 페이지 전용 CSS -->
   <link rel="stylesheet" href="about.css" />
   
-  <!-- 🔥 구조화된 데이터 (JSON-LD) -->
+  <!-- 🔥 3. 고급 구조화 데이터 - About 페이지용 -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -91,6 +93,28 @@
     }
   }
   </script>
+
+  <!-- 🔥 3. 빵부스러기 내비게이션 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://kauzcrop.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "About Us",
+        "item": "https://kauzcrop.com/about.html"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- 헤더 + 햄버거 + 메뉴 오버레이 -->
@@ -106,7 +130,8 @@
     </div>
   </header>
 
-  <div id="menu-overlay" class="menu-overlay">
+  <!-- 🔥 4. 접근성 개선 - 메뉴에 ARIA 추가 -->
+  <nav id="menu-overlay" class="menu-overlay" role="navigation" aria-label="Main Navigation">
     <div class="logo">
       <a href="index.html">
         <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
@@ -114,25 +139,21 @@
     </div>
     <div class="menu-content">
       <a href="index.html">HOME</a>
-      <a href="about.html">ABOUT US</a>
+      <a href="about.html" aria-current="page">ABOUT US</a>
       <a href="portfolio.html">PORTFOLIO</a>
       <a href="contact.html">CONTACT US</a>
     </div>
-  </div>
+  </nav>
 
   <!-- About 페이지 본문 -->
   <main id="about-page">
-    <!-- 🔥 상단 섹션 -->
+    <!-- 🔥 상단 섹션 - 타이틀 두 줄로 분리 -->
     <section class="about-hero fade-up">
       <div class="about-hero-content">
         <h1 class="about-main-title">
-          <span class="desktop-title">ABOUT <span class="kauz-spaced">KAUZ</span></span>
-          
-          <!-- 🔥 모바일 버전 -->
-          <span class="mobile-title">
-            <span class="line1">ABOUT</span>
-            <span class="line2 kauz-spaced">KAUZ</span>
-          </span>
+          <!-- 🔥 웹과 모바일 모두 두 줄로 표시 -->
+          <span class="title-line1">ABOUT</span>
+          <span class="title-line2 kauz-spaced">KAUZ</span>
         </h1>
         <p class="about-subtitle">Knowledge Artistry Understanding Zenith</p>
       </div>
@@ -300,8 +321,8 @@
     </div>
   </footer>
 
-  <!-- JavaScript 파일들 -->
-  <script src="common.js"></script>
-  <script src="about.js"></script>
+  <!-- 🔥 1.3 JavaScript 파일들 - defer 적용 -->
+  <script src="common.js" defer></script>
+  <script src="about.js" defer></script>
 </body>
 </html>
