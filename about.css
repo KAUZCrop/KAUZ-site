@@ -2,13 +2,13 @@
    about.css (About Us 전용 스타일) : common.css로 대부분 스타일링 처리
    ───────────────────────────────────────────────────────────────────── */
 
-/* 🔥 수정된 About 히어로 섹션 - 더 큰 간격과 더 큰 글씨 */
+/* 🔥 수정된 About 히어로 섹션 - 로고와 타이틀 마진 대폭 증가 */
 .about-hero {
-  padding-top: calc(46px + 100px); /* 로고 높이 46px + 간격 100px (30px 더 추가) */
-  padding-bottom: 2rem;
+  padding-top: calc(46px + 200px); /* 🔥 로고 높이 46px + 간격 200px (100px 더 증가) */
+  padding-bottom: 3rem; /* 🔥 하단 패딩도 증가 */
   padding-left: 25px; /* 🔥 웹에서 양옆 25px 마진 */
   padding-right: 25px; /* 🔥 웹에서 양옆 25px 마진 */
-  min-height: auto;
+  min-height: 70vh; /* 🔥 최소 높이 설정으로 여유 공간 확보 */
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -20,22 +20,24 @@
   max-width: 100%;
   text-align: left;
   width: 100%; /* 🔥 전체 너비 사용 */
+  position: relative; /* 🔥 서브타이틀 위치 조정을 위한 기준점 */
 }
 
-/* 🔥 메인 타이틀 크기 대폭 증가 - 참고 이미지처럼 */
+/* 🔥 메인 타이틀 크기 조정 및 위치 */
 .about-main-title {
-  font-size: 180px; /* 125px → 180px로 대폭 증가 */
+  font-size: 200px; /* 🔥 180px → 200px로 더 증가 */
   font-weight: 700;
   color: white;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.0; /* 더 타이트하게 */
-  letter-spacing: -0.03em; /* 글자 간격 더 줄임 */
+  margin: 0 0 1rem 0; /* 🔥 하단 마진 증가 */
+  line-height: 0.9; /* 🔥 더 타이트하게 */
+  letter-spacing: -0.05em; /* 🔥 글자 간격 더 줄임 */
   text-transform: uppercase; /* 대문자로 */
+  position: relative; /* 🔥 위치 조정을 위한 설정 */
 }
 
 /* 🔥 KAUZ만 자간 늘리기 */
 .about-main-title .kauz-spaced {
-  letter-spacing: 0.1em; /* KAUZ만 자간 늘림 */
+  letter-spacing: 0.08em; /* 🔥 자간 조정 */
 }
 
 /* 데스크톱에서는 한 줄로 표시 */
@@ -47,18 +49,20 @@
   display: block;
 }
 
-/* 🔥 서브타이틀 - ABOUT KAUZ와 같은 너비로 맞춤 + 오렌지 색상 */
+/* 🔥 서브타이틀 - 위치 및 스타일 조정 */
 .about-subtitle {
-  font-size: 1.5rem; /* 🔥 1.2rem → 1.5rem으로 5px 증가 */
-  font-weight: 300; /* 얇은 글씨 */
-  color: #E37031; /* 🔥 오렌지 색상으로 변경 */
+  font-size: 1.3rem; /* 🔥 1.5rem → 1.3rem으로 약간 줄임 */
+  font-weight: 400; /* 🔥 300 → 400으로 약간 두껍게 */
+  color: #E37031; /* 🔥 오렌지 색상 유지 */
   margin: 0;
-  line-height: 1.4;
-  opacity: 1; /* 0.8 → 1로 변경하여 더 선명하게 */
+  line-height: 1.2;
+  opacity: 1;
   text-transform: uppercase; /* 대문자로 */
-  letter-spacing: 0.15em; /* 🔥 웹에서 메인타이틀과 길이 맞추기 위해 증가 */
-  width: 100%; /* 상단 타이틀과 같은 너비 */
-  font-weight: 500; /* 조금 더 두껍게 */
+  letter-spacing: 0.2em; /* 🔥 자간 조정 */
+  width: 100%;
+  position: absolute; /* 🔥 절대 위치로 정확한 배치 */
+  bottom: -2.5rem; /* 🔥 타이틀 하단에서 2.5rem 아래 */
+  left: 0;
 }
 
 /* 🔥 WHO WE ARE 섹션 - 다른 섹션들과 동일한 구조 적용 */
@@ -304,21 +308,28 @@
 
 /* 🔥 모바일 대응 - 768px 이하 (모바일에서는 세로 배치) */
 @media (max-width: 768px) {
-  /* 🔥 모바일에서는 기존 패딩 복원 */
+  /* 🔥 모바일에서는 기존 패딩 복원하되 로고-타이틀 마진 증가 */
   .about-hero {
-    padding-top: calc(28px + 60px); /* 🔥 common.js 로고 크기 28px + 간격 60px로 줄임 */
+    padding-top: calc(28px + 120px); /* 🔥 common.js 로고 크기 28px + 간격 120px (60px 더 증가) */
+    padding-bottom: 2rem; /* 🔥 하단 패딩 증가 */
     padding-left: 1rem; /* 🔥 모바일에서는 1rem으로 복원 */
     padding-right: 1rem; /* 🔥 모바일에서는 1rem으로 복원 */
+    min-height: 60vh; /* 🔥 모바일에서도 충분한 높이 확보 */
+  }
+  
+  .about-hero-content {
+    position: relative; /* 🔥 모바일에서도 상대 위치 설정 */
   }
   
   .about-main-title {
     font-size: 85px !important; /* 🔥 타이틀 크기 85px */
-    line-height: 0.9 !important; /* 줄간격 더 좁게 */
+    line-height: 0.8 !important; /* 🔥 줄간격 더 좁게 */
     word-break: normal !important;
     hyphens: none !important;
-    letter-spacing: 0.02em !important; /* 자간 줄임 */
+    letter-spacing: 0.01em !important; /* 🔥 자간 조정 */
     white-space: normal;
-    margin-bottom: 1rem !important; /* 서브타이틀과 간격 */
+    margin-bottom: 2rem !important; /* 🔥 서브타이틀과 간격 증가 */
+    position: relative !important;
   }
   
   /* 데스크톱 버전 완전 숨김 */
@@ -341,15 +352,19 @@
     white-space: nowrap !important; /* 각 줄에서 줄바꿈 방지 */
   }
   
-  /* 🔥 서브타이틀 한 줄로 강제 */
+  /* 🔥 서브타이틀 모바일 위치 조정 */
   .about-subtitle {
-    font-size: 1rem !important; /* 🔥 0.75rem → 1rem으로 크기 증가 (5px 더) */
-    letter-spacing: 0.05em !important; /* 자간 줄임 */
+    font-size: 0.9rem !important; /* 🔥 모바일에서 크기 조정 */
+    letter-spacing: 0.08em !important; /* 자간 조정 */
+    position: static !important; /* 🔥 모바일에서는 정적 위치 */
+    bottom: auto !important;
+    left: auto !important;
     white-space: nowrap !important; /* 강제로 한 줄 */
     overflow: hidden !important; /* 넘치는 텍스트 숨김 */
     text-overflow: ellipsis !important; /* 넘치면 ... 표시 */
     width: 100% !important;
     max-width: 100% !important;
+    margin-top: 1rem !important; /* 🔥 타이틀과 간격 */
   }
 
   /* 🔥 WHO WE ARE 모바일 레이아웃 */
@@ -527,17 +542,20 @@
 /* 🔥 작은 모바일 대응 - 480px 이하 */
 @media (max-width: 480px) {
   .about-hero {
-    padding-top: calc(28px + 50px); /* 🔥 간격 더 줄임 */
+    padding-top: calc(28px + 100px); /* 🔥 간격 조정 */
+    padding-bottom: 1.5rem;
     padding-left: 0.8rem;
     padding-right: 0.8rem;
+    min-height: 50vh; /* 🔥 작은 화면에서도 충분한 높이 */
   }
   
   .about-main-title {
     font-size: 70px !important; /* 🔥 타이틀 크기 70px */
-    line-height: 0.85 !important;
-    letter-spacing: 0.01em !important; /* 자간 더 줄임 */
+    line-height: 0.8 !important;
+    letter-spacing: 0 !important; /* 자간 최소화 */
     word-break: normal !important;
     hyphens: none !important;
+    margin-bottom: 1.5rem !important; /* 🔥 서브타이틀과 간격 */
   }
   
   .about-main-title .mobile-title .line1,
@@ -545,13 +563,14 @@
     white-space: nowrap !important;
   }
   
-  /* 🔥 작은 모바일에서 서브타이틀 더 작게 */
+  /* 🔥 작은 모바일에서 서브타이틀 조정 */
   .about-subtitle {
-    font-size: 0.85rem !important; /* 🔥 0.65rem → 0.85rem으로 크기 증가 (5px 더) */
-    letter-spacing: 0.03em !important; /* 자간 더 줄임 */
+    font-size: 0.8rem !important; /* 🔥 크기 조정 */
+    letter-spacing: 0.05em !important; /* 자간 조정 */
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+    margin-top: 0.8rem !important; /* 🔥 간격 조정 */
   }
 
   /* 🔥 WHO WE ARE 작은 모바일 대응 */
@@ -604,18 +623,22 @@
 /* 🔥 아주 작은 화면 대응 - 360px 이하 */
 @media (max-width: 360px) {
   .about-hero {
+    padding-top: calc(28px + 80px); /* 🔥 최소 화면에서도 충분한 간격 */
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    min-height: 45vh; /* 🔥 최소 높이 설정 */
   }
 
   .about-main-title {
     font-size: 60px !important; /* 🔥 타이틀 크기 60px */
     letter-spacing: 0 !important; /* 자간 없음 */
+    margin-bottom: 1.2rem !important; /* 🔥 서브타이틀과 간격 */
   }
   
   .about-subtitle {
-    font-size: 0.8rem !important; /* 🔥 0.6rem → 0.8rem으로 크기 증가 (5px 더) */
-    letter-spacing: 0.02em !important;
+    font-size: 0.75rem !important; /* 🔥 최소 크기 */
+    letter-spacing: 0.03em !important;
+    margin-top: 0.6rem !important; /* 🔥 간격 조정 */
   }
 
   /* 🔥 WHO WE ARE 최소 화면 대응 */
