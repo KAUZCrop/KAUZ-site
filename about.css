@@ -131,16 +131,16 @@ a:hover {
   position: relative;
 }
 
-/* 히어로 섹션과 메인 콘텐츠 사이 구분선 - 화면 전체 너비 */
+/* 히어로 섹션과 메인 콘텐츠 사이 구분선 - 그라데이션 + 전체 너비 */
 .about-content-wrapper::before {
   content: '';
   position: absolute;
   top: -2rem;
-  left: -25px;
-  right: -25px;
-  width: calc(100vw);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   height: 1px;
-  background-color: #E37031;
+  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
 }
 
 /* 메인 콘텐츠 */
@@ -402,12 +402,12 @@ body {
     padding: 0 1rem;
   }
 
-  /* 모바일에서 상단 라인도 화면 전체 너비 */
+  /* 모바일에서 상단 라인도 그라데이션 + 전체 너비 + 중앙정렬 */
   .about-content-wrapper::before {
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100vw;
-    margin-left: -1rem;
+    background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
   }
 
   /* 메인 콘텐츠 모바일 */
