@@ -1,0 +1,48 @@
+# robots.txt for kauzcrop.com
+# 네이버 검색엔진 최적화
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /about.html
+Allow: /portfolio.html
+Allow: /contact.html
+Allow: /logo/
+Allow: /video/
+Allow: /css/
+Allow: /js/
+
+# 네이버 검색로봇 (Yeti) 전용 설정
+User-agent: Yeti
+Allow: /
+Allow: /index.html
+Allow: /about.html
+Allow: /portfolio.html
+Allow: /contact.html
+Allow: /logo/
+Allow: /video/
+Crawl-delay: 1
+
+# 구글 검색로봇 설정
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# 기타 검색엔진
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# 접근 제한 (필요시)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*?*
+Disallow: /search?
+
+# 사이트맵 위치 정의
+Sitemap: https://kauzcrop.com/sitemap.xml
+Sitemap: https://kauzcrop.com/sitemap-images.xml
+
+# 네이버 전용 RSS (선택사항)
+# Sitemap: https://kauzcrop.com/rss.xml
