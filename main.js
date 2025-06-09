@@ -14,6 +14,155 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
 
+  // ═══════════════════════════════════════════════════════════════
+  // 🔥 한글 자모 오타 대응 시스템
+  // ═══════════════════════════════════════════════════════════════
+
+  // 1) 한글 자모 → QWERTY 라틴 알파벳 매핑 테이블
+  const jamoToKey = {
+    // 한글 자음 (위쪽 줄)
+    'ㅂ': 'q', 'ㅈ': 'w', 'ㄷ': 'e', 'ㄱ': 'r', 'ㅅ': 't',
+    'ㅛ': 'y', 'ㅕ': 'u', 'ㅑ': 'i', 'ㅐ': 'o', 'ㅔ': 'p',
+    
+    // 한글 자음/모음 (가운데 줄)
+    'ㅁ': 'a', 'ㄴ': 's', 'ㅇ': 'd', 'ㄹ': 'f', 'ㅎ': 'g',
+    'ㅗ': 'h', 'ㅓ': 'j', 'ㅏ': 'k', 'ㅣ': 'l',
+    
+    // 한글 자음 (아래쪽 줄)
+    'ㅋ': 'z', 'ㅌ': 'x', 'ㅊ': 'c', 'ㅍ': 'v', 'ㅠ': 'b',
+    'ㅜ': 'n', 'ㅡ': 'm',
+    
+    // 쌍자음 및 복합모음 (선택적 추가)
+    'ㅃ': 'Q', 'ㅉ': 'W', 'ㄸ': 'E', 'ㄲ': 'R', 'ㅆ': 'T',
+    'ㅒ': 'O', 'ㅖ': 'P'
+  };
+
+  // 2) 한글 자모를 QWERTY 문자로 변환하는 함수
+  function transliterateKoreanToQwerty(input) {
+    if (!input || typeof input !== 'string') return input;
+    
+    return input
+      .split('')
+      .map(char => jamoToKey[char] || char)
+      .join('');
+  }
+
+  // 3) KAUZ 관련 오타 패턴 검사 함수
+  function isKauzTypo(input) {
+    if (!input) return false;
+    
+    const transliterated = transliterateKoreanToQwerty(input.toLowerCase().trim());
+    const kauzVariants = [
+      'kauz',     // 정상
+      'ㅏ몈',      // 한글 오타
+      'kauz ',    // 뒤 공백
+      ' kauz',    // 앞 공백
+    ];
+    
+    // 변환된 텍스트가 KAUZ와 일치하는지 확인
+    return transliterated === 'kauz' || 
+           kauzVariants.some(variant => 
+             transliterateKoreanToQwerty(variant.toLowerCase().trim()) === 'kauz'
+           );
+  }
+
+  // 4) URL 쿼리 파라미터 체크 및 리다이렉트
+  function checkUrlForKauzTypo() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const searchQuery = params.get('q') || params.get('search') || params.get('s');
+      
+      if (searchQuery && isKauzTypo(searchQuery)) {
+        console.log(`🔄 한글 오타 감지: "${searchQuery}" → KAUZ 홈페이지로 이동`);
+        
+        // 부드러운 전환 효과
+        document.body.style.opacity = '0.8';
+        document.body.style.transition = 'opacity 0.3s ease';
+        
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 300);
+        
+        return true;
+      }
+    } catch (error) {
+      console.warn('URL 파라미터 체크 중 오류:', error);
+    }
+    
+    return false;
+  }
+
+  // 5) 사이트 내 검색창 대응 (있을 경우)
+  function setupSearchInputHandler() {
+    // 검색창이 있다면 이벤트 리스너 추가
+    const searchInputs = document.querySelectorAll('input[type="search"], input[name="search"], #search-input, .search-input');
+    
+    searchInputs.forEach(input => {
+      if (!input) return;
+      
+      // Enter 키 입력 시 처리
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const query = input.value.trim();
+          
+          if (isKauzTypo(query)) {
+            e.preventDefault();
+            console.log(`🔄 검색창 한글 오타 감지: "${query}" → KAUZ 홈페이지로 이동`);
+            
+            // 검색창 값을 정정
+            input.value = 'KAUZ';
+            
+            // 홈페이지로 이동
+            setTimeout(() => {
+              window.location.href = '/';
+            }, 200);
+          }
+        }
+      });
+      
+      // 실시간 변환 (선택적)
+      input.addEventListener('input', (e) => {
+        const query = input.value.trim();
+        
+        if (query && isKauzTypo(query)) {
+          // 입력창에 힌트 표시 (선택적)
+          input.style.borderColor = '#E37031';
+          input.title = 'KAUZ를 찾고 계신가요?';
+        } else {
+          input.style.borderColor = '';
+          input.title = '';
+        }
+      });
+    });
+    
+    console.log(`✅ 검색창 ${searchInputs.length}개에 한글 오타 대응 기능 추가됨`);
+  }
+
+  // 6) 메인 초기화 함수
+  function initKoreanTypoHandler() {
+    // URL 쿼리 체크
+    const redirected = checkUrlForKauzTypo();
+    
+    if (!redirected) {
+      // 검색창 핸들러 설정
+      setupSearchInputHandler();
+    }
+    
+    // 전역 함수로 노출 (디버깅용)
+    window.checkKauzTypo = isKauzTypo;
+    window.convertKoreanTypo = transliterateKoreanToQwerty;
+    
+    console.log('🔍 한글 오타 대응 시스템 초기화 완료');
+    console.log('📝 테스트: checkKauzTypo("ㅏ몈") =', isKauzTypo("ㅏ몈"));
+  }
+
+  // 한글 오타 대응 시스템 초기화
+  initKoreanTypoHandler();
+
+  // ═══════════════════════════════════════════════════════════════
+  // 🔥 기존 main.js 코드 계속...
+  // ═══════════════════════════════════════════════════════════════
+
   // ─── Body mobile class toggle ───
   function setBodyMobileClass() {
     if (window.innerWidth <= 768) {
@@ -579,7 +728,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="portfolio-placeholder">Portfolio 3</div>
         </div>
         <div class="portfolio-slide-title">
-          <span class="portfolio-brand-name">샘플 프로젝트 3</span>
           <span class="portfolio-slide-category">Portfolio</span>
         </div>
       </div>
@@ -664,5 +812,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ═══════════════════════════════════════════════════════════════
+  // 🔥 한글 오타 대응 테스트 및 추가 이벤트
+  // ═══════════════════════════════════════════════════════════════
+
+  // URL 변경 감지 (뒤로가기/앞으로가기)
+  window.addEventListener('popstate', checkUrlForKauzTypo);
+
+  // 테스트 함수 (개발 중에만 사용)
+  function testKoreanTypoHandler() {
+    const testCases = [
+      'ㅏ몈',      // 한글 오타
+      'KAUZ',      // 정상
+      'kauz',      // 소문자
+      'ㅏ몈 ',     // 공백 포함
+      ' ㅏ몈',     // 앞 공백
+      'hello',     // 다른 단어
+      '',          // 빈 문자열
+    ];
+    
+    console.log('🧪 한글 오타 대응 테스트:');
+    testCases.forEach(test => {
+      const result = isKauzTypo(test);
+      const converted = transliterateKoreanToQwerty(test);
+      console.log(`"${test}" → 변환: "${converted}" | KAUZ 오타?: ${result}`);
+    });
+  }
+
+  // 개발 모드에서만 테스트 실행
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.testKoreanTypo = testKoreanTypoHandler;
+    console.log('🛠️ 개발 모드: window.testKoreanTypo() 로 테스트 가능');
+  }
+
   console.log('Main.js initialization complete');
+});
+
+// ═══════════════════════════════════════════════════════════════
+// 🔥 전역 스코프 함수들 (필요시)
+// ═══════════════════════════════════════════════════════════════
+
+// 외부에서 한글 오타 체크가 필요한 경우를 위한 전역 함수
+window.addEventListener('load', () => {
+  // 한글 오타 관련 전역 함수들이 설정되었는지 확인
+  if (typeof window.checkKauzTypo === 'function') {
+    console.log('✅ 한글 오타 대응 시스템 전역 함수 준비 완료');
+    
+    // 예시: 외부 스크립트에서 사용 가능
+    // if (window.checkKauzTypo(someUserInput)) { /* 처리 로직 */ }
+  }
 });
