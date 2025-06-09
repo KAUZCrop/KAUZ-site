@@ -7,6 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // SCROLL 인디케이터 클릭 시 부드러운 스크롤
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', () => {
+      const mainContent = document.querySelector('.main-content');
+      if (mainContent) {
+        mainContent.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
+
   // fade-up 애니메이션 (HTML에서 옮겨온 스크롤 애니메이션 + 기존 KAUZ 스타일 통합)
   const fadeUpElements = document.querySelectorAll('.fade-up');
   if (fadeUpElements.length) {
