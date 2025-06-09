@@ -255,35 +255,97 @@
 }
 
 /* ===================================================================
-   🔥 NEW: BGROW 스타일 Services List
+   🔥 NEW: BGROW 스타일 Services Section (정확한 구조 복사)
    =================================================================== */
 
+/* 서비스 섹션 전체 컨테이너 */
+.our-services-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6rem; /* BGROW 스타일에 맞게 간격 증가 */
+  width: 100%;
+  margin: 2rem 0;
+}
+
+/* 왼쪽 영역 - 섹션 넘버 + 제목 + 서비스 리스트 */
+.our-services-left {
+  flex: 0 0 400px; /* 고정 너비를 400px로 증가 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.our-services-left h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 2rem 0; /* 제목 아래 마진 증가 */
+  text-align: left;
+  line-height: 1.1;
+}
+
+/* 오른쪽 영역 - 설명 텍스트 */
+.our-services-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 3rem; /* 상단 패딩으로 텍스트 위치 조정 */
+}
+
+.our-services-right p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.our-services-right p:last-child {
+  margin-bottom: 0;
+}
+
+/* 서비스 리스트 스타일 */
 .services-list {
-  margin-top: 2rem;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 .service-item {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 1.2rem;
+  font-weight: 500;
+  color: #ccc;
+  text-transform: none; /* 대문자 변환 제거 */
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
   padding: 0.8rem 0;
   border-bottom: 1px solid #333;
   transition: all 0.3s ease;
   cursor: default;
+  line-height: 1.4;
 }
 
 .service-item:hover {
-  color: #E37031;
+  color: white;
   border-bottom-color: #E37031;
-  transform: translateX(5px);
+  transform: translateX(3px);
 }
 
 .service-item:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid #333; /* 마지막 항목도 하단 라인 유지 */
   margin-bottom: 0;
+}
+
+/* 섹션 넘버 스타일 */
+.section-number {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
 }
 
 /* 🔥 OUR CLIENT 섹션 스타일 - 중앙 정렬 적용 (기존 유지) */
@@ -576,7 +638,36 @@
     padding-left: 1.2rem !important;
   }
 
-  /* 🔥 모바일 BGROW 스타일 Services */
+  /* 🔥 모바일 BGROW 스타일 Services - 완전한 세로 배치 */
+  .our-services-container {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    align-items: flex-start !important;
+  }
+
+  .our-services-left {
+    flex: none !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .our-services-left h2 {
+    font-size: 1.8rem !important;
+    margin: 0 0 1.5rem 0 !important;
+  }
+
+  .our-services-right {
+    flex: none !important;
+    width: 100% !important;
+    padding-top: 0 !important;
+  }
+
+  .our-services-right p {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+  }
+
   .services-list {
     margin-top: 1rem !important;
   }
@@ -585,12 +676,12 @@
     font-size: 0.9rem !important;
     margin-bottom: 0.8rem !important;
     padding: 0.6rem 0 !important;
-    letter-spacing: 0.02em !important;
+    letter-spacing: 0.01em !important;
   }
 
   .section-number {
     font-size: 0.8rem !important;
-    margin-bottom: 0.8rem !important;
+    margin-bottom: 1rem !important;
   }
 
   /* 모바일 클라이언트 그리드 */
