@@ -13,8 +13,7 @@
   <!-- 🔥 About 페이지 전용 키워드 -->
   <meta name="keywords" content="KAUZ 회사소개, 카우즈 소개, KAUZ 철학, 브랜드 여정, 광고대행사 비전, 소비자 연결, 브랜드 전략 회사, 카우즈 미션, KAUZ 서비스, 크리에이티브 에이전시" />
   
-  <!-- 🔥 네이버 SEO 전용 메타태그 -->
-  <meta name="naver-site-verification" content="네이버_인증_코드_입력" />
+  <!-- 네이버 SEO 전용 메타태그 (네이버 인증키 제외) -->
   <meta name="robots" content="index, follow" />
   <meta name="revisit-after" content="3 days" />
   <meta name="rating" content="General" />
@@ -292,25 +291,24 @@
 
   <!-- About 페이지 본문 -->
   <main id="about-page">
-    <!-- 🔥 히어로 섹션 - BGROW 스타일 적용 -->
-    <section class="hero-section">
-      <div class="hero-subtitle">About Us</div>
-      <h1 class="hero-title">KAUZ</h1>
-      <p class="hero-description">
-        Knowledge, Artistry, Understanding, Zenith의 가치로<br>
-        브랜드와 소비자를 연결하는 종합광고대행사입니다.
-      </p>
-      
-      <div class="scroll-indicator">
-        <div class="scroll-line"></div>
-        <span>Scroll to Explore</span>
+    <!-- 상단 섹션 - 기존 KAUZ 스타일 유지 -->
+    <section class="about-hero fade-up">
+      <div class="about-hero-content">
+        <h1 class="about-main-title">
+          <span class="title-line1">ABOUT</span>
+          <span class="title-line2 kauz-spaced">KAUZ</span>
+        </h1>
+        <p class="about-subtitle">Knowledge Artistry Understanding Zenith</p>
       </div>
     </section>
 
-    <!-- 🔥 메인 콘텐츠 -->
+    <!-- 중앙 정렬 컨테이너로 모든 콘텐츠 감싸기 -->
+    <div class="about-content-wrapper">
+      
+      <!-- 메인 콘텐츠 -->
     <div class="main-content">
       
-      <!-- 🔥 WHO WE ARE 섹션 -->
+      <!-- WHO WE ARE 섹션 -->
       <section class="content-section fade-up">
         <div class="section-divider-top"></div>
         
@@ -339,7 +337,7 @@
         <div class="section-divider-bottom"></div>
       </section>
 
-      <!-- 🔥 WHAT WE DO 섹션 -->
+      <!-- WHAT WE DO 섹션 -->
       <section class="content-section fade-up">
         <div class="section-divider-top"></div>
         
@@ -362,7 +360,7 @@
         <div class="section-divider-bottom"></div>
       </section>
 
-      <!-- 🔥 OUR SERVICES 섹션 -->
+      <!-- OUR SERVICES 섹션 -->
       <section class="content-section fade-up">
         <div class="section-divider-top"></div>
         
@@ -388,7 +386,7 @@
         <div class="section-divider-bottom"></div>
       </section>
 
-      <!-- 🔥 OUR MISSION 섹션 -->
+      <!-- OUR MISSION 섹션 -->
       <section class="content-section mission-section fade-up">
         <div class="section-divider-top"></div>
         
@@ -408,7 +406,7 @@
         <div class="section-divider-bottom"></div>
       </section>
 
-      <!-- 🔥 OUR CLIENTS 섹션 -->
+      <!-- OUR CLIENTS 섹션 -->
       <section class="content-section fade-up">
         <div class="section-divider-top"></div>
         
@@ -447,37 +445,5 @@
   <!-- 🔥 JavaScript 파일들 - defer 적용 -->
   <script src="common.js" defer></script>
   <script src="about.js" defer></script>
-  
-  <script>
-    // 🔥 스크롤 애니메이션
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.fade-up').forEach(el => {
-      observer.observe(el);
-    });
-
-    // 부드러운 스크롤
-    document.addEventListener('DOMContentLoaded', () => {
-      const scrollIndicator = document.querySelector('.scroll-indicator');
-      if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', () => {
-          document.querySelector('.main-content').scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      }
-    });
-  </script>
 </body>
 </html>
