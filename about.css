@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────────
-   about.css (KAUZ About Us - 기존 스타일 + SCROLL과 라인 추가)
+   about.css (KAUZ About Us - 전체화면 히어로 + 모바일 간격 수정)
    ───────────────────────────────────────────────────────────────────── */
 
 /* 전역 설정 */
@@ -36,31 +36,34 @@ a:hover {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 About 히어로 섹션 - 기존 스타일 유지 + SCROLL과 라인 추가
+   🔥 About 히어로 섹션 - 전체화면 적용 + 기존 스타일 유지
    ═══════════════════════════════════════════════════════════════ */
 
-/* 기존 KAUZ 히어로 섹션 - 그대로 유지 */
+/* 🔥 About 히어로 섹션 - 전체 화면으로 변경 */
 .about-hero {
-  padding-top: calc(46px + 200px);
-  padding-bottom: 3rem;
-  padding-left: 25px;
-  padding-right: 25px;
-  min-height: 70vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  position: relative;
   width: 100%;
+  min-height: 100vh; /* 🔥 전체 화면 높이 적용 */
+  background-color: #0D0D0D;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 🔥 세로 중앙 정렬 */
+  align-items: flex-start; /* 🔥 가로는 왼쪽 정렬 유지 */
+  padding: 0 25px;
   box-sizing: border-box;
-  position: relative; /* 🔥 하단 요소를 위한 relative 추가 */
+  overflow: hidden;
 }
 
+/* 🔥 About 히어로 콘텐츠 - 기존 스타일 유지하되 위치 조정 */
 .about-hero-content {
   max-width: 100%;
   text-align: left;
   width: 100%;
   position: relative;
+  /* 🔥 기존 padding-top 제거하고 자연스러운 중앙 배치 */
 }
 
+/* 기존 타이틀 스타일 그대로 유지 */
 .about-main-title {
   font-size: 200px;
   font-weight: 700;
@@ -76,6 +79,7 @@ a:hover {
   letter-spacing: 0.08em;
 }
 
+/* 기존 서브타이틀 스타일 그대로 유지 */
 .about-subtitle {
   font-size: 1.3rem;
   font-weight: 400;
@@ -91,7 +95,7 @@ a:hover {
   left: 0;
 }
 
-/* 🔥 SCROLL과 라인을 감싸는 컨테이너 - 새로 추가 */
+/* 🔥 SCROLL과 라인을 감싸는 컨테이너 */
 .about-bottom-elements {
   position: absolute;
   bottom: 2rem;
@@ -99,17 +103,19 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.5rem; /* SCROLL과 라인 사이 최소 간격 */
+  gap: 0.5rem; /* 웹에서는 기본 간격 */
   z-index: 3;
 }
 
-/* 🔥 SCROLL 인디케이터 - 새로 추가 */
+/* SCROLL 인디케이터 - 라인 완전 제거 */
 .scroll-indicator {
   display: flex;
   align-items: center;
   gap: 1rem;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  border: none !important;
+  background: none !important;
 }
 
 .scroll-indicator:hover {
@@ -122,18 +128,22 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 400;
+  border: none !important;
+  background: none !important;
 }
 
 .scroll-arrow {
   font-size: 1.2rem;
   color: white;
   font-weight: bold;
+  border: none !important;
+  background: none !important;
 }
 
-/* 🔥 하단 고정 그라데이션 라인 - 새로 추가 */
+/* 하단 고정 그라데이션 라인 */
 .about-bottom-line {
-  width: 60vw; /* 화면 너비의 60% */
-  max-width: 600px; /* 최대 너비 제한 */
+  width: 60vw;
+  max-width: 600px;
   height: 3.5px;
   background: linear-gradient(90deg, 
     transparent 0%, 
@@ -145,9 +155,16 @@ a:hover {
   opacity: 0.6;
 }
 
-/* SCROLL 라인 제거 (기존에 있던 것) */
+/* 기존 scroll-line 완전 제거 */
 .scroll-line {
-  display: none;
+  display: none !important;
+}
+
+.scroll-indicator::before,
+.scroll-indicator::after,
+.scroll-indicator *::before,
+.scroll-indicator *::after {
+  display: none !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -369,21 +386,20 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   반응형 (모바일 대응)
+   반응형 (모바일 대응) - 전체화면 + 간격 조정
    ═══════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-  /* 히어로 섹션 모바일 */
+  /* 🔥 모바일 히어로 섹션 - 전체화면 적용 */
   .about-hero {
-    padding-top: calc(28px + 120px);
-    padding-bottom: 2rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    min-height: 60vh;
+    min-height: 100vh; /* 🔥 모바일도 전체 화면 */
+    padding: 0 1rem;
+    justify-content: center; /* 🔥 모바일에서도 중앙 정렬 */
   }
   
   .about-hero-content {
     position: relative;
+    /* 🔥 모바일에서 기존 padding-top 제거 */
   }
   
   .about-main-title {
@@ -411,11 +427,11 @@ body {
     margin-top: 1rem !important;
   }
 
-  /* 🔥 모바일 SCROLL과 라인 */
+  /* 🔥 모바일 SCROLL과 라인 - 간격 조정 */
   .about-bottom-elements {
     bottom: 2rem;
     left: 1rem;
-    gap: 0.4rem;
+    gap: 10px; /* 🔥 모바일에서 10px 간격 */
   }
 
   .scroll-text {
@@ -427,7 +443,7 @@ body {
   }
 
   .about-bottom-line {
-    width: 80vw; /* 모바일에서 더 넓게 */
+    width: 80vw;
     max-width: 400px;
   }
 
@@ -504,13 +520,10 @@ body {
 }
 
 @media (max-width: 480px) {
-  /* 히어로 섹션 작은 모바일 */
+  /* 🔥 작은 모바일 - 전체화면 유지 + 간격 조정 */
   .about-hero {
-    padding-top: calc(28px + 100px);
-    padding-bottom: 1.5rem;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    min-height: 50vh;
+    min-height: 100vh; /* 🔥 작은 모바일도 전체 화면 */
+    padding: 0 0.5rem;
   }
   
   .about-main-title {
@@ -531,11 +544,11 @@ body {
     margin-top: 0.8rem !important;
   }
 
-  /* 🔥 작은 모바일 SCROLL과 라인 */
+  /* 🔥 작은 모바일 SCROLL과 라인 - 간격 유지 */
   .about-bottom-elements {
     bottom: 1.5rem;
     left: 0.5rem;
-    gap: 0.3rem;
+    gap: 8px; /* 🔥 작은 모바일에서 8px 간격 */
   }
 
   .scroll-text {
@@ -590,10 +603,8 @@ body {
 @media (max-width: 360px) {
   /* 최소 화면 대응 */
   .about-hero {
-    padding-top: calc(28px + 80px);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    min-height: 45vh;
+    min-height: 100vh; /* 🔥 최소 화면도 전체 화면 */
+    padding: 0 0.5rem;
   }
 
   .about-main-title {
@@ -606,6 +617,11 @@ body {
     font-size: 0.75rem !important;
     letter-spacing: 0.03em !important;
     margin-top: 0.6rem !important;
+  }
+
+  /* 🔥 최소 화면에서도 간격 유지 */
+  .about-bottom-elements {
+    gap: 6px; /* 🔥 최소 화면에서 6px 간격 */
   }
 
   .about-content-wrapper {
