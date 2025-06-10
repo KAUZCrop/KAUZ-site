@@ -851,7 +851,7 @@ body.mobile {
   white-space: nowrap;
   animation: scrollLeft 20s linear infinite;
   font-size: 9rem;
-  font-weight: 700;
+  font-weight: 400;
   color: white;
   text-transform: uppercase;
   letter-spacing: 0;
