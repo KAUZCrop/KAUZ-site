@@ -1,6 +1,6 @@
-/* ─────────────────────────────────────────────────────────────────────
-   about.css (KAUZ About Us - 기존 스타일 + 섹션 스타일 개선)
-   ───────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   about.css - About 페이지 완전 재설계 (메인페이지 스타일 통일)
+   ═══════════════════════════════════════════════════════════════ */
 
 /* 전역 설정 */
 * {
@@ -35,67 +35,76 @@ a:hover {
   color: #ccc;
 }
 
-/* 기존 KAUZ 히어로 섹션 */
+/* ═══════════════════════════════════════════════════════════════
+   🔥 About 히어로 섹션 - 메인페이지 스타일로 완전 재설계
+   ═══════════════════════════════════════════════════════════════ */
+
 .about-hero {
-  padding-top: calc(46px + 200px);
-  padding-bottom: 3rem;
-  padding-left: 25px;
-  padding-right: 25px;
-  min-height: 70vh;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0D0D0D;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* 🔥 About 히어로 콘텐츠 - 중앙 정렬 */
 .about-hero-content {
-  max-width: 100%;
-  text-align: left;
+  position: relative;
+  z-index: 2;
   width: 100%;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
+/* 🔥 메인 타이틀 - 메인페이지 스타일과 통일 */
 .about-main-title {
-  font-size: 200px;
-  font-weight: 700;
+  font-size: 5rem;
+  font-weight: 850;
+  line-height: 1.1;
   color: white;
-  margin: 0 0 1rem 0;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
+  margin-bottom: 2rem;
+  text-align: center;
   text-transform: uppercase;
-  position: relative;
+  letter-spacing: -0.02em;
 }
 
-.about-main-title .kauz-spaced {
-  letter-spacing: 0.08em;
+.about-main-title .title-line1,
+.about-main-title .title-line2 {
+  display: block;
 }
 
+/* 🔥 서브 타이틀 (슬로건) - 오렌지색 */
 .about-subtitle {
   font-size: 1.3rem;
   font-weight: 400;
   color: #E37031;
-  margin: 0;
+  margin-bottom: 0;
   line-height: 1.2;
-  opacity: 1;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  width: 100%;
-  position: absolute;
-  bottom: -2.5rem;
-  left: 0;
+  text-align: center;
 }
 
-/* SCROLL 인디케이터 */
+/* 🔥 SCROLL 인디케이터 - 왼쪽 정렬, 하단 위치 */
 .scroll-indicator {
   position: absolute;
-  bottom: -8rem;
-  left: 0;
+  bottom: 4rem;
+  left: 25px;
   display: flex;
   align-items: center;
   gap: 1rem;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  z-index: 3;
 }
 
 .scroll-indicator:hover {
@@ -116,10 +125,27 @@ a:hover {
   font-weight: bold;
 }
 
-/* SCROLL 라인 제거 */
-.scroll-line {
-  display: none;
+/* 🔥 하단 고정 그라데이션 라인 (애니메이션 없음) */
+.about-bottom-line {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  width: 100%;
+  height: 3.5px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #E37031 20%, 
+    #ff8c42 50%, 
+    #E37031 80%, 
+    transparent 100%
+  );
+  z-index: 1;
+  opacity: 0.6;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   메인 콘텐츠 섹션 (기존 스타일 유지)
+   ═══════════════════════════════════════════════════════════════ */
 
 /* 중앙 정렬 컨테이너 */
 .about-content-wrapper {
@@ -131,7 +157,7 @@ a:hover {
   position: relative;
 }
 
-/* 히어로 섹션과 메인 콘텐츠 사이 구분선 - 그라데이션 + 전체 너비 */
+/* 히어로 섹션과 메인 콘텐츠 사이 구분선 */
 .about-content-wrapper::before {
   content: '';
   position: absolute;
@@ -153,12 +179,11 @@ a:hover {
   position: relative;
 }
 
-/* 첫 번째 섹션은 상단 여백 추가 */
 .content-section:first-child {
   margin-top: 4rem;
 }
 
-/* 섹션 구분선 - 하단만 사용 (그라데이션) */
+/* 섹션 구분선 */
 .section-divider-bottom {
   width: calc(100% - 20px);
   height: 1px;
@@ -167,11 +192,6 @@ a:hover {
   margin-bottom: 0;
   margin-left: 10px;
   margin-right: 10px;
-}
-
-/* 기존 section-divider-top 제거 */
-.section-divider-top {
-  display: none;
 }
 
 .section-number {
@@ -192,7 +212,7 @@ a:hover {
   line-height: 1.1;
 }
 
-/* 섹션 콘텐츠 - 좌우 분할 레이아웃 */
+/* 섹션 콘텐츠 */
 .section-content {
   display: flex;
   align-items: flex-start;
@@ -263,7 +283,7 @@ a:hover {
   margin-bottom: 0;
 }
 
-/* 미션 섹션 특별 스타일 */
+/* 미션 섹션 */
 .mission-section .section-content {
   flex-direction: column;
   text-align: center;
@@ -321,13 +341,13 @@ a:hover {
   transform: translateY(0);
 }
 
-/* 스크롤 비활성화 (메뉴 열린 상태) */
+/* 스크롤 비활성화 */
 body.menu-open {
   overflow: hidden;
   height: 100vh;
 }
 
-/* 전체 텍스트 복사 방지 */
+/* 텍스트 복사 방지 */
 body {
   user-select: none;
   -webkit-user-select: none;
@@ -335,65 +355,44 @@ body {
   -ms-user-select: none;
 }
 
-/* 반응형 (모바일 대응) */
+/* ═══════════════════════════════════════════════════════════════
+   모바일 반응형 (웹과 동일한 구조 유지)
+   ═══════════════════════════════════════════════════════════════ */
+
 @media (max-width: 768px) {
-  /* 히어로 섹션 모바일 */
+  /* 🔥 모바일 히어로 섹션 - 100vh 유지 */
   .about-hero {
-    padding-top: calc(28px + 120px);
-    padding-bottom: 2rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    min-height: 60vh;
-  }
-  
-  .about-hero-content {
-    position: relative;
-  }
-  
-  .about-main-title {
-    font-size: 85px !important;
-    line-height: 0.8 !important;
-    word-break: normal !important;
-    hyphens: none !important;
-    letter-spacing: 0.01em !important;
-    white-space: normal;
-    margin-bottom: 2rem !important;
-    position: relative !important;
-  }
-  
-  .about-subtitle {
-    font-size: 0.9rem !important;
-    letter-spacing: 0.08em !important;
-    position: static !important;
-    bottom: auto !important;
-    left: auto !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: 1rem !important;
+    min-height: 100vh;
+    padding: 0 1rem;
   }
 
-  /* 모바일 SCROLL 인디케이터 */
+  .about-main-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.0;
+  }
+
+  .about-subtitle {
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+  }
+
   .scroll-indicator {
-    position: static !important;
-    bottom: auto !important;
-    left: auto !important;
-    margin-top: 2rem !important;
-    gap: 0.8rem !important;
+    bottom: 3rem;
+    left: 1rem;
+    gap: 0.8rem;
   }
 
   .scroll-text {
-    font-size: 0.8rem !important;
+    font-size: 0.8rem;
   }
 
   .scroll-arrow {
-    font-size: 1rem !important;
+    font-size: 1rem;
   }
 
-  .scroll-line {
-    width: 40px !important;
+  .about-bottom-line {
+    bottom: 1.5rem;
   }
 
   /* 중앙 정렬 컨테이너 모바일 */
@@ -402,12 +401,10 @@ body {
     padding: 0 1rem;
   }
 
-  /* 모바일에서 상단 라인도 그라데이션 + 전체 너비 + 중앙정렬 */
   .about-content-wrapper::before {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
   }
 
   /* 메인 콘텐츠 모바일 */
@@ -423,7 +420,6 @@ body {
     margin-top: 3rem;
   }
 
-  /* 섹션 콘텐츠 - 모바일에서 세로 배치 */
   .section-content {
     flex-direction: column;
     gap: 2rem;
@@ -449,7 +445,6 @@ body {
     padding-left: 1.5rem;
   }
 
-  /* 클라이언트 그리드 모바일 - 3x2 */
   .clients-grid {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -457,64 +452,44 @@ body {
     margin-top: 2rem;
   }
 
-  .client-box {
-    aspect-ratio: 3/2;
-  }
-
-  /* 구분선 조정 */
   .section-divider-bottom {
     margin-top: 3rem;
-    margin-bottom: 0;
   }
 }
 
 @media (max-width: 480px) {
-  /* 히어로 섹션 작은 모바일 */
   .about-hero {
-    padding-top: calc(28px + 100px);
-    padding-bottom: 1.5rem;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    min-height: 50vh;
-  }
-  
-  .about-main-title {
-    font-size: 70px !important;
-    line-height: 0.8 !important;
-    letter-spacing: 0 !important;
-    word-break: normal !important;
-    hyphens: none !important;
-    margin-bottom: 1.5rem !important;
-  }
-  
-  .about-subtitle {
-    font-size: 0.8rem !important;
-    letter-spacing: 0.05em !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    margin-top: 0.8rem !important;
+    padding: 0 0.5rem;
   }
 
-  /* 작은 모바일 SCROLL 인디케이터 */
+  .about-main-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
+
   .scroll-indicator {
-    margin-top: 1.5rem !important;
-    gap: 0.6rem !important;
+    bottom: 2.5rem;
+    left: 0.5rem;
+    gap: 0.6rem;
   }
 
   .scroll-text {
-    font-size: 0.75rem !important;
+    font-size: 0.75rem;
   }
 
   .scroll-arrow {
-    font-size: 0.9rem !important;
+    font-size: 0.9rem;
   }
 
-  .scroll-line {
-    width: 35px !important;
+  .about-bottom-line {
+    bottom: 1rem;
   }
 
-  /* 중앙 정렬 컨테이너 작은 모바일 */
   .about-content-wrapper {
     padding: 0 0.8rem;
   }
@@ -538,37 +513,19 @@ body {
     padding-left: 1.2rem;
   }
 
-  /* 클라이언트 그리드 작은 모바일 - 3x2 유지 */
   .clients-grid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
     gap: 0.8rem;
-  }
-
-  .client-box {
-    aspect-ratio: 3/2;
   }
 }
 
 @media (max-width: 360px) {
-  /* 최소 화면 대응 */
-  .about-hero {
-    padding-top: calc(28px + 80px);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    min-height: 45vh;
-  }
-
   .about-main-title {
-    font-size: 60px !important;
-    letter-spacing: 0 !important;
-    margin-bottom: 1.2rem !important;
+    font-size: 1.5rem;
   }
   
   .about-subtitle {
-    font-size: 0.75rem !important;
-    letter-spacing: 0.03em !important;
-    margin-top: 0.6rem !important;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
   }
 
   .about-content-wrapper {
