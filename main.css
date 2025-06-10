@@ -273,7 +273,7 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* 🔥 백그라운드 애니메이션 라인 - 115% 길이, 웹 두껍게 */
+/* 🔥 백그라운드 애니메이션 라인 - 115% 길이, 웹 두껍게, 끊김 없는 연속 흐름 */
 .background-animation-line {
   position: absolute;
   top: 50%;
@@ -294,17 +294,17 @@ h1, h2, h3 {
   );
   transform: translateY(-50%);
   z-index: 1;
-  animation: moveLineLeftToRight115 4s ease-in-out infinite;
+  animation: continuousFlow115 4s linear infinite;
   opacity: 0.6;
 }
 
-/* 115% 길이로 왼쪽에서 오른쪽으로 이동하는 애니메이션 */
-@keyframes moveLineLeftToRight115 {
+/* 끊김 없는 연속 흐름 애니메이션 */
+@keyframes continuousFlow115 {
   0% {
-    transform: translateY(-50%) translateX(-100%);
+    transform: translateY(-50%) translateX(-115%);
   }
   100% {
-    transform: translateY(-50%) translateX(5%);
+    transform: translateY(-50%) translateX(100%);
   }
 }
 
@@ -1034,11 +1034,11 @@ body {
     text-align: center;      /* 🔥 모바일에서도 중앙 정렬 */
   }
 
-  /* 🔥 모바일 백그라운드 라인 - 115% 길이, 현재 두께 유지 */
+  /* 🔥 모바일 백그라운드 라인 - 115% 길이, 현재 두께 유지, 끊김 없는 연속 흐름 */
   .background-animation-line {
     width: 115%;
     height: 1px; /* 🔥 모바일에서는 현재 두께 유지 */
-    animation: moveLineLeftToRight115Mobile 4s ease-in-out infinite;
+    animation: continuousFlow115Mobile 4s linear infinite;
     opacity: 0.5;
     left: 0;
   }
@@ -1253,13 +1253,13 @@ body {
   }
 }
 
-/* 🔥 모바일 백그라운드 라인 애니메이션 - 115% 길이 */
-@keyframes moveLineLeftToRight115Mobile {
+/* 🔥 모바일 백그라운드 라인 애니메이션 - 115% 길이, 끊김 없는 연속 흐름 */
+@keyframes continuousFlow115Mobile {
   0% {
-    transform: translateY(-50%) translateX(-100%);
+    transform: translateY(-50%) translateX(-115%);
   }
   100% {
-    transform: translateY(-50%) translateX(5%);
+    transform: translateY(-50%) translateX(100%);
   }
 }
 
@@ -1274,13 +1274,13 @@ body {
     padding: 0 0.5rem;
   }
 
-  /* 🔥 작은 모바일에서 백그라운드 라인 조정 */
+  /* 🔥 작은 모바일에서 백그라운드 라인 조정 - 끊김 없는 연속 흐름 */
   .background-animation-line {
     width: 115%;
     height: 1px; /* 🔥 작은 모바일에서도 현재 두께 유지 */
     opacity: 0.4;
     left: 0;
-    animation-duration: 4s;
+    animation: continuousFlow115Mobile 4s linear infinite;
   }
 
   .slogan-line {
