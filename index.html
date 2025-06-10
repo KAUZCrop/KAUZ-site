@@ -70,19 +70,6 @@
   <meta property="og:site_name" content="KAUZ" />
   <meta property="og:locale" content="ko_KR" />
   
-  <!-- 🔥 네이버 전용 오픈그래프 확장 (서울·경기 지역) -->
-  <meta property="og:country-name" content="Korea" />
-  <meta property="og:email" content="contact@kauzcrop.com" />
-  <meta property="og:phone_number" content="+82-2-1234-5678" />
-  <meta property="og:fax_number" content="+82-2-1234-5679" />
-  <meta property="og:latitude" content="37.5665" />
-  <meta property="og:longitude" content="126.9780" />
-  <meta property="og:street-address" content="서울특별시" />
-  <meta property="og:locality" content="서울, 경기" />
-  <meta property="og:region" content="수도권" />
-  <meta property="og:postal-code" content="04377" />
-  <meta property="og:country-name" content="대한민국" />
-  
   <!-- 🔥 트위터 카드 -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="KAUZ - 종합광고대행사" />
@@ -236,153 +223,6 @@
   }
   </script>
   
-  <!-- 🔥 네이버 전용 LocalBusiness 구조화 데이터 (서울·경기 지역) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "카우즈",
-    "alternateName": "KAUZ",
-    "description": "서울·경기 기반 종합광고대행사",
-    "url": "https://kauzcrop.com",
-    "telephone": "+82-2-1234-5678",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "서울특별시",
-      "addressLocality": "서울",
-      "addressRegion": "수도권", 
-      "addressCountry": "대한민국"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "37.5665",
-      "longitude": "126.9780"
-    },
-    "areaServed": [
-      {
-        "@type": "City",
-        "name": "서울특별시"
-      },
-      {
-        "@type": "State",
-        "name": "경기도"
-      }
-    ],
-    "openingHours": "Mo-Fr 09:00-18:00",
-    "priceRange": "$",
-    "currenciesAccepted": "KRW",
-    "paymentAccepted": "현금, 카드, 계좌이체"
-  }
-  </script>
-
-  <!-- 🔥 사이트 검색 박스 (SearchAction) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "KAUZ",
-    "alternateName": "카우즈",
-    "url": "https://kauzcrop.com/",
-    "potentialAction": [
-      {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://kauzcrop.com/?s={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
-    ],
-    "inLanguage": "ko-KR",
-    "copyrightYear": 2025,
-    "copyrightHolder": {
-      "@type": "Organization",
-      "name": "KAUZ Corp"
-    }
-  }
-  </script>
-  
-  <!-- 🔥 빵부스러기 내비게이션 -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "홈",
-        "item": "https://kauzcrop.com/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "회사소개",
-        "item": "https://kauzcrop.com/about.html"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "포트폴리오",
-        "item": "https://kauzcrop.com/portfolio.html"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "문의하기",
-        "item": "https://kauzcrop.com/contact.html"
-      }
-    ]
-  }
-  </script>
-
-  <!-- 🔥 네이버 전용 Corporation 구조화 데이터 (서울·경기 지역) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Corporation",
-    "name": "KAUZ",
-    "alternateName": "카우즈",
-    "legalName": "카우즈 주식회사",
-    "url": "https://kauzcrop.com",
-    "description": "서울·경기 지역 브랜드와 소비자를 연결하는 종합광고대행사",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "KR",
-      "addressLocality": "서울",
-      "addressRegion": "수도권"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "고객 서비스",
-      "telephone": "+82-2-1234-5678",
-      "url": "https://kauzcrop.com/contact.html",
-      "areaServed": [
-        "서울특별시",
-        "경기도"
-      ]
-    },
-    "foundingLocation": {
-      "@type": "Place",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "서울",
-        "addressCountry": "KR"
-      }
-    },
-    "serviceArea": [
-      {
-        "@type": "City",
-        "name": "서울"
-      },
-      {
-        "@type": "State",
-        "name": "경기"
-      }
-    ]
-  }
-  </script>
-  
   <!-- 우클릭 방지 스크립트 -->
   <script>
     document.addEventListener('contextmenu', e => e.preventDefault());
@@ -420,27 +260,26 @@
     </div>
   </nav>
   
-  <!-- 🔥 상단 Hero 섹션 + 비디오 배경 + 슬로건 -->
-  <div class="hero-video-section">
-    <!-- 🔥 비디오 최적화 - poster와 loading 추가 -->
-    <video
-      class="hero-slogan-video" 
-      autoplay 
-      muted 
-      loop 
-      playsinline
-      preload="metadata"
-      aria-label="Brand Slogan Video Background">
-      <source src="video/plight-Bg.mp4" type="video/mp4" />
-    </video>
+  <!-- 🔥 새로운 슬로건 전용 섹션 -->
+  <div class="hero-slogan-section">
+    <!-- 배경 애니메이션 라인 -->
+    <div class="background-animation-line"></div>
+    
     <div class="navbar">
       <div class="logo">
         <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
       </div>
     </div>
-    <!-- 🔥 슬로건 영역 추가 -->
+    
+    <!-- 🔥 슬로건 영역 -->
     <div class="hero-slogan">
       <div class="slogan-line" id="typing-line1"></div>
+    </div>
+    
+    <!-- 🔥 SCROLL 인디케이터 (왼쪽 정렬) -->
+    <div class="scroll-indicator">
+      <span class="scroll-text">SCROLL</span>
+      <div class="scroll-arrow">↘</div>
     </div>
   </div>
 
@@ -484,63 +323,33 @@
       <div class="client-grid">
         <!-- 1번째 줄 - 5개 완전히 보임 -->
         <div class="client-row">
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
         </div>
         
         <!-- 2번째 줄 - 5개 완전히 보임 -->
         <div class="client-row">
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
         </div>
         
         <!-- 3번째 줄 - 거의 안보임 (웹에서만) -->
         <div class="client-row almost-hidden desktop-only">
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
-          <div class="client-logo">
-            <!-- 🔥 이미지 제거, 빈 박스만 표시 -->
-          </div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
+          <div class="client-logo"></div>
         </div>
       </div>
 
-      <!-- 🔥 모바일 전용 클라이언트 그리드 (3x2) - 텍스트 제거 -->
+      <!-- 🔥 모바일 전용 클라이언트 그리드 (3x2) -->
       <div class="client-mobile-grid">
         <div class="client-mobile-item"></div>
         <div class="client-mobile-item"></div>
