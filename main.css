@@ -306,7 +306,7 @@ h1, h2, h3 {
 }
 
 .slogan-line {
-  font-size: 5rem;          /* 🔥 크기 조정 (4rem → 5rem) */
+  font-size: 5.5rem;          /* 🔥 크기 조정 (4rem → 5rem) */
   font-weight: 850;
   line-height: 1.4;
   color: white;
@@ -1014,7 +1014,7 @@ body {
   }
 
   .slogan-line {
-    font-size: 2rem;         /* 🔥 모바일 크기 조정 */
+    font-size: 1.7rem;         /* 🔥 모바일 크기 조정 */
     white-space: normal;     /* 모바일에서는 줄바꿈 허용 */
     text-align: center;      /* 🔥 모바일에서도 중앙 정렬 */
   }
@@ -1245,7 +1245,7 @@ body {
   }
 
   .slogan-line {
-    font-size: 1.5rem;        /* 🔥 작은 모바일 크기 */
+    font-size: 1.2rem;        /* 🔥 작은 모바일 크기 */
   }
 
   .scroll-indicator {
