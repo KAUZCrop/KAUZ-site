@@ -1001,7 +1001,7 @@ body {
   
   /* 🔥 슬로건 섹션 모바일 센터 정렬 */
   .hero-slogan-section {
-    min-height: 80vh;
+    min-height: 100vh;
     padding: 0 1rem;
     align-items: center;      /* 🔥 모바일에서도 센터 */
     justify-content: center;  /* 🔥 모바일에서도 센터 */
@@ -1236,7 +1236,7 @@ body {
 @media (max-width: 480px) {
   /* 🔥 작은 모바일 슬로건 섹션 */
   .hero-slogan-section {
-    min-height: 70vh;
+    min-height: 100vh;
     padding: 0 0.5rem;
   }
 
