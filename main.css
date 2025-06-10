@@ -273,7 +273,7 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* 🔥 백그라운드 애니메이션 라인 - 115% 길이, 웹 두껍게, 끊김 없는 연속 흐름 */
+/* 🔥 백그라운드 애니메이션 라인 - 115% 길이, 웹 두껍게, 중간 fade, 6초 속도 */
 .background-animation-line {
   position: absolute;
   top: 50%;
@@ -282,23 +282,22 @@ h1, h2, h3 {
   height: 5px; /* 🔥 웹에서 더 두껍게 (3.5px → 5px) */
   background: linear-gradient(90deg, 
     transparent 0%,
-    transparent 2%,
-    #E37031 8%, 
-    #ff8c42 25%, 
-    #E37031 45%, 
-    #ff8c42 65%,
+    transparent 5%,
+    #E37031 15%, 
+    #ff8c42 30%, 
+    #E37031 50%, 
+    #ff8c42 70%,
     #E37031 85%,
-    #E37031 95%,
-    transparent 98%,
+    transparent 95%,
     transparent 100%
   );
   transform: translateY(-50%);
   z-index: 1;
-  animation: continuousFlow115 4s linear infinite;
+  animation: continuousFlow115 6s linear infinite;
   opacity: 0.6;
 }
 
-/* 끊김 없는 연속 흐름 애니메이션 */
+/* 끊김 없는 연속 흐름 애니메이션 - 6초 */
 @keyframes continuousFlow115 {
   0% {
     transform: translateY(-50%) translateX(-115%);
@@ -1034,11 +1033,22 @@ body {
     text-align: center;      /* 🔥 모바일에서도 중앙 정렬 */
   }
 
-  /* 🔥 모바일 백그라운드 라인 - 115% 길이, 현재 두께 유지, 끊김 없는 연속 흐름 */
+  /* 🔥 모바일 백그라운드 라인 - 115% 길이, 현재 두께 유지, 중간 fade, 6초 속도 */
   .background-animation-line {
     width: 115%;
     height: 1px; /* 🔥 모바일에서는 현재 두께 유지 */
-    animation: continuousFlow115Mobile 4s linear infinite;
+    background: linear-gradient(90deg, 
+      transparent 0%,
+      transparent 5%,
+      #E37031 15%, 
+      #ff8c42 30%, 
+      #E37031 50%, 
+      #ff8c42 70%,
+      #E37031 85%,
+      transparent 95%,
+      transparent 100%
+    );
+    animation: continuousFlow115Mobile 6s linear infinite;
     opacity: 0.5;
     left: 0;
   }
@@ -1253,7 +1263,7 @@ body {
   }
 }
 
-/* 🔥 모바일 백그라운드 라인 애니메이션 - 115% 길이, 끊김 없는 연속 흐름 */
+/* 🔥 모바일 백그라운드 라인 애니메이션 - 115% 길이, 중간 fade, 6초 속도 */
 @keyframes continuousFlow115Mobile {
   0% {
     transform: translateY(-50%) translateX(-115%);
@@ -1274,13 +1284,24 @@ body {
     padding: 0 0.5rem;
   }
 
-  /* 🔥 작은 모바일에서 백그라운드 라인 조정 - 끊김 없는 연속 흐름 */
+  /* 🔥 작은 모바일에서 백그라운드 라인 조정 - 중간 fade, 6초 속도 */
   .background-animation-line {
     width: 115%;
     height: 1px; /* 🔥 작은 모바일에서도 현재 두께 유지 */
+    background: linear-gradient(90deg, 
+      transparent 0%,
+      transparent 5%,
+      #E37031 15%, 
+      #ff8c42 30%, 
+      #E37031 50%, 
+      #ff8c42 70%,
+      #E37031 85%,
+      transparent 95%,
+      transparent 100%
+    );
     opacity: 0.4;
     left: 0;
-    animation: continuousFlow115Mobile 4s linear infinite;
+    animation: continuousFlow115Mobile 6s linear infinite;
   }
 
   .slogan-line {
