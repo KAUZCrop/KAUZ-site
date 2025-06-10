@@ -62,7 +62,7 @@ a:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60%; /* 🔥 적당한 너비 */
+  width: 100%; /* 🔥 적당한 너비 */
   height: 3.5px; /* 🔥 배경 라인과 동일한 굵기 */
   background: transparent; /* 🔥 배경 제거 */
   border-radius: 0; /* 🔥 직선으로 변경 */
