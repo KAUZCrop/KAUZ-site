@@ -237,6 +237,13 @@ a:hover {
     font-size: 2.5rem;
     line-height: 0.9;
   }
+  .background-animation-line {
+  animation-duration: 8s;   /* 더 느린 애니메이션 */
+  height: 1px;              /* 매우 얇은 라인 */
+  opacity: 0.3;             /* 더 은은하게 */
+  width: 90%;               /* 화면에 맞게 조정 */
+  left: 5%;                 /* 완전 중앙 정렬 */
+}
 }
 
 h1, h2, h3 {
@@ -1020,8 +1027,12 @@ body {
   }
 
   .background-animation-line {
-    animation-duration: 6s;
-  }
+  animation-duration: 6s;   /* 데스크톱 8s → 6s */
+  height: 2px;              /* 데스크톱 3.5px → 2px */
+  opacity: 0.4;             /* 데스크톱 0.6 → 0.4 */
+  width: 100%;              /* 데스크톱 120% → 100% */
+  left: 0%;                 /* 데스크톱 -10% → 0% */
+}
 
   .scroll-indicator {
     bottom: 2rem;
