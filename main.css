@@ -273,44 +273,38 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* 🔥 백그라운드 애니메이션 라인 - 왼쪽에서 오른쪽으로 이동하는 모션으로 수정 */
+/* 🔥 백그라운드 애니메이션 라인 - 115% 길이, 웹 두껍게 */
 .background-animation-line {
   position: absolute;
   top: 50%;
-  left: -10%;
-  width: 120%;
-  height: 3.5px;
+  left: 0;
+  width: 115%;
+  height: 5px; /* 🔥 웹에서 더 두껍게 (3.5px → 5px) */
   background: linear-gradient(90deg, 
-    transparent 0%, 
-    #E37031 20%, 
-    #ff8c42 50%, 
-    #E37031 80%, 
+    transparent 0%,
+    transparent 2%,
+    #E37031 8%, 
+    #ff8c42 25%, 
+    #E37031 45%, 
+    #ff8c42 65%,
+    #E37031 85%,
+    #E37031 95%,
+    transparent 98%,
     transparent 100%
   );
   transform: translateY(-50%);
   z-index: 1;
-  animation: moveLineLeftToRight 4s ease-in-out infinite;
+  animation: moveLineLeftToRight115 4s ease-in-out infinite;
   opacity: 0.6;
 }
 
-/* 왼쪽에서 오른쪽으로 이동하는 애니메이션 */
-@keyframes moveLineLeftToRight {
+/* 115% 길이로 왼쪽에서 오른쪽으로 이동하는 애니메이션 */
+@keyframes moveLineLeftToRight115 {
   0% {
     transform: translateY(-50%) translateX(-100%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  90% {
-    opacity: 0.6;
   }
   100% {
-    transform: translateY(-50%) translateX(50%);
-    opacity: 0;
+    transform: translateY(-50%) translateX(5%);
   }
 }
 
@@ -1040,12 +1034,12 @@ body {
     text-align: center;      /* 🔥 모바일에서도 중앙 정렬 */
   }
 
-  /* 🔥 모바일 백그라운드 라인 애니메이션 조정 */
+  /* 🔥 모바일 백그라운드 라인 - 115% 길이, 현재 두께 유지 */
   .background-animation-line {
-    animation: moveLineLeftToRightMobile 3s ease-in-out infinite;
-    height: 1px;
+    width: 115%;
+    height: 1px; /* 🔥 모바일에서는 현재 두께 유지 */
+    animation: moveLineLeftToRight115Mobile 4s ease-in-out infinite;
     opacity: 0.5;
-    width: 100%;
     left: 0;
   }
 
@@ -1259,24 +1253,13 @@ body {
   }
 }
 
-/* 모바일 백그라운드 라인 애니메이션 */
-@keyframes moveLineLeftToRightMobile {
+/* 🔥 모바일 백그라운드 라인 애니메이션 - 115% 길이 */
+@keyframes moveLineLeftToRight115Mobile {
   0% {
-    transform: translateY(-50%) translateX(-80%);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  85% {
-    opacity: 0.5;
+    transform: translateY(-50%) translateX(-100%);
   }
   100% {
-    transform: translateY(-50%) translateX(80%);
-    opacity: 0;
+    transform: translateY(-50%) translateX(5%);
   }
 }
 
@@ -1291,13 +1274,13 @@ body {
     padding: 0 0.5rem;
   }
 
-  /* 🔥 작은 모바일에서 애니메이션 라인 더 세밀하게 조정 */
+  /* 🔥 작은 모바일에서 백그라운드 라인 조정 */
   .background-animation-line {
-    animation-duration: 4s;   /* 🔥 더 느린 애니메이션 */
-    height: 1px;              /* 🔥 더 얇은 라인 */
-    opacity: 0.4;             /* 🔥 더 은은하게 */
-    width: 90%;               /* 🔥 작은 화면에 맞게 너비 조정 */
-    left: 5%;                 /* 🔥 중앙 정렬 */
+    width: 115%;
+    height: 1px; /* 🔥 작은 모바일에서도 현재 두께 유지 */
+    opacity: 0.4;
+    left: 0;
+    animation-duration: 4s;
   }
 
   .slogan-line {
