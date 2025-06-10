@@ -29,43 +29,58 @@ a:hover {
   color: #ccc;
 }
 
-/* LOADING SCREEN - 최고 우선순위 */
+/* LOADING SCREEN - 수정된 버전 */
 #loading-screen {
   position: fixed;
   inset: 0;
-  background: #000;
+  background: #0D0D0D; /* 🔥 메인과 동일한 배경색 */
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 99999;
   flex-direction: column;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.8s ease-out; /* 🔥 더 부드러운 전환 */
 }
 
 .loading-content {
-  text-align: center;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* 🔥 Loading 텍스트 제거 */
 .loading-content p {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
+  display: none; /* Loading 텍스트 숨김 */
 }
 
+/* 🔥 로딩 게이지를 배경 라인과 같은 위치/스타일로 */
 .progress-bar {
-  width: 200px;
-  height: 8px;
-  background: #333;
-  border-radius: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%; /* 🔥 적당한 너비 */
+  height: 3.5px; /* 🔥 배경 라인과 동일한 굵기 */
+  background: transparent; /* 🔥 배경 제거 */
+  border-radius: 0; /* 🔥 직선으로 변경 */
   overflow: hidden;
 }
 
 .progress-fill {
   width: 0%;
   height: 100%;
-  background: #fff;
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #E37031 20%, 
+    #ff8c42 50%, 
+    #E37031 80%, 
+    transparent 100%
+  ); /* 🔥 배경 라인과 동일한 그라데이션 */
+  transition: width 0.5s ease;
+  opacity: 0.8; /* 🔥 로딩 시에는 더 선명하게 */
 }
 
 /* NAVIGATION BAR */
@@ -237,13 +252,6 @@ a:hover {
     font-size: 2.5rem;
     line-height: 0.9;
   }
-  .background-animation-line {
-  animation-duration: 8s;   /* 더 느린 애니메이션 */
-  height: 1px;              /* 매우 얇은 라인 */
-  opacity: 0.3;             /* 더 은은하게 */
-  width: 90%;               /* 화면에 맞게 조정 */
-  left: 5%;                 /* 완전 중앙 정렬 */
-}
 }
 
 h1, h2, h3 {
@@ -271,7 +279,7 @@ h1, h2, h3 {
   top: 50%;
   left: -10%;
   width: 120%;
-  height: 3.5px;
+  height: 2px;
   background: linear-gradient(90deg, 
     transparent 0%, 
     #E37031 20%, 
@@ -313,7 +321,7 @@ h1, h2, h3 {
 }
 
 .slogan-line {
-  font-size: 5.5rem;          /* 🔥 크기 조정 (4rem → 5rem) */
+  font-size: 5rem;          /* 🔥 크기 조정 (4rem → 5rem) */
   font-weight: 850;
   line-height: 1.4;
   color: white;
@@ -851,7 +859,7 @@ body.mobile {
   white-space: nowrap;
   animation: scrollLeft 20s linear infinite;
   font-size: 9rem;
-  font-weight: 400;
+  font-weight: 700;
   color: white;
   text-transform: uppercase;
   letter-spacing: 0;
@@ -1006,9 +1014,9 @@ body {
     height: 24px;
   }
   
-  /* 🔥 슬로건 섹션 모바일 센터 정렬 */
+  /* 🔥 슬로건 섹션 모바일 센터 정렬 - 화면 전체 */
   .hero-slogan-section {
-    min-height: 100vh;
+    min-height: 100vh;        /* 🔥 80vh → 100vh로 변경 (화면 전체) */
     padding: 0 1rem;
     align-items: center;      /* 🔥 모바일에서도 센터 */
     justify-content: center;  /* 🔥 모바일에서도 센터 */
@@ -1021,18 +1029,18 @@ body {
   }
 
   .slogan-line {
-    font-size: 1.7rem;         /* 🔥 모바일 크기 조정 */
+    font-size: 2rem;         /* 🔥 모바일 크기 조정 */
     white-space: normal;     /* 모바일에서는 줄바꿈 허용 */
     text-align: center;      /* 🔥 모바일에서도 중앙 정렬 */
   }
 
   .background-animation-line {
-  animation-duration: 6s;   /* 데스크톱 8s → 6s */
-  height: 2px;              /* 데스크톱 3.5px → 2px */
-  opacity: 0.4;             /* 데스크톱 0.6 → 0.4 */
-  width: 100%;              /* 데스크톱 120% → 100% */
-  left: 0%;                 /* 데스크톱 -10% → 0% */
-}
+    animation-duration: 6s;   /* 🔥 모바일에서 애니메이션 속도 조정 */
+    height: 1px;              /* 🔥 모바일에서 라인 더 얇게 */
+    opacity: 0.5;             /* 🔥 모바일에서 투명도 조정 */
+    width: 100%;              /* 🔥 모바일에서 너비 조정 */
+    left: 0;                  /* 🔥 모바일에서 위치 조정 */
+  }
 
   .scroll-indicator {
     bottom: 2rem;
@@ -1245,9 +1253,9 @@ body {
 }
 
 @media (max-width: 480px) {
-  /* 🔥 작은 모바일 슬로건 섹션 */
+  /* 🔥 작은 모바일 슬로건 섹션 - 화면 전체 유지 */
   .hero-slogan-section {
-    min-height: 100vh;
+    min-height: 100vh;        /* 🔥 70vh → 100vh로 변경 */
     padding: 0 0.5rem;
   }
 
@@ -1255,8 +1263,17 @@ body {
     padding: 0 0.5rem;
   }
 
+  /* 🔥 작은 모바일에서 애니메이션 라인 더 세밀하게 조정 */
+  .background-animation-line {
+    animation-duration: 8s;   /* 🔥 더 느린 애니메이션 */
+    height: 1px;              /* 🔥 더 얇은 라인 */
+    opacity: 0.4;             /* 🔥 더 은은하게 */
+    width: 90%;               /* 🔥 작은 화면에 맞게 너비 조정 */
+    left: 5%;                 /* 🔥 중앙 정렬 */
+  }
+
   .slogan-line {
-    font-size: 1.1rem;        /* 🔥 작은 모바일 크기 */
+    font-size: 1.5rem;        /* 🔥 작은 모바일 크기 */
   }
 
   .scroll-indicator {
