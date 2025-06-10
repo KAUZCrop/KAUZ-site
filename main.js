@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 로딩 스크린 페이드 아웃
     if (loadingScreen) {
-      loadingScreen.style.transition = 'opacity 0.5s ease';
+      loadingScreen.style.transition = 'opacity 0.8s ease';
       loadingScreen.style.opacity = '0';
     }
 
@@ -435,6 +435,13 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburger.style.display = 'flex';
       hamburger.style.visibility = 'visible';
       hamburger.style.opacity = '1';
+    }
+
+    // 🔥 배경 애니메이션 라인 활성화
+    const backgroundLine = document.querySelector('.background-animation-line');
+    if (backgroundLine) {
+      backgroundLine.classList.add('active');
+      console.log('✅ Background animation line activated');
     }
 
     // 🔥 로딩 완료 후 스크롤 활성화
@@ -448,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingScreen.style.display = 'none';
       }
       startTypingAnimation();
-    }, 500);
+    }, 800); // 🔥 배경 라인 전환 시간에 맞춤
   }
 
   // 초기 로딩 진행률 설정
