@@ -98,7 +98,7 @@ a:hover {
 /* 🔥 SCROLL과 라인을 감싸는 컨테이너 */
 .about-bottom-elements {
   position: absolute;
-  bottom: 2rem;
+  bottom: 4rem;
   left: 25px;
   display: flex;
   flex-direction: column;
@@ -429,7 +429,7 @@ body {
 
   /* 🔥 모바일 SCROLL과 라인 - 간격 조정 */
   .about-bottom-elements {
-    bottom: 2rem;
+    bottom: 3rem;
     left: 1rem;
     gap: 10px; /* 🔥 모바일에서 10px 간격 */
   }
@@ -546,7 +546,7 @@ body {
 
   /* 🔥 작은 모바일 SCROLL과 라인 - 간격 유지 */
   .about-bottom-elements {
-    bottom: 1.5rem;
+    bottom: 2rem;
     left: 0.5rem;
     gap: 8px; /* 🔥 작은 모바일에서 8px 간격 */
   }
