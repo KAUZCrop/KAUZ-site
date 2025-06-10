@@ -38,7 +38,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 99999; /* 🔥 최고 우선순위로 변경 */
+  z-index: 99999;
   flex-direction: column;
   transition: opacity 0.5s ease-out;
 }
@@ -65,7 +65,7 @@ a:hover {
   width: 0%;
   height: 100%;
   background: #fff;
-  transition: width 0.3s ease; /* 🔥 animation 대신 transition 사용 */
+  transition: width 0.3s ease;
 }
 
 /* NAVIGATION BAR */
@@ -106,16 +106,16 @@ a:hover {
   height: 28px;
   z-index: 10001;
   cursor: pointer;
-  display: none; /* 🔥 초기에는 숨김 */
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: transparent;
   border: none;
   padding: 0;
-  visibility: hidden; /* 🔥 추가 */
-  opacity: 0; /* 🔥 추가 */
-  transition: all 0.3s ease; /* 🔥 추가 */
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
 .hamburger span {
@@ -126,10 +126,10 @@ a:hover {
   border-radius: 2px;
   transition: all 0.3s ease;
   transform-origin: center;
-  display: block; /* 🔥 명시적으로 추가 */
+  display: block;
 }
 
-/* 기본 햄버거 상태 - 수정 */
+/* 기본 햄버거 상태 */
 .hamburger span:nth-child(1) {
   transform: translateY(-6px);
 }
@@ -138,7 +138,7 @@ a:hover {
   transform: translateY(6px);
 }
 
-/* 활성화된 햄버거 (X 모양) - 완벽한 대칭 */
+/* 활성화된 햄버거 (X 모양) */
 .hamburger.active span:nth-child(1) {
   transform: translateY(0) rotate(45deg);
 }
@@ -147,52 +147,52 @@ a:hover {
   transform: translateY(0) rotate(-45deg);
 }
 
-/* 메뉴 오버레이 - 완전 수정된 버전 */
+/* 메뉴 오버레이 */
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(13, 13, 13, 0.98); /* 🔥 약간 투명하게 */
+  background-color: rgba(13, 13, 13, 0.98);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  visibility: hidden; /* 🔥 추가 */
-  pointer-events: none; /* 🔥 비활성화 상태에서는 클릭 불가 */
+  visibility: hidden;
+  pointer-events: none;
   transition: all 0.4s ease;
   z-index: 10000;
-  backdrop-filter: blur(10px); /* 🔥 블러 효과 */
+  backdrop-filter: blur(10px);
 }
 
 .menu-overlay.active {
   opacity: 1;
-  visibility: visible; /* 🔥 보이게 */
-  pointer-events: auto; /* 🔥 활성화 상태에서만 클릭 가능 */
+  visibility: visible;
+  pointer-events: auto;
 }
 
-/* 메뉴 콘텐츠 - 수정된 버전 */
+/* 메뉴 콘텐츠 */
 .menu-content {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* 🔥 2.5rem → 1rem으로 줄임 (더 촘촘한 행간) */
+  gap: 1rem;
   align-items: center;
   text-align: center;
   z-index: 10001;
-  position: relative; /* common.css용 */
+  position: relative;
 }
 
 .menu-content a {
   color: #fff;
-  font-size: 4.5rem; /* 🔥 3rem → 4.5rem으로 증가 */
+  font-size: 4.5rem;
   font-weight: 500;
   text-decoration: none;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.3s ease;
   cursor: pointer;
-  line-height: 0.9; /* 🔥 1.1 → 0.9로 줄임 (더 촘촘한 행간) */
-  margin: 0.2rem 0; /* 🔥 각 메뉴 항목 간 약간의 여백 */
-  letter-spacing: -0.02em; /* 🔥 글자 간격 약간 줄임 */
+  line-height: 0.9;
+  margin: 0.2rem 0;
+  letter-spacing: -0.02em;
 }
 
 .menu-content a:hover {
@@ -222,11 +222,11 @@ a:hover {
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .menu-content {
-    gap: 0.8rem; /* 모바일에서도 줄임 */
+    gap: 0.8rem;
   }
   
   .menu-content a {
-    font-size: 3rem; /* 🔥 2.5rem → 3rem으로 증가 */
+    font-size: 3rem;
     line-height: 0.9;
     margin: 0.1rem 0;
   }
@@ -247,12 +247,12 @@ h1, h2, h3 {
 .hero-slogan-section {
   position: relative;
   width: 100%;
-  min-height: 100vh; /* 넓은 영역 */
+  min-height: 100vh;
   background-color: #0D0D0D;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center; /* 🔥 전체 섹션 센터 정렬 */
   padding: 0 25px;
   box-sizing: border-box;
   overflow: hidden;
@@ -293,22 +293,26 @@ h1, h2, h3 {
   }
 }
 
-/* 슬로건 스타일 - About 페이지와 동일한 위치/크기 */
+/* 🔥 슬로건 스타일 - 화면 센터 정렬 */
 .hero-slogan {
   position: relative;
   z-index: 2;
-  margin-left: clamp(3.2vw, 3.7vw, 4vw); /* About과 동일한 마진 */
   width: 100%;
-  max-width: 80%;
+  height: auto;
+  display: flex;
+  align-items: center;      /* 🔥 세로 중앙 정렬 */
+  justify-content: center;  /* 🔥 가로 중앙 정렬 */
+  text-align: center;       /* 🔥 텍스트 중앙 정렬 */
 }
 
 .slogan-line {
-  font-size: 4rem; /* About h3과 동일한 크기 */
+  font-size: 5rem;          /* 🔥 크기 조정 (4rem → 5rem) */
   font-weight: 850;
   line-height: 1.4;
   color: white;
   white-space: nowrap;
   overflow: hidden;
+  text-align: center;       /* 🔥 확실한 중앙 정렬 */
 }
 
 /* 타이핑 커서 애니메이션 */
@@ -328,7 +332,7 @@ h1, h2, h3 {
 .scroll-indicator {
   position: absolute;
   bottom: 3rem;
-  left: 25px; /* 왼쪽 정렬 */
+  left: 25px;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -368,7 +372,7 @@ section h2 {
   margin-bottom: 2rem;
 }
 
-/* About 섹션 클릭 가능하게 만들기 + 커서 애니메이션 */
+/* About 섹션 클릭 가능하게 만들기 */
 .about-custom {
   padding: 4rem 2rem;
   cursor: pointer;
@@ -376,13 +380,11 @@ section h2 {
   transition: all 0.3s ease;
 }
 
-/* 클릭 시 애니메이션만 유지 */
 .about-custom:active {
   transform: scale(0.998);
   transition: transform 0.1s ease;
 }
 
-/* 모바일에서는 모든 애니메이션 제거 */
 @media (max-width: 768px) {
   .about-custom:hover {
     cursor: pointer;
@@ -464,11 +466,11 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   포트폴리오 섹션 - 헤더 수정 (타이틀 + more+ 링크)
+   포트폴리오 섹션
    ═══════════════════════════════════════════════════════════════ */
 
 #PortfolioSlider {
-  padding: 0; /* 패딩 제거 */
+  padding: 0;
   background-color: #0D0D0D;
   overflow: hidden !important;
   width: 100%;
@@ -477,14 +479,13 @@ body.mobile {
   overflow-x: hidden !important;
 }
 
-/* 기존 h2를 수정해서 Portfolio 타이틀로 사용 */
 #PortfolioSlider h2 {
-  display: block !important; /* 기존 숨김 해제 */
+  display: block !important;
   font-size: 30px !important;
   color: #BFBFBF !important;
-  text-align: left !important; /* 왼쪽 정렬 */
+  text-align: left !important;
   margin: 0 !important;
-  padding: 3rem 0 1.5rem 25px !important; /* 상단 3rem, 좌측 25px */
+  padding: 3rem 0 1.5rem 25px !important;
   font-weight: normal !important;
   letter-spacing: 0.5px !important;
   cursor: default !important;
@@ -499,11 +500,10 @@ body.mobile {
   opacity: 0.7 !important;
 }
 
-/* More+ 링크만 별도로 배치 */
 .portfolio-more-link {
   position: absolute !important;
-  right: 25px !important; /* 우측 25px 마진 */
-  top: 3rem !important; /* h2와 같은 높이 */
+  right: 25px !important;
+  top: 3rem !important;
   font-size: 30px !important;
   color: #BFBFBF !important;
   text-decoration: none !important;
@@ -513,7 +513,7 @@ body.mobile {
   letter-spacing: 0.5px !important;
   cursor: pointer !important;
   transition: opacity 0.3s ease !important;
-  z-index: 1001 !important; /* h2보다 위에 */
+  z-index: 1001 !important;
   pointer-events: auto !important;
   display: block !important;
   visibility: visible !important;
@@ -527,18 +527,16 @@ body.mobile {
   opacity: 0.7 !important;
 }
 
-/* 포트폴리오 컨테이너 위치 조정 */
 .portfolio-container {
   display: flex;
   width: calc(100% - 50px);
   height: 600px;
-  margin: 0 25px 3rem 25px; /* 하단에 3rem 마진 추가 */
+  margin: 0 25px 3rem 25px;
   box-sizing: border-box;
   position: relative;
   gap: 1.5rem;
 }
 
-/* 나머지 포트폴리오 스타일은 기존과 동일하게 유지 */
 .portfolio-slide:nth-child(4) {
   flex: 0 0 calc(25% - 1.125rem);
   height: 100%;
@@ -618,7 +616,7 @@ body.mobile {
   text-align: right;
 }
 
-/* 호버 효과는 기존과 동일 */
+/* 호버 효과 */
 .portfolio-slide:nth-child(1).portfolio-expanded,
 .portfolio-slide:nth-child(2).portfolio-expanded,
 .portfolio-slide:nth-child(3).portfolio-expanded {
@@ -675,10 +673,9 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Our Client 섹션 - 모바일 수정
+   Our Client 섹션
    ═══════════════════════════════════════════════════════════════ */
 
-/* 웹 버전 Our Client - 기존 코드 유지 */
 #our-client {
   padding: 4rem 0 2rem 0;
   background-color: #0D0D0D;
@@ -698,8 +695,8 @@ body.mobile {
   width: 100%;
   position: relative;
   padding-bottom: 15px;
-  max-width: 1200px; /* 🔥 최대 너비 설정 */
-  margin: 0 auto; /* 🔥 중앙 정렬 */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .client-row {
@@ -707,10 +704,10 @@ body.mobile {
   justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
-  gap: 3rem; /* 🔥 5.6rem → 3rem으로 간격 조정 */
+  gap: 3rem;
   width: 100%;
   position: relative;
-  flex-wrap: nowrap; /* 🔥 줄바꿈 방지 */
+  flex-wrap: nowrap;
 }
 
 .client-logo {
@@ -726,7 +723,7 @@ body.mobile {
   position: relative;
   opacity: 1;
   transition: opacity 0.3s ease;
-  flex-shrink: 0; /* 🔥 크기 고정 */
+  flex-shrink: 0;
 }
 
 .client-logo img {
@@ -741,7 +738,6 @@ body.mobile {
   filter: grayscale(0%);
 }
 
-/* 웹 버전 페이드 효과 */
 .client-row:nth-child(1) {
   opacity: 1;
 }
@@ -815,13 +811,12 @@ body.mobile {
   opacity: 0.7;
 }
 
-/* 웹에서는 모바일 그리드 숨기기 */
 .client-mobile-grid {
   display: none !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Contact Us 무한 롤링 - 끊김 없이 계속
+   Contact Us 무한 롤링
    ═══════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
@@ -833,16 +828,15 @@ body.mobile {
   color: white;
   overflow: hidden;
   position: relative;
-  cursor: pointer; /* 전체 영역 클릭 가능 표시 */
-  user-select: none; /* 텍스트 선택 방지 */
+  cursor: pointer;
+  user-select: none;
 }
 
-/* 스크롤 컨테이너 */
 .scrolling-container {
   position: relative;
   width: 100%;
   overflow: hidden;
-  pointer-events: none; /* 스크롤 방해 방지 */
+  pointer-events: none;
 }
 
 .scrolling-text {
@@ -857,7 +851,7 @@ body.mobile {
   font-family: 'Bebas Neue', sans-serif;
   line-height: 1;
   transform: scaleY(1.2);
-  pointer-events: none; /* 애니메이션 요소는 클릭 방지 */
+  pointer-events: none;
 }
 
 .scrolling-text-clone {
@@ -875,7 +869,7 @@ body.mobile {
   position: absolute;
   top: 0;
   left: 100%;
-  pointer-events: none; /* 애니메이션 요소는 클릭 방지 */
+  pointer-events: none;
 }
 
 .scrolling-item {
@@ -884,7 +878,7 @@ body.mobile {
   text-decoration: none;
   color: white;
   display: inline-block;
-  pointer-events: none; /* 개별 아이템 클릭 방지 */
+  pointer-events: none;
 }
 
 .divider {
@@ -894,10 +888,9 @@ body.mobile {
   font-size: 9rem;
   line-height: 1;
   display: inline-block;
-  pointer-events: none; /* 구분자 클릭 방지 */
+  pointer-events: none;
 }
 
-/* 전체 섹션 호버 효과 */
 #contact:hover {
   opacity: 0.8;
   transition: opacity 0.3s ease;
@@ -908,7 +901,6 @@ body.mobile {
   transition: opacity 0.1s ease;
 }
 
-/* 끊김 없는 무한 스크롤 애니메이션 */
 @keyframes scrollLeft {
   0% {
     transform: translateX(0) scaleY(1.2);
@@ -919,7 +911,7 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Footer 수정 - 모바일 좌우 정렬
+   Footer
    ═══════════════════════════════════════════════════════════════ */
 
 .site-footer {
@@ -988,12 +980,12 @@ body {
    모바일 대응
    ═══════════════════════════════════════════════════════════════ */
 
-/* 모바일 포트폴리오 섹션 - 한 줄에 4개 이미지 */
+/* 🔥 모바일 대응 - 슬로건 섹션 센터 정렬 */
 @media (max-width: 768px) {
   /* 전역 설정 */
   body {
     overflow-x: hidden;
-    overflow-y: auto; /* 세로 스크롤 보장 */
+    overflow-y: auto;
   }
   
   main {
@@ -1007,41 +999,28 @@ body {
     height: 24px;
   }
   
-  .hero-slogan {
-    min-height: calc(12vh + 18px);
-    padding-top: 80px;
-    padding-bottom: 20px;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .slogan-line {
-    font-size: 5vw;
-    white-space: normal;
-    text-align: center;
-    min-height: 5vw;
-  }
-
-/* 모바일 대응 - 슬로건 섹션 */
-@media (max-width: 768px) {
+  /* 🔥 슬로건 섹션 모바일 센터 정렬 */
   .hero-slogan-section {
-    min-height: 80vh; /* 모바일에서 높이 조정 */
+    min-height: 80vh;
     padding: 0 1rem;
+    align-items: center;      /* 🔥 모바일에서도 센터 */
+    justify-content: center;  /* 🔥 모바일에서도 센터 */
   }
 
   .hero-slogan {
-    margin-left: 0.5rem; /* 모바일에서 마진 조정 */
-    max-width: 95%;
+    align-items: center;      /* 🔥 모바일에서도 센터 */
+    justify-content: center;  /* 🔥 모바일에서도 센터 */
+    padding: 0 1rem;         /* 좌우 여백만 */
   }
 
   .slogan-line {
-    font-size: 1.25rem; /* 모바일 폰트 크기 */
-    line-height: 1.3;
-    white-space: normal; /* 모바일에서는 줄바꿈 허용 */
+    font-size: 2rem;         /* 🔥 모바일 크기 조정 */
+    white-space: normal;     /* 모바일에서는 줄바꿈 허용 */
+    text-align: center;      /* 🔥 모바일에서도 중앙 정렬 */
   }
 
   .background-animation-line {
-    animation-duration: 6s; /* 모바일에서 애니메이션 속도 조정 */
+    animation-duration: 6s;
   }
 
   .scroll-indicator {
@@ -1057,35 +1036,6 @@ body {
   .scroll-arrow {
     font-size: 1rem;
   }
-}
-
-@media (max-width: 480px) {
-  .hero-slogan-section {
-    min-height: 70vh;
-    padding: 0 0.5rem;
-  }
-
-  .hero-slogan {
-    margin-left: 0.2rem;
-  }
-
-  .slogan-line {
-    font-size: 1.1rem;
-  }
-
-  .scroll-indicator {
-    bottom: 1.5rem;
-    left: 0.5rem;
-  }
-
-  .scroll-text {
-    font-size: 0.75rem;
-  }
-
-  .scroll-arrow {
-    font-size: 0.9rem;
-  }
-}
   
   .about-row {
     flex-direction: column !important;
@@ -1193,7 +1143,7 @@ body {
   .scrolling-text {
     font-size: 2.5rem;
     animation-duration: 12s;
-    transform: none; /* 모바일에서 scaleY 제거 */
+    transform: none;
   }
   
   .scrolling-item {
@@ -1207,7 +1157,7 @@ body {
   
   #contact {
     padding: 2rem 0;
-    overflow: hidden; /* 가로 스크롤만 방지 */
+    overflow: hidden;
   }
 
   /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
@@ -1261,7 +1211,7 @@ body {
   
   /* 푸터 모바일 - 좌우 정렬 */
   .site-footer {
-    justify-content: space-between !important; /* 좌우 정렬 */
+    justify-content: space-between !important;
     align-items: center;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -1284,14 +1234,31 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero-slogan {
-    min-height: calc(11vh + 15px);
-    padding-top: 70px;
-    padding-bottom: 18px;
+  /* 🔥 작은 모바일 슬로건 섹션 */
+  .hero-slogan-section {
+    min-height: 70vh;
+    padding: 0 0.5rem;
   }
-  
+
+  .hero-slogan {
+    padding: 0 0.5rem;
+  }
+
   .slogan-line {
-    font-size: 4.5vw;
+    font-size: 1.5rem;        /* 🔥 작은 모바일 크기 */
+  }
+
+  .scroll-indicator {
+    bottom: 1.5rem;
+    left: 0.5rem;
+  }
+
+  .scroll-text {
+    font-size: 0.75rem;
+  }
+
+  .scroll-arrow {
+    font-size: 0.9rem;
   }
 
   /* 포트폴리오 */
@@ -1317,7 +1284,7 @@ body {
   .scrolling-text {
     font-size: 1.8rem;
     animation-duration: 10s;
-    transform: none; /* 작은 모바일에서도 변형 제거 */
+    transform: none;
   }
   
   .divider {
@@ -1351,13 +1318,13 @@ body {
 /* 🔥 웹 반응형 대응 개선 */
 @media screen and (max-width: 1400px) {
   .client-row {
-    gap: 2rem; /* 큰 화면에서 간격 줄임 */
+    gap: 2rem;
   }
 }
 
 @media screen and (max-width: 1200px) {
   .client-row {
-    gap: 1.5rem; /* 중간 화면에서 더 줄임 */
+    gap: 1.5rem;
   }
   
   .client-logo {
