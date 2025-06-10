@@ -273,7 +273,7 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* 🔥 배경 애니메이션 라인 */
+/* 🔥 백그라운드 애니메이션 라인 - 왼쪽에서 오른쪽으로 이동하는 모션으로 수정 */
 .background-animation-line {
   position: absolute;
   top: 50%;
@@ -289,21 +289,27 @@ h1, h2, h3 {
   );
   transform: translateY(-50%);
   z-index: 1;
-  animation: flowLine 8s ease-in-out infinite;
+  animation: moveLineLeftToRight 4s ease-in-out infinite;
   opacity: 0.6;
 }
 
-/* 라인 흐르는 애니메이션 */
-@keyframes flowLine {
+/* 왼쪽에서 오른쪽으로 이동하는 애니메이션 */
+@keyframes moveLineLeftToRight {
   0% {
-    transform: translateY(-50%) translateX(-100px);
+    transform: translateY(-50%) translateX(-100%);
     opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
   }
   50% {
     opacity: 0.8;
   }
+  90% {
+    opacity: 0.6;
+  }
   100% {
-    transform: translateY(-50%) translateX(100px);
+    transform: translateY(-50%) translateX(50%);
     opacity: 0;
   }
 }
@@ -1034,12 +1040,13 @@ body {
     text-align: center;      /* 🔥 모바일에서도 중앙 정렬 */
   }
 
+  /* 🔥 모바일 백그라운드 라인 애니메이션 조정 */
   .background-animation-line {
-    animation-duration: 6s;   /* 🔥 모바일에서 애니메이션 속도 조정 */
-    height: 1px;              /* 🔥 모바일에서 라인 더 얇게 */
-    opacity: 0.5;             /* 🔥 모바일에서 투명도 조정 */
-    width: 100%;              /* 🔥 모바일에서 너비 조정 */
-    left: 0;                  /* 🔥 모바일에서 위치 조정 */
+    animation: moveLineLeftToRightMobile 3s ease-in-out infinite;
+    height: 1px;
+    opacity: 0.5;
+    width: 100%;
+    left: 0;
   }
 
   .scroll-indicator {
@@ -1252,6 +1259,27 @@ body {
   }
 }
 
+/* 모바일 백그라운드 라인 애니메이션 */
+@keyframes moveLineLeftToRightMobile {
+  0% {
+    transform: translateY(-50%) translateX(-80%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-50%) translateX(80%);
+    opacity: 0;
+  }
+}
+
 @media (max-width: 480px) {
   /* 🔥 작은 모바일 슬로건 섹션 - 화면 전체 유지 */
   .hero-slogan-section {
@@ -1265,7 +1293,7 @@ body {
 
   /* 🔥 작은 모바일에서 애니메이션 라인 더 세밀하게 조정 */
   .background-animation-line {
-    animation-duration: 8s;   /* 🔥 더 느린 애니메이션 */
+    animation-duration: 4s;   /* 🔥 더 느린 애니메이션 */
     height: 1px;              /* 🔥 더 얇은 라인 */
     opacity: 0.4;             /* 🔥 더 은은하게 */
     width: 90%;               /* 🔥 작은 화면에 맞게 너비 조정 */
