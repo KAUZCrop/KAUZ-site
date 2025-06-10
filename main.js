@@ -4,18 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressFill  = document.querySelector('.progress-fill');
   const hamburger     = document.getElementById('hamburger');
   const menuOverlay   = document.getElementById('menu-overlay');
-  const scrollingContainer = document.querySelector('.scrolling-container');
-  const scrollingText = document.querySelector('.scrolling-text');
+  const scrollIndicator = document.querySelector('.scroll-indicator'); // 🔥 추가
   const contactSection = document.getElementById('contact');
 
-  console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay });
+  console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay, scrollIndicator });
 
   // 🔥 로딩 중 스크롤 비활성화
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
 
   // ═══════════════════════════════════════════════════════════════
-  // 🔥 한글 검색어 대응 시스템 (강화 버전)
+  // 🔥 한글 검색어 대응 시스템 (기존 코드 유지)
   // ═══════════════════════════════════════════════════════════════
 
   // 1) 한글 자모 → QWERTY 라틴 알파벳 매핑 테이블
@@ -56,38 +55,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 🔥 직접적인 한글 검색어들
     const koreanVariants = [
-      '카우즈',     // 메인 한글명
-      '카우스',     // 발음 변형
-      '까우즈',     // 된소리 변형
-      '까우스',     // 된소리 + 발음 변형
-      '가우즈',     // ㄱ/ㅋ 혼동
-      '가우스',     // 가우스 (수학자 이름과 혼동 가능)
-      'kauz corp',  // 회사명 포함
-      '카우즈 광고', // 업종 포함
-      '카우즈 광고대행사',
-      '카우즈코프',  // Corp 한글화
-      '카우즈크롭',  // Crop 한글화 (도메인명 관련)
+      '카우즈', '카우스', '까우즈', '까우스', '가우즈', '가우스',
+      'kauz corp', '카우즈 광고', '카우즈 광고대행사',
+      '카우즈코프', '카우즈크롭',
     ];
     
     // 🔥 영어 검색어들
     const englishVariants = [
-      'kauz',
-      'kauzcorp',
-      'kauz corp',
-      'kauz crop',    // 도메인명
-      'kauzcrop',
-      'kaus',         // z/s 오타
-      'kause',        // 발음대로 철자
-      'kawz',         // u/w 오타
-      'kauzs',        // 복수형 실수
+      'kauz', 'kauzcorp', 'kauz corp', 'kauz crop', 'kauzcrop',
+      'kaus', 'kause', 'kawz', 'kauzs',
     ];
     
-    // 🔥 자모 분리 오타들 (기존)
-    const jamoTypos = [
-      'ㅏ몈',        // ka + uz 자모 분리
-      'ㅏ묜',        // 다른 자모 조합
-      'ㅏ뭊',        // 또 다른 변형
-    ];
+    // 🔥 자모 분리 오타들
+    const jamoTypos = ['ㅏ몈', 'ㅏ묜', 'ㅏ뭊'];
     
     // 직접 매칭 체크
     if (koreanVariants.includes(cleanInput) || 
@@ -102,28 +82,22 @@ document.addEventListener('DOMContentLoaded', () => {
       return true;
     }
     
-    // 부분 포함 체크 (너무 넓어지지 않도록 주의)
-    const partialMatches = [
-      'kauz',
-      '카우즈',
-      '카우스'
-    ];
-    
+    // 부분 포함 체크
+    const partialMatches = ['kauz', '카우즈', '카우스'];
     return partialMatches.some(pattern => 
       cleanInput.includes(pattern) || 
       transliterated.includes(pattern)
     );
   }
 
-  // 4) 🔥 URL 쿼리 파라미터 체크 및 리다이렉트 (확장)
+  // 4) 🔥 URL 쿼리 파라미터 체크 및 리다이렉트
   function checkUrlForKauzSearch() {
     try {
       const params = new URLSearchParams(window.location.search);
       
-      // 🔥 더 많은 검색 파라미터 지원
       const searchParams = [
         'q', 'query', 'search', 's', 'keyword', 'k', 
-        'term', 'find', 'lookup', '검색', 'wd'  // 네이버, 다음 등
+        'term', 'find', 'lookup', '검색', 'wd'
       ];
       
       let searchQuery = null;
@@ -135,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (searchQuery && isKauzSearch(searchQuery)) {
         console.log(`🔄 KAUZ 검색어 감지: "${searchQuery}" → 홈페이지로 이동`);
         
-        // 감지된 검색어 로깅 (분석용)
         if (window.gtag) {
           window.gtag('event', 'kauz_search_redirect', {
             'search_term': searchQuery,
@@ -143,12 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
         
-        // 부드러운 전환 효과
         document.body.style.opacity = '0.8';
         document.body.style.transition = 'opacity 0.3s ease';
         
         setTimeout(() => {
-          // 🔥 히스토리 관리 개선
           if (window.history.replaceState) {
             window.history.replaceState({}, document.title, '/');
           }
@@ -164,205 +135,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return false;
   }
 
-  // 5) 🔥 사이트 내 검색창 대응 강화
-  function setupSearchInputHandler() {
-    // 🔥 더 다양한 검색창 선택자
-    const searchSelectors = [
-      'input[type="search"]',
-      'input[name="search"]', 
-      'input[name="q"]',
-      'input[name="query"]',
-      'input[name="keyword"]',
-      '#search-input',
-      '#search',
-      '#q',
-      '.search-input',
-      '.search-box',
-      '.search-field',
-      '[placeholder*="검색"]',
-      '[placeholder*="search"]'
-    ];
-    
-    const searchInputs = document.querySelectorAll(searchSelectors.join(', '));
-    
-    searchInputs.forEach(input => {
-      if (!input) return;
-      
-      // Enter 키 입력 시 처리
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          const query = input.value.trim();
-          
-          if (isKauzSearch(query)) {
-            e.preventDefault();
-            console.log(`🔄 검색창 KAUZ 검색어 감지: "${query}" → 홈페이지로 이동`);
-            
-            // 분석용 이벤트
-            if (window.gtag) {
-              window.gtag('event', 'kauz_search_redirect', {
-                'search_term': query,
-                'redirect_source': 'search_input'
-              });
-            }
-            
-            // 검색창 값을 정정
-            input.value = 'KAUZ';
-            
-            // 홈페이지로 이동
-            setTimeout(() => {
-              window.location.href = '/';
-            }, 200);
-          }
-        }
-      });
-      
-      // 🔥 실시간 힌트 표시 (개선)
-      input.addEventListener('input', (e) => {
-        const query = input.value.trim();
-        
-        if (query && isKauzSearch(query)) {
-          // 입력창에 힌트 표시
-          input.style.borderColor = '#E37031';
-          input.style.boxShadow = '0 0 5px rgba(227, 112, 49, 0.3)';
-          input.title = 'KAUZ를 찾고 계신가요? Enter를 눌러주세요!';
-          
-          // 🔥 자동완성 드롭다운 표시 (선택적)
-          showKauzSuggestion(input, query);
-        } else {
-          input.style.borderColor = '';
-          input.style.boxShadow = '';
-          input.title = '';
-          hideKauzSuggestion(input);
-        }
-      });
-    });
-    
-    console.log(`✅ 검색창 ${searchInputs.length}개에 KAUZ 검색어 대응 기능 추가됨`);
-  }
-
-  // 6) 🔥 자동완성 제안 기능 (선택적)
-  function showKauzSuggestion(input, query) {
-    // 기존 제안 제거
-    hideKauzSuggestion(input);
-    
-    const suggestion = document.createElement('div');
-    suggestion.className = 'kauz-search-suggestion';
-    suggestion.innerHTML = `
-      <div style="
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        border: 1px solid #E37031;
-        border-top: none;
-        padding: 8px 12px;
-        color: #333;
-        font-size: 14px;
-        cursor: pointer;
-        z-index: 1000;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      ">
-        💡 <strong>KAUZ</strong> 종합광고대행사를 찾으시나요?
-      </div>
-    `;
-    
-    // 상대 위치 설정
-    const container = input.parentElement;
-    if (container.style.position !== 'relative') {
-      container.style.position = 'relative';
-    }
-    
-    container.appendChild(suggestion);
-    
-    // 클릭 시 홈페이지로 이동
-    suggestion.addEventListener('click', () => {
-      window.location.href = '/';
-    });
-  }
-
-  function hideKauzSuggestion(input) {
-    const existing = input.parentElement.querySelector('.kauz-search-suggestion');
-    if (existing) {
-      existing.remove();
-    }
-  }
-
-  // 7) 🔥 메타태그에 검색 키워드 추가 함수
-  function addSearchKeywords() {
-    // 기존 keywords 메타태그 찾기
-    let keywordsMeta = document.querySelector('meta[name="keywords"]');
-    
-    const additionalKeywords = [
-      '카우즈', '카우스', '까우즈', '까우스', '가우즈',
-      'KAUZ', 'KAUS', 'KAWZ', 'KAUSE',
-      '카우즈 광고', '카우즈 광고대행사', '카우즈 마케팅',
-      '종합광고대행사', '브랜드 마케팅', '디지털 광고'
-    ];
-    
-    if (!keywordsMeta) {
-      // keywords 메타태그가 없으면 생성
-      keywordsMeta = document.createElement('meta');
-      keywordsMeta.name = 'keywords';
-      keywordsMeta.content = additionalKeywords.join(', ');
-      document.head.appendChild(keywordsMeta);
-    } else {
-      // 기존 키워드에 추가
-      const existingKeywords = keywordsMeta.content;
-      const allKeywords = [existingKeywords, ...additionalKeywords].join(', ');
-      keywordsMeta.content = allKeywords;
-    }
-    
-    console.log('✅ 검색 키워드 메타태그 업데이트 완료');
-  }
-
-  // 8) 🔥 검색 엔진 크롤러 힌트 추가
-  function addSearchEngineHints() {
-    // 대체 철자법 힌트
-    const alternateSpelling = document.createElement('meta');
-    alternateSpelling.name = 'alternate-spellings';
-    alternateSpelling.content = '카우즈, 카우스, 까우즈, ㅏ몈, KAUZ, KAUS, KAWZ';
-    document.head.appendChild(alternateSpelling);
-    
-    // 브랜드 별명 힌트
-    const brandAlias = document.createElement('meta');
-    brandAlias.name = 'brand-aliases';
-    brandAlias.content = '카우즈, KAUZ, 카우즈코프, KAUZ CORP';
-    document.head.appendChild(brandAlias);
-    
-    console.log('✅ 검색 엔진 힌트 메타태그 추가 완료');
-  }
-
-  // 9) 메인 초기화 함수
+  // 5) 메인 초기화 함수
   function initKoreanSearchHandler() {
-    // URL 쿼리 체크
     const redirected = checkUrlForKauzSearch();
     
     if (!redirected) {
-      // 검색창 핸들러 설정
-      setupSearchInputHandler();
-      
-      // 메타태그 업데이트
-      addSearchKeywords();
-      addSearchEngineHints();
+      // 전역 함수로 노출 (디버깅용)
+      window.checkKauzSearch = isKauzSearch;
+      window.convertKoreanTypo = transliterateKoreanToQwerty;
     }
     
-    // 전역 함수로 노출 (디버깅용)
-    window.checkKauzSearch = isKauzSearch;
-    window.convertKoreanTypo = transliterateKoreanToQwerty;
-    
     console.log('🔍 한글 검색어 대응 시스템 초기화 완료');
-    
-    // 🔥 테스트 출력
-    const testCases = [
-      '카우즈', '카우스', '까우즈', 'ㅏ몈', 
-      'KAUZ', 'kaus', '카우즈 광고', '가우즈'
-    ];
-    
-    console.log('📝 검색어 테스트 결과:');
-    testCases.forEach(test => {
-      console.log(`"${test}" → 매칭: ${isKauzSearch(test)}`);
-    });
   }
 
   // 한글 검색어 대응 시스템 초기화
@@ -398,6 +181,19 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.style.overflow = '';
     }
     document.body.classList.remove('menu-open');
+  }
+
+  // ─── 🔥 SCROLL 인디케이터 클릭 이벤트 ───
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', () => {
+      const aboutSection = document.getElementById('about');
+      if (aboutSection) {
+        aboutSection.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
+    console.log('✅ SCROLL 인디케이터 클릭 이벤트 추가됨');
   }
 
   // ─── Contact 섹션 클릭 처리 (스크롤 방해 없이) ───
@@ -594,19 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About section expandable cursor initialized');
   }
 
-  // 리플 애니메이션 CSS 추가
-  const aboutStyle = document.createElement('style');
-  aboutStyle.textContent = `
-    @keyframes aboutRipple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-  `;
-  document.head.appendChild(aboutStyle);
-
-  // ─── 🔥 수정된 Typing Animation Function (한 줄만) ───
+  // ─── 🔥 수정된 Typing Animation Function ───
   function startTypingAnimation() {
     const target1 = document.getElementById('typing-line1');
     
@@ -937,6 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="portfolio-placeholder">Portfolio 3</div>
         </div>
         <div class="portfolio-slide-title">
+          <span class="portfolio-brand-name">샘플 프로젝트 3</span>
           <span class="portfolio-slide-category">Portfolio</span>
         </div>
       </div>
@@ -1008,6 +793,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ─── 무한 롤링 텍스트 설정 ───
+  const scrollingContainer = document.querySelector('.scrolling-container');
+  const scrollingText = document.querySelector('.scrolling-text');
+  
   if (scrollingContainer && scrollingText) {
     // 텍스트 복제하여 끊김 없는 롤링 구현
     const clone = scrollingText.cloneNode(true);
@@ -1057,7 +845,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🛠️ 개발 모드: window.testKoreanSearch() 로 테스트 가능');
   }
 
-  console.log('Main.js initialization complete');
+  console.log('✅ Main.js initialization complete');
 });
 
 // ═══════════════════════════════════════════════════════════════
