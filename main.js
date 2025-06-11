@@ -760,6 +760,22 @@ document.addEventListener('DOMContentLoaded', () => {
           fadeObserver.unobserve(entry.target);
         }
       });
+    }, { threshold: 0.1 });
+    
+    fadeEls.forEach(el => fadeObserver.observe(el));
+    console.log('Fade-up elements initialized:', fadeEls.length);
+  }
+
+  // about-card elements
+  const aboutCards = document.querySelectorAll('.about-card');
+  if (aboutCards.length > 0) {
+    const cardObserver = new IntersectionObserver((entries, obs2) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs2.unobserve(entry.target);
+        }
+      });
     }, { threshold: 0.2 });
     
     aboutCards.forEach(card => cardObserver.observe(card));
@@ -890,20 +906,4 @@ window.addEventListener('load', () => {
   if (typeof window.checkKauzSearch === 'function') {
     console.log('✅ 한글 검색어 대응 시스템 전역 함수 준비 완료');
   }
-});0.1 });
-    
-    fadeEls.forEach(el => fadeObserver.observe(el));
-    console.log('Fade-up elements initialized:', fadeEls.length);
-  }
-
-  // about-card elements
-  const aboutCards = document.querySelectorAll('.about-card');
-  if (aboutCards.length > 0) {
-    const cardObserver = new IntersectionObserver((entries, obs2) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          obs2.unobserve(entry.target);
-        }
-      });
-    }, { threshold:
+});
