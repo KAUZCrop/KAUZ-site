@@ -4,13 +4,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🔄 Common.js loading for sub pages...');
 
-  // ─── 서브페이지 새로고침 방지 ───
-  try {
-    if (performance.getEntriesByType('navigation')[0].type === 'reload') {
-      console.log('🔄 Page refresh detected, redirecting to main...');
-      window.location.href = 'index.html';
-      return;
-    }
   } catch (e) {
     console.log('⚠️ Navigation API not supported, continuing...');
   }
