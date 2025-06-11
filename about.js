@@ -1,15 +1,15 @@
 // about.js (About Us 전용 스크립트) - 수정된 버전
-// 🔥 common.js와의 충돌 방지 및 중복 제거
+// 🔥 강제 리다이렉트 제거 + 새로고침 시 상단 이동
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('📄 About.js starting...');
 
-  // 🔥 페이지 새로고침 감지 및 메인페이지로 리다이렉트
+  // ─── 🔥 새로고침 시 페이지 상단으로 이동 (리다이렉트 대신) ───
   try {
     if (performance.getEntriesByType('navigation')[0].type === 'reload') {
-      console.log('🔄 About page refresh detected, redirecting to main...');
-      window.location.href = 'index.html';
-      return;
+      console.log('🔄 About page refresh detected, scrolling to top...');
+      window.scrollTo(0, 0);
+      // 리다이렉트 코드 제거됨
     }
   } catch (e) {
     console.log('⚠️ Navigation API not supported, continuing...');
