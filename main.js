@@ -176,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburger) {
       hamburger.classList.remove('active');
     }
-    // 메뉴 닫을 때는 로딩이 끝났다면 스크롤 허용
     if (!loadingScreen || loadingScreen.style.display === 'none') {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
@@ -206,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let startY = 0;
     let startTime = 0;
 
-    // 터치/마우스 시작 지점 기록
     contactSection.addEventListener('touchstart', (e) => {
       startY = e.touches[0].clientY;
       startTime = Date.now();
@@ -224,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
       isScrolling = false;
     });
 
-    // 스크롤 감지
     contactSection.addEventListener('touchmove', (e) => {
       const currentY = e.touches[0].clientY;
       const deltaY = Math.abs(currentY - startY);
@@ -243,7 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 클릭/터치 종료 시 처리
     contactSection.addEventListener('touchend', (e) => {
       const endTime = Date.now();
       const duration = endTime - startTime;
@@ -268,7 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (aboutSection) {
     console.log('About section found, initializing interaction...');
     
-    // 커스텀 커서 요소 생성
     const customCursor = document.createElement('div');
     
     customCursor.innerHTML = `
@@ -288,7 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
       opacity: 0;
     `;
     
-    // 커서 스타일 CSS 추가
     const cursorStyle = document.createElement('style');
     cursorStyle.textContent = `
       .cursor-circle {
@@ -345,7 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.body.appendChild(customCursor);
     
-    // 마우스가 About 섹션에 진입할 때
     aboutSection.addEventListener('mouseenter', function() {
       if (window.innerWidth > 768) {
         customCursor.style.opacity = '1';
@@ -353,13 +346,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
-    // 마우스가 About 섹션을 벗어날 때
     aboutSection.addEventListener('mouseleave', function() {
       customCursor.style.opacity = '0';
       customCursor.classList.remove('cursor-expanded');
     });
     
-    // 마우스 움직임 추적
     aboutSection.addEventListener('mousemove', function(e) {
       if (window.innerWidth > 768) {
         const x = e.clientX;
@@ -370,17 +361,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
-    // 클릭 시 About 페이지로 이동
     aboutSection.addEventListener('click', function(e) {
       console.log('About section clicked');
       
-      // 클릭 시 커서 펄스 효과
       customCursor.style.transform = 'translate(-50%, -50%) scale(1.1)';
       setTimeout(() => {
         customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
       }, 150);
       
-      // 부드러운 페이지 전환 효과
       document.body.style.opacity = '0.8';
       document.body.style.transition = 'opacity 0.3s ease';
       
@@ -390,6 +378,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     console.log('About section expandable cursor initialized');
+  }
+
+  // ─── 슬로건 영역 오버플로우 방지 및 반응형 조정 ───
+  function adjustSloganSize() {
+    const heroSloganSection = document.querySelector('.hero-slogan-section');
+    const sloganLine = document.querySelector('.slogan-line');
+    
+    if (!heroSloganSection || !sloganLine) return;
+    
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    let fontSize;
+    
+    if (viewportWidth <= 480) {
+      fontSize = Math.min(viewportWidth * 0.05, 30);
+    } else if (viewportWidth <= 768) {
+      fontSize = Math.min(viewportWidth * 0.08, 45);
+    } else if (viewportWidth <= 1024) {
+      fontSize = Math.min(viewportWidth * 0.1, 80);
+    } else {
+      fontSize = Math.min(viewportWidth * 0.06, 112);
+    }
+    
+    sloganLine.style.fontSize = fontSize + 'px';
+    
+    const textWidth = sloganLine.scrollWidth;
+    const containerWidth = heroSloganSection.clientWidth - 50;
+    
+    if (textWidth > containerWidth) {
+      const ratio = containerWidth / textWidth;
+      fontSize = fontSize * ratio * 0.95;
+      sloganLine.style.fontSize = fontSize + 'px';
+    }
+    
+    console.log(`✅ Slogan size adjusted: ${fontSize}px for viewport: ${viewportWidth}x${viewportHeight}`);
   }
 
   // ─── 수정된 Typing Animation Function ───
@@ -402,6 +426,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Typing target not found');
       return;
     }
+
+    adjustSloganSize();
 
     const line1 = "Knowledge Artistry Understanding Zenith";
     const cursor = '<span class="typing-cursor">|</span>';
@@ -426,32 +452,27 @@ document.addEventListener('DOMContentLoaded', () => {
   function hideLoadingScreen() {
     console.log('Hiding loading screen...');
     
-    // 로딩 스크린 페이드 아웃
     if (loadingScreen) {
       loadingScreen.style.transition = 'opacity 0.8s ease';
       loadingScreen.style.opacity = '0';
     }
 
-    // 햄버거 메뉴 표시
     if (hamburger) {
       hamburger.style.display = 'flex';
       hamburger.style.visibility = 'visible';
       hamburger.style.opacity = '1';
     }
 
-    // 배경 애니메이션 라인 활성화
     const backgroundLine = document.querySelector('.background-animation-line');
     if (backgroundLine) {
       backgroundLine.classList.add('active');
       console.log('✅ Background animation line activated');
     }
 
-    // 로딩 완료 후 스크롤 활성화
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
     document.body.classList.remove('loading');
 
-    // 로딩 스크린 완전 제거 및 타이핑 시작
     setTimeout(() => {
       if (loadingScreen) {
         loadingScreen.style.display = 'none';
@@ -460,12 +481,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 800);
   }
 
-  // 초기 로딩 진행률 설정
   if (progressFill) {
     progressFill.style.width = '50%';
   }
 
-  // 페이지 로드 완료 시
   window.addEventListener('load', () => {
     console.log('Window loaded');
     
@@ -476,7 +495,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(hideLoadingScreen, 500);
   });
 
-  // 폴백: 3초 후에도 로딩 화면이 남아있으면 강제로 숨기기
   setTimeout(() => {
     if (loadingScreen && loadingScreen.style.display !== 'none') {
       console.warn('Forcing loading screen removal');
@@ -505,7 +523,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 메뉴 링크 클릭 시 닫기
     const menuLinks = document.querySelectorAll('#menu-overlay .menu-content a');
     console.log('Menu links found:', menuLinks.length);
     
@@ -519,7 +536,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Hamburger or menu overlay not found!');
   }
 
-  // ─── ESC키로 메뉴 닫기 ───
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       console.log('ESC key pressed');
@@ -529,7 +545,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ─── 메뉴 오버레이 배경 클릭 시 닫기 ───
   if (menuOverlay) {
     menuOverlay.addEventListener('click', (e) => {
       if (e.target === menuOverlay) {
@@ -544,7 +559,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const baseId = 'appglO0MOXGY7CITU';
   const tableName = 'Table%201';
 
-  // 포트폴리오 로딩 함수
   function loadPortfolio() {
     fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -558,7 +572,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       console.log('Airtable data loaded:', data);
       
-      // 최신 4개만 가져오기
       const records = data.records
         .sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime))
         .slice(0, 4);
@@ -570,10 +583,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // 기존 내용 제거
       container.innerHTML = '';
 
-      // 정확히 4개 항목 생성 (빈 슬롯도 포함)
       for (let i = 0; i < 4; i++) {
         const record = records[i];
         const slide = document.createElement('div');
@@ -621,7 +632,6 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(slide);
       }
 
-      // 모바일이 아닐 때만 호버 효과 적용
       const isMobile = window.innerWidth <= 768;
       const slides = container.querySelectorAll('.portfolio-slide');
       
@@ -637,7 +647,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // 포트폴리오 클릭 이벤트 추가
       slides.forEach((slide, index) => {
         slide.addEventListener('click', (e) => {
           console.log(`Portfolio item ${index + 1} clicked`);
@@ -653,7 +662,6 @@ document.addEventListener('DOMContentLoaded', () => {
         slide.style.cursor = 'pointer';
       });
 
-      // 확장 효과 처리 함수
       function handleSlideHover(slides, activeIndex) {
         slides.forEach((slide, index) => {
           slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
@@ -670,7 +678,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // 슬라이드 초기화 함수
       function resetSlides(slides) {
         slides.forEach(slide => {
           slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
@@ -685,7 +692,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 기본 포트폴리오 표시 함수 (Airtable 로드 실패시)
   function displayDefaultPortfolio() {
     const container = document.getElementById('PortfolioSliderList');
     if (!container) return;
@@ -729,7 +735,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     
-    // 기본 포트폴리오에도 클릭 이벤트 추가
     const defaultSlides = container.querySelectorAll('.portfolio-slide');
     defaultSlides.forEach((slide, index) => {
       slide.addEventListener('click', (e) => {
@@ -747,7 +752,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 포트폴리오 로드 실행
   loadPortfolio();
   
   // ─── Scroll-Fade Animations ───
@@ -766,7 +770,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Fade-up elements initialized:', fadeEls.length);
   }
 
-  // about-card elements
   const aboutCards = document.querySelectorAll('.about-card');
   if (aboutCards.length > 0) {
     const cardObserver = new IntersectionObserver((entries, obs2) => {
@@ -782,58 +785,89 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About cards initialized:', aboutCards.length);
   }
 
-  // ─── 🔥 이중 레이어 스트로크 무한 롤링 설정 (기존 롤링 배너 교체) ───
-  const strokeText = document.querySelector('.stroke-text');
-  if (strokeText) {
-    // 🔥 기존 롤링 텍스트 관련 요소들 제거 (충돌 방지)
-    const oldScrollingElements = document.querySelectorAll('.scrolling-container, .scrolling-text:not(.stroke-text), .scrolling-text-clone');
-    oldScrollingElements.forEach(el => {
-      if (el && el.parentNode) {
-        el.parentNode.removeChild(el);
-        console.log('🗑️ Removed old scrolling element:', el.className);
+  // ─── 🔥 안전한 무한 롤링 배너 설정 (오류 방지) ───
+  function initInfiniteScrollBanner() {
+    try {
+      const strokeText = document.querySelector('.stroke-text');
+      if (strokeText) {
+        console.log('✅ Stroke text found, initializing...');
+        
+        const oldScrollingElements = document.querySelectorAll('.scrolling-container, .scrolling-text:not(.stroke-text), .scrolling-text-clone');
+        oldScrollingElements.forEach(el => {
+          try {
+            if (el && el.parentNode) {
+              el.parentNode.removeChild(el);
+              console.log('🗑️ Removed old scrolling element:', el.className || 'unknown');
+            }
+          } catch (removeError) {
+            console.warn('⚠️ Could not remove element:', removeError);
+          }
+        });
+
+        const contactSectionParent = strokeText.parentNode;
+        if (contactSectionParent) {
+          contactSectionParent.style.overflow = 'hidden';
+          contactSectionParent.style.position = 'relative';
+          console.log('✅ Contact section overflow fixed');
+        }
+
+        try {
+          const clone = strokeText.cloneNode(true);
+          clone.style.cssText = `
+            position: absolute;
+            left: 100%;
+            top: 0;
+            animation-delay: 0s;
+            pointer-events: none;
+          `;
+          strokeText.parentNode.appendChild(clone);
+          console.log('✅ Stroke text clone created successfully');
+        } catch (cloneError) {
+          console.warn('⚠️ Could not create stroke text clone:', cloneError);
+        }
+        
+        console.log('✅ Stroke text infinite rolling initialized');
+      } else {
+        console.warn('⚠️ Stroke text element not found - check HTML structure');
       }
-    });
 
-    // 🔥 끊김 없는 무한 롤링을 위한 복제본 생성
-    const clone = strokeText.cloneNode(true);
-    clone.style.position = 'absolute';
-    clone.style.left = '100%';
-    clone.style.top = '0';
-    clone.style.animationDelay = '0s'; // 메인과 동기화
-    strokeText.parentNode.appendChild(clone);
-    
-    console.log('✅ Stroke text infinite rolling initialized');
-  } else {
-    console.warn('⚠️ Stroke text element not found - check HTML structure');
+      const scrollingContainer = document.querySelector('.scrolling-container');
+      const scrollingText = document.querySelector('.scrolling-text');
+      
+      if (scrollingContainer && scrollingText) {
+        try {
+          scrollingContainer.style.overflow = 'hidden';
+          scrollingContainer.style.position = 'relative';
+          
+          const clone = scrollingText.cloneNode(true);
+          clone.classList.add('scrolling-text-clone');
+          clone.style.pointerEvents = 'none';
+          scrollingContainer.appendChild(clone);
+          
+          const texts = scrollingContainer.querySelectorAll('.scrolling-text, .scrolling-text-clone');
+          texts.forEach((text, index) => {
+            text.style.animationDelay = `${index * 10}s`;
+          });
+          
+          console.log('✅ Legacy scrolling text initialized (backup)');
+        } catch (legacyError) {
+          console.warn('⚠️ Error initializing legacy scrolling text:', legacyError);
+        }
+      }
+
+    } catch (error) {
+      console.error('❌ Error in initInfiniteScrollBanner:', error);
+    }
   }
 
-  // ─── 🔥 기존 무한 롤링 텍스트 설정 (혹시 필요한 경우 대비) ───
-  const scrollingContainer = document.querySelector('.scrolling-container');
-  const scrollingText = document.querySelector('.scrolling-text');
-  
-  if (scrollingContainer && scrollingText) {
-    // 텍스트 복제하여 끊김 없는 롤링 구현
-    const clone = scrollingText.cloneNode(true);
-    clone.classList.add('scrolling-text-clone');
-    scrollingContainer.appendChild(clone);
-    
-    // 애니메이션 동기화
-    const texts = scrollingContainer.querySelectorAll('.scrolling-text, .scrolling-text-clone');
-    texts.forEach((text, index) => {
-      text.style.animationDelay = `${index * 10}s`;
-    });
-    
-    console.log('✅ Legacy scrolling text initialized (backup)');
-  }
+  initInfiniteScrollBanner();
 
   // ═══════════════════════════════════════════════════════════════
   // 추가 이벤트 및 테스트
   // ═══════════════════════════════════════════════════════════════
 
-  // URL 변경 감지 (뒤로가기/앞으로가기)
   window.addEventListener('popstate', checkUrlForKauzSearch);
 
-  // 테스트 함수 (개발 중에만 사용)
   function testKoreanSearchHandler() {
     const testCases = [
       'ㅏ몈',      // 한글 오타
@@ -856,21 +890,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 개발 모드에서만 테스트 실행
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     window.testKoreanSearch = testKoreanSearchHandler;
     console.log('🛠️ 개발 모드: window.testKoreanSearch() 로 테스트 가능');
   }
 
-  // 윈도우 리사이즈 시 메뉴 상태 확인
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768 && menuOverlay && menuOverlay.classList.contains('active')) {
       console.log('📏 Window resized to desktop, closing menu');
       closeMenu();
     }
+    
+    adjustSloganSize();
   });
 
-  // 페이지 가시성 변경 시 메뉴 닫기
   document.addEventListener('visibilitychange', () => {
     if (document.hidden && menuOverlay && menuOverlay.classList.contains('active')) {
       console.log('👁️‍🗨️ Page hidden, closing menu');
@@ -878,11 +911,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 디버깅용 전역 함수 노출
   window.debugMain = {
     closeMenu,
     hamburger,
     menuOverlay,
+    adjustSloganSize,
+    initInfiniteScrollBanner,
     isMenuOpen: () => menuOverlay ? menuOverlay.classList.contains('active') : false,
     testClick: () => {
       if (hamburger) {
@@ -894,10 +928,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   console.log('✅ Main.js initialization complete');
-});
+
+}); // 🔥 DOMContentLoaded 이벤트 리스너 닫기
 
 // ═══════════════════════════════════════════════════════════════
-// 전역 스코프 함수들
+// 🔥 전역 스코프 함수들
 // ═══════════════════════════════════════════════════════════════
 
 // 외부에서 한글 검색어 체크가 필요한 경우를 위한 전역 함수
@@ -905,5 +940,8 @@ window.addEventListener('load', () => {
   // 한글 검색어 관련 전역 함수들이 설정되었는지 확인
   if (typeof window.checkKauzSearch === 'function') {
     console.log('✅ 한글 검색어 대응 시스템 전역 함수 준비 완료');
+    
+    // 예시: 외부 스크립트에서 사용 가능
+    // if (window.checkKauzSearch(someUserInput)) { /* 처리 로직 */ }
   }
 });
