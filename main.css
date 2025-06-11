@@ -1267,9 +1267,10 @@ body {
     font-size: 1rem;
   }
   
+  /* 🔥 About 섹션 모바일 수정 - 라인 겹침 문제 해결 */
   .about-row {
     flex-direction: column !important;
-    gap: 0.5rem;
+    gap: 2rem !important; /* 🔥 섹션간 간격 대폭 증가 */
     max-width: 100% !important;
     width: 100% !important;
   }
@@ -1280,19 +1281,65 @@ body {
     width: 100% !important;
     max-width: 100% !important;
     text-align: left !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
+    padding: 2rem 0.5rem !important; /* 🔥 상하 패딩 2rem 추가 */
     margin: 0 !important;
+    position: relative;
   }
   
+  /* 🔥 모바일에서 라인 위치 및 스타일 조정 */
+  .about-left::before,
+  .about-right::before {
+    top: 0.5rem; /* 🔥 상단 라인을 텍스트에서 떨어뜨림 */
+    opacity: 0.5; /* 🔥 모바일에서 더 연하게 */
+    height: 2px; /* 🔥 더 얇게 */
+    background: linear-gradient(90deg, 
+      transparent 0%,
+      transparent 10%,
+      #E37031 20%, 
+      #ff8c42 50%, 
+      #E37031 80%,
+      transparent 90%,
+      transparent 100%
+    );
+  }
+
+  .about-left::after,
+  .about-right::after {
+    bottom: 0.5rem; /* 🔥 하단 라인을 텍스트에서 떨어뜨림 */
+    opacity: 0.5; /* 🔥 모바일에서 더 연하게 */
+    height: 2px; /* 🔥 더 얇게 */
+    background: linear-gradient(90deg, 
+      transparent 0%,
+      transparent 10%,
+      #E37031 20%, 
+      #ff8c42 50%, 
+      #E37031 80%,
+      transparent 90%,
+      transparent 100%
+    );
+  }
+  
+  /* 🔥 텍스트 요소들에 충분한 여백 확보 */
+  .about-left h3, 
   .about-right h3 {
+    margin-top: 1rem; /* 🔥 제목 위 여백 */
+    margin-bottom: 1.5rem; /* 🔥 제목 아래 여백 */
+    position: relative;
+    z-index: 2; /* 🔥 라인 위에 표시 */
     text-align: left !important;
+  }
+
+  .about-left p, 
+  .about-right p {
+    margin-top: 0;
+    margin-bottom: 1rem; /* 🔥 문단 아래 여백 */
+    position: relative;
+    z-index: 2; /* 🔥 라인 위에 표시 */
   }
 
   body.mobile .about-left,
   body.mobile .about-right {
-    padding-left: 0.2rem !important;
-    padding-right: 0.2rem !important;
+    padding: 2rem 0.2rem !important; /* 🔥 모바일 클래스에서도 패딩 증가 */
   }
   
   #PortfolioSlider {
@@ -1580,6 +1627,21 @@ body {
 
   .scroll-arrow {
     font-size: 0.9rem;
+  }
+
+  /* 🔥 작은 모바일에서 About 섹션 추가 조정 */
+  .about-left,
+  .about-right {
+    padding: 1.5rem 0.5rem !important; /* 🔥 작은 모바일 패딩 */
+  }
+
+  /* 🔥 작은 모바일에서 라인 더 연하게 */
+  .about-left::before,
+  .about-right::before,
+  .about-left::after,
+  .about-right::after {
+    opacity: 0.3;
+    height: 1px; /* 🔥 더 얇게 */
   }
 
   /* 포트폴리오 */
