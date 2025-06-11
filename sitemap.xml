@@ -17,7 +17,8 @@
   <!-- About 페이지 -->
   <url>
     <loc>https://kauzcrop.com/about.html</loc>
-    <lastmod>2025-01-09</lastmod>
+<!-- ▼ 수정 후 (오늘 날짜 또는 실제 최종 수정일로 변경) -->
+    <lastmod>2025-06-11</lastmod> 
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
@@ -26,7 +27,8 @@
   <!-- Portfolio 페이지 -->
   <url>
     <loc>https://kauzcrop.com/portfolio.html</loc>
-    <lastmod>2025-01-09</lastmod>
+    <!-- ▼ 수정 후 (오늘 날짜 또는 실제 최종 수정일로 변경) -->
+    <lastmod>2025-06-11</lastmod> 
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
@@ -35,7 +37,8 @@
   <!-- Contact 페이지 -->
   <url>
     <loc>https://kauzcrop.com/contact.html</loc>
-    <lastmod>2025-01-09</lastmod>
+    <!-- ▼ 수정 후 (오늘 날짜 또는 실제 최종 수정일로 변경) -->
+    <lastmod>2025-06-11</lastmod> 
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
