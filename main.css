@@ -727,7 +727,7 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Our Client 섹션
+   Our Client 섹션 (🔥 웹만 수정됨)
    ═══════════════════════════════════════════════════════════════ */
 
 #our-client {
@@ -842,6 +842,16 @@ body.mobile {
   background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.2) 30%, rgba(13, 13, 13, 0.6) 70%, #0D0D0D 100%);
   pointer-events: none;
   z-index: 3;
+}
+
+/* 🔥 HTML에서 추가한 클래스들 처리 (웹만) */
+.almost-hidden {
+  opacity: 0.3 !important;
+  transform: translateY(10px) !important;
+}
+
+.desktop-only {
+  display: flex; /* 웹에서는 보이기 */
 }
 
 .client-more {
