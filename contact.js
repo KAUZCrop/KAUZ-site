@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 🔥 페이지 새로고침 감지 및 메인페이지로 리다이렉트
-  if (performance.getEntriesByType('navigation')[0].type === 'reload') {
-    window.location.href = 'index.html';
-    return;
-  }
 
   const form = document.getElementById('contactForm');
   const formResponse = document.getElementById('formResponse');
