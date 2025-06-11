@@ -1,29 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🔄 Main.js loading...');
-
   // ─── 전역 변수 선언 (요소 존재 확인) ───
   const loadingScreen = document.getElementById('loading-screen');
-  const progressFill = document.querySelector('.progress-fill');
-  const hamburger = document.getElementById('hamburger');
-  const menuOverlay = document.getElementById('menu-overlay');
-  const scrollIndicator = document.querySelector('.scroll-indicator');
+  const progressFill  = document.querySelector('.progress-fill');
+  const hamburger     = document.getElementById('hamburger');
+  const menuOverlay   = document.getElementById('menu-overlay');
+  const scrollIndicator = document.querySelector('.scroll-indicator'); // 🔥 추가
   const contactSection = document.getElementById('contact');
 
-  console.log('Elements found:', { 
-    loadingScreen: !!loadingScreen, 
-    progressFill: !!progressFill, 
-    hamburger: !!hamburger, 
-    menuOverlay: !!menuOverlay, 
-    scrollIndicator: !!scrollIndicator,
-    contactSection: !!contactSection
-  });
+  console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay, scrollIndicator });
 
   // 🔥 로딩 중 스크롤 비활성화
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
 
   // ═══════════════════════════════════════════════════════════════
-  // 🔥 한글 검색어 대응 시스템
+  // 🔥 한글 검색어 대응 시스템 (기존 코드 유지)
   // ═══════════════════════════════════════════════════════════════
 
   // 1) 한글 자모 → QWERTY 라틴 알파벳 매핑 테이블
@@ -55,36 +46,43 @@ document.addEventListener('DOMContentLoaded', () => {
       .join('');
   }
 
-  // 3) KAUZ 관련 검색어 패턴 검사 함수
+  // 3) 🔥 KAUZ 관련 검색어 패턴 검사 함수 - 대폭 확장
   function isKauzSearch(input) {
     if (!input) return false;
     
+    // 입력값 정리 (공백 제거, 소문자 변환)
     const cleanInput = input.trim().toLowerCase();
     
+    // 🔥 직접적인 한글 검색어들
     const koreanVariants = [
       '카우즈', '카우스', '까우즈', '까우스', '가우즈', '가우스',
       'kauz corp', '카우즈 광고', '카우즈 광고대행사',
       '카우즈코프', '카우즈크롭',
     ];
     
+    // 🔥 영어 검색어들
     const englishVariants = [
       'kauz', 'kauzcorp', 'kauz corp', 'kauz crop', 'kauzcrop',
       'kaus', 'kause', 'kawz', 'kauzs',
     ];
     
+    // 🔥 자모 분리 오타들
     const jamoTypos = ['ㅏ몈', 'ㅏ묜', 'ㅏ뭊'];
     
+    // 직접 매칭 체크
     if (koreanVariants.includes(cleanInput) || 
         englishVariants.includes(cleanInput) || 
         jamoTypos.includes(cleanInput)) {
       return true;
     }
     
+    // 자모 분리 → QWERTY 변환 체크
     const transliterated = transliterateKoreanToQwerty(cleanInput);
     if (englishVariants.includes(transliterated)) {
       return true;
     }
     
+    // 부분 포함 체크
     const partialMatches = ['kauz', '카우즈', '카우스'];
     return partialMatches.some(pattern => 
       cleanInput.includes(pattern) || 
@@ -92,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // 4) URL 쿼리 파라미터 체크 및 리다이렉트
+  // 4) 🔥 URL 쿼리 파라미터 체크 및 리다이렉트
   function checkUrlForKauzSearch() {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -137,11 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return false;
   }
 
-  // 5) 한글 검색어 대응 시스템 초기화
+  // 5) 메인 초기화 함수
   function initKoreanSearchHandler() {
     const redirected = checkUrlForKauzSearch();
     
     if (!redirected) {
+      // 전역 함수로 노출 (디버깅용)
       window.checkKauzSearch = isKauzSearch;
       window.convertKoreanTypo = transliterateKoreanToQwerty;
     }
@@ -153,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initKoreanSearchHandler();
 
   // ═══════════════════════════════════════════════════════════════
-  // 메인 기능들
+  // 🔥 기존 main.js 코드 계속...
   // ═══════════════════════════════════════════════════════════════
 
   // ─── Body mobile class toggle ───
@@ -167,15 +166,16 @@ document.addEventListener('DOMContentLoaded', () => {
   setBodyMobileClass();
   window.addEventListener('resize', setBodyMobileClass);
 
-  // ─── 메뉴 닫기 함수 ───
+  // ─── 메뉴 닫기 함수 (강화된 버전) ───
   function closeMenu() {
-    console.log('🔴 Closing menu...');
+    console.log('Closing menu...');
     if (menuOverlay) {
       menuOverlay.classList.remove('active');
     }
     if (hamburger) {
       hamburger.classList.remove('active');
     }
+    // 메뉴 닫을 때는 로딩이 끝났다면 스크롤 허용
     if (!loadingScreen || loadingScreen.style.display === 'none') {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('menu-open');
   }
 
-  // ─── SCROLL 인디케이터 클릭 이벤트 ───
+  // ─── 🔥 SCROLL 인디케이터 클릭 이벤트 ───
   if (scrollIndicator) {
     scrollIndicator.addEventListener('click', () => {
       const aboutSection = document.getElementById('about');
@@ -191,20 +191,19 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutSection.scrollIntoView({
           behavior: 'smooth'
         });
-      } else {
-        console.warn('About section not found');
       }
     });
     console.log('✅ SCROLL 인디케이터 클릭 이벤트 추가됨');
   }
 
-  // ─── Contact 섹션 클릭 처리 ───
+  // ─── Contact 섹션 클릭 처리 (스크롤 방해 없이) ───
   if (contactSection) {
     let isScrolling = false;
     let scrollTimeout;
     let startY = 0;
     let startTime = 0;
 
+    // 터치/마우스 시작 지점 기록
     contactSection.addEventListener('touchstart', (e) => {
       startY = e.touches[0].clientY;
       startTime = Date.now();
@@ -222,11 +221,12 @@ document.addEventListener('DOMContentLoaded', () => {
       isScrolling = false;
     });
 
+    // 스크롤 감지
     contactSection.addEventListener('touchmove', (e) => {
       const currentY = e.touches[0].clientY;
       const deltaY = Math.abs(currentY - startY);
       
-      if (deltaY > 10) {
+      if (deltaY > 10) { // 10px 이상 움직이면 스크롤로 간주
         isScrolling = true;
       }
     }, { passive: true });
@@ -240,10 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // 클릭/터치 종료 시 처리
     contactSection.addEventListener('touchend', (e) => {
       const endTime = Date.now();
       const duration = endTime - startTime;
       
+      // 스크롤이 아니고, 짧은 터치(300ms 이하)면 클릭으로 간주
       if (!isScrolling && duration < 300) {
         e.preventDefault();
         window.location.href = 'contact.html';
@@ -264,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (aboutSection) {
     console.log('About section found, initializing interaction...');
     
+    // 커스텀 커서 요소 생성
     const customCursor = document.createElement('div');
     
     customCursor.innerHTML = `
@@ -283,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
       opacity: 0;
     `;
     
+    // 커서 스타일 CSS 추가
     const cursorStyle = document.createElement('style');
     cursorStyle.textContent = `
       .cursor-circle {
@@ -339,6 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.body.appendChild(customCursor);
     
+    // 마우스가 About 섹션에 진입할 때
     aboutSection.addEventListener('mouseenter', function() {
       if (window.innerWidth > 768) {
         customCursor.style.opacity = '1';
@@ -346,11 +351,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
+    // 마우스가 About 섹션을 벗어날 때
     aboutSection.addEventListener('mouseleave', function() {
       customCursor.style.opacity = '0';
       customCursor.classList.remove('cursor-expanded');
     });
     
+    // 마우스 움직임 추적 (About 섹션 내에서만)
     aboutSection.addEventListener('mousemove', function(e) {
       if (window.innerWidth > 768) {
         const x = e.clientX;
@@ -361,14 +368,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
+    // 클릭 시 About 페이지로 이동
     aboutSection.addEventListener('click', function(e) {
       console.log('About section clicked');
       
+      // 클릭 시 커서 펄스 효과
       customCursor.style.transform = 'translate(-50%, -50%) scale(1.1)';
       setTimeout(() => {
         customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
       }, 150);
       
+      // 부드러운 페이지 전환 효과
       document.body.style.opacity = '0.8';
       document.body.style.transition = 'opacity 0.3s ease';
       
@@ -380,43 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About section expandable cursor initialized');
   }
 
-  // ─── 슬로건 영역 오버플로우 방지 및 반응형 조정 ───
-  function adjustSloganSize() {
-    const heroSloganSection = document.querySelector('.hero-slogan-section');
-    const sloganLine = document.querySelector('.slogan-line');
-    
-    if (!heroSloganSection || !sloganLine) return;
-    
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    
-    let fontSize;
-    
-    if (viewportWidth <= 480) {
-      fontSize = Math.min(viewportWidth * 0.05, 30);
-    } else if (viewportWidth <= 768) {
-      fontSize = Math.min(viewportWidth * 0.08, 45);
-    } else if (viewportWidth <= 1024) {
-      fontSize = Math.min(viewportWidth * 0.1, 80);
-    } else {
-      fontSize = Math.min(viewportWidth * 0.06, 112);
-    }
-    
-    sloganLine.style.fontSize = fontSize + 'px';
-    
-    const textWidth = sloganLine.scrollWidth;
-    const containerWidth = heroSloganSection.clientWidth - 50;
-    
-    if (textWidth > containerWidth) {
-      const ratio = containerWidth / textWidth;
-      fontSize = fontSize * ratio * 0.95;
-      sloganLine.style.fontSize = fontSize + 'px';
-    }
-    
-    console.log(`✅ Slogan size adjusted: ${fontSize}px for viewport: ${viewportWidth}x${viewportHeight}`);
-  }
-
-  // ─── 수정된 Typing Animation Function ───
+  // ─── 🔥 수정된 Typing Animation Function ───
   function startTypingAnimation() {
     const target1 = document.getElementById('typing-line1');
     
@@ -427,11 +401,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    adjustSloganSize();
-
     const line1 = "Knowledge Artistry Understanding Zenith";
-    const cursor = '<span class="typing-cursor">|</span>';
-    const totalDuration = 2000;
+    const cursor  = '<span class="typing-cursor">|</span>';
+    const totalDuration = 2000; // 2초 동안 타이핑
     const interval = totalDuration / line1.length;
     let i1 = 0;
 
@@ -441,50 +413,57 @@ document.addEventListener('DOMContentLoaded', () => {
         i1++;
         setTimeout(type1, interval);
       } else {
-        target1.textContent = line1;
+        target1.textContent = line1; // 타이핑 완료 후 커서 제거
       }
     }
     
     type1();
   }
 
-  // ─── 로딩 스크린 처리 ───
+  // ─── 로딩 스크린 처리 (수정된 버전) ───
   function hideLoadingScreen() {
     console.log('Hiding loading screen...');
     
+    // 로딩 스크린 페이드 아웃
     if (loadingScreen) {
       loadingScreen.style.transition = 'opacity 0.8s ease';
       loadingScreen.style.opacity = '0';
     }
 
+    // 햄버거 메뉴 표시
     if (hamburger) {
       hamburger.style.display = 'flex';
       hamburger.style.visibility = 'visible';
       hamburger.style.opacity = '1';
     }
 
+    // 🔥 배경 애니메이션 라인 활성화
     const backgroundLine = document.querySelector('.background-animation-line');
     if (backgroundLine) {
       backgroundLine.classList.add('active');
       console.log('✅ Background animation line activated');
     }
 
+    // 🔥 로딩 완료 후 스크롤 활성화
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
     document.body.classList.remove('loading');
 
+    // 로딩 스크린 완전 제거 및 타이핑 시작
     setTimeout(() => {
       if (loadingScreen) {
         loadingScreen.style.display = 'none';
       }
       startTypingAnimation();
-    }, 800);
+    }, 800); // 🔥 배경 라인 전환 시간에 맞춤
   }
 
+  // 초기 로딩 진행률 설정
   if (progressFill) {
     progressFill.style.width = '50%';
   }
 
+  // 페이지 로드 완료 시
   window.addEventListener('load', () => {
     console.log('Window loaded');
     
@@ -492,9 +471,11 @@ document.addEventListener('DOMContentLoaded', () => {
       progressFill.style.width = '100%';
     }
 
+    // 로딩 화면 숨기기
     setTimeout(hideLoadingScreen, 500);
   });
 
+  // 폴백: 3초 후에도 로딩 화면이 남아있으면 강제로 숨기기
   setTimeout(() => {
     if (loadingScreen && loadingScreen.style.display !== 'none') {
       console.warn('Forcing loading screen removal');
@@ -502,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 3000);
 
-  // ─── 햄버거 메뉴 토글 ───
+  // ─── 햄버거 메뉴 토글 (디버깅 강화) ───
   if (hamburger && menuOverlay) {
     hamburger.addEventListener('click', (e) => {
       e.preventDefault();
@@ -523,6 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // 메뉴 링크 클릭 시 닫기
     const menuLinks = document.querySelectorAll('#menu-overlay .menu-content a');
     console.log('Menu links found:', menuLinks.length);
     
@@ -536,6 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Hamburger or menu overlay not found!');
   }
 
+  // ─── ESC키로 메뉴 닫기 ───
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       console.log('ESC key pressed');
@@ -545,6 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ─── 메뉴 오버레이 배경 클릭 시 닫기 ───
   if (menuOverlay) {
     menuOverlay.addEventListener('click', (e) => {
       if (e.target === menuOverlay) {
@@ -554,11 +538,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── Airtable Portfolio Loading ───
+  // ─── Airtable Portfolio Loading (와이드 확장 애니메이션) ───
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
   const baseId = 'appglO0MOXGY7CITU';
   const tableName = 'Table%201';
 
+  // 포트폴리오 로딩 함수
   function loadPortfolio() {
     fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -572,6 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       console.log('Airtable data loaded:', data);
       
+      // 최신 4개만 가져오기
       const records = data.records
         .sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime))
         .slice(0, 4);
@@ -583,8 +569,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // 기존 내용 제거
       container.innerHTML = '';
 
+      // 정확히 4개 항목 생성 (빈 슬롯도 포함)
       for (let i = 0; i < 4; i++) {
         const record = records[i];
         const slide = document.createElement('div');
@@ -597,6 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const hasImage = Array.isArray(attachments) && attachments.length > 0;
           
           if (hasImage) {
+            // 이미지가 있는 경우
             slide.innerHTML = `
               <div class="portfolio-image-container">
                 <img src="${attachments[0].url}" alt="${title}" loading="lazy" />
@@ -607,6 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             `;
           } else {
+            // 이미지가 없는 경우 - 흰색 박스
             slide.innerHTML = `
               <div class="portfolio-image-container">
                 <div class="portfolio-placeholder">No Image</div>
@@ -618,6 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
           }
         } else {
+          // 데이터가 없는 경우 - 빈 흰색 박스
           slide.innerHTML = `
             <div class="portfolio-image-container">
               <div class="portfolio-placeholder">No Content</div>
@@ -632,44 +623,57 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(slide);
       }
 
+      // 모바일이 아닐 때만 호버 효과 적용
       const isMobile = window.innerWidth <= 768;
       const slides = container.querySelectorAll('.portfolio-slide');
       
       if (!isMobile) {
         slides.forEach((slide, index) => {
+          // 마우스 이벤트 (데스크톱만)
           slide.addEventListener('mouseenter', () => {
             handleSlideHover(slides, index);
           });
         });
 
+        // 컨테이너에서 마우스가 벗어나면 초기화
         container.addEventListener('mouseleave', () => {
           resetSlides(slides);
         });
       }
 
+      // 🔥 포트폴리오 클릭 이벤트 추가 (모든 디바이스에서 작동)
       slides.forEach((slide, index) => {
         slide.addEventListener('click', (e) => {
           console.log(`Portfolio item ${index + 1} clicked`);
           
+          // 부드러운 페이지 전환 효과
           document.body.style.opacity = '0.9';
           document.body.style.transition = 'opacity 0.2s ease';
           
+          // 포트폴리오 페이지로 이동
           setTimeout(() => {
             window.location.href = 'portfolio.html';
           }, 100);
         });
         
+        // 클릭 가능하다는 시각적 피드백 추가
         slide.style.cursor = 'pointer';
       });
 
+      // 확장 효과 처리 함수 - 수정된 버전
       function handleSlideHover(slides, activeIndex) {
+        // 애니메이션 딜레이 제거하여 즉각 반응
         slides.forEach((slide, index) => {
+          // 모든 클래스 즉시 제거
           slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
         });
         
+        // requestAnimationFrame으로 부드러운 전환
         requestAnimationFrame(() => {
+          // 활성화된 슬라이드 확장
           slides[activeIndex].classList.add('portfolio-expanded');
           
+          // 나머지 슬라이드 축소
           slides.forEach((slide, index) => {
             if (index !== activeIndex) {
               slide.classList.add('portfolio-shrunk');
@@ -678,20 +682,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
+      // 슬라이드 초기화 함수 - 수정된 버전
       function resetSlides(slides) {
+        // 모든 클래스 즉시 제거하여 원상복구
         slides.forEach(slide => {
           slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
         });
       }
 
-      console.log('Portfolio created successfully');
+      console.log('Portfolio with expansion animation and click events created successfully');
     })
     .catch(err => {
       console.error('Airtable fetch error:', err);
+      // 에러 발생시 기본 포트폴리오 표시
       displayDefaultPortfolio();
     });
   }
 
+  // 기본 포트폴리오 표시 함수 (Airtable 로드 실패시)
   function displayDefaultPortfolio() {
     const container = document.getElementById('PortfolioSliderList');
     if (!container) return;
@@ -700,24 +708,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="portfolio-slide">
         <div class="portfolio-image-container">
           <div class="portfolio-placeholder">Portfolio 1</div>
-        </div>
-        <div class="portfolio-slide-title">
-          <span class="portfolio-brand-name">샘플 프로젝트 1</span>
-          <span class="portfolio-slide-category">Portfolio</span>
-        </div>
-      </div>
-      <div class="portfolio-slide">
-        <div class="portfolio-image-container">
-          <div class="portfolio-placeholder">Portfolio 2</div>
-        </div>
-        <div class="portfolio-slide-title">
-          <span class="portfolio-brand-name">샘플 프로젝트 2</span>
-          <span class="portfolio-slide-category">Portfolio</span>
-        </div>
-      </div>
-      <div class="portfolio-slide">
-        <div class="portfolio-image-container">
-          <div class="portfolio-placeholder">Portfolio 3</div>
         </div>
         <div class="portfolio-slide-title">
           <span class="portfolio-brand-name">샘플 프로젝트 3</span>
@@ -735,23 +725,28 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     
+    // 기본 포트폴리오에도 클릭 이벤트 추가
     const defaultSlides = container.querySelectorAll('.portfolio-slide');
     defaultSlides.forEach((slide, index) => {
       slide.addEventListener('click', (e) => {
         console.log(`Default portfolio item ${index + 1} clicked`);
         
+        // 부드러운 페이지 전환 효과
         document.body.style.opacity = '0.9';
         document.body.style.transition = 'opacity 0.2s ease';
         
+        // 포트폴리오 페이지로 이동
         setTimeout(() => {
           window.location.href = 'portfolio.html';
         }, 100);
       });
       
+      // 클릭 가능하다는 시각적 피드백 추가
       slide.style.cursor = 'pointer';
     });
   }
 
+  // 포트폴리오 로드 실행
   loadPortfolio();
   
   // ─── Scroll-Fade Animations ───
@@ -770,6 +765,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Fade-up elements initialized:', fadeEls.length);
   }
 
+  // about-card elements
   const aboutCards = document.querySelectorAll('.about-card');
   if (aboutCards.length > 0) {
     const cardObserver = new IntersectionObserver((entries, obs2) => {
@@ -785,89 +781,39 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About cards initialized:', aboutCards.length);
   }
 
-  // ─── 🔥 안전한 무한 롤링 배너 설정 (오류 방지) ───
-  function initInfiniteScrollBanner() {
-    try {
-      const strokeText = document.querySelector('.stroke-text');
-      if (strokeText) {
-        console.log('✅ Stroke text found, initializing...');
-        
-        const oldScrollingElements = document.querySelectorAll('.scrolling-container, .scrolling-text:not(.stroke-text), .scrolling-text-clone');
-        oldScrollingElements.forEach(el => {
-          try {
-            if (el && el.parentNode) {
-              el.parentNode.removeChild(el);
-              console.log('🗑️ Removed old scrolling element:', el.className || 'unknown');
-            }
-          } catch (removeError) {
-            console.warn('⚠️ Could not remove element:', removeError);
-          }
-        });
-
-        const contactSectionParent = strokeText.parentNode;
-        if (contactSectionParent) {
-          contactSectionParent.style.overflow = 'hidden';
-          contactSectionParent.style.position = 'relative';
-          console.log('✅ Contact section overflow fixed');
-        }
-
-        try {
-          const clone = strokeText.cloneNode(true);
-          clone.style.cssText = `
-            position: absolute;
-            left: 100%;
-            top: 0;
-            animation-delay: 0s;
-            pointer-events: none;
-          `;
-          strokeText.parentNode.appendChild(clone);
-          console.log('✅ Stroke text clone created successfully');
-        } catch (cloneError) {
-          console.warn('⚠️ Could not create stroke text clone:', cloneError);
-        }
-        
-        console.log('✅ Stroke text infinite rolling initialized');
-      } else {
-        console.warn('⚠️ Stroke text element not found - check HTML structure');
+  // ─── 🔥 이중 레이어 스트로크 무한 롤링 설정 (기존 롤링 텍스트 대체) ───
+  const strokeText = document.querySelector('.stroke-text');
+  if (strokeText) {
+    // 🔥 기존 롤링 텍스트 관련 요소들 제거 (충돌 방지)
+    const oldScrollingElements = document.querySelectorAll('.scrolling-container, .scrolling-text:not(.stroke-text), .scrolling-text-clone');
+    oldScrollingElements.forEach(el => {
+      if (el && el.parentNode) {
+        el.parentNode.removeChild(el);
+        console.log('🗑️ Removed old scrolling element:', el.className);
       }
+    });
 
-      const scrollingContainer = document.querySelector('.scrolling-container');
-      const scrollingText = document.querySelector('.scrolling-text');
-      
-      if (scrollingContainer && scrollingText) {
-        try {
-          scrollingContainer.style.overflow = 'hidden';
-          scrollingContainer.style.position = 'relative';
-          
-          const clone = scrollingText.cloneNode(true);
-          clone.classList.add('scrolling-text-clone');
-          clone.style.pointerEvents = 'none';
-          scrollingContainer.appendChild(clone);
-          
-          const texts = scrollingContainer.querySelectorAll('.scrolling-text, .scrolling-text-clone');
-          texts.forEach((text, index) => {
-            text.style.animationDelay = `${index * 10}s`;
-          });
-          
-          console.log('✅ Legacy scrolling text initialized (backup)');
-        } catch (legacyError) {
-          console.warn('⚠️ Error initializing legacy scrolling text:', legacyError);
-        }
-      }
-
-    } catch (error) {
-      console.error('❌ Error in initInfiniteScrollBanner:', error);
-    }
+    // 🔥 끊김 없는 무한 롤링을 위한 복제본 생성
+    const clone = strokeText.cloneNode(true);
+    clone.style.position = 'absolute';
+    clone.style.left = '100%';
+    clone.style.top = '0';
+    clone.style.animationDelay = '0s'; // 메인과 동기화
+    strokeText.parentNode.appendChild(clone);
+    
+    console.log('✅ Stroke text infinite rolling initialized');
+  } else {
+    console.warn('⚠️ Stroke text element not found - check HTML structure');
   }
 
-  initInfiniteScrollBanner();
-
   // ═══════════════════════════════════════════════════════════════
-  // 추가 이벤트 및 테스트
+  // 🔥 한글 검색어 대응 테스트 및 추가 이벤트
   // ═══════════════════════════════════════════════════════════════
 
+  // URL 변경 감지 (뒤로가기/앞으로가기)
   window.addEventListener('popstate', checkUrlForKauzSearch);
 
+  // 테스트 함수 (개발 중에만 사용)
   function testKoreanSearchHandler() {
     const testCases = [
       'ㅏ몈',      // 한글 오타
@@ -890,49 +836,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 개발 모드에서만 테스트 실행
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     window.testKoreanSearch = testKoreanSearchHandler;
     console.log('🛠️ 개발 모드: window.testKoreanSearch() 로 테스트 가능');
   }
 
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && menuOverlay && menuOverlay.classList.contains('active')) {
-      console.log('📏 Window resized to desktop, closing menu');
-      closeMenu();
-    }
-    
-    adjustSloganSize();
-  });
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden && menuOverlay && menuOverlay.classList.contains('active')) {
-      console.log('👁️‍🗨️ Page hidden, closing menu');
-      closeMenu();
-    }
-  });
-
-  window.debugMain = {
-    closeMenu,
-    hamburger,
-    menuOverlay,
-    adjustSloganSize,
-    initInfiniteScrollBanner,
-    isMenuOpen: () => menuOverlay ? menuOverlay.classList.contains('active') : false,
-    testClick: () => {
-      if (hamburger) {
-        hamburger.click();
-      } else {
-        console.error('Hamburger element not found');
-      }
-    }
-  };
-
   console.log('✅ Main.js initialization complete');
-
-}); // 🔥 DOMContentLoaded 이벤트 리스너 닫기
+});
 
 // ═══════════════════════════════════════════════════════════════
-// 🔥 전역 스코프 함수들
+// 🔥 전역 스코프 함수들 (필요시)
 // ═══════════════════════════════════════════════════════════════
 
 // 외부에서 한글 검색어 체크가 필요한 경우를 위한 전역 함수
@@ -944,4 +858,3 @@ window.addEventListener('load', () => {
     // 예시: 외부 스크립트에서 사용 가능
     // if (window.checkKauzSearch(someUserInput)) { /* 처리 로직 */ }
   }
-});
