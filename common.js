@@ -1,9 +1,16 @@
 // common.js - 서브 페이지(About, Portfolio, Contact) 공통 JavaScript
-// 🔥 에러 수정: menuOverlay is not defined 해결
+// 🔥 에러 수정: 누락된 코드 복구 및 전체 로직 수정
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🔄 Common.js loading for sub pages...');
 
+  // ─── 🔥 서브페이지 새로고침 방지 (누락된 코드 복구) ───
+  try {
+    if (performance.getEntriesByType('navigation')[0].type === 'reload') {
+      console.log('🔄 Page refresh detected, redirecting to main...');
+      window.location.href = 'index.html';
+      return;
+    }
   } catch (e) {
     console.log('⚠️ Navigation API not supported, continuing...');
   }
