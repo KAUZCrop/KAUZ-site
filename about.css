@@ -1,69 +1,38 @@
 /* ─────────────────────────────────────────────────────────────────────
-   about.css (KAUZ About Us - 전체화면 히어로 + 모바일 간격 수정)
+   about.css (KAUZ About Us - 수정된 버전)
+   🔥 common.css와의 충돌 방지 및 중복 제거
    ───────────────────────────────────────────────────────────────────── */
 
-/* 전역 설정 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-overflow-scrolling: touch;
-}
-
-html, body {
-  background-color: #0D0D0D;
-  color: white;
-  margin: 0;
-  padding: 0;
-  font-family: 'Pretendard', sans-serif;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-
-h1, h2, h3, h4, h5, h6,
-p, span, a, li, label, button, input, textarea {
-  color: white;
-}
-
-a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: #ccc;
-}
+/*===============================================================================
+  🔥 About 페이지 전용 스타일만 정의 (common.css와 중복 제거)
+===============================================================================*/
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 About 히어로 섹션 - 전체화면 적용 + 기존 스타일 유지
+   About 히어로 섹션 - 전체화면 적용
    ═══════════════════════════════════════════════════════════════ */
 
-/* 🔥 About 히어로 섹션 - 전체 화면으로 변경 */
 .about-hero {
   position: relative;
   width: 100%;
-  min-height: 100vh; /* 🔥 전체 화면 높이 적용 */
+  min-height: 100vh;
   background-color: #0D0D0D;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* 🔥 세로 중앙 정렬 */
-  align-items: flex-start; /* 🔥 가로는 왼쪽 정렬 유지 */
+  justify-content: center;
+  align-items: flex-start;
   padding: 0 25px;
   box-sizing: border-box;
   overflow: hidden;
+  z-index: 1; /* 🔥 적절한 z-index 설정 */
 }
 
-/* 🔥 About 히어로 콘텐츠 - 기존 스타일 유지하되 위치 조정 */
 .about-hero-content {
   max-width: 100%;
   text-align: left;
   width: 100%;
   position: relative;
-  /* 🔥 기존 padding-top 제거하고 자연스러운 중앙 배치 */
 }
 
-/* 기존 타이틀 스타일 그대로 유지 */
 .about-main-title {
   font-size: 200px;
   font-weight: 700;
@@ -73,13 +42,13 @@ a:hover {
   letter-spacing: -0.05em;
   text-transform: uppercase;
   position: relative;
+  z-index: 2; /* 🔥 z-index 추가 */
 }
 
 .about-main-title .kauz-spaced {
   letter-spacing: 0.08em;
 }
 
-/* 기존 서브타이틀 스타일 그대로 유지 */
 .about-subtitle {
   font-size: 1.3rem;
   font-weight: 400;
@@ -93,9 +62,10 @@ a:hover {
   position: absolute;
   bottom: -2.5rem;
   left: 0;
+  z-index: 2; /* 🔥 z-index 추가 */
 }
 
-/* 🔥 SCROLL과 라인을 감싸는 컨테이너 */
+/* SCROLL과 라인을 감싸는 컨테이너 */
 .about-bottom-elements {
   position: absolute;
   bottom: 4rem;
@@ -103,8 +73,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.5rem; /* 웹에서는 기본 간격 */
-  z-index: 3;
+  gap: 0.5rem;
+  z-index: 3; /* 🔥 가장 높은 z-index */
 }
 
 /* SCROLL 인디케이터 - 라인 완전 제거 */
@@ -116,6 +86,7 @@ a:hover {
   transition: opacity 0.3s ease;
   border: none !important;
   background: none !important;
+  z-index: 3;
 }
 
 .scroll-indicator:hover {
@@ -155,23 +126,10 @@ a:hover {
   opacity: 0.6;
 }
 
-/* 기존 scroll-line 완전 제거 */
-.scroll-line {
-  display: none !important;
-}
-
-.scroll-indicator::before,
-.scroll-indicator::after,
-.scroll-indicator *::before,
-.scroll-indicator *::after {
-  display: none !important;
-}
-
 /* ═══════════════════════════════════════════════════════════════
-   메인 콘텐츠 섹션 (기존 그대로 유지)
+   메인 콘텐츠 섹션
    ═══════════════════════════════════════════════════════════════ */
 
-/* 중앙 정렬 컨테이너 */
 .about-content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -179,9 +137,10 @@ a:hover {
   padding: 0 25px;
   box-sizing: border-box;
   position: relative;
+  z-index: 1; /* 🔥 z-index 추가 */
 }
 
-/* 히어로 섹션과 메인 콘텐츠 사이 구분선 - 그라데이션 + 전체 너비 */
+/* 히어로 섹션과 메인 콘텐츠 사이 구분선 */
 .about-content-wrapper::before {
   content: '';
   position: absolute;
@@ -191,24 +150,26 @@ a:hover {
   width: 100vw;
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  z-index: 0; /* 🔥 백그라운드 요소 */
 }
 
-/* 메인 콘텐츠 */
 .main-content {
   padding: 5rem 0;
+  position: relative;
+  z-index: 1;
 }
 
 .content-section {
   margin: 0 0 6rem 0;
   position: relative;
+  z-index: 1;
 }
 
-/* 첫 번째 섹션은 상단 여백 추가 */
 .content-section:first-child {
   margin-top: 4rem;
 }
 
-/* 섹션 구분선 - 하단만 사용 (그라데이션) */
+/* 섹션 구분선 - 하단만 사용 */
 .section-divider-bottom {
   width: calc(100% - 20px);
   height: 1px;
@@ -217,11 +178,6 @@ a:hover {
   margin-bottom: 0;
   margin-left: 10px;
   margin-right: 10px;
-}
-
-/* 기존 section-divider-top 제거 */
-.section-divider-top {
-  display: none;
 }
 
 .section-number {
@@ -292,6 +248,7 @@ a:hover {
   line-height: 1.4;
   font-weight: 500;
   letter-spacing: 0.02em;
+  cursor: pointer; /* 🔥 호버 가능 표시 */
 }
 
 .services-list li::before {
@@ -300,12 +257,16 @@ a:hover {
   left: 0;
   color: #E37031;
   font-weight: bold;
+  transition: transform 0.3s ease;
 }
 
 .services-list li:hover {
   color: white;
-  transform: translateX(10px);
   border-bottom-color: #E37031;
+}
+
+.services-list li:hover::before {
+  transform: translateX(5px);
 }
 
 .services-list li:last-child {
@@ -327,6 +288,7 @@ a:hover {
   color: white;
   margin-bottom: 2rem;
   font-style: italic;
+  position: relative;
 }
 
 .mission-quote::before,
@@ -351,55 +313,27 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 
-.client-box:hover {
-  transform: translateY(-5px);
-}
-
-/* 스크롤 애니메이션 */
-.fade-up {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease;
-}
-
-.fade-up.visible,
-.fade-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 스크롤 비활성화 (메뉴 열린 상태) */
-body.menu-open {
-  overflow: hidden;
-  height: 100vh;
-}
-
-/* 전체 텍스트 복사 방지 */
-body {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
+/* 🔥 호버 효과는 JavaScript에서 처리 (about.js) */
 
 /* ═══════════════════════════════════════════════════════════════
-   반응형 (모바일 대응) - 전체화면 + 간격 조정
+   반응형 (모바일 대응)
    ═══════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-  /* 🔥 모바일 히어로 섹션 - 전체화면 적용 */
   .about-hero {
-    min-height: 100vh; /* 🔥 모바일도 전체 화면 */
+    min-height: 100vh;
     padding: 0 1rem;
-    justify-content: center; /* 🔥 모바일에서도 중앙 정렬 */
+    justify-content: center;
   }
   
   .about-hero-content {
     position: relative;
-    /* 🔥 모바일에서 기존 padding-top 제거 */
   }
   
   .about-main-title {
@@ -427,11 +361,10 @@ body {
     margin-top: 1rem !important;
   }
 
-  /* 🔥 모바일 SCROLL과 라인 - 간격 조정 */
   .about-bottom-elements {
     bottom: 3rem;
     left: 1rem;
-    gap: 10px; /* 🔥 모바일에서 10px 간격 */
+    gap: 10px;
   }
 
   .scroll-text {
@@ -447,13 +380,11 @@ body {
     max-width: 400px;
   }
 
-  /* 중앙 정렬 컨테이너 모바일 */
   .about-content-wrapper {
     max-width: none;
     padding: 0 1rem;
   }
 
-  /* 모바일에서 상단 라인도 그라데이션 + 전체 너비 + 중앙정렬 */
   .about-content-wrapper::before {
     left: 50%;
     transform: translateX(-50%);
@@ -461,7 +392,6 @@ body {
     background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
   }
 
-  /* 메인 콘텐츠 모바일 */
   .main-content {
     padding: 3rem 0;
   }
@@ -474,7 +404,6 @@ body {
     margin-top: 3rem;
   }
 
-  /* 섹션 콘텐츠 - 모바일에서 세로 배치 */
   .section-content {
     flex-direction: column;
     gap: 2rem;
@@ -500,7 +429,6 @@ body {
     padding-left: 1.5rem;
   }
 
-  /* 클라이언트 그리드 모바일 - 3x2 */
   .clients-grid {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -512,7 +440,6 @@ body {
     aspect-ratio: 3/2;
   }
 
-  /* 구분선 조정 */
   .section-divider-bottom {
     margin-top: 3rem;
     margin-bottom: 0;
@@ -520,9 +447,8 @@ body {
 }
 
 @media (max-width: 480px) {
-  /* 🔥 작은 모바일 - 전체화면 유지 + 간격 조정 */
   .about-hero {
-    min-height: 100vh; /* 🔥 작은 모바일도 전체 화면 */
+    min-height: 100vh;
     padding: 0 0.5rem;
   }
   
@@ -544,11 +470,10 @@ body {
     margin-top: 0.8rem !important;
   }
 
-  /* 🔥 작은 모바일 SCROLL과 라인 - 간격 유지 */
   .about-bottom-elements {
     bottom: 2rem;
     left: 0.5rem;
-    gap: 8px; /* 🔥 작은 모바일에서 8px 간격 */
+    gap: 8px;
   }
 
   .scroll-text {
@@ -564,7 +489,6 @@ body {
     max-width: 300px;
   }
 
-  /* 중앙 정렬 컨테이너 작은 모바일 */
   .about-content-wrapper {
     padding: 0 0.8rem;
   }
@@ -588,7 +512,6 @@ body {
     padding-left: 1.2rem;
   }
 
-  /* 클라이언트 그리드 작은 모바일 - 3x2 유지 */
   .clients-grid {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -601,9 +524,8 @@ body {
 }
 
 @media (max-width: 360px) {
-  /* 최소 화면 대응 */
   .about-hero {
-    min-height: 100vh; /* 🔥 최소 화면도 전체 화면 */
+    min-height: 100vh;
     padding: 0 0.5rem;
   }
 
@@ -619,9 +541,8 @@ body {
     margin-top: 0.6rem !important;
   }
 
-  /* 🔥 최소 화면에서도 간격 유지 */
   .about-bottom-elements {
-    gap: 6px; /* 🔥 최소 화면에서 6px 간격 */
+    gap: 6px;
   }
 
   .about-content-wrapper {
@@ -635,5 +556,55 @@ body {
   .content-text {
     font-size: 0.75rem;
     line-height: 1.4;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   추가 안전장치 및 최적화
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 터치 디바이스 최적화 */
+.touch-device .client-box:hover,
+.touch-device .services-list li:hover {
+  transform: none;
+  color: inherit;
+}
+
+/* CSS Grid 미지원 브라우저 폴백 */
+.no-grid-support .clients-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.no-grid-support .client-box {
+  width: calc(20% - 1rem);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .no-grid-support .client-box {
+    width: calc(33.333% - 1rem);
+  }
+}
+
+/* CSS 사용자 정의 속성 미지원 브라우저 폴백 */
+.no-css-vars {
+  /* 필요시 폴백 스타일 추가 */
+}
+
+/* 성능 최적화 */
+.about-hero,
+.about-hero-content,
+.about-main-title {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-hero *,
+  .content-section *,
+  .fade-up {
+    animation: none !important;
+    transition: none !important;
   }
 }
