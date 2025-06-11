@@ -279,6 +279,7 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
+  gap: 2rem;  /* 🔥 이 줄 추가! (15vw 무시하고 고정값 사용) */
 }
 
 .mission-quote {
