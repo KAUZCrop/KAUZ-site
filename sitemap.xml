@@ -5,39 +5,32 @@
         xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- 메인페이지 -->
   <url>
     <loc>https://kauzcrop.com/</loc>
-    <lastmod>2025-01-09</lastmod>
+    <lastmod>2025-06-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <mobile:mobile/>
   </url>
 
-  <!-- About 페이지 -->
   <url>
     <loc>https://kauzcrop.com/about.html</loc>
-<!-- ▼ 수정 후 (오늘 날짜 또는 실제 최종 수정일로 변경) -->
     <lastmod>2025-06-11</lastmod> 
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
   </url>
 
-  <!-- Portfolio 페이지 -->
   <url>
     <loc>https://kauzcrop.com/portfolio.html</loc>
-    <!-- ▼ 수정 후 (오늘 날짜 또는 실제 최종 수정일로 변경) -->
     <lastmod>2025-06-11</lastmod> 
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
   </url>
 
-  <!-- Contact 페이지 -->
   <url>
     <loc>https://kauzcrop.com/contact.html</loc>
-    <!-- ▼ 수정 후 (오늘 날짜 또는 실제 최종 수정일로 변경) -->
     <lastmod>2025-06-11</lastmod> 
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
