@@ -134,7 +134,7 @@
   max-width: none;
   margin: 0 auto;
   width: 100%;
-  padding: 0 5vw;
+  padding: 0 8vw;  /* 🔥 5vw → 8vw (좌우 마진 증가) */
   box-sizing: border-box;
   position: relative;
   z-index: 1; /* 🔥 z-index 추가 */
@@ -171,13 +171,13 @@
 
 /* 섹션 구분선 - 하단만 사용 */
 .section-divider-bottom {
-  width: calc(100% - 20px);
+  width: calc(100% - 10vw);  /* 🔥 양쪽 여백만큼 줄임 */
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
   margin-top: 4rem;
   margin-bottom: 0;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 5vw;          /* 🔥 좌우 마진을 패딩과 동일하게 */
+  margin-right: 5vw;
 }
 
 .section-number {
@@ -203,13 +203,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 8vw;  /* 🔥 12vw → 8vw (줄바꿈 개선) */
+  gap: 6vw;  /* 🔥 8vw → 6vw (간격 축소) */
   width: 100%;
 }
 
 .content-text {
   flex: 1;
-  min-width: 400px;  /* 🔥 300px → 400px (줄바꿈 개선) */
+  min-width: 350px;  /* 🔥 400px → 350px (간격 조정) */
   font-size: 1.1rem;
   line-height: 1.8;
   color: #ccc;
