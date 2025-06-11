@@ -320,7 +320,7 @@ h1, h2, h3 {
 }
 
 .slogan-line {
-  font-size: 7rem;          /* 🔥 크기 조정 (4rem → 5rem) */
+  font-size: clamp(3rem, 8vw, 7rem);  /* 최소 3rem, 최대 7rem, 화면 비례 8vw */
   font-weight: 850;
   line-height: 1.4;
   color: white;
