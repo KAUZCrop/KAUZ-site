@@ -275,6 +275,16 @@
   margin-bottom: 0;
 }
 
+/* OUR SERVICES 섹션 특별 정렬 */
+.services-section .section-content {
+  flex-direction: row-reverse;  /* 🔥 순서 뒤바꿈 - 왼쪽 텍스트를 오른쪽 위치에 */
+}
+
+.services-section .content-text {
+  text-align: left;            /* 🔥 텍스트는 왼쪽 정렬 유지 */
+  margin-left: auto;           /* 🔥 왼쪽 마진 자동 */
+}
+
 /* 미션 섹션 특별 스타일 */
 .mission-section .section-content {
   flex-direction: column;
