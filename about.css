@@ -279,7 +279,8 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
-  gap: 2rem;  /* 🔥 이 줄 추가! (15vw 무시하고 고정값 사용) */
+  gap: 4rem;          /* 🔥 간격 더 넓게! */
+  width: 90vw;        /* 🔥 전체 폭 90% 사용 */
 }
 
 .mission-quote {
@@ -290,6 +291,9 @@
   margin-bottom: 2rem;
   font-style: italic;
   position: relative;
+  white-space: nowrap;    /* 🔥 줄바꿈 방지! */
+  max-width: 100%;        /* 🔥 최대 폭 */
+  overflow: visible;      /* 🔥 넘침 허용 */
 }
 
 .mission-quote::before,
@@ -421,6 +425,7 @@
   }
 
   .mission-quote {
+    white-space: normal;  /* 🔥 모바일에서는 줄바꿈 허용 */
     font-size: 1.5rem;
   }
 
