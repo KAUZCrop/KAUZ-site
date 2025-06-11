@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KAUZ Admin - 관리자 페이지</title>
+  
+  <!-- 🔥 파비콘 -->
+  <link rel="icon" href="logo/simbol.png" type="image/png">
+  
+  <!-- 공통 CSS (기존 KAUZ 디자인 활용) -->
+  <link rel="stylesheet" href="common.css" />
+  <!-- 관리자 전용 CSS -->
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <!-- 로그인 폼 (초기에 표시) -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-container">
+      <div class="login-logo">
+        <img src="logo/white-logo.png" alt="KAUZ Logo" />
+      </div>
+      <h1>KAUZ Admin</h1>
+      <p>관리자 로그인이 필요합니다</p>
+      
+      <form id="login-form" class="login-form">
+        <div class="form-group">
+          <input 
+            type="password" 
+            id="admin-password" 
+            placeholder="관리자 비밀번호" 
+            required 
+          />
+        </div>
+        <button type="submit" class="login-btn">로그인</button>
+      </form>
+      
+      <div id="login-error" class="login-error" style="display: none;">
+        비밀번호가 틀렸습니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 관리자 대시보드 (로그인 후 표시) -->
+  <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
+    
+    <!-- 헤더 -->
+    <header class="admin-header">
+      <div class="admin-logo">
+        <img src="logo/white-logo.png" alt="KAUZ Logo" />
+        <span>Admin</span>
+      </div>
+      <div class="admin-header-right">
+        <span class="admin-user">관리자</span>
+        <button id="logout-btn" class="logout-btn">로그아웃</button>
+      </div>
+    </header>
+
+    <!-- 사이드바 -->
+    <nav class="admin-sidebar">
+      <ul class="sidebar-menu">
+        <li class="menu-item active" data-section="dashboard">
+          <span class="menu-icon">📊</span>
+          <span class="menu-text">대시보드</span>
+        </li>
+        <li class="menu-item" data-section="portfolio">
+          <span class="menu-icon">🖼️</span>
+          <span class="menu-text">포트폴리오</span>
+        </li>
+        <li class="menu-item" data-section="content">
+          <span class="menu-icon">📝</span>
+          <span class="menu-text">콘텐츠</span>
+        </li>
+        <li class="menu-item" data-section="contacts">
+          <span class="menu-icon">📧</span>
+          <span class="menu-text">문의관리</span>
+        </li>
+        <li class="menu-item" data-section="settings">
+          <span class="menu-icon">⚙️</span>
+          <span class="menu-text">설정</span>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="admin-main">
+      
+      <!-- 대시보드 섹션 -->
+      <section id="section-dashboard" class="admin-section active">
+        <div class="section-header">
+          <h1>대시보드</h1>
+          <p>KAUZ 홈페이지 관리 현황</p>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🖼️</div>
+            <div class="stat-content">
+              <div class="stat-number" id="portfolio-count">-</div>
+              <div class="stat-label">포트폴리오</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📧</div>
+            <div class="stat-content">
+              <div class="stat-number" id="contact-count">-</div>
+              <div class="stat-label">문의</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+              <div class="stat-number">-</div>
+              <div class="stat-label">방문자</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-content">
+              <div class="stat-number">Online</div>
+              <div class="stat-label">사이트 상태</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-widgets">
+          <div class="widget">
+            <h3>최근 활동</h3>
+            <div id="recent-activity">
+              <p>로딩 중...</p>
+            </div>
+          </div>
+          <div class="widget">
+            <h3>빠른 작업</h3>
+            <div class="quick-actions">
+              <button class="action-btn" data-action="add-portfolio">포트폴리오 추가</button>
+              <button class="action-btn" data-action="edit-about">About 편집</button>
+              <button class="action-btn" data-action="view-contacts">문의 확인</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 포트폴리오 관리 섹션 -->
+      <section id="section-portfolio" class="admin-section">
+        <div class="section-header">
+          <h1>포트폴리오 관리</h1>
+          <button class="primary-btn" id="add-portfolio-btn">포트폴리오 추가</button>
+        </div>
+        
+        <div class="portfolio-list">
+          <div id="portfolio-grid" class="portfolio-grid">
+            <!-- 포트폴리오 항목들이 동적으로 추가됩니다 -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 콘텐츠 관리 섹션 -->
+      <section id="section-content" class="admin-section">
+        <div class="section-header">
+          <h1>콘텐츠 관리</h1>
+          <p>About 페이지 및 기타 콘텐츠 편집</p>
+        </div>
+        
+        <div class="content-editor">
+          <div class="editor-tabs">
+            <button class="tab-btn active" data-tab="about">About 페이지</button>
+            <button class="tab-btn" data-tab="meta">메타 정보</button>
+          </div>
+          
+          <div class="tab-content">
+            <div id="about-editor" class="tab-pane active">
+              <h3>About 페이지 내용</h3>
+              <textarea id="about-content" rows="10" placeholder="About 페이지 내용을 입력하세요..."></textarea>
+              <button class="save-btn">저장</button>
+            </div>
+            <div id="meta-editor" class="tab-pane">
+              <h3>메타 정보</h3>
+              <div class="form-group">
+                <label>사이트 제목</label>
+                <input type="text" id="site-title" placeholder="KAUZ - 종합광고대행사">
+              </div>
+              <div class="form-group">
+                <label>사이트 설명</label>
+                <textarea id="site-description" rows="3"></textarea>
+              </div>
+              <button class="save-btn">저장</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 문의 관리 섹션 -->
+      <section id="section-contacts" class="admin-section">
+        <div class="section-header">
+          <h1>문의 관리</h1>
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">전체</button>
+            <button class="filter-btn" data-filter="new">신규</button>
+            <button class="filter-btn" data-filter="replied">답변완료</button>
+          </div>
+        </div>
+        
+        <div class="contacts-list">
+          <div id="contacts-table">
+            <!-- 문의 목록이 동적으로 추가됩니다 -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 설정 섹션 -->
+      <section id="section-settings" class="admin-section">
+        <div class="section-header">
+          <h1>사이트 설정</h1>
+          <p>기본 설정 및 시스템 관리</p>
+        </div>
+        
+        <div class="settings-grid">
+          <div class="settings-card">
+            <h3>기본 정보</h3>
+            <div class="form-group">
+              <label>회사명</label>
+              <input type="text" value="KAUZ">
+            </div>
+            <div class="form-group">
+              <label>연락처</label>
+              <input type="text" placeholder="02-1234-5678">
+            </div>
+            <div class="form-group">
+              <label>이메일</label>
+              <input type="email" placeholder="contact@kauz.co.kr">
+            </div>
+          </div>
+          
+          <div class="settings-card">
+            <h3>소셜 미디어</h3>
+            <div class="form-group">
+              <label>Instagram</label>
+              <input type="url" placeholder="https://instagram.com/kauzcorp.official">
+            </div>
+            <div class="form-group">
+              <label>LinkedIn</label>
+              <input type="url" placeholder="https://linkedin.com/company/kauz">
+            </div>
+          </div>
+          
+          <div class="settings-card">
+            <h3>관리자 설정</h3>
+            <div class="form-group">
+              <label>비밀번호 변경</label>
+              <input type="password" placeholder="새 비밀번호">
+            </div>
+            <div class="form-group">
+              <label>세션 시간</label>
+              <select>
+                <option value="2">2시간</option>
+                <option value="4">4시간</option>
+                <option value="8">8시간</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="settings-actions">
+          <button class="save-btn">설정 저장</button>
+          <button class="backup-btn">백업 생성</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- 모달 (포트폴리오 추가/편집용) -->
+  <div id="portfolio-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">포트폴리오 추가</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="portfolio-form">
+          <div class="form-group">
+            <label>제목</label>
+            <input type="text" id="portfolio-title" required>
+          </div>
+          <div class="form-group">
+            <label>카테고리</label>
+            <select id="portfolio-category">
+              <option value="branding">Branding</option>
+              <option value="digital">Digital</option>
+              <option value="social">Social Media</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>이미지</label>
+            <input type="file" id="portfolio-image" accept="image/*">
+          </div>
+          <div class="form-group">
+            <label>설명</label>
+            <textarea id="portfolio-description" rows="4"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="cancel-btn">취소</button>
+        <button class="save-btn" id="save-portfolio">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 알림 시스템 -->
+  <div id="notification" class="notification">
+    <span id="notification-text"></span>
+    <button id="notification-close">&times;</button>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="admin.js"></script>
+</body>
+</html>
