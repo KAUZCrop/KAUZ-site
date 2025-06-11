@@ -1,125 +1,132 @@
-// ── about.js (About Us 전용 스크립트) ──
+// about.js (About Us 전용 스크립트) - 수정된 버전
+// 🔥 common.js와의 충돌 방지 및 중복 제거
 
 document.addEventListener('DOMContentLoaded', () => {
-  
-  // SCROLL 인디케이터 클릭 시 부드러운 스크롤
+  console.log('📄 About.js starting...');
+
+  // 🔥 페이지 새로고침 감지 및 메인페이지로 리다이렉트
+  try {
+    if (performance.getEntriesByType('navigation')[0].type === 'reload') {
+      console.log('🔄 About page refresh detected, redirecting to main...');
+      window.location.href = 'index.html';
+      return;
+    }
+  } catch (e) {
+    console.log('⚠️ Navigation API not supported, continuing...');
+  }
+
+  // ─── About 페이지 전용 기능들만 여기서 처리 ───
+
+  // 1) SCROLL 인디케이터 클릭 이벤트 (About 페이지 전용)
   const scrollIndicator = document.querySelector('.scroll-indicator');
   if (scrollIndicator) {
     scrollIndicator.addEventListener('click', () => {
-      const mainContent = document.querySelector('.main-content');
+      const mainContent = document.querySelector('.main-content') || 
+                         document.querySelector('.about-content-wrapper') ||
+                         document.querySelector('.content-section');
+      
       if (mainContent) {
         mainContent.scrollIntoView({
           behavior: 'smooth'
         });
+        console.log('📜 Smooth scroll to main content initiated');
       }
     });
+    console.log('✅ About page scroll indicator initialized');
   }
 
-  // fade-up 애니메이션 (HTML에서 옮겨온 스크롤 애니메이션 + 기존 KAUZ 스타일 통합)
-  const fadeUpElements = document.querySelectorAll('.fade-up');
-  if (fadeUpElements.length) {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -50px 0px',
-      threshold: 0.1,
-    };
-
-    const fadeUpObserver = new IntersectionObserver((entries) => {
+  // 2) About 페이지 전용 fade-up 애니메이션 (common.js와 중복 방지)
+  // 🔥 data-about-observed 속성으로 중복 방지
+  const aboutFadeElements = document.querySelectorAll('.fade-up:not([data-about-observed])');
+  
+  if (aboutFadeElements.length > 0) {
+    const aboutObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // 기존 KAUZ 스타일
           entry.target.classList.add('is-visible');
-          // 새로운 스크롤 애니메이션 스타일
-          entry.target.classList.add('visible');
-          
-          // 옵저버에서 제거 (한 번만 실행)
-          fadeUpObserver.unobserve(entry.target);
+          entry.target.classList.add('visible'); // 추가 클래스
+          aboutObserver.unobserve(entry.target);
         }
       });
-    }, observerOptions);
-
-    fadeUpElements.forEach((el) => {
-      fadeUpObserver.observe(el);
+    }, { 
+      threshold: 0.1,
+      rootMargin: '0px 0px -30px 0px'
     });
-
-    console.log('About page fade-up elements initialized:', fadeUpElements.length);
-  }
-
-  // About Us 페이지 전용 인터랙션
-  // 팀원 카드 클릭 시 간단한 안내 팝업
-  const teamMembers = document.querySelectorAll('.team-member');
-  if (teamMembers.length) {
-    teamMembers.forEach((member) => {
-      member.addEventListener('click', () => {
-        const name = member.querySelector('.team-name').textContent;
-        alert(`${name} 님의 상세 프로필은 곧 업데이트됩니다.`);
-      });
-    });
-  }
-
-  // about-card elements (기존 KAUZ 코드)
-  const aboutCards = document.querySelectorAll('.about-card');
-  if (aboutCards.length > 0) {
-    const cardObserver = new IntersectionObserver((entries, obs2) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          obs2.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
     
-    aboutCards.forEach(card => cardObserver.observe(card));
-    console.log('About cards initialized:', aboutCards.length);
+    aboutFadeElements.forEach((element) => {
+      element.setAttribute('data-about-observed', 'true');
+      aboutObserver.observe(element);
+    });
+    
+    console.log('✅ About page fade-up animations initialized:', aboutFadeElements.length);
   }
 
-  // 서비스 리스트 호버 효과 강화 (데스크톱만)
+  // 3) 서비스 리스트 호버 효과 강화 (데스크톱만, About 페이지 전용)
   if (window.innerWidth > 768) {
     const serviceItems = document.querySelectorAll('.services-list li');
-    if (serviceItems.length) {
-      serviceItems.forEach((item) => {
+    if (serviceItems.length > 0) {
+      serviceItems.forEach((item, index) => {
         item.addEventListener('mouseenter', () => {
           item.style.transform = 'translateX(15px)';
+          item.style.color = '#E37031';
         });
         
         item.addEventListener('mouseleave', () => {
           item.style.transform = 'translateX(0)';
+          item.style.color = '#ccc';
         });
       });
-      console.log('Service items hover effects initialized:', serviceItems.length);
+      console.log('✅ Service items hover effects initialized:', serviceItems.length);
     }
   }
 
-  // 스크롤 진행률 표시 (CSS 변수로 설정)
+  // 4) 클라이언트 박스 호버 효과 (About 페이지 전용)
+  const clientBoxes = document.querySelectorAll('.client-box');
+  if (clientBoxes.length > 0 && window.innerWidth > 768) {
+    clientBoxes.forEach((box, index) => {
+      box.addEventListener('mouseenter', () => {
+        box.style.transform = 'translateY(-8px) scale(1.02)';
+        box.style.boxShadow = '0 8px 25px rgba(227, 112, 49, 0.3)';
+      });
+      
+      box.addEventListener('mouseleave', () => {
+        box.style.transform = 'translateY(0) scale(1)';
+        box.style.boxShadow = 'none';
+      });
+    });
+    console.log('✅ Client boxes hover effects initialized:', clientBoxes.length);
+  }
+
+  // 5) 스크롤 진행률 표시 (CSS 변수로 설정)
   function updateScrollProgress() {
     const scrollTop = window.pageYOffset;
     const docHeight = document.body.offsetHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
+    const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
     
-    // 스크롤 진행률을 CSS 변수로 설정 (필요시 사용)
+    // 스크롤 진행률을 CSS 변수로 설정
     document.documentElement.style.setProperty('--scroll-progress', scrollPercent + '%');
   }
 
-  window.addEventListener('scroll', updateScrollProgress);
+  // 스크롤 이벤트 최적화 (throttle 적용)
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    scrollTimeout = setTimeout(updateScrollProgress, 10);
+  }, { passive: true });
 
-  // 모바일 터치 최적화
+  // 6) 모바일 터치 최적화
   if ('ontouchstart' in window) {
-    // 모바일에서 터치 이벤트 최적화
     document.body.classList.add('touch-device');
-    
-    // 모바일에서 호버 효과 제거
-    const hoverElements = document.querySelectorAll('.client-box, .services-list li');
-    hoverElements.forEach(el => {
-      el.classList.add('no-hover');
-    });
+    console.log('📱 Touch device detected, mobile optimizations applied');
   }
 
-  // 브라우저 호환성 체크
+  // 7) 브라우저 호환성 체크 및 폴백
   function checkBrowserSupport() {
     // IntersectionObserver 지원 체크
     if (!('IntersectionObserver' in window)) {
-      console.warn('IntersectionObserver not supported, fallback to immediate visibility');
-      // 폴백: 모든 fade-up 요소를 즉시 표시
+      console.warn('⚠️ IntersectionObserver not supported, applying fallback');
       document.querySelectorAll('.fade-up').forEach(el => {
         el.classList.add('is-visible', 'visible');
       });
@@ -127,36 +134,83 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // CSS Grid 지원 체크
     if (!CSS.supports('display', 'grid')) {
-      console.warn('CSS Grid not supported');
+      console.warn('⚠️ CSS Grid not supported');
       document.body.classList.add('no-grid-support');
+    }
+
+    // CSS 사용자 정의 속성 지원 체크
+    if (!CSS.supports('color', 'var(--test)')) {
+      console.warn('⚠️ CSS Custom Properties not supported');
+      document.body.classList.add('no-css-vars');
     }
   }
 
   checkBrowserSupport();
 
-  // 성능 모니터링 (개발용)
+  // 8) About 페이지 전용 키보드 네비게이션
+  document.addEventListener('keydown', (e) => {
+    // ESC 키 처리는 common.js에서 하므로 여기서는 제외
+    if (e.key === 'Home' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    if (e.key === 'End' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+  });
+
+  // 9) 성능 모니터링 (개발용)
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    // 개발 모드에서만 실행
     console.log('🛠️ About page development mode');
-    console.log('📊 Page elements:', {
+    console.log('📊 About page elements:', {
       fadeUpElements: document.querySelectorAll('.fade-up').length,
       contentSections: document.querySelectorAll('.content-section').length,
       serviceItems: document.querySelectorAll('.services-list li').length,
-      clientBoxes: document.querySelectorAll('.client-box').length
+      clientBoxes: document.querySelectorAll('.client-box').length,
+      scrollIndicator: !!scrollIndicator
     });
 
     // 성능 측정
     window.addEventListener('load', () => {
       setTimeout(() => {
         const perfData = performance.getEntriesByType('navigation')[0];
-        console.log('⚡ About page load performance:', {
-          domContentLoaded: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart),
-          loadComplete: Math.round(perfData.loadEventEnd - perfData.loadEventStart),
-          totalTime: Math.round(perfData.loadEventEnd - perfData.fetchStart)
+        console.log('⚡ About page performance:', {
+          domContentLoaded: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart) + 'ms',
+          loadComplete: Math.round(perfData.loadEventEnd - perfData.loadEventStart) + 'ms',
+          totalTime: Math.round(perfData.loadEventEnd - perfData.fetchStart) + 'ms'
         });
       }, 100);
     });
+
+    // 디버깅용 전역 함수
+    window.aboutDebug = {
+      scrollToTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+      scrollToContent: () => {
+        const content = document.querySelector('.main-content');
+        if (content) content.scrollIntoView({ behavior: 'smooth' });
+      },
+      showAllElements: () => {
+        document.querySelectorAll('.fade-up').forEach(el => {
+          el.classList.add('is-visible');
+        });
+      }
+    };
   }
+
+  // 10) 초기화 완료 후 상태 확인
+  setTimeout(() => {
+    const isCommonJsLoaded = typeof window.debugMenu !== 'undefined';
+    console.log('🔍 About page initialization status:', {
+      commonJsLoaded: isCommonJsLoaded,
+      elementsFound: {
+        scrollIndicator: !!scrollIndicator,
+        fadeElements: document.querySelectorAll('.fade-up').length,
+        serviceItems: document.querySelectorAll('.services-list li').length
+      }
+    });
+  }, 100);
 
   console.log('✅ About.js initialization complete');
 });
