@@ -1,15 +1,15 @@
 // common.js - 서브 페이지(About, Portfolio, Contact) 공통 JavaScript
-// 🔥 에러 수정: 누락된 코드 복구 및 전체 로직 수정
+// 🔥 강제 리다이렉트 제거 + 새로고침 시 상단 이동
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🔄 Common.js loading for sub pages...');
 
-  // ─── 🔥 서브페이지 새로고침 방지 (누락된 코드 복구) ───
+  // ─── 🔥 새로고침 시 페이지 상단으로 이동 (리다이렉트 대신) ───
   try {
     if (performance.getEntriesByType('navigation')[0].type === 'reload') {
-      console.log('🔄 Page refresh detected, redirecting to main...');
-      window.location.href = 'index.html';
-      return;
+      console.log('🔄 Page refresh detected, scrolling to top...');
+      window.scrollTo(0, 0);
+      // 리다이렉트 코드 제거됨
     }
   } catch (e) {
     console.log('⚠️ Navigation API not supported, continuing...');
