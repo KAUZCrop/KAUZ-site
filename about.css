@@ -113,8 +113,8 @@
 
 /* 하단 고정 그라데이션 라인 */
 .about-bottom-line {
-  width: 70vw;
-  max-width: 800px;
+  width: 85vw;
+  max-width: 1000px;
   height: 3.5px;
   background: linear-gradient(90deg, 
     transparent 0%, 
@@ -203,7 +203,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 8rem;
+  gap: 15vw;  /* 🔥 8rem → 15vw (화면의 15%) */
   width: 100%;
 }
 
