@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // 🔥 페이지 새로고침 감지 및 메인페이지로 리다이렉트 (누락된 코드 추가)
+  try {
+    if (performance.getEntriesByType('navigation')[0].type === 'reload') {
+      console.log('🔄 Contact page refresh detected, redirecting to main...');
+      window.location.href = 'index.html';
+      return;
+    }
+  } catch (e) {
+    console.log('⚠️ Navigation API not supported, continuing...');
+  }
+
+  console.log('📄 Contact.js initialized');
 
   const form = document.getElementById('contactForm');
   const formResponse = document.getElementById('formResponse');
@@ -34,5 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
         formResponse.style.visibility = 'hidden';
       }, 5000);
     });
+    
+    console.log('✅ Contact form initialized');
   }
+  
+  console.log('✅ Contact.js initialization complete');
 });
