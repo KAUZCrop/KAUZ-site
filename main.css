@@ -268,7 +268,7 @@ h1, h2, h3 {
   flex-direction: column;
   justify-content: center;
   align-items: center; /* 🔥 전체 섹션 센터 정렬 */
-  padding: 0 2vw; /* 25px → 2vw */
+  padding: 0 1vw; /* 25px → 2vw */
   box-sizing: border-box;
   overflow: hidden;
 }
