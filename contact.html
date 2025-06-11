@@ -10,8 +10,6 @@
 
   <!-- 서브 공통 CSS (헤더·메뉴·푸터) -->
   <link rel="stylesheet" href="common.css" />
-
-  <!-- Contact 전용 CSS -->
   <link rel="stylesheet" href="contact.css" />
 </head>
 <body>
@@ -58,12 +56,7 @@
       action="https://formspree.io/f/mkgrljlv"
       method="POST"
     >
-      <!-- (선택) 메일 제목을 지정하고 싶으면 _subject 항목을 추가 -->
-      <input
-        type="hidden"
-        name="_subject"
-        value="[KAUZ 사이트] 문의가 도착했습니다"
-      />
+      <input type="hidden" name="_subject" value="[KAUZ 사이트] 문의가 도착했습니다" />
 
       <div class="form-group">
         <label for="company">회사명</label>
@@ -109,12 +102,12 @@
 
       <div class="form-group">
         <label for="budget">프로젝트 예산</label>
-        <select id="budget" name="budget">
-          <option value="">예산을 적어주세요</option>
-          <option value="0-10M">0 ~ 10M KRW</option>
-          <option value="10-50M">10 ~ 50M KRW</option>
-          <option value="50M+">50M+ KRW</option>
-        </select>
+        <input
+          type="text"
+          id="budget"
+          name="budget"
+          placeholder="예: 1천만원, 협의 가능 등"
+        />
       </div>
 
       <div class="form-group">
@@ -143,7 +136,7 @@
     </div>
   </footer>
 
-  <!-- JavaScript 파일들 -->
+  <!-- JavaScript -->
   <script src="common.js"></script>
   <script src="contact.js"></script>
 </body>
