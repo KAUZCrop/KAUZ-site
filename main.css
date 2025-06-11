@@ -268,7 +268,7 @@ h1, h2, h3 {
   flex-direction: column;
   justify-content: center;
   align-items: center; /* 🔥 전체 섹션 센터 정렬 */
-  padding: 0 25px;
+  padding: 0 2vw; /* 25px → 2vw */
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -320,7 +320,7 @@ h1, h2, h3 {
 }
 
 .slogan-line {
-  font-size: clamp(3rem, 8vw, 7rem);  /* 최소 3rem, 최대 7rem, 화면 비례 8vw */
+  font-size: clamp(2.5rem, 5vw, 6rem);  /* 최소 3rem, 최대 7rem, 화면 비례 8vw */
   font-weight: 850;
   line-height: 1.4;
   color: white;
