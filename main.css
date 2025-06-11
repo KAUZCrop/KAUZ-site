@@ -830,10 +830,8 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Contact Us 무한 롤링
+   🔥 이중 레이어 스트로크 Contact Us 섹션 (기존 롤링 배너 교체)
    ═══════════════════════════════════════════════════════════════ */
-
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 #contact {
   margin-top: 50px;
@@ -846,63 +844,201 @@ body.mobile {
   user-select: none;
 }
 
-.scrolling-container {
+/* 🔥 이중 레이어 스트로크 텍스트 */
+.stroke-text {
+  display: flex;
+  white-space: nowrap;
+  animation: scrollLeftStroke 20s linear infinite;
+  font-size: 9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-family: 'Pretendard', sans-serif;
+  line-height: 1;
   position: relative;
-  width: 100%;
-  overflow: hidden;
-  pointer-events: none;
 }
 
-.scrolling-text {
-  display: flex;
-  white-space: nowrap;
-  animation: scrollLeft 20s linear infinite;
-  font-size: 9rem;
-  font-weight: 700;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0;
-  font-family: 'Bebas Neue', sans-serif;
-  line-height: 1;
-  transform: scaleY(1.2);
-  pointer-events: none;
+.stroke-text .text-item,
+.stroke-text .divider {
+  display: inline-block;
+  position: relative;
 }
 
-.scrolling-text-clone {
-  display: flex;
-  white-space: nowrap;
-  animation: scrollLeft 20s linear infinite;
+/* 🔥 text-item 이중 레이어 구조 */
+.stroke-text .text-item {
+  position: relative;
+  display: inline-block;
   font-size: 9rem;
   font-weight: 700;
-  color: white;
+  font-family: 'Pretendard', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0;
-  font-family: 'Bebas Neue', sans-serif;
-  line-height: 1;
-  transform: scaleY(1.2);
+  color: transparent;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: baseline;
+}
+
+/* text-item 스트로크 레이어 */
+.stroke-text .text-item::before {
+  content: attr(data-text);
   position: absolute;
   top: 0;
-  left: 100%;
-  pointer-events: none;
+  left: 0;
+  color: white;
+  -webkit-text-stroke: 4px white;
+  text-stroke: 4px white;
+  z-index: 1;
+  background: none !important;
+  border: none !important;
 }
 
-.scrolling-item {
-  padding-right: 0;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  color: white;
+/* text-item 내부 제거 레이어 */
+.stroke-text .text-item::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #0D0D0D;
+  z-index: 2;
+  background: none !important;
+  border: none !important;
+}
+
+/* 🔥 | 기호 이중 레이어 구조 */
+.stroke-text .divider {
+  position: relative;
   display: inline-block;
-  pointer-events: none;
-}
-
-.divider {
-  padding: 0 1rem;
-  color: white;
-  font-weight: 700;
   font-size: 9rem;
-  line-height: 1;
-  display: inline-block;
-  pointer-events: none;
+  font-weight: 700;
+  font-family: 'Pretendard', sans-serif;
+  text-transform: uppercase;
+  color: transparent;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: baseline;
+}
+
+/* | 기호 스트로크 레이어 */
+.stroke-text .divider::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  -webkit-text-stroke: 4px white;
+  text-stroke: 4px white;
+  z-index: 1;
+  background: none !important;
+  border: none !important;
+}
+
+/* | 기호 내부 제거 레이어 */
+.stroke-text .divider::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #0D0D0D;
+  z-index: 2;
+  background: none !important;
+  border: none !important;
+}
+
+/* 🔥 호버 시 주황색 롤링 효과 */
+#contact:hover .text-item,
+#contact:hover .divider {
+  animation: strokeColorRolling 3s linear infinite;
+}
+
+/* 🔥 스트로크 색상 롤링 애니메이션 */
+@keyframes strokeColorRolling {
+  0% {
+    text-shadow: 
+      -2px -2px 0 white,
+      2px -2px 0 white,
+      -2px 2px 0 white,
+      2px 2px 0 white,
+      -2px 0px 0 white,
+      2px 0px 0 white,
+      0px -2px 0 white,
+      0px 2px 0 white;
+  }
+  15% {
+    text-shadow: 
+      -2px -2px 0 #E37031,
+      2px -2px 0 #E37031,
+      -2px 2px 0 #E37031,
+      2px 2px 0 #E37031,
+      -2px 0px 0 #E37031,
+      2px 0px 0 #E37031,
+      0px -2px 0 #E37031,
+      0px 2px 0 #E37031;
+  }
+  30% {
+    text-shadow: 
+      -2px -2px 0 white,
+      2px -2px 0 white,
+      -2px 2px 0 white,
+      2px 2px 0 white,
+      -2px 0px 0 white,
+      2px 0px 0 white,
+      0px -2px 0 white,
+      0px 2px 0 white;
+  }
+  100% {
+    text-shadow: 
+      -2px -2px 0 white,
+      2px -2px 0 white,
+      -2px 2px 0 white,
+      2px 2px 0 white,
+      -2px 0px 0 white,
+      2px 0px 0 white,
+      0px -2px 0 white,
+      0px 2px 0 white;
+  }
+}
+
+/* 각 텍스트 요소마다 다른 딜레이로 웨이브 효과 */
+#contact:hover .text-item:nth-child(1) {
+  animation-delay: 0s;
+}
+#contact:hover .divider:nth-child(2) {
+  animation-delay: 0.2s;
+}
+#contact:hover .text-item:nth-child(3) {
+  animation-delay: 0.4s;
+}
+#contact:hover .divider:nth-child(4) {
+  animation-delay: 0.6s;
+}
+#contact:hover .text-item:nth-child(5) {
+  animation-delay: 0.8s;
+}
+#contact:hover .divider:nth-child(6) {
+  animation-delay: 1.0s;
+}
+#contact:hover .text-item:nth-child(7) {
+  animation-delay: 1.2s;
+}
+#contact:hover .divider:nth-child(8) {
+  animation-delay: 1.4s;
+}
+
+@keyframes scrollLeftStroke {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 #contact:hover {
@@ -913,15 +1049,6 @@ body.mobile {
 #contact:active {
   opacity: 0.6;
   transition: opacity 0.1s ease;
-}
-
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0) scaleY(1.2);
-  }
-  100% {
-    transform: translateX(-50%) scaleY(1.2);
-  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1169,20 +1296,23 @@ body {
     filter: none !important;
   }
 
-  /* Contact 스크롤링 텍스트 */
-  .scrolling-text {
+  /* 🔥 Contact 이중 레이어 스트로크 모바일 */
+  .stroke-text {
     font-size: 2.5rem;
     animation-duration: 12s;
-    transform: none;
   }
   
-  .scrolling-item {
-    padding-right: 0;
-  }
-  
-  .divider {
-    padding: 0 0.8rem;
+  .stroke-text .text-item,
+  .stroke-text .divider {
     font-size: 2.5rem;
+    color: rgba(0, 0, 0, 0) !important; /* 모바일에서도 완전 투명 */
+    -webkit-text-fill-color: rgba(0, 0, 0, 0) !important; /* 모바일에서도 fill 제거 */
+  }
+
+  .stroke-text .text-item::before,
+  .stroke-text .divider::before {
+    -webkit-text-stroke: 2px white;
+    text-stroke: 2px white;
   }
   
   #contact {
@@ -1340,16 +1470,21 @@ body {
     font-size: 18px !important;
   }
 
-  /* Contact 스크롤링 텍스트 작은 모바일 */
-  .scrolling-text {
+  /* Contact 이중 레이어 스트로크 작은 모바일 */
+  .stroke-text {
     font-size: 1.8rem;
     animation-duration: 10s;
-    transform: none;
   }
   
-  .divider {
-    padding: 0 0.6rem;
+  .stroke-text .text-item,
+  .stroke-text .divider {
     font-size: 1.8rem;
+  }
+
+  .stroke-text .text-item::before,
+  .stroke-text .divider::before {
+    -webkit-text-stroke: 1px white;
+    text-stroke: 1px white;
   }
   
   #contact {
