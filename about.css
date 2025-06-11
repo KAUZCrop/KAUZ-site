@@ -131,10 +131,10 @@
    ═══════════════════════════════════════════════════════════════ */
 
 .about-content-wrapper {
-  max-width: 1200px;
+  max-width: none;
   margin: 0 auto;
   width: 100%;
-  padding: 0 25px;
+  padding: 0 5vw;
   box-sizing: border-box;
   position: relative;
   z-index: 1; /* 🔥 z-index 추가 */
@@ -203,12 +203,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 15vw;  /* 🔥 8rem → 15vw (화면의 15%) */
+  gap: 12vw;  /* 🔥 8rem → 15vw (화면의 15%) */
   width: 100%;
 }
 
 .content-text {
   flex: 1;
+  min-width: 300px;
   font-size: 1.1rem;
   line-height: 1.8;
   color: #ccc;
