@@ -113,8 +113,8 @@
 
 /* 하단 고정 그라데이션 라인 */
 .about-bottom-line {
-  width: 60vw;
-  max-width: 600px;
+  width: 70vw;
+  max-width: 800px;
   height: 3.5px;
   background: linear-gradient(90deg, 
     transparent 0%, 
@@ -203,7 +203,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 4rem;
+  gap: 8rem;
   width: 100%;
 }
 
@@ -364,7 +364,7 @@
   .about-bottom-elements {
     bottom: 3rem;
     left: 1rem;
-    gap: 10px;
+    gap: 15px;
   }
 
   .scroll-text {
@@ -473,7 +473,7 @@
   .about-bottom-elements {
     bottom: 2rem;
     left: 0.5rem;
-    gap: 8px;
+    gap: 10px;
   }
 
   .scroll-text {
@@ -542,7 +542,7 @@
   }
 
   .about-bottom-elements {
-    gap: 6px;
+    gap: 8px;
   }
 
   .about-content-wrapper {
