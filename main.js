@@ -710,6 +710,24 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="portfolio-placeholder">Portfolio 1</div>
         </div>
         <div class="portfolio-slide-title">
+          <span class="portfolio-brand-name">샘플 프로젝트 1</span>
+          <span class="portfolio-slide-category">Portfolio</span>
+        </div>
+      </div>
+      <div class="portfolio-slide">
+        <div class="portfolio-image-container">
+          <div class="portfolio-placeholder">Portfolio 2</div>
+        </div>
+        <div class="portfolio-slide-title">
+          <span class="portfolio-brand-name">샘플 프로젝트 2</span>
+          <span class="portfolio-slide-category">Portfolio</span>
+        </div>
+      </div>
+      <div class="portfolio-slide">
+        <div class="portfolio-image-container">
+          <div class="portfolio-placeholder">Portfolio 3</div>
+        </div>
+        <div class="portfolio-slide-title">
           <span class="portfolio-brand-name">샘플 프로젝트 3</span>
           <span class="portfolio-slide-category">Portfolio</span>
         </div>
@@ -781,29 +799,21 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About cards initialized:', aboutCards.length);
   }
 
-  // ─── 🔥 이중 레이어 스트로크 무한 롤링 설정 (기존 롤링 텍스트 대체) ───
-  const strokeText = document.querySelector('.stroke-text');
-  if (strokeText) {
-    // 🔥 기존 롤링 텍스트 관련 요소들 제거 (충돌 방지)
-    const oldScrollingElements = document.querySelectorAll('.scrolling-container, .scrolling-text:not(.stroke-text), .scrolling-text-clone');
-    oldScrollingElements.forEach(el => {
-      if (el && el.parentNode) {
-        el.parentNode.removeChild(el);
-        console.log('🗑️ Removed old scrolling element:', el.className);
-      }
-    });
-
-    // 🔥 끊김 없는 무한 롤링을 위한 복제본 생성
-    const clone = strokeText.cloneNode(true);
-    clone.style.position = 'absolute';
-    clone.style.left = '100%';
-    clone.style.top = '0';
-    clone.style.animationDelay = '0s'; // 메인과 동기화
-    strokeText.parentNode.appendChild(clone);
+  // ─── 무한 롤링 텍스트 설정 ───
+  const scrollingContainer = document.querySelector('.scrolling-container');
+  const scrollingText = document.querySelector('.scrolling-text');
+  
+  if (scrollingContainer && scrollingText) {
+    // 텍스트 복제하여 끊김 없는 롤링 구현
+    const clone = scrollingText.cloneNode(true);
+    clone.classList.add('scrolling-text-clone');
+    scrollingContainer.appendChild(clone);
     
-    console.log('✅ Stroke text infinite rolling initialized');
-  } else {
-    console.warn('⚠️ Stroke text element not found - check HTML structure');
+    // 애니메이션 동기화
+    const texts = scrollingContainer.querySelectorAll('.scrolling-text, .scrolling-text-clone');
+    texts.forEach((text, index) => {
+      text.style.animationDelay = `${index * 10}s`;
+    });
   }
 
   // ═══════════════════════════════════════════════════════════════
@@ -858,4 +868,4 @@ window.addEventListener('load', () => {
     // 예시: 외부 스크립트에서 사용 가능
     // if (window.checkKauzSearch(someUserInput)) { /* 처리 로직 */ }
   }
-}
+});
