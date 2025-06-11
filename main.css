@@ -848,7 +848,7 @@ body.mobile {
 .stroke-text {
   display: flex;
   white-space: nowrap;
-  animation: scrollLeftStroke 30s linear infinite;
+  animation: scrollLeftStroke 20s linear infinite;
   font-size: 9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -955,7 +955,7 @@ body.mobile {
 /* 🔥 호버 시 주황색 롤링 효과 */
 #contact:hover .text-item,
 #contact:hover .divider {
-  animation: strokeColorRolling 3s linear infinite, infiniteScroll 30s linear infinite;
+  animation: strokeColorRolling 3s linear infinite;
 }
 
 /* 🔥 스트로크 색상 롤링 애니메이션 */
@@ -1007,16 +1007,32 @@ body.mobile {
 }
 
 /* 각 텍스트 요소마다 다른 딜레이로 웨이브 효과 */
-contact:hover .text-item:nth-child(1) { animation-delay: 0s, 0s; }
-#contact:hover .divider:nth-child(2) { animation-delay: 0.2s, 0s; }
-#contact:hover .text-item:nth-child(3) { animation-delay: 0.4s, 0s; }
-#contact:hover .divider:nth-child(4) { animation-delay: 0.6s, 0s; }
-#contact:hover .text-item:nth-child(5) { animation-delay: 0.8s, 0s; }
-#contact:hover .divider:nth-child(6) { animation-delay: 1.0s, 0s; }
-#contact:hover .text-item:nth-child(7) { animation-delay: 1.2s, 0s; }
-#contact:hover .divider:nth-child(8) { animation-delay: 1.4s, 0s; }
+#contact:hover .text-item:nth-child(1) {
+  animation-delay: 0s;
+}
+#contact:hover .divider:nth-child(2) {
+  animation-delay: 0.2s;
+}
+#contact:hover .text-item:nth-child(3) {
+  animation-delay: 0.4s;
+}
+#contact:hover .divider:nth-child(4) {
+  animation-delay: 0.6s;
+}
+#contact:hover .text-item:nth-child(5) {
+  animation-delay: 0.8s;
+}
+#contact:hover .divider:nth-child(6) {
+  animation-delay: 1.0s;
+}
+#contact:hover .text-item:nth-child(7) {
+  animation-delay: 1.2s;
+}
+#contact:hover .divider:nth-child(8) {
+  animation-delay: 1.4s;
+}
 
-@keyframes infiniteScroll {
+@keyframes scrollLeftStroke {
   0% {
     transform: translateX(0);
   }
@@ -1283,7 +1299,7 @@ body {
   /* 🔥 Contact 이중 레이어 스트로크 모바일 */
   .stroke-text {
     font-size: 2.5rem;
-    animation-duration: 20s;
+    animation-duration: 12s;
   }
   
   .stroke-text .text-item,
@@ -1457,7 +1473,7 @@ body {
   /* Contact 이중 레이어 스트로크 작은 모바일 */
   .stroke-text {
     font-size: 1.8rem;
-    animation-duration: 15s;
+    animation-duration: 10s;
   }
   
   .stroke-text .text-item,
