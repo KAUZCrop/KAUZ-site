@@ -203,13 +203,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12vw;  /* 🔥 8rem → 15vw (화면의 15%) */
+  gap: 8vw;  /* 🔥 12vw → 8vw (줄바꿈 개선) */
   width: 100%;
 }
 
 .content-text {
   flex: 1;
-  min-width: 300px;
+  min-width: 400px;  /* 🔥 300px → 400px (줄바꿈 개선) */
   font-size: 1.1rem;
   line-height: 1.8;
   color: #ccc;
@@ -280,9 +280,9 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
-  gap: 4rem;          /* 🔥 간격 더 넓게! */
-  width: 90vw;        /* 🔥 전체 폭 90% 사용 */
-  margin: 0 auto;     /* 🔥 중앙 정렬 */
+  gap: 4rem;
+  width: 90vw;
+  margin: 0 auto;
 }
 
 .mission-quote {
@@ -290,12 +290,12 @@
   font-weight: 300;
   line-height: 1.4;
   color: white;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem auto;  /* 🔥 중앙 정렬 */
   font-style: italic;
   position: relative;
-  white-space: nowrap;    /* 🔥 줄바꿈 방지! */
-  max-width: 100%;        /* 🔥 최대 폭 */
-  overflow: visible;      /* 🔥 넘침 허용 */
+  white-space: normal;       /* 🔥 nowrap → normal (자연스러운 줄바꿈) */
+  max-width: 800px;          /* 🔥 100% → 800px (적절한 폭 제한) */
+  text-align: center;        /* 🔥 텍스트 중앙 정렬 */
 }
 
 .mission-quote::before,
@@ -422,6 +422,7 @@
   }
 
   .content-text {
+    min-width: auto;  /* 🔥 모바일에서는 min-width 제거 */
     font-size: 0.9rem;
     line-height: 1.6;
   }
@@ -429,6 +430,7 @@
   .mission-quote {
     white-space: normal;  /* 🔥 모바일에서는 줄바꿈 허용 */
     font-size: 1.5rem;
+    max-width: 100%;      /* 🔥 모바일에서는 전체 폭 사용 */
   }
 
   .services-list li {
