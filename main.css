@@ -1337,7 +1337,7 @@ body {
     filter: none !important;
   }
 
-  /* 🔥 Contact 이중 레이어 스트로크 모바일 */
+   /* 🔥 모바일 Contact 이중 레이어 스트로크 - 기본 설정 유지 */
   .stroke-text {
     font-size: 2.5rem;
     animation-duration: 12s;
@@ -1350,16 +1350,74 @@ body {
     -webkit-text-fill-color: rgba(0, 0, 0, 0) !important; /* 모바일에서도 fill 제거 */
   }
 
+  /* 🔥 모바일 기본 스트로크 (웹과 동일하게) */
   .stroke-text .text-item::before,
   .stroke-text .divider::before {
     -webkit-text-stroke: 2px white;
     text-stroke: 2px white;
+    /* 🔥 text-shadow 완전 제거 (모바일 렌더링 문제 방지) */
+    text-shadow: none !important;
   }
-  
+
+  /* 🔥 모바일 호버 시 색상 롤링 효과 - text-shadow 대신 stroke 색상 변경 */
+  #contact:hover .text-item::before,
+  #contact:hover .divider::before {
+    animation: mobileStrokeColorRolling 3s linear infinite;
+    /* 🔥 text-shadow 사용 안함 */
+    text-shadow: none !important;
+  }
+
+  /* 🔥 모바일 전용 스트로크 색상 롤링 애니메이션 */
+  @keyframes mobileStrokeColorRolling {
+    0% {
+      -webkit-text-stroke-color: white;
+      text-stroke-color: white;
+    }
+    15% {
+      -webkit-text-stroke-color: #E37031;
+      text-stroke-color: #E37031;
+    }
+    30% {
+      -webkit-text-stroke-color: white;
+      text-stroke-color: white;
+    }
+    100% {
+      -webkit-text-stroke-color: white;
+      text-stroke-color: white;
+    }
+  }
+
+  /* 🔥 각 요소별 딜레이 (웹과 동일) */
+  #contact:hover .text-item:nth-child(1)::before {
+    animation-delay: 0s;
+  }
+  #contact:hover .divider:nth-child(2)::before {
+    animation-delay: 0.2s;
+  }
+  #contact:hover .text-item:nth-child(3)::before {
+    animation-delay: 0.4s;
+  }
+  #contact:hover .divider:nth-child(4)::before {
+    animation-delay: 0.6s;
+  }
+  #contact:hover .text-item:nth-child(5)::before {
+    animation-delay: 0.8s;
+  }
+  #contact:hover .divider:nth-child(6)::before {
+    animation-delay: 1.0s;
+  }
+  #contact:hover .text-item:nth-child(7)::before {
+    animation-delay: 1.2s;
+  }
+  #contact:hover .divider:nth-child(8)::before {
+    animation-delay: 1.4s;
+  }
+
   #contact {
     padding: 2rem 0;
     overflow: hidden;
   }
+}
 
   /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
   #our-client {
@@ -1512,6 +1570,9 @@ body {
     font-size: 18px !important;
   }
 
+ /* 🔥 작은 모바일 대응 */
+@media (max-width: 480px) {
+  
   /* Contact 이중 레이어 스트로크 작은 모바일 */
   .stroke-text {
     font-size: 1.8rem;
@@ -1527,11 +1588,37 @@ body {
   .stroke-text .divider::before {
     -webkit-text-stroke: 1px white;
     text-stroke: 1px white;
+    /* 🔥 작은 모바일에서도 text-shadow 제거 */
+    text-shadow: none !important;
   }
   
   #contact {
     padding: 1.5rem 0;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🔥 추가 안전장치 - 모든 모바일 디바이스에서 text-shadow 강제 제거
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 모바일 터치 디바이스에서 text-shadow 완전 차단 */
+@media (hover: none) and (pointer: coarse) {
+  .stroke-text .text-item::before,
+  .stroke-text .divider::before,
+  .stroke-text .text-item,
+  .stroke-text .divider {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* 호버 효과도 text-shadow 없이 */
+  #contact:hover .text-item,
+  #contact:hover .divider,
+  #contact:hover .text-item::before,
+  #contact:hover .divider::before {
+    text-shadow: none !important;
+  }
+}
 
   /* Our Client 작은 모바일 */
   #our-client {
