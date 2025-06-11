@@ -858,3 +858,4 @@ window.addEventListener('load', () => {
     // 예시: 외부 스크립트에서 사용 가능
     // if (window.checkKauzSearch(someUserInput)) { /* 처리 로직 */ }
   }
+}
