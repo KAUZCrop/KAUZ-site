@@ -281,6 +281,7 @@
   align-items: center;
   gap: 4rem;          /* 🔥 간격 더 넓게! */
   width: 90vw;        /* 🔥 전체 폭 90% 사용 */
+  margin: 0 auto;     /* 🔥 중앙 정렬 */
 }
 
 .mission-quote {
