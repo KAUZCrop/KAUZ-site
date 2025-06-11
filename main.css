@@ -727,7 +727,7 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Our Client 섹션 (🔥 웹만 수정됨)
+   🔧 Our Client 섹션 - 웹 fade 효과 + 모바일 그리드 (수정된 부분)
    ═══════════════════════════════════════════════════════════════ */
 
 #our-client {
@@ -745,6 +745,7 @@ body.mobile {
   font-weight: normal;
 }
 
+/* 🖥️ 웹 버전 - fade 효과 적용 */
 .client-grid {
   width: 100%;
   position: relative;
@@ -792,10 +793,12 @@ body.mobile {
   filter: grayscale(0%);
 }
 
+/* 🔥 첫 번째 줄 - 완전히 선명 */
 .client-row:nth-child(1) {
   opacity: 1;
 }
 
+/* 🔥 두 번째 줄 - 70% 투명도 + fade 시작 */
 .client-row:nth-child(2) {
   opacity: 0.7;
   position: relative;
@@ -808,11 +811,17 @@ body.mobile {
   left: 0;
   width: 100%;
   height: 50px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.5) 40%, rgba(13, 13, 13, 0.8) 80%, #0D0D0D 100%);
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(13, 13, 13, 0.5) 40%, 
+    rgba(13, 13, 13, 0.8) 80%, 
+    #0D0D0D 100%
+  );
   pointer-events: none;
   z-index: 2;
 }
 
+/* 🔥 세 번째 줄 - 30% 투명도 + 아래로 이동 + 강한 fade */
 .client-row:nth-child(3) {
   opacity: 0.3;
   transform: translateY(10px);
@@ -827,11 +836,17 @@ body.mobile {
   left: 0;
   width: 100%;
   height: 70px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.6) 20%, rgba(13, 13, 13, 0.9) 60%, #0D0D0D 100%);
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(13, 13, 13, 0.6) 20%, 
+    rgba(13, 13, 13, 0.9) 60%, 
+    #0D0D0D 100%
+  );
   pointer-events: none;
   z-index: 2;
 }
 
+/* 🔥 전체 그리드 하단 최종 fade */
 .client-grid::after {
   content: '';
   position: absolute;
@@ -839,21 +854,27 @@ body.mobile {
   left: 0;
   width: 100%;
   height: 100px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(13, 13, 13, 0.2) 30%, rgba(13, 13, 13, 0.6) 70%, #0D0D0D 100%);
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(13, 13, 13, 0.2) 30%, 
+    rgba(13, 13, 13, 0.6) 70%, 
+    #0D0D0D 100%
+  );
   pointer-events: none;
   z-index: 3;
 }
 
-/* 🔥 HTML에서 추가한 클래스들 처리 (웹만) */
+/* HTML 클래스 처리 */
 .almost-hidden {
   opacity: 0.3 !important;
   transform: translateY(10px) !important;
 }
 
 .desktop-only {
-  display: flex; /* 웹에서는 보이기 */
+  display: flex;
 }
 
+/* More 링크 */
 .client-more {
   text-align: center;
   margin-top: 15px;
@@ -875,6 +896,7 @@ body.mobile {
   opacity: 0.7;
 }
 
+/* 📱 모바일 그리드 - 기본적으로 숨김 */
 .client-mobile-grid {
   display: none !important;
 }
@@ -1427,7 +1449,6 @@ body {
     padding: 2rem 0;
     overflow: hidden;
   }
-}
 
   /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
   #our-client {
@@ -1581,7 +1602,6 @@ body {
   }
 
  /* 🔥 작은 모바일 대응 */
-@media (max-width: 480px) {
   
   /* Contact 이중 레이어 스트로크 작은 모바일 */
   .stroke-text {
@@ -1605,6 +1625,24 @@ body {
   #contact {
     padding: 1.5rem 0;
   }
+
+  /* Our Client 작은 모바일 */
+  #our-client {
+    padding: 1.5rem 0.5rem !important;
+  }
+  
+  .client-mobile-item {
+    height: 70px !important;
+  }
+  
+  .client-title {
+    font-size: 1.4rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .client-more a {
+    font-size: 16px !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1627,25 +1665,6 @@ body {
   #contact:hover .text-item::before,
   #contact:hover .divider::before {
     text-shadow: none !important;
-  }
-}
-
-  /* Our Client 작은 모바일 */
-  #our-client {
-    padding: 1.5rem 0.5rem !important;
-  }
-  
-  .client-mobile-item {
-    height: 70px !important;
-  }
-  
-  .client-title {
-    font-size: 1.4rem !important;
-    margin-bottom: 1.5rem !important;
-  }
-  
-  .client-more a {
-    font-size: 16px !important;
   }
 }
 
