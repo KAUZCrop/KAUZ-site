@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // ─── 🔥 새로고침 시 페이지 상단으로 이동 (서브페이지와 동일) ───
+  try {
+    if (performance.getEntriesByType('navigation')[0].type === 'reload') {
+      console.log('🔄 Main page refresh detected, scrolling to top...');
+      window.scrollTo(0, 0);
+      // 리다이렉트 코드 제거됨
+    }
+  } catch (e) {
+    console.log('⚠️ Navigation API not supported, continuing...');
+  }
+
   // ─── 전역 변수 선언 (요소 존재 확인) ───
   const loadingScreen = document.getElementById('loading-screen');
   const progressFill  = document.querySelector('.progress-fill');
@@ -9,9 +20,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay, scrollIndicator });
 
-  // 🔥 로딩 중 스크롤 비활성화
-  document.body.style.overflow = 'hidden';
-  document.documentElement.style.overflow = 'hidden';
+  // 🔥 로딩 중 + 새로고침 시 스크롤 완전 차단 (강화된 버전)
+  function disableScroll() {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.height = '100%';
+    document.body.classList.add('loading', 'no-scroll');
+    
+    // 추가 보안 - 스크롤 이벤트 차단
+    document.addEventListener('wheel', preventDefault, { passive: false });
+    document.addEventListener('touchmove', preventDefault, { passive: false });
+    document.addEventListener('keydown', preventDefaultForScrollKeys, false);
+    
+    console.log('🚫 Scroll completely disabled');
+  }
+
+  // 🔥 스크롤 활성화 (로딩 완료 후)
+  function enableScroll() {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.height = '';
+    document.body.classList.remove('loading', 'no-scroll');
+    
+    // 이벤트 리스너 제거
+    document.removeEventListener('wheel', preventDefault, { passive: false });
+    document.removeEventListener('touchmove', preventDefault, { passive: false });
+    document.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+    
+    console.log('✅ Scroll enabled');
+  }
+
+  // 스크롤 차단용 함수들
+  function preventDefault(e) {
+    e.preventDefault();
+  }
+
+  function preventDefaultForScrollKeys(e) {
+    const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40]; // spacebar, pageup, pagedown, end, home, arrow keys
+    if (scrollKeys.includes(e.keyCode)) {
+      preventDefault(e);
+      return false;
+    }
+  }
+
+  // 페이지 로드 시 즉시 스크롤 차단
+  disableScroll();
 
   // ═══════════════════════════════════════════════════════════════
   // 🔥 한글 검색어 대응 시스템 (기존 코드 유지)
@@ -175,10 +232,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburger) {
       hamburger.classList.remove('active');
     }
-    // 메뉴 닫을 때는 로딩이 끝났다면 스크롤 허용
+    // 🔥 메뉴 닫을 때는 로딩이 끝났다면 스크롤 허용
     if (!loadingScreen || loadingScreen.style.display === 'none') {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
+      enableScroll();
+    } else {
+      // 로딩 중이면 스크롤 차단 유지
+      disableScroll();
     }
     document.body.classList.remove('menu-open');
   }
@@ -444,10 +503,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('✅ Background animation line activated');
     }
 
-    // 🔥 로딩 완료 후 스크롤 활성화
-    document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
-    document.body.classList.remove('loading');
+    // 🔥 로딩 완료 후 스크롤 활성화 (가장 중요!)
+    enableScroll();
 
     // 로딩 스크린 완전 제거 및 타이핑 시작
     setTimeout(() => {
@@ -497,8 +554,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         menuOverlay.classList.add('active');
         hamburger.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
+        // 🔥 메뉴 열 때 스크롤 차단
+        disableScroll();
         document.body.classList.add('menu-open');
         console.log('Menu opened');
       }
@@ -851,6 +908,21 @@ document.addEventListener('DOMContentLoaded', () => {
     window.testKoreanSearch = testKoreanSearchHandler;
     console.log('🛠️ 개발 모드: window.testKoreanSearch() 로 테스트 가능');
   }
+
+  // 🔥 페이지 나가기 전 스크롤 차단 (부드러운 전환을 위해)
+  window.addEventListener('beforeunload', () => {
+    disableScroll();
+  });
+
+  // 🔥 페이지 포커스/블러 처리 (탭 전환 시)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      // 페이지가 숨겨졌을 때 (다른 탭으로 이동)
+      if (menuOverlay && menuOverlay.classList.contains('active')) {
+        closeMenu();
+      }
+    }
+  });
 
   console.log('✅ Main.js initialization complete');
 });
