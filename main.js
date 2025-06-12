@@ -900,6 +900,81 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ═══════════════════════════════════════════════════════════════
+  // 🔥 Contact 섹션 완벽한 무한롤링 + 색상 웨이브 초기화
+  // ═══════════════════════════════════════════════════════════════
+
+  function initPerfectContactInfiniteScroll() {
+    const marqueeInner = document.querySelector('#contact .marquee-inner');
+    const marqueeWrapper = document.querySelector('#contact .marquee-wrapper');
+    
+    if (!marqueeInner || !marqueeWrapper) {
+      console.warn('Contact marquee elements not found');
+      return;
+    }
+    
+    // 원본 콘텐츠 저장
+    const originalContent = marqueeInner.innerHTML;
+    let totalItems = 0;
+    
+    // 화면 너비에 따라 필요한 복제본 개수 계산
+    const calculateCopies = () => {
+      const wrapperWidth = marqueeWrapper.offsetWidth;
+      
+      // 임시로 원본만 넣고 너비 측정
+      marqueeInner.innerHTML = originalContent;
+      const contentWidth = marqueeInner.scrollWidth;
+      
+      // 화면을 완전히 채우기 위해 필요한 복제본 수 계산
+      const copiesNeeded = Math.ceil((wrapperWidth * 3) / contentWidth) + 1;
+      
+      return Math.max(copiesNeeded, 5); // 최소 5개 보장
+    };
+    
+    // 복제본 생성 함수
+    const createCopies = () => {
+      const copiesNeeded = calculateCopies();
+      
+      // 기존 내용 초기화
+      marqueeInner.innerHTML = '';
+      
+      // 필요한 만큼 복제본 추가
+      for (let i = 0; i < copiesNeeded; i++) {
+        marqueeInner.innerHTML += originalContent;
+      }
+      
+      // 각 텍스트 요소에 색상 웨이브 딜레이 적용
+      const allTextElements = marqueeInner.querySelectorAll('.svg-stroke, .svg-divider');
+      totalItems = allTextElements.length;
+      
+      // 🔥 색상 웨이브가 순차적으로 흘러가도록 딜레이 설정
+      allTextElements.forEach((element, index) => {
+        const delay = (index * 0.3) % 4; // 0.3초씩 지연, 4초 주기로 반복
+        element.style.animationDelay = `${delay}s`;
+      });
+      
+      // CSS 변수로 스크롤 거리 조정
+      const scrollDistance = -(100 / copiesNeeded);
+      marqueeInner.style.setProperty('--scroll-distance', `${scrollDistance}%`);
+      
+      console.log(`🔄 Contact infinite scroll: ${copiesNeeded} copies, ${totalItems} text elements`);
+    };
+    
+    // 초기 복제본 생성
+    setTimeout(createCopies, 100);
+    
+    // 윈도우 리사이즈 시 복제본 재계산
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        createCopies();
+      }, 250);
+    });
+    
+    console.log('✅ Perfect contact infinite scroll with color wave initialized');
+  }
+
+  // ═══════════════════════════════════════════════════════════════
   // 🔥 한글 검색어 대응 테스트 및 추가 이벤트
   // ═══════════════════════════════════════════════════════════════
 
@@ -949,6 +1024,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  // 🔥 Contact 섹션 무한롤링 초기화 (로딩 완료 후)
+  setTimeout(() => {
+    initPerfectContactInfiniteScroll();
+  }, 1200); // 로딩 완료 + 타이핑 애니메이션 후 실행
 
   console.log('✅ Main.js initialization complete');
 });
