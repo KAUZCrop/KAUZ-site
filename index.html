@@ -367,36 +367,60 @@
         <a href="portfolio.html">More+</a>
       </div>
     </section>
-  <!-- 🔥 수정된 Contact 섹션 - 진짜 무한롤링 + 모바일 깨짐 방지 + 색상 롤링 유지 -->
+
+  <!-- 🔥 수정된 Contact 섹션 - SVG 무한롤링 방식 -->
   <section id="contact">
-    <div class="stroke-text-wrapper">
-      <div class="stroke-text" id="stroke-text-1">
-        <span class="text-item" data-text="CONTACT US">CONTACT US</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="KAUZ CORP.">KAUZ CORP.</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="CONTACT US">CONTACT US</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="KAUZ CORP.">KAUZ CORP.</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="CONTACT US">CONTACT US</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="KAUZ CORP.">KAUZ CORP.</span>
-        <span class="divider" data-text="|">|</span>
-      </div>
-      <div class="stroke-text" id="stroke-text-2">
-        <span class="text-item" data-text="CONTACT US">CONTACT US</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="KAUZ CORP.">KAUZ CORP.</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="CONTACT US">CONTACT US</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="KAUZ CORP.">KAUZ CORP.</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="CONTACT US">CONTACT US</span>
-        <span class="divider" data-text="|">|</span>
-        <span class="text-item" data-text="KAUZ CORP.">KAUZ CORP.</span>
-        <span class="divider" data-text="|">|</span>
+    <div class="marquee-wrapper">
+      <div class="marquee-inner">
+        <!-- 🔥 첫 번째 세트 -->
+        <div class="text-item">
+          <svg class="text-svg" viewBox="0 0 480 140" preserveAspectRatio="xMinYMid meet">
+            <text x="20" y="70" class="svg-stroke item-1">CONTACT US</text>
+          </svg>
+        </div>
+        
+        <div class="text-item">
+          <svg class="text-svg" viewBox="0 0 60 140" preserveAspectRatio="xMidYMid meet">
+            <text x="30" y="70" class="svg-divider item-2">|</text>
+          </svg>
+        </div>
+        
+        <div class="text-item">
+          <svg class="text-svg" viewBox="0 0 420 140" preserveAspectRatio="xMinYMid meet">
+            <text x="20" y="70" class="svg-stroke item-3">KAUZ CORP.</text>
+          </svg>
+        </div>
+        
+        <div class="text-item">
+          <svg class="text-svg" viewBox="0 0 60 140" preserveAspectRatio="xMidYMid meet">
+            <text x="30" y="70" class="svg-divider item-4">|</text>
+          </svg>
+        </div>
+
+        <!-- 🔥 무한롤링을 위한 복제 세트 -->
+        <div class="text-item">
+          <svg class="text-svg" viewBox="0 0 480 140" preserveAspectRatio="xMinYMid meet">
+            <text x="20" y="70" class="svg-stroke item-5">CONTACT US</text>
+          </svg>
+        </div>
+        
+        <div class="text-item">
+          <svg class="text-svg" viewBox="0 0 60 140" preserveAspectRatio="xMidYMid meet">
+            <text x="30" y="70" class="svg-divider item-6">|</text>
+          </svg>
+        </div>
+        
+        <div class="text-item">
+          <svg class="text-svg" viewBox="0 0 420 140" preserveAspectRatio="xMinYMid meet">
+            <text x="20" y="70" class="svg-stroke item-7">KAUZ CORP.</text>
+          </svg>
+        </div>
+        
+        <div class="text-item">
+          <svg class="text-svg" viewBox="0 0 60 140" preserveAspectRatio="xMidYMid meet">
+            <text x="30" y="70" class="svg-divider item-8">|</text>
+          </svg>
+        </div>
       </div>
     </div>
   </section>
