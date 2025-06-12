@@ -902,7 +902,7 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 수정된 Contact Us 섹션 - 진짜 무한롤링 + 모바일 깨짐 방지 + 색상 롤링 유지
+   🔥 Contact Us 섹션 - 진짜 무한롤링 + 모바일 깨짐 방지 + 색상 롤링 유지
    ═══════════════════════════════════════════════════════════════ */
 
 #contact {
@@ -957,6 +957,8 @@ body.mobile {
   text-shadow: none !important;
   box-shadow: none !important;
   outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
 }
 
 /* 🔥 호버 시 색상 롤링 효과 - 안전한 방식 */
@@ -1344,10 +1346,12 @@ body {
 
   .stroke-text-wrapper {
     animation-duration: 20s; /* 모바일에서 조금 더 빠르게 */
+    will-change: transform;
   }
 
   .stroke-text {
     font-size: 2.5rem;
+    will-change: auto;
   }
   
   .stroke-text .text-item,
@@ -1363,6 +1367,11 @@ body {
     filter: none !important;
     backdrop-filter: none !important;
     transform: none !important;
+    will-change: auto !important;
+    /* 🔥 추가 안전장치 */
+    outline: none !important;
+    border: none !important;
+    background: none !important;
   }
 
   /* 🔥 모바일 호버 시 색상 롤링 - 단순하고 안전하게 */
