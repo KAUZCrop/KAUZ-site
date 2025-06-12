@@ -902,7 +902,7 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 Contact Us 섹션 - SVG 무한롤링 방식 (완전 교체)
+   🔥 Contact Us 섹션 - 완벽한 무한롤링 + 색상 웨이브 (최종 버전)
    ═══════════════════════════════════════════════════════════════ */
 
 #contact {
@@ -916,7 +916,7 @@ body.mobile {
   user-select: none;
 }
 
-/* 🔥 비그로우 정확한 구조 */
+/* 🔥 완벽한 무한롤링 구조 */
 .marquee-wrapper {
   width: 100%;
   height: 140px;
@@ -931,7 +931,7 @@ body.mobile {
   align-items: center;
   height: 100%;
   white-space: nowrap;
-  animation: marqueeMove 20s linear infinite;
+  animation: perfectScroll 20s linear infinite;
   will-change: transform;
 }
 
@@ -978,38 +978,50 @@ body.mobile {
   text-anchor: middle;
 }
 
-/* 호버 시 스트로크 색상 롤링 */
+/* 🔥 호버 시 색상 웨이브 롤링 - 진짜 흘러가는 효과 */
 #contact:hover .svg-stroke,
 #contact:hover .svg-divider {
-  animation: colorFlow 1.8s ease-in-out infinite;
+  animation: colorWaveRolling 4s linear infinite;
 }
 
-/* 각 요소마다 다른 딜레이 */
-#contact:hover .item-1 { animation-delay: 0s; }
-#contact:hover .item-2 { animation-delay: 0.1s; }
-#contact:hover .item-3 { animation-delay: 0.2s; }
-#contact:hover .item-4 { animation-delay: 0.3s; }
-#contact:hover .item-5 { animation-delay: 0.4s; }
-#contact:hover .item-6 { animation-delay: 0.5s; }
-#contact:hover .item-7 { animation-delay: 0.6s; }
-#contact:hover .item-8 { animation-delay: 0.7s; }
-
-/* 색상 흐름 애니메이션 */
-@keyframes colorFlow {
-  0% { stroke: white; }
-  25% { stroke: #E37031; }
-  50% { stroke: #ff8c42; }
-  75% { stroke: #E37031; }
-  100% { stroke: white; }
+/* 🔥 색상 웨이브가 왼쪽에서 오른쪽으로 흘러가는 애니메이션 */
+@keyframes colorWaveRolling {
+  0% { 
+    stroke: white;
+  }
+  12.5% { 
+    stroke: #E37031;
+  }
+  25% { 
+    stroke: #ff8c42;
+  }
+  37.5% { 
+    stroke: #E37031;
+  }
+  50% { 
+    stroke: white;
+  }
+  62.5% { 
+    stroke: white;
+  }
+  75% { 
+    stroke: white;
+  }
+  87.5% { 
+    stroke: white;
+  }
+  100% { 
+    stroke: white;
+  }
 }
 
-/* 🔥 핵심: 정확한 무한 마키 애니메이션 */
-@keyframes marqueeMove {
+/* 🔥 완벽한 무한 스크롤 애니메이션 */
+@keyframes perfectScroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(var(--scroll-distance, -33.33%));
   }
 }
 
@@ -1317,10 +1329,9 @@ body {
     filter: none !important;
   }
 
-  /* 🔥 모바일 Contact 섹션 - SVG 무한롤링 대응 */
+  /* 🔥 모바일 Contact 섹션 */
   #contact {
     padding: 4rem 0;
-    overflow: hidden;
   }
 
   .marquee-wrapper {
@@ -1342,7 +1353,7 @@ body {
   }
 
   .text-item {
-    margin-right: 0.15rem;
+    margin-right: 0.6rem;
   }
 
   /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
@@ -1511,7 +1522,7 @@ body {
     font-size: 18px !important;
   }
 
-  /* 🔥 작은 모바일 Contact 섹션 - SVG 무한롤링 대응 */
+  /* 🔥 작은 모바일 Contact 섹션 */
   #contact {
     padding: 3rem 0;
   }
@@ -1535,7 +1546,7 @@ body {
   }
 
   .text-item {
-    margin-right: 0.1rem;
+    margin-right: 0.4rem;
   }
 
   /* Our Client 작은 모바일 */
@@ -1574,7 +1585,7 @@ body {
   /* 🔥 터치 디바이스에서 호버 효과 단순화 */
   #contact:hover .svg-stroke,
   #contact:hover .svg-divider {
-    animation: touchSafeColorFlow 1.8s ease-in-out infinite;
+    animation: touchSafeColorFlow 4s linear infinite;
   }
 
   @keyframes touchSafeColorFlow {
