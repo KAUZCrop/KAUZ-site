@@ -255,15 +255,17 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ SCROLL 인디케이터 클릭 이벤트 추가됨');
   }
 
-  // ─── Contact 섹션 클릭 처리 (스크롤 방해 없이) ───
+  // ─── 🔥 수정된 Contact 섹션 클릭 처리 - 안전한 방식으로 개선 ───
   if (contactSection) {
     let isScrolling = false;
     let scrollTimeout;
     let startY = 0;
     let startTime = 0;
+    let touchStarted = false;
 
     // 터치/마우스 시작 지점 기록
     contactSection.addEventListener('touchstart', (e) => {
+      touchStarted = true;
       startY = e.touches[0].clientY;
       startTime = Date.now();
       isScrolling = false;
@@ -275,9 +277,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     contactSection.addEventListener('mousedown', (e) => {
-      startY = e.clientY;
-      startTime = Date.now();
-      isScrolling = false;
+      if (!touchStarted) { // 터치가 아닌 경우만
+        startY = e.clientY;
+        startTime = Date.now();
+        isScrolling = false;
+      }
     });
 
     // 스크롤 감지
@@ -291,11 +295,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     contactSection.addEventListener('mousemove', (e) => {
-      const currentY = e.clientY;
-      const deltaY = Math.abs(currentY - startY);
-      
-      if (deltaY > 10) {
-        isScrolling = true;
+      if (!touchStarted) { // 터치가 아닌 경우만
+        const currentY = e.clientY;
+        const deltaY = Math.abs(currentY - startY);
+        
+        if (deltaY > 10) {
+          isScrolling = true;
+        }
       }
     });
 
@@ -307,16 +313,34 @@ document.addEventListener('DOMContentLoaded', () => {
       // 스크롤이 아니고, 짧은 터치(300ms 이하)면 클릭으로 간주
       if (!isScrolling && duration < 300) {
         e.preventDefault();
-        window.location.href = 'contact.html';
+        performSafeNavigation('contact.html');
       }
+      
+      // 터치 종료 후 플래그 리셋
+      setTimeout(() => {
+        touchStarted = false;
+      }, 100);
     });
 
     contactSection.addEventListener('click', (e) => {
-      if (!isScrolling) {
+      if (!touchStarted && !isScrolling) { // 터치가 아니고 스크롤이 아닌 경우만
         e.preventDefault();
-        window.location.href = 'contact.html';
+        performSafeNavigation('contact.html');
       }
     });
+
+    // 🔥 안전한 네비게이션 함수
+    function performSafeNavigation(url) {
+      console.log('🔗 Navigating to:', url);
+      
+      // 부드러운 전환 효과
+      document.body.style.opacity = '0.9';
+      document.body.style.transition = 'opacity 0.2s ease';
+      
+      setTimeout(() => {
+        window.location.href = url;
+      }, 100);
+    }
   }
 
   // ─── About 섹션 클릭 이벤트 + 확장 커서 애니메이션 ───
