@@ -920,13 +920,13 @@ body.mobile {
 .stroke-text-wrapper {
   position: relative;
   display: flex;
-  width: 200%;
-  animation: infiniteScroll 30s linear infinite;
+  width: 300%;
+  animation: infiniteScroll 40s linear infinite;
 }
 
 /* 🔥 각각의 스트로크 텍스트 컨테이너 */
 .stroke-text {
-  /*display: flex;*/
+  display: flex;
   white-space: nowrap;
   font-size: 9rem;
   font-weight: 700;
@@ -935,7 +935,7 @@ body.mobile {
   font-family: 'Pretendard', sans-serif;
   line-height: 1;
   position: relative;
-  width: 50%;
+  width: calc(100% / 3);
   flex-shrink: 0;
 }
 
@@ -949,7 +949,7 @@ body.mobile {
   font-family: 'Pretendard', sans-serif;
   text-transform: uppercase;
   color: transparent;
-  margin-right: 3rem;
+  margin-right: 4rem;
   /* 🔥 안전한 스트로크 스타일 */
   -webkit-text-stroke: 4px white;
   text-stroke: 4px white;
@@ -1031,7 +1031,7 @@ body.mobile {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.33%);
   }
 }
 
@@ -1357,7 +1357,7 @@ body {
   .stroke-text .text-item,
   .stroke-text .divider {
     font-size: 2.5rem;
-    margin-right: 1.5rem;
+    margin-right: 4rem;
     /* 🔥 모바일에서 스트로크 얇게 - 렌더링 안정화 */
     -webkit-text-stroke: 2px white;
     text-stroke: 2px white;
@@ -1574,7 +1574,7 @@ body {
   .stroke-text .text-item,
   .stroke-text .divider {
     font-size: 1.8rem;
-    margin-right: 1rem;
+    margin-right: 2rem;
     /* 🔥 작은 모바일에서는 더 얇은 스트로크 */
     -webkit-text-stroke: 1px white;
     text-stroke: 1px white;
@@ -1583,6 +1583,21 @@ body {
     box-shadow: none !important;
     filter: none !important;
     backdrop-filter: none !important;
+  }
+
+  .stroke-text-wrapper {
+    width: 400%; /* 추가 */
+    animation-duration: 35s; /* 추가 */
+  }
+  
+  .stroke-text {
+    width: calc(100% / 4); /* 추가 */
+  }
+  
+  @keyframes infiniteScroll {
+    100% {
+      transform: translateX(-25%); /* 모바일용 */
+    }
   }
   
   #contact {
@@ -1623,6 +1638,9 @@ body {
     backdrop-filter: none !important;
     transform: none !important;
     will-change: auto !important;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   /* 🔥 터치 디바이스에서 호버 효과도 단순하게 */
