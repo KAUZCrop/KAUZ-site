@@ -926,7 +926,7 @@ body.mobile {
 
 /* 🔥 각각의 스트로크 텍스트 컨테이너 */
 .stroke-text {
-  display: flex;
+  /*display: flex;*/
   white-space: nowrap;
   font-size: 9rem;
   font-weight: 700;
