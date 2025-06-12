@@ -880,7 +880,9 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About cards initialized:', aboutCards.length);
   }
 
-  // ─── 무한 롤링 텍스트 설정 ───
+  // ─── 무한 롤링 텍스트 설정 (기존 코드 - Contact 섹션은 이미 SVG로 교체됨) ───
+  // 🔥 주의: Contact 섹션은 이미 SVG 무한롤링으로 교체되었으므로 
+  // 아래 코드는 다른 scrolling-container가 있을 경우에만 실행됩니다
   const scrollingContainer = document.querySelector('.scrolling-container');
   const scrollingText = document.querySelector('.scrolling-text');
   
