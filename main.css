@@ -902,7 +902,7 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 이중 레이어 스트로크 Contact Us 섹션 (기존 롤링 배너 교체)
+   🔥 수정된 Contact Us 섹션 - 진짜 무한롤링 + 모바일 깨짐 방지 + 색상 롤링 유지
    ═══════════════════════════════════════════════════════════════ */
 
 #contact {
@@ -916,11 +916,18 @@ body.mobile {
   user-select: none;
 }
 
-/* 🔥 이중 레이어 스트로크 텍스트 */
+/* 🔥 진짜 무한롤링을 위한 래퍼 */
+.stroke-text-wrapper {
+  position: relative;
+  display: flex;
+  width: 200%;
+  animation: infiniteScroll 30s linear infinite;
+}
+
+/* 🔥 각각의 스트로크 텍스트 컨테이너 */
 .stroke-text {
   display: flex;
   white-space: nowrap;
-  animation: scrollLeftStroke 20s linear infinite;
   font-size: 9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -928,157 +935,57 @@ body.mobile {
   font-family: 'Pretendard', sans-serif;
   line-height: 1;
   position: relative;
+  width: 50%;
+  flex-shrink: 0;
 }
 
+/* 🔥 텍스트 요소 기본 스타일 - 모바일 렌더링 안정화 */
 .stroke-text .text-item,
 .stroke-text .divider {
   display: inline-block;
   position: relative;
-}
-
-/* 🔥 text-item 이중 레이어 구조 */
-.stroke-text .text-item {
-  position: relative;
-  display: inline-block;
   font-size: 9rem;
   font-weight: 700;
   font-family: 'Pretendard', sans-serif;
   text-transform: uppercase;
   color: transparent;
-  background: none !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  vertical-align: baseline;
-}
-
-/* text-item 스트로크 레이어 */
-.stroke-text .text-item::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: white;
+  margin-right: 3rem;
+  /* 🔥 안전한 스트로크 스타일 */
   -webkit-text-stroke: 4px white;
   text-stroke: 4px white;
-  z-index: 1;
-  background: none !important;
-  border: none !important;
-}
-
-/* text-item 내부 제거 레이어 */
-.stroke-text .text-item::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #0D0D0D;
-  z-index: 2;
-  background: none !important;
-  border: none !important;
-}
-
-/* 🔥 | 기호 이중 레이어 구조 */
-.stroke-text .divider {
-  position: relative;
-  display: inline-block;
-  font-size: 9rem;
-  font-weight: 700;
-  font-family: 'Pretendard', sans-serif;
-  text-transform: uppercase;
-  color: transparent;
-  background: none !important;
-  border: none !important;
-  outline: none !important;
+  /* 🔥 모바일 렌더링 문제 방지 */
+  text-shadow: none !important;
   box-shadow: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  vertical-align: baseline;
+  outline: none !important;
 }
 
-/* | 기호 스트로크 레이어 */
-.stroke-text .divider::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: white;
-  -webkit-text-stroke: 4px white;
-  text-stroke: 4px white;
-  z-index: 1;
-  background: none !important;
-  border: none !important;
-}
-
-/* | 기호 내부 제거 레이어 */
-.stroke-text .divider::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #0D0D0D;
-  z-index: 2;
-  background: none !important;
-  border: none !important;
-}
-
-/* 🔥 호버 시 주황색 롤링 효과 */
+/* 🔥 호버 시 색상 롤링 효과 - 안전한 방식 */
 #contact:hover .text-item,
 #contact:hover .divider {
-  animation: strokeColorRolling 3s linear infinite;
+  animation: safeColorRolling 3s linear infinite;
 }
 
-/* 🔥 스트로크 색상 롤링 애니메이션 */
-@keyframes strokeColorRolling {
+/* 🔥 안전한 색상 롤링 애니메이션 - stroke-color만 변경 */
+@keyframes safeColorRolling {
   0% {
-    text-shadow: 
-      -2px -2px 0 white,
-      2px -2px 0 white,
-      -2px 2px 0 white,
-      2px 2px 0 white,
-      -2px 0px 0 white,
-      2px 0px 0 white,
-      0px -2px 0 white,
-      0px 2px 0 white;
+    -webkit-text-stroke-color: white;
+    text-stroke-color: white;
   }
   15% {
-    text-shadow: 
-      -2px -2px 0 #E37031,
-      2px -2px 0 #E37031,
-      -2px 2px 0 #E37031,
-      2px 2px 0 #E37031,
-      -2px 0px 0 #E37031,
-      2px 0px 0 #E37031,
-      0px -2px 0 #E37031,
-      0px 2px 0 #E37031;
+    -webkit-text-stroke-color: #E37031;
+    text-stroke-color: #E37031;
   }
   30% {
-    text-shadow: 
-      -2px -2px 0 white,
-      2px -2px 0 white,
-      -2px 2px 0 white,
-      2px 2px 0 white,
-      -2px 0px 0 white,
-      2px 0px 0 white,
-      0px -2px 0 white,
-      0px 2px 0 white;
+    -webkit-text-stroke-color: white;
+    text-stroke-color: white;
   }
   100% {
-    text-shadow: 
-      -2px -2px 0 white,
-      2px -2px 0 white,
-      -2px 2px 0 white,
-      2px 2px 0 white,
-      -2px 0px 0 white,
-      2px 0px 0 white,
-      0px -2px 0 white,
-      0px 2px 0 white;
+    -webkit-text-stroke-color: white;
+    text-stroke-color: white;
   }
 }
 
-/* 각 텍스트 요소마다 다른 딜레이로 웨이브 효과 */
+/* 🔥 각 텍스트 요소마다 다른 딜레이로 웨이브 효과 */
 #contact:hover .text-item:nth-child(1) {
   animation-delay: 0s;
 }
@@ -1103,8 +1010,21 @@ body.mobile {
 #contact:hover .divider:nth-child(8) {
   animation-delay: 1.4s;
 }
+#contact:hover .text-item:nth-child(9) {
+  animation-delay: 1.6s;
+}
+#contact:hover .divider:nth-child(10) {
+  animation-delay: 1.8s;
+}
+#contact:hover .text-item:nth-child(11) {
+  animation-delay: 2.0s;
+}
+#contact:hover .divider:nth-child(12) {
+  animation-delay: 2.2s;
+}
 
-@keyframes scrollLeftStroke {
+/* 🔥 진짜 무한롤링 애니메이션 */
+@keyframes infiniteScroll {
   0% {
     transform: translateX(0);
   }
@@ -1416,38 +1336,43 @@ body {
     filter: none !important;
   }
 
-   /* 🔥 모바일 Contact 이중 레이어 스트로크 - 기본 설정 유지 */
+  /* 🔥 모바일 Contact 섹션 - 완전히 안전한 렌더링 */
+  #contact {
+    padding: 2rem 0;
+    overflow: hidden;
+  }
+
+  .stroke-text-wrapper {
+    animation-duration: 20s; /* 모바일에서 조금 더 빠르게 */
+  }
+
   .stroke-text {
     font-size: 2.5rem;
-    animation-duration: 12s;
   }
   
   .stroke-text .text-item,
   .stroke-text .divider {
     font-size: 2.5rem;
-    color: rgba(0, 0, 0, 0) !important; /* 모바일에서도 완전 투명 */
-    -webkit-text-fill-color: rgba(0, 0, 0, 0) !important; /* 모바일에서도 fill 제거 */
-  }
-
-  /* 🔥 모바일 기본 스트로크 (웹과 동일하게) */
-  .stroke-text .text-item::before,
-  .stroke-text .divider::before {
+    margin-right: 1.5rem;
+    /* 🔥 모바일에서 스트로크 얇게 - 렌더링 안정화 */
     -webkit-text-stroke: 2px white;
     text-stroke: 2px white;
-    /* 🔥 text-shadow 완전 제거 (모바일 렌더링 문제 방지) */
+    /* 🔥 모바일에서 모든 shadow 효과 완전 제거 */
     text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    transform: none !important;
   }
 
-  /* 🔥 모바일 호버 시 색상 롤링 효과 - text-shadow 대신 stroke 색상 변경 */
-  #contact:hover .text-item::before,
-  #contact:hover .divider::before {
-    animation: mobileStrokeColorRolling 3s linear infinite;
-    /* 🔥 text-shadow 사용 안함 */
-    text-shadow: none !important;
+  /* 🔥 모바일 호버 시 색상 롤링 - 단순하고 안전하게 */
+  #contact:hover .text-item,
+  #contact:hover .divider {
+    animation: mobileColorRolling 3s linear infinite;
   }
 
-  /* 🔥 모바일 전용 스트로크 색상 롤링 애니메이션 */
-  @keyframes mobileStrokeColorRolling {
+  /* 🔥 모바일 전용 색상 롤링 - stroke-color만 변경 */
+  @keyframes mobileColorRolling {
     0% {
       -webkit-text-stroke-color: white;
       text-stroke-color: white;
@@ -1464,37 +1389,6 @@ body {
       -webkit-text-stroke-color: white;
       text-stroke-color: white;
     }
-  }
-
-  /* 🔥 각 요소별 딜레이 (웹과 동일) */
-  #contact:hover .text-item:nth-child(1)::before {
-    animation-delay: 0s;
-  }
-  #contact:hover .divider:nth-child(2)::before {
-    animation-delay: 0.2s;
-  }
-  #contact:hover .text-item:nth-child(3)::before {
-    animation-delay: 0.4s;
-  }
-  #contact:hover .divider:nth-child(4)::before {
-    animation-delay: 0.6s;
-  }
-  #contact:hover .text-item:nth-child(5)::before {
-    animation-delay: 0.8s;
-  }
-  #contact:hover .divider:nth-child(6)::before {
-    animation-delay: 1.0s;
-  }
-  #contact:hover .text-item:nth-child(7)::before {
-    animation-delay: 1.2s;
-  }
-  #contact:hover .divider:nth-child(8)::before {
-    animation-delay: 1.4s;
-  }
-
-  #contact {
-    padding: 2rem 0;
-    overflow: hidden;
   }
 
   /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
@@ -1663,25 +1557,23 @@ body {
     font-size: 18px !important;
   }
 
- /* 🔥 작은 모바일 대응 */
-  
-  /* Contact 이중 레이어 스트로크 작은 모바일 */
+  /* 🔥 작은 모바일 Contact 섹션 - 더욱 안전하게 */
   .stroke-text {
     font-size: 1.8rem;
-    animation-duration: 10s;
   }
   
   .stroke-text .text-item,
   .stroke-text .divider {
     font-size: 1.8rem;
-  }
-
-  .stroke-text .text-item::before,
-  .stroke-text .divider::before {
+    margin-right: 1rem;
+    /* 🔥 작은 모바일에서는 더 얇은 스트로크 */
     -webkit-text-stroke: 1px white;
     text-stroke: 1px white;
-    /* 🔥 작은 모바일에서도 text-shadow 제거 */
+    /* 🔥 모든 효과 완전 제거 */
     text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
   }
   
   #contact {
@@ -1708,25 +1600,37 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 추가 안전장치 - 모든 모바일 디바이스에서 text-shadow 강제 제거
+   🔥 추가 안전장치 - 모든 모바일 디바이스에서 렌더링 문제 완전 방지
    ═══════════════════════════════════════════════════════════════ */
 
-/* 모바일 터치 디바이스에서 text-shadow 완전 차단 */
+/* 터치 디바이스에서 모든 복잡한 효과 제거 */
 @media (hover: none) and (pointer: coarse) {
-  .stroke-text .text-item::before,
-  .stroke-text .divider::before,
   .stroke-text .text-item,
   .stroke-text .divider {
+    /* 🔥 터치 디바이스에서 모든 shadow/filter 효과 강제 제거 */
     text-shadow: none !important;
     box-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    transform: none !important;
+    will-change: auto !important;
   }
   
-  /* 호버 효과도 text-shadow 없이 */
+  /* 🔥 터치 디바이스에서 호버 효과도 단순하게 */
   #contact:hover .text-item,
-  #contact:hover .divider,
-  #contact:hover .text-item::before,
-  #contact:hover .divider::before {
-    text-shadow: none !important;
+  #contact:hover .divider {
+    animation: touchSafeColorRolling 3s linear infinite;
+  }
+
+  @keyframes touchSafeColorRolling {
+    0%, 100% { 
+      -webkit-text-stroke-color: white;
+      text-stroke-color: white;
+    }
+    50% { 
+      -webkit-text-stroke-color: #E37031;
+      text-stroke-color: #E37031;
+    }
   }
 }
 
