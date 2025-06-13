@@ -902,7 +902,7 @@ body.mobile {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 Contact Us 섹션 - 완벽한 무한롤링 + 색상 웨이브 (최종 버전)
+   🔥 Contact Us 섹션 - 수정된 텍스트 기반 무한롤링 (최종 버전)
    ═══════════════════════════════════════════════════════════════ */
 
 #contact {
@@ -916,10 +916,10 @@ body.mobile {
   user-select: none;
 }
 
-/* 🔥 완벽한 무한롤링 구조 */
+/* 🔥 수정된 무한롤링 구조 */
 .marquee-wrapper {
   width: 100%;
-  height: 140px;
+  height: 200px; /* 🔥 160px 폰트에 맞게 조정 */
   position: relative;
   overflow: hidden;
   display: flex;
@@ -931,98 +931,74 @@ body.mobile {
   align-items: center;
   height: 100%;
   white-space: nowrap;
-  animation: perfectScroll 20s linear infinite;
+  animation: perfectScroll 25s linear infinite;
   will-change: transform;
 }
 
-/* 텍스트 컨테이너 */
+/* 🔥 새로운 방식: 일반 텍스트 + stroke 효과 */
 .text-item {
-  display: inline-flex;
-  align-items: center;
-  height: 100%;
-  margin-right: 0.8rem;
-  flex-shrink: 0;
-}
-
-/* SVG 스트로크 텍스트 */
-.text-svg {
-  height: 140px;
-  display: block;
-  overflow: visible;
-}
-
-.svg-stroke {
+  display: inline-block;
   font-family: 'Pretendard', sans-serif;
-  font-size: 70px;
-  font-weight: 700;
+  font-size: 160px; /* 🔥 웹 최종 크기 160px */
+  font-weight: 800;
   text-transform: uppercase;
-  fill: none;
-  stroke: white;
-  stroke-width: 2.5;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  dominant-baseline: central;
-  text-anchor: start;
+  color: transparent;
+  -webkit-text-stroke: 2.2px white; /* 🔥 웹 선굵기 2.2px */
+  text-stroke: 2.2px white;
+  margin-right: 3rem; /* 🔥 큰 폰트에 맞게 간격 증가 */
+  flex-shrink: 0;
+  line-height: 1;
+  letter-spacing: 0.02em;
 }
 
-.svg-divider {
+/* 구분자 스타일 */
+.text-divider {
+  display: inline-block;
   font-family: 'Pretendard', sans-serif;
-  font-size: 70px;
-  font-weight: 700;
-  fill: none;
-  stroke: white;
-  stroke-width: 2.5;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  dominant-baseline: central;
-  text-anchor: middle;
+  font-size: 160px; /* 🔥 웹 최종 크기 160px */
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 2.2px white; /* 🔥 웹 선굵기 2.2px */
+  text-stroke: 2.2px white;
+  margin-right: 3rem; /* 🔥 큰 폰트에 맞게 간격 증가 */
+  flex-shrink: 0;
+  line-height: 1;
 }
 
-/* 🔥 호버 시 색상 웨이브 롤링 - 진짜 흘러가는 효과 */
-#contact:hover .svg-stroke,
-#contact:hover .svg-divider {
-  animation: colorWaveRolling 4s linear infinite;
+/* 호버 시 색상 웨이브 */
+#contact:hover .text-item,
+#contact:hover .text-divider {
+  animation: colorWaveText 4s linear infinite;
 }
 
-/* 🔥 색상 웨이브가 왼쪽에서 오른쪽으로 흘러가는 애니메이션 */
-@keyframes colorWaveRolling {
+/* 🔥 텍스트용 색상 웨이브 애니메이션 */
+@keyframes colorWaveText {
   0% { 
-    stroke: white;
-  }
-  12.5% { 
-    stroke: #E37031;
+    -webkit-text-stroke-color: white;
+    text-stroke-color: white;
   }
   25% { 
-    stroke: #ff8c42;
-  }
-  37.5% { 
-    stroke: #E37031;
+    -webkit-text-stroke-color: #E37031;
+    text-stroke-color: #E37031;
   }
   50% { 
-    stroke: white;
-  }
-  62.5% { 
-    stroke: white;
+    -webkit-text-stroke-color: #ff8c42;
+    text-stroke-color: #ff8c42;
   }
   75% { 
-    stroke: white;
-  }
-  87.5% { 
-    stroke: white;
+    -webkit-text-stroke-color: #E37031;
+    text-stroke-color: #E37031;
   }
   100% { 
-    stroke: white;
+    -webkit-text-stroke-color: white;
+    text-stroke-color: white;
   }
 }
 
-/* 🔥 완벽한 무한 스크롤 애니메이션 */
+/* 무한 스크롤 애니메이션 */
 @keyframes perfectScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(var(--scroll-distance, -33.33%));
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* 호버 효과 */
@@ -1031,9 +1007,23 @@ body.mobile {
   transition: opacity 0.3s ease;
 }
 
-#contact:active {
-  opacity: 0.6;
-  transition: opacity 0.1s ease;
+/* 🔥 폰트가 없을 때 폴백 */
+@supports not (-webkit-text-stroke: 1px white) {
+  .text-item,
+  .text-divider {
+    color: white;
+    text-shadow: 
+      -2px -2px 0 transparent,
+      2px -2px 0 transparent,
+      -2px 2px 0 transparent,
+      2px 2px 0 transparent;
+  }
+}
+
+/* 🔥 성능 최적화 */
+.marquee-inner * {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1335,25 +1325,19 @@ body {
   }
 
   .marquee-wrapper {
-    height: 110px;
-  }
-
-  .text-svg {
-    height: 110px;
+    height: 80px;
   }
 
   .marquee-inner {
-    animation-duration: 15s;
+    animation-duration: 20s;
   }
 
-  .svg-stroke,
-  .svg-divider {
-    font-size: 45px;
-    stroke-width: 2;
-  }
-
-  .text-item {
-    margin-right: 0.6rem;
+  .text-item,
+  .text-divider {
+    font-size: 40px; /* 모바일 크기 */
+    -webkit-text-stroke-width: 0.6px; /* 🔥 모바일 선굵기 0.6px */
+    text-stroke-width: 0.6px;
+    margin-right: 1rem; /* 모바일 간격 줄임 */
   }
 
   /* 🔥 모바일 Our Client 섹션 - 간단한 3x2 박스 표시 */
@@ -1528,25 +1512,19 @@ body {
   }
 
   .marquee-wrapper {
-    height: 90px;
-  }
-
-  .text-svg {
-    height: 90px;
+    height: 60px;
   }
 
   .marquee-inner {
-    animation-duration: 12s;
+    animation-duration: 18s;
   }
 
-  .svg-stroke,
-  .svg-divider {
-    font-size: 32px;
-    stroke-width: 1.8;
-  }
-
-  .text-item {
-    margin-right: 0.4rem;
+  .text-item,
+  .text-divider {
+    font-size: 30px; /* 작은 모바일 크기 */
+    -webkit-text-stroke-width: 0.5px; /* 🔥 작은 모바일 선굵기 0.5px */
+    text-stroke-width: 0.5px;
+    margin-right: 0.8rem; /* 더 타이트한 간격 */
   }
 
   /* Our Client 작은 모바일 */
@@ -1574,8 +1552,8 @@ body {
 
 /* 터치 디바이스에서 모든 복잡한 효과 제거 */
 @media (hover: none) and (pointer: coarse) {
-  .svg-stroke,
-  .svg-divider {
+  .text-item,
+  .text-divider {
     /* 🔥 터치 디바이스에서 렌더링 안정화 */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -1583,17 +1561,19 @@ body {
   }
   
   /* 🔥 터치 디바이스에서 호버 효과 단순화 */
-  #contact:hover .svg-stroke,
-  #contact:hover .svg-divider {
+  #contact:hover .text-item,
+  #contact:hover .text-divider {
     animation: touchSafeColorFlow 4s linear infinite;
   }
 
   @keyframes touchSafeColorFlow {
     0%, 100% { 
-      stroke: white;
+      -webkit-text-stroke-color: white;
+      text-stroke-color: white;
     }
     50% { 
-      stroke: #E37031;
+      -webkit-text-stroke-color: #E37031;
+      text-stroke-color: #E37031;
     }
   }
 }
