@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────
    about.css (KAUZ About Us - 수정된 버전)
-   🔥 common.css와의 충돌 방지 및 중복 제거
+   🔥 common.css와의 충돌 방지 및 중복 제거 + 완전 정렬
    ───────────────────────────────────────────────────────────────────── */
 
 /*===============================================================================
@@ -198,18 +198,27 @@
   line-height: 1.1;
 }
 
-/* 섹션 콘텐츠 - 좌우 분할 레이아웃 */
+/* 🔥 핵심 수정: 섹션 콘텐츠 - 완전한 정렬을 위한 그리드 시스템 */
 .section-content {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 6vw;  /* 🔥 8vw → 6vw (간격 축소) */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
   width: 100%;
+  align-items: flex-start;
+}
+
+/* 🔥 모든 첫 번째 콘텐츠 (왼쪽 컬럼) */
+.section-content .content-text:first-child {
+  grid-column: 1;
+}
+
+/* 🔥 모든 두 번째 콘텐츠 (오른쪽 컬럼) - 완전 정렬 */
+.section-content .content-text:nth-child(2),
+.section-content div:nth-child(2) {
+  grid-column: 2;
 }
 
 .content-text {
-  flex: 1;
-  min-width: 350px;  /* 🔥 400px → 350px (간격 조정) */
   font-size: 1.1rem;
   line-height: 1.8;
   color: #ccc;
@@ -230,12 +239,12 @@
   font-weight: 600;
 }
 
-/* 서비스 리스트 */
+/* 🔥 서비스 리스트 - 오른쪽 컬럼에 정확히 배치 */
 .services-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  flex: 1;
+  width: 100%;
 }
 
 .services-list li {
@@ -275,18 +284,12 @@
   margin-bottom: 0;
 }
 
-/* 🔥 OUR SERVICES 섹션 특별 정렬 - 핵심 수정! */
-.services-section .section-content {
-  flex-direction: row;  /* 🔥 row-reverse → row로 변경 (정렬 수정) */
-}
-
-.services-section .content-text {
-  text-align: left;            /* 🔥 텍스트는 왼쪽 정렬 유지 */
-  margin-left: auto;           /* 🔥 왼쪽 마진 자동 */
-}
+/* 🔥 OUR SERVICES 섹션 - 제거 (그리드가 자동으로 정렬) */
+/* .services-section .section-content 관련 코드 제거 */
 
 /* 미션 섹션 특별 스타일 */
 .mission-section .section-content {
+  display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
@@ -421,10 +424,19 @@
     margin-top: 3rem;
   }
 
+  /* 🔥 모바일에서는 다시 플렉스로 변경 (상하 배치) */
   .section-content {
+    display: flex;
     flex-direction: column;
     gap: 2rem;
     align-items: flex-start;
+  }
+
+  /* 🔥 모바일에서 그리드 무효화 */
+  .section-content .content-text:first-child,
+  .section-content .content-text:nth-child(2),
+  .section-content div:nth-child(2) {
+    grid-column: unset;
   }
 
   .section-title {
@@ -432,7 +444,6 @@
   }
 
   .content-text {
-    min-width: auto;  /* 🔥 모바일에서는 min-width 제거 */
     font-size: 0.9rem;
     line-height: 1.6;
   }
