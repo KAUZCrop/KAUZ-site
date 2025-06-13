@@ -251,7 +251,7 @@
 .services-list li {
   font-size: 1.1rem;
   padding: 1rem 0;
-  border-bottom: 1px solid #333;
+  border-bottom: none; /* 🔥 기본 라인 제거 */
   color: #ccc;
   position: relative;
   padding-left: 2rem;
@@ -262,6 +262,20 @@
   cursor: pointer; /* 🔥 호버 가능 표시 */
   max-width: 100%; /* 🔥 추가: 라인이 컨테이너를 넘지 않도록 */
   box-sizing: border-box; /* 🔥 추가: 패딩 포함한 박스 사이징 */
+}
+
+/* 🔥 텍스트 길이에 맞는 짧은 라인 추가 */
+.services-list li::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 2rem; /* 화살표 다음부터 시작 */
+  right: auto;
+  width: calc(100% - 2rem); /* 🔥 텍스트 영역만큼만 */
+  max-width: 280px; /* 🔥 최대 너비 제한 */
+  height: 1px;
+  background: #333;
+  transition: background 0.3s ease;
 }
 
 .services-list li::before {
@@ -275,16 +289,18 @@
 
 .services-list li:hover {
   color: white;
-  border-bottom-color: #E37031;
+}
+
+.services-list li:hover::after {
+  background: #E37031; /* 🔥 호버 시 라인 색상 변경 */
 }
 
 .services-list li:hover::before {
   transform: translateX(5px);
 }
 
-.services-list li:last-child {
-  border-bottom: 1px solid #333;
-  margin-bottom: 0;
+.services-list li:last-child::after {
+  background: #333; /* 🔥 마지막 항목도 라인 유지 */
 }
 
 /* 🔥 OUR SERVICES 섹션 - 제거 (그리드가 자동으로 정렬) */
