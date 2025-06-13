@@ -1,26 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // ─── 🔥 새로고침 시 페이지 상단으로 이동 (서브페이지와 동일) ───
+  // ─── 🔥 새로고침 시 페이지 상단으로 이동 ───
   try {
     if (performance.getEntriesByType('navigation')[0].type === 'reload') {
       console.log('🔄 Main page refresh detected, scrolling to top...');
       window.scrollTo(0, 0);
-      // 리다이렉트 코드 제거됨
     }
   } catch (e) {
     console.log('⚠️ Navigation API not supported, continuing...');
   }
 
-  // ─── 전역 변수 선언 (요소 존재 확인) ───
+  // ─── 전역 변수 선언 ───
   const loadingScreen = document.getElementById('loading-screen');
-  const progressFill  = document.querySelector('.progress-fill');
-  const hamburger     = document.getElementById('hamburger');
-  const menuOverlay   = document.getElementById('menu-overlay');
-  const scrollIndicator = document.querySelector('.scroll-indicator'); // 🔥 추가
+  const progressFill = document.querySelector('.progress-fill');
+  const hamburger = document.getElementById('hamburger');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const scrollIndicator = document.querySelector('.scroll-indicator');
   const contactSection = document.getElementById('contact');
 
   console.log('Elements found:', { loadingScreen, progressFill, hamburger, menuOverlay, scrollIndicator });
 
-  // 🔥 로딩 중 + 새로고침 시 스크롤 완전 차단 (강화된 버전)
+  // ─── 스크롤 제어 함수들 ───
   function disableScroll() {
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.height = '100%';
     document.body.classList.add('loading', 'no-scroll');
     
-    // 추가 보안 - 스크롤 이벤트 차단
     document.addEventListener('wheel', preventDefault, { passive: false });
     document.addEventListener('touchmove', preventDefault, { passive: false });
     document.addEventListener('keydown', preventDefaultForScrollKeys, false);
@@ -37,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🚫 Scroll completely disabled');
   }
 
-  // 🔥 스크롤 활성화 (로딩 완료 후)
   function enableScroll() {
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
@@ -46,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.height = '';
     document.body.classList.remove('loading', 'no-scroll');
     
-    // 이벤트 리스너 제거
     document.removeEventListener('wheel', preventDefault, { passive: false });
     document.removeEventListener('touchmove', preventDefault, { passive: false });
     document.removeEventListener('keydown', preventDefaultForScrollKeys, false);
@@ -54,13 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Scroll enabled');
   }
 
-  // 스크롤 차단용 함수들
   function preventDefault(e) {
     e.preventDefault();
   }
 
   function preventDefaultForScrollKeys(e) {
-    const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40]; // spacebar, pageup, pagedown, end, home, arrow keys
+    const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
     if (scrollKeys.includes(e.keyCode)) {
       preventDefault(e);
       return false;
@@ -70,76 +65,52 @@ document.addEventListener('DOMContentLoaded', () => {
   // 페이지 로드 시 즉시 스크롤 차단
   disableScroll();
 
-  // ═══════════════════════════════════════════════════════════════
-  // 🔥 한글 검색어 대응 시스템 (기존 코드 유지)
-  // ═══════════════════════════════════════════════════════════════
-
-  // 1) 한글 자모 → QWERTY 라틴 알파벳 매핑 테이블
+  // ─── 한글 검색어 대응 시스템 ───
   const jamoToKey = {
-    // 한글 자음 (위쪽 줄)
     'ㅂ': 'q', 'ㅈ': 'w', 'ㄷ': 'e', 'ㄱ': 'r', 'ㅅ': 't',
     'ㅛ': 'y', 'ㅕ': 'u', 'ㅑ': 'i', 'ㅐ': 'o', 'ㅔ': 'p',
-    
-    // 한글 자음/모음 (가운데 줄)
     'ㅁ': 'a', 'ㄴ': 's', 'ㅇ': 'd', 'ㄹ': 'f', 'ㅎ': 'g',
     'ㅗ': 'h', 'ㅓ': 'j', 'ㅏ': 'k', 'ㅣ': 'l',
-    
-    // 한글 자음 (아래쪽 줄)
     'ㅋ': 'z', 'ㅌ': 'x', 'ㅊ': 'c', 'ㅍ': 'v', 'ㅠ': 'b',
     'ㅜ': 'n', 'ㅡ': 'm',
-    
-    // 쌍자음 및 복합모음
     'ㅃ': 'Q', 'ㅉ': 'W', 'ㄸ': 'E', 'ㄲ': 'R', 'ㅆ': 'T',
     'ㅒ': 'O', 'ㅖ': 'P'
   };
 
-  // 2) 한글 자모를 QWERTY 문자로 변환하는 함수
   function transliterateKoreanToQwerty(input) {
     if (!input || typeof input !== 'string') return input;
-    
-    return input
-      .split('')
-      .map(char => jamoToKey[char] || char)
-      .join('');
+    return input.split('').map(char => jamoToKey[char] || char).join('');
   }
 
-  // 3) 🔥 KAUZ 관련 검색어 패턴 검사 함수 - 대폭 확장
   function isKauzSearch(input) {
     if (!input) return false;
     
-    // 입력값 정리 (공백 제거, 소문자 변환)
     const cleanInput = input.trim().toLowerCase();
     
-    // 🔥 직접적인 한글 검색어들
     const koreanVariants = [
       '카우즈', '카우스', '까우즈', '까우스', '가우즈', '가우스',
       'kauz corp', '카우즈 광고', '카우즈 광고대행사',
       '카우즈코프', '카우즈크롭',
     ];
     
-    // 🔥 영어 검색어들
     const englishVariants = [
       'kauz', 'kauzcorp', 'kauz corp', 'kauz crop', 'kauzcrop',
       'kaus', 'kause', 'kawz', 'kauzs',
     ];
     
-    // 🔥 자모 분리 오타들
     const jamoTypos = ['ㅏ몈', 'ㅏ묜', 'ㅏ뭊'];
     
-    // 직접 매칭 체크
     if (koreanVariants.includes(cleanInput) || 
         englishVariants.includes(cleanInput) || 
         jamoTypos.includes(cleanInput)) {
       return true;
     }
     
-    // 자모 분리 → QWERTY 변환 체크
     const transliterated = transliterateKoreanToQwerty(cleanInput);
     if (englishVariants.includes(transliterated)) {
       return true;
     }
     
-    // 부분 포함 체크
     const partialMatches = ['kauz', '카우즈', '카우스'];
     return partialMatches.some(pattern => 
       cleanInput.includes(pattern) || 
@@ -147,15 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // 4) 🔥 URL 쿼리 파라미터 체크 및 리다이렉트
   function checkUrlForKauzSearch() {
     try {
       const params = new URLSearchParams(window.location.search);
-      
-      const searchParams = [
-        'q', 'query', 'search', 's', 'keyword', 'k', 
-        'term', 'find', 'lookup', '검색', 'wd'
-      ];
+      const searchParams = ['q', 'query', 'search', 's', 'keyword', 'k', 'term', 'find', 'lookup', '검색', 'wd'];
       
       let searchQuery = null;
       for (const param of searchParams) {
@@ -192,12 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return false;
   }
 
-  // 5) 메인 초기화 함수
   function initKoreanSearchHandler() {
     const redirected = checkUrlForKauzSearch();
     
     if (!redirected) {
-      // 전역 함수로 노출 (디버깅용)
       window.checkKauzSearch = isKauzSearch;
       window.convertKoreanTypo = transliterateKoreanToQwerty;
     }
@@ -205,12 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🔍 한글 검색어 대응 시스템 초기화 완료');
   }
 
-  // 한글 검색어 대응 시스템 초기화
   initKoreanSearchHandler();
-
-  // ═══════════════════════════════════════════════════════════════
-  // 🔥 기존 main.js 코드 계속...
-  // ═══════════════════════════════════════════════════════════════
 
   // ─── Body mobile class toggle ───
   function setBodyMobileClass() {
@@ -223,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setBodyMobileClass();
   window.addEventListener('resize', setBodyMobileClass);
 
-  // ─── 메뉴 닫기 함수 (강화된 버전) ───
+  // ─── 메뉴 닫기 함수 ───
   function closeMenu() {
     console.log('Closing menu...');
     if (menuOverlay) {
@@ -232,17 +191,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburger) {
       hamburger.classList.remove('active');
     }
-    // 🔥 메뉴 닫을 때는 로딩이 끝났다면 스크롤 허용
     if (!loadingScreen || loadingScreen.style.display === 'none') {
       enableScroll();
     } else {
-      // 로딩 중이면 스크롤 차단 유지
       disableScroll();
     }
     document.body.classList.remove('menu-open');
   }
 
-  // ─── 🔥 SCROLL 인디케이터 클릭 이벤트 ───
+  // ─── SCROLL 인디케이터 클릭 이벤트 ───
   if (scrollIndicator) {
     scrollIndicator.addEventListener('click', () => {
       const aboutSection = document.getElementById('about');
@@ -255,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ SCROLL 인디케이터 클릭 이벤트 추가됨');
   }
 
-  // ─── 🔥 수정된 Contact 섹션 클릭 처리 - 안전한 방식으로 개선 ───
+  // ─── Contact 섹션 클릭 처리 ───
   if (contactSection) {
     let isScrolling = false;
     let scrollTimeout;
@@ -263,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let startTime = 0;
     let touchStarted = false;
 
-    // 터치/마우스 시작 지점 기록
     contactSection.addEventListener('touchstart', (e) => {
       touchStarted = true;
       startY = e.touches[0].clientY;
@@ -277,25 +233,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     contactSection.addEventListener('mousedown', (e) => {
-      if (!touchStarted) { // 터치가 아닌 경우만
+      if (!touchStarted) {
         startY = e.clientY;
         startTime = Date.now();
         isScrolling = false;
       }
     });
 
-    // 스크롤 감지
     contactSection.addEventListener('touchmove', (e) => {
       const currentY = e.touches[0].clientY;
       const deltaY = Math.abs(currentY - startY);
       
-      if (deltaY > 10) { // 10px 이상 움직이면 스크롤로 간주
+      if (deltaY > 10) {
         isScrolling = true;
       }
     }, { passive: true });
 
     contactSection.addEventListener('mousemove', (e) => {
-      if (!touchStarted) { // 터치가 아닌 경우만
+      if (!touchStarted) {
         const currentY = e.clientY;
         const deltaY = Math.abs(currentY - startY);
         
@@ -305,35 +260,30 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 클릭/터치 종료 시 처리
     contactSection.addEventListener('touchend', (e) => {
       const endTime = Date.now();
       const duration = endTime - startTime;
       
-      // 스크롤이 아니고, 짧은 터치(300ms 이하)면 클릭으로 간주
       if (!isScrolling && duration < 300) {
         e.preventDefault();
         performSafeNavigation('contact.html');
       }
       
-      // 터치 종료 후 플래그 리셋
       setTimeout(() => {
         touchStarted = false;
       }, 100);
     });
 
     contactSection.addEventListener('click', (e) => {
-      if (!touchStarted && !isScrolling) { // 터치가 아니고 스크롤이 아닌 경우만
+      if (!touchStarted && !isScrolling) {
         e.preventDefault();
         performSafeNavigation('contact.html');
       }
     });
 
-    // 🔥 안전한 네비게이션 함수
     function performSafeNavigation(url) {
       console.log('🔗 Navigating to:', url);
       
-      // 부드러운 전환 효과
       document.body.style.opacity = '0.9';
       document.body.style.transition = 'opacity 0.2s ease';
       
@@ -349,7 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (aboutSection) {
     console.log('About section found, initializing interaction...');
     
-    // 커스텀 커서 요소 생성
     const customCursor = document.createElement('div');
     
     customCursor.innerHTML = `
@@ -369,7 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
       opacity: 0;
     `;
     
-    // 커서 스타일 CSS 추가
     const cursorStyle = document.createElement('style');
     cursorStyle.textContent = `
       .cursor-circle {
@@ -426,7 +374,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.body.appendChild(customCursor);
     
-    // 마우스가 About 섹션에 진입할 때
     aboutSection.addEventListener('mouseenter', function() {
       if (window.innerWidth > 768) {
         customCursor.style.opacity = '1';
@@ -434,13 +381,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
-    // 마우스가 About 섹션을 벗어날 때
     aboutSection.addEventListener('mouseleave', function() {
       customCursor.style.opacity = '0';
       customCursor.classList.remove('cursor-expanded');
     });
     
-    // 마우스 움직임 추적 (About 섹션 내에서만)
     aboutSection.addEventListener('mousemove', function(e) {
       if (window.innerWidth > 768) {
         const x = e.clientX;
@@ -451,17 +396,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
-    // 클릭 시 About 페이지로 이동
     aboutSection.addEventListener('click', function(e) {
       console.log('About section clicked');
       
-      // 클릭 시 커서 펄스 효과
       customCursor.style.transform = 'translate(-50%, -50%) scale(1.1)';
       setTimeout(() => {
         customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
       }, 150);
       
-      // 부드러운 페이지 전환 효과
       document.body.style.opacity = '0.8';
       document.body.style.transition = 'opacity 0.3s ease';
       
@@ -473,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About section expandable cursor initialized');
   }
 
-  // ─── 🔥 수정된 Typing Animation Function ───
+  // ─── 타이핑 애니메이션 함수 ───
   function startTypingAnimation() {
     const target1 = document.getElementById('typing-line1');
     
@@ -485,8 +427,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const line1 = "Knowledge Artistry Understanding Zenith";
-    const cursor  = '<span class="typing-cursor">|</span>';
-    const totalDuration = 2000; // 2초 동안 타이핑
+    const cursor = '<span class="typing-cursor">|</span>';
+    const totalDuration = 2000;
     const interval = totalDuration / line1.length;
     let i1 = 0;
 
@@ -496,47 +438,42 @@ document.addEventListener('DOMContentLoaded', () => {
         i1++;
         setTimeout(type1, interval);
       } else {
-        target1.textContent = line1; // 타이핑 완료 후 커서 제거
+        target1.textContent = line1;
       }
     }
     
     type1();
   }
 
-  // ─── 로딩 스크린 처리 (수정된 버전) ───
+  // ─── 로딩 스크린 처리 ───
   function hideLoadingScreen() {
     console.log('Hiding loading screen...');
     
-    // 로딩 스크린 페이드 아웃
     if (loadingScreen) {
       loadingScreen.style.transition = 'opacity 0.8s ease';
       loadingScreen.style.opacity = '0';
     }
 
-    // 햄버거 메뉴 표시
     if (hamburger) {
       hamburger.style.display = 'flex';
       hamburger.style.visibility = 'visible';
       hamburger.style.opacity = '1';
     }
 
-    // 🔥 배경 애니메이션 라인 활성화
     const backgroundLine = document.querySelector('.background-animation-line');
     if (backgroundLine) {
       backgroundLine.classList.add('active');
       console.log('✅ Background animation line activated');
     }
 
-    // 🔥 로딩 완료 후 스크롤 활성화 (가장 중요!)
     enableScroll();
 
-    // 로딩 스크린 완전 제거 및 타이핑 시작
     setTimeout(() => {
       if (loadingScreen) {
         loadingScreen.style.display = 'none';
       }
       startTypingAnimation();
-    }, 800); // 🔥 배경 라인 전환 시간에 맞춤
+    }, 800);
   }
 
   // 초기 로딩 진행률 설정
@@ -552,7 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
       progressFill.style.width = '100%';
     }
 
-    // 로딩 화면 숨기기
     setTimeout(hideLoadingScreen, 500);
   });
 
@@ -564,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 3000);
 
-  // ─── 햄버거 메뉴 토글 (디버깅 강화) ───
+  // ─── 햄버거 메뉴 토글 ───
   if (hamburger && menuOverlay) {
     hamburger.addEventListener('click', (e) => {
       e.preventDefault();
@@ -578,14 +514,12 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         menuOverlay.classList.add('active');
         hamburger.classList.add('active');
-        // 🔥 메뉴 열 때 스크롤 차단
         disableScroll();
         document.body.classList.add('menu-open');
         console.log('Menu opened');
       }
     });
 
-    // 메뉴 링크 클릭 시 닫기
     const menuLinks = document.querySelectorAll('#menu-overlay .menu-content a');
     console.log('Menu links found:', menuLinks.length);
     
@@ -619,12 +553,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── Airtable Portfolio Loading (와이드 확장 애니메이션) ───
+  // ─── Airtable Portfolio Loading ───
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
   const baseId = 'appglO0MOXGY7CITU';
   const tableName = 'Table%201';
 
-  // 포트폴리오 로딩 함수
   function loadPortfolio() {
     fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -638,7 +571,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       console.log('Airtable data loaded:', data);
       
-      // 최신 4개만 가져오기
       const records = data.records
         .sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime))
         .slice(0, 4);
@@ -650,10 +582,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // 기존 내용 제거
       container.innerHTML = '';
 
-      // 정확히 4개 항목 생성 (빈 슬롯도 포함)
       for (let i = 0; i < 4; i++) {
         const record = records[i];
         const slide = document.createElement('div');
@@ -666,7 +596,6 @@ document.addEventListener('DOMContentLoaded', () => {
           const hasImage = Array.isArray(attachments) && attachments.length > 0;
           
           if (hasImage) {
-            // 이미지가 있는 경우
             slide.innerHTML = `
               <div class="portfolio-image-container">
                 <img src="${attachments[0].url}" alt="${title}" loading="lazy" />
@@ -677,7 +606,6 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             `;
           } else {
-            // 이미지가 없는 경우 - 흰색 박스
             slide.innerHTML = `
               <div class="portfolio-image-container">
                 <div class="portfolio-placeholder">No Image</div>
@@ -689,7 +617,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
           }
         } else {
-          // 데이터가 없는 경우 - 빈 흰색 박스
           slide.innerHTML = `
             <div class="portfolio-image-container">
               <div class="portfolio-placeholder">No Content</div>
@@ -704,57 +631,44 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(slide);
       }
 
-      // 모바일이 아닐 때만 호버 효과 적용
       const isMobile = window.innerWidth <= 768;
       const slides = container.querySelectorAll('.portfolio-slide');
       
       if (!isMobile) {
         slides.forEach((slide, index) => {
-          // 마우스 이벤트 (데스크톱만)
           slide.addEventListener('mouseenter', () => {
             handleSlideHover(slides, index);
           });
         });
 
-        // 컨테이너에서 마우스가 벗어나면 초기화
         container.addEventListener('mouseleave', () => {
           resetSlides(slides);
         });
       }
 
-      // 🔥 포트폴리오 클릭 이벤트 추가 (모든 디바이스에서 작동)
       slides.forEach((slide, index) => {
         slide.addEventListener('click', (e) => {
           console.log(`Portfolio item ${index + 1} clicked`);
           
-          // 부드러운 페이지 전환 효과
           document.body.style.opacity = '0.9';
           document.body.style.transition = 'opacity 0.2s ease';
           
-          // 포트폴리오 페이지로 이동
           setTimeout(() => {
             window.location.href = 'portfolio.html';
           }, 100);
         });
         
-        // 클릭 가능하다는 시각적 피드백 추가
         slide.style.cursor = 'pointer';
       });
 
-      // 확장 효과 처리 함수 - 수정된 버전
       function handleSlideHover(slides, activeIndex) {
-        // 애니메이션 딜레이 제거하여 즉각 반응
         slides.forEach((slide, index) => {
-          // 모든 클래스 즉시 제거
           slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
         });
         
-        // requestAnimationFrame으로 부드러운 전환
         requestAnimationFrame(() => {
-          // 활성화된 슬라이드 확장
           slides[activeIndex].classList.add('portfolio-expanded');
           
-          // 나머지 슬라이드 축소
           slides.forEach((slide, index) => {
             if (index !== activeIndex) {
               slide.classList.add('portfolio-shrunk');
@@ -763,9 +677,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // 슬라이드 초기화 함수 - 수정된 버전
       function resetSlides(slides) {
-        // 모든 클래스 즉시 제거하여 원상복구
         slides.forEach(slide => {
           slide.classList.remove('portfolio-expanded', 'portfolio-shrunk');
         });
@@ -775,12 +687,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => {
       console.error('Airtable fetch error:', err);
-      // 에러 발생시 기본 포트폴리오 표시
       displayDefaultPortfolio();
     });
   }
 
-  // 기본 포트폴리오 표시 함수 (Airtable 로드 실패시)
   function displayDefaultPortfolio() {
     const container = document.getElementById('PortfolioSliderList');
     if (!container) return;
@@ -824,28 +734,23 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     
-    // 기본 포트폴리오에도 클릭 이벤트 추가
     const defaultSlides = container.querySelectorAll('.portfolio-slide');
     defaultSlides.forEach((slide, index) => {
       slide.addEventListener('click', (e) => {
         console.log(`Default portfolio item ${index + 1} clicked`);
         
-        // 부드러운 페이지 전환 효과
         document.body.style.opacity = '0.9';
         document.body.style.transition = 'opacity 0.2s ease';
         
-        // 포트폴리오 페이지로 이동
         setTimeout(() => {
           window.location.href = 'portfolio.html';
         }, 100);
       });
       
-      // 클릭 가능하다는 시각적 피드백 추가
       slide.style.cursor = 'pointer';
     });
   }
 
-  // 포트폴리오 로드 실행
   loadPortfolio();
   
   // ─── Scroll-Fade Animations ───
@@ -864,7 +769,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Fade-up elements initialized:', fadeEls.length);
   }
 
-  // about-card elements
   const aboutCards = document.querySelectorAll('.about-card');
   if (aboutCards.length > 0) {
     const cardObserver = new IntersectionObserver((entries, obs2) => {
@@ -880,30 +784,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About cards initialized:', aboutCards.length);
   }
 
-  // ─── 무한 롤링 텍스트 설정 (기존 코드 - Contact 섹션은 이미 SVG로 교체됨) ───
-  // 🔥 주의: Contact 섹션은 이미 SVG 무한롤링으로 교체되었으므로 
-  // 아래 코드는 다른 scrolling-container가 있을 경우에만 실행됩니다
-  const scrollingContainer = document.querySelector('.scrolling-container');
-  const scrollingText = document.querySelector('.scrolling-text');
-  
-  if (scrollingContainer && scrollingText) {
-    // 텍스트 복제하여 끊김 없는 롤링 구현
-    const clone = scrollingText.cloneNode(true);
-    clone.classList.add('scrolling-text-clone');
-    scrollingContainer.appendChild(clone);
-    
-    // 애니메이션 동기화
-    const texts = scrollingContainer.querySelectorAll('.scrolling-text, .scrolling-text-clone');
-    texts.forEach((text, index) => {
-      text.style.animationDelay = `${index * 10}s`;
-    });
-  }
-
-  // ═══════════════════════════════════════════════════════════════
-  // 🔥 Contact 섹션 완벽한 무한롤링 + 색상 웨이브 초기화
-  // ═══════════════════════════════════════════════════════════════
-
-  function initPerfectContactInfiniteScroll() {
+  // ─── 🔥 Contact 섹션 텍스트 기반 무한롤링 초기화 ───
+  function initTextBasedContactInfiniteScroll() {
     const marqueeInner = document.querySelector('#contact .marquee-inner');
     const marqueeWrapper = document.querySelector('#contact .marquee-wrapper');
     
@@ -912,88 +794,24 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    // 원본 콘텐츠 저장
-    const originalContent = marqueeInner.innerHTML;
-    let totalItems = 0;
-    
-    // 화면 너비에 따라 필요한 복제본 개수 계산
-    const calculateCopies = () => {
-      const wrapperWidth = marqueeWrapper.offsetWidth;
-      
-      // 임시로 원본만 넣고 너비 측정
-      marqueeInner.innerHTML = originalContent;
-      const contentWidth = marqueeInner.scrollWidth;
-      
-      // 화면을 완전히 채우기 위해 필요한 복제본 수 계산
-      const copiesNeeded = Math.ceil((wrapperWidth * 3) / contentWidth) + 1;
-      
-      return Math.max(copiesNeeded, 5); // 최소 5개 보장
-    };
-    
-    // 복제본 생성 함수
-    const createCopies = () => {
-      const copiesNeeded = calculateCopies();
-      
-      // 기존 내용 초기화
-      marqueeInner.innerHTML = '';
-      
-      // 필요한 만큼 복제본 추가
-      for (let i = 0; i < copiesNeeded; i++) {
-        marqueeInner.innerHTML += originalContent;
-      }
-      
-      // 각 텍스트 요소에 색상 웨이브 딜레이 적용
-      const allTextElements = marqueeInner.querySelectorAll('.svg-stroke, .svg-divider');
-      totalItems = allTextElements.length;
-      
-      // 🔥 색상 웨이브가 순차적으로 흘러가도록 딜레이 설정
-      allTextElements.forEach((element, index) => {
-        const delay = (index * 0.3) % 4; // 0.3초씩 지연, 4초 주기로 반복
-        element.style.animationDelay = `${delay}s`;
-      });
-      
-      // CSS 변수로 스크롤 거리 조정
-      const scrollDistance = -(100 / copiesNeeded);
-      marqueeInner.style.setProperty('--scroll-distance', `${scrollDistance}%`);
-      
-      console.log(`🔄 Contact infinite scroll: ${copiesNeeded} copies, ${totalItems} text elements`);
-    };
-    
-    // 초기 복제본 생성
-    setTimeout(createCopies, 100);
-    
-    // 윈도우 리사이즈 시 복제본 재계산
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        createCopies();
-      }, 250);
+    // 색상 웨이브 딜레이 적용
+    const allTextElements = marqueeInner.querySelectorAll('.text-item, .text-divider');
+    allTextElements.forEach((element, index) => {
+      const delay = (index * 0.3) % 4;
+      element.style.animationDelay = `${delay}s`;
     });
     
-    console.log('✅ Perfect contact infinite scroll with color wave initialized');
+    console.log('✅ Text-based contact infinite scroll initialized with', allTextElements.length, 'elements');
+    console.log('✅ No SVG viewBox issues, stable text rendering!');
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // 🔥 한글 검색어 대응 테스트 및 추가 이벤트
-  // ═══════════════════════════════════════════════════════════════
-
-  // URL 변경 감지 (뒤로가기/앞으로가기)
+  // ─── 추가 이벤트들 ───
   window.addEventListener('popstate', checkUrlForKauzSearch);
 
-  // 테스트 함수 (개발 중에만 사용)
   function testKoreanSearchHandler() {
     const testCases = [
-      'ㅏ몈',      // 한글 오타
-      'KAUZ',      // 정상
-      'kauz',      // 소문자
-      'ㅏ몈 ',     // 공백 포함
-      ' ㅏ몈',     // 앞 공백
-      '카우즈',    // 한글명
-      '카우스',    // 한글 변형
-      'kaus',      // 영어 변형
-      'hello',     // 다른 단어
-      '',          // 빈 문자열
+      'ㅏ몈', 'KAUZ', 'kauz', 'ㅏ몈 ', ' ㅏ몈',
+      '카우즈', '카우스', 'kaus', 'hello', ''
     ];
     
     console.log('🧪 한글 검색어 대응 테스트:');
@@ -1010,40 +828,31 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🛠️ 개발 모드: window.testKoreanSearch() 로 테스트 가능');
   }
 
-  // 🔥 페이지 나가기 전 스크롤 차단 (부드러운 전환을 위해)
+  // 페이지 나가기 전 스크롤 차단
   window.addEventListener('beforeunload', () => {
     disableScroll();
   });
 
-  // 🔥 페이지 포커스/블러 처리 (탭 전환 시)
+  // 페이지 포커스/블러 처리 (탭 전환 시)
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-      // 페이지가 숨겨졌을 때 (다른 탭으로 이동)
       if (menuOverlay && menuOverlay.classList.contains('active')) {
         closeMenu();
       }
     }
   });
 
-  // 🔥 Contact 섹션 무한롤링 초기화 (로딩 완료 후)
+  // Contact 섹션 텍스트 기반 무한롤링 초기화 (로딩 완료 후)
   setTimeout(() => {
-    initPerfectContactInfiniteScroll();
-  }, 1200); // 로딩 완료 + 타이핑 애니메이션 후 실행
+    initTextBasedContactInfiniteScroll();
+  }, 1200);
 
   console.log('✅ Main.js initialization complete');
 });
 
-// ═══════════════════════════════════════════════════════════════
-// 🔥 전역 스코프 함수들 (필요시)
-// ═══════════════════════════════════════════════════════════════
-
-// 외부에서 한글 검색어 체크가 필요한 경우를 위한 전역 함수
+// ─── 전역 스코프 함수들 ───
 window.addEventListener('load', () => {
-  // 한글 검색어 관련 전역 함수들이 설정되었는지 확인
   if (typeof window.checkKauzSearch === 'function') {
     console.log('✅ 한글 검색어 대응 시스템 전역 함수 준비 완료');
-    
-    // 예시: 외부 스크립트에서 사용 가능
-    // if (window.checkKauzSearch(someUserInput)) { /* 처리 로직 */ }
   }
 });
