@@ -272,7 +272,7 @@
   left: 2rem; /* 화살표 다음부터 시작 */
   right: auto;
   width: calc(100% - 2rem); /* 🔥 텍스트 영역만큼만 */
-  max-width: 280px; /* 🔥 최대 너비 제한 */
+  max-width: 295px; /* 🔥 280px → 295px (15px 증가) */
   height: 1px;
   background: #333;
   transition: background 0.3s ease;
