@@ -275,9 +275,9 @@
   margin-bottom: 0;
 }
 
-/* OUR SERVICES 섹션 특별 정렬 */
+/* 🔥 OUR SERVICES 섹션 특별 정렬 - 핵심 수정! */
 .services-section .section-content {
-  flex-direction: row-reverse;  /* 🔥 순서 뒤바꿈 - 왼쪽 텍스트를 오른쪽 위치에 */
+  flex-direction: row;  /* 🔥 row-reverse → row로 변경 (정렬 수정) */
 }
 
 .services-section .content-text {
