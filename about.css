@@ -142,7 +142,9 @@
   box-sizing: border-box;
   position: relative;
   z-index: 1;
-  transform: translateX(0); /* 🔥 미세 조정용 (필요시) */
+  /* 🔥 가장 간단한 중앙 정렬 */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* 히어로 섹션과 메인 콘텐츠 사이 구분선 */
