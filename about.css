@@ -160,11 +160,11 @@
   position: relative;
   z-index: 1;
   
-  /* 🔥 텍스트 콘텐츠만 중앙 정렬 */
+  /* 🔥 컨테이너만 중앙 정렬, 텍스트는 기존 스타일 유지 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  /* text-align: center; 🚨 이 줄 제거! */
 }
 
 /* 🔥 각 섹션을 적절한 너비로 제한하고 중앙 정렬 */
@@ -174,6 +174,7 @@
   z-index: 1;
   width: 100%;
   max-width: 900px;         /* 🔥 적절한 최대 너비 */
+  text-align: left;         /* 🔥 텍스트는 왼쪽 정렬 유지 */
 }
 
 .content-section:first-child {
