@@ -131,8 +131,8 @@
    ═══════════════════════════════════════════════════════════════ */
 
 .about-content-wrapper {
-  max-width: none;
-  margin: 0 auto;
+  max-width: 1200px;  /* 🔥 중앙정렬을 위한 최대 폭 */
+  margin: 0 auto;     /* 🔥 중앙정렬 */
   width: 100%;
   padding: 0 8vw;  /* 🔥 5vw → 8vw (좌우 마진 증가) */
   box-sizing: border-box;
@@ -352,13 +352,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  /* 🔥 호버 효과 제거 */
+  cursor: default;
   position: relative;
   z-index: 2;
 }
 
-/* 🔥 호버 효과는 JavaScript에서 처리 (about.js) */
+/* 🔥 호버 효과 완전 제거 */
+.client-box:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
 
 /* ═══════════════════════════════════════════════════════════════
    반응형 (모바일 대응)
