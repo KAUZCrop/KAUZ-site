@@ -1,5 +1,5 @@
-// about.js (About Us 전용 스크립트) - 클라이언트 박스 호버 제거 버전
-// 🔥 강제 리다이렉트 제거 + 새로고침 시 상단 이동 + 클라이언트 박스 호버 제거
+// about.js (About Us 전용 스크립트) - 수정된 버전
+// 🔥 강제 리다이렉트 제거 + 새로고침 시 상단 이동
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('📄 About.js starting...');
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (performance.getEntriesByType('navigation')[0].type === 'reload') {
       console.log('🔄 About page refresh detected, scrolling to top...');
       window.scrollTo(0, 0);
+      // 리다이렉트 코드 제거됨
     }
   } catch (e) {
     console.log('⚠️ Navigation API not supported, continuing...');
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          entry.target.classList.add('visible');
+          entry.target.classList.add('visible'); // 추가 클래스
           aboutObserver.unobserve(entry.target);
         }
       });
@@ -79,21 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 🔥 4) 클라이언트 박스 호버 효과 완전 제거
+  // 4) 클라이언트 박스 호버 효과 (About 페이지 전용)
   const clientBoxes = document.querySelectorAll('.client-box');
-  if (clientBoxes.length > 0) {
+  if (clientBoxes.length > 0 && window.innerWidth > 768) {
     clientBoxes.forEach((box, index) => {
-      // 기존 호버 이벤트 리스너 제거 및 스타일 초기화
-      box.style.transform = 'none';
-      box.style.boxShadow = 'none';
-      box.style.transition = 'none';
-      box.style.cursor = 'default';
+      box.addEventListener('mouseenter', () => {
+        box.style.transform = 'translateY(-8px) scale(1.02)';
+        box.style.boxShadow = '0 8px 25px rgba(227, 112, 49, 0.3)';
+      });
       
-      // 호버 이벤트 완전 제거
-      box.onmouseenter = null;
-      box.onmouseleave = null;
+      box.addEventListener('mouseleave', () => {
+        box.style.transform = 'translateY(0) scale(1)';
+        box.style.boxShadow = 'none';
+      });
     });
-    console.log('✅ Client boxes hover effects removed:', clientBoxes.length);
+    console.log('✅ Client boxes hover effects initialized:', clientBoxes.length);
   }
 
   // 5) 스크롤 진행률 표시 (CSS 변수로 설정)
@@ -206,8 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
       elementsFound: {
         scrollIndicator: !!scrollIndicator,
         fadeElements: document.querySelectorAll('.fade-up').length,
-        serviceItems: document.querySelectorAll('.services-list li').length,
-        clientBoxes: document.querySelectorAll('.client-box').length
+        serviceItems: document.querySelectorAll('.services-list li').length
       }
     });
   }, 100);
