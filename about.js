@@ -80,21 +80,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 4) 클라이언트 박스 호버 효과 (About 페이지 전용)
+  // 🔥 4) 클라이언트 박스 호버 효과 제거
   const clientBoxes = document.querySelectorAll('.client-box');
-  if (clientBoxes.length > 0 && window.innerWidth > 768) {
+  if (clientBoxes.length > 0) {
     clientBoxes.forEach((box, index) => {
-      box.addEventListener('mouseenter', () => {
-        box.style.transform = 'translateY(-8px) scale(1.02)';
-        box.style.boxShadow = '0 8px 25px rgba(227, 112, 49, 0.3)';
-      });
-      
-      box.addEventListener('mouseleave', () => {
-        box.style.transform = 'translateY(0) scale(1)';
-        box.style.boxShadow = 'none';
-      });
+      // 호버 효과 완전 제거
+      box.style.cursor = 'default';
     });
-    console.log('✅ Client boxes hover effects initialized:', clientBoxes.length);
+    console.log('✅ Client boxes hover effects removed:', clientBoxes.length);
   }
 
   // 5) 스크롤 진행률 표시 (CSS 변수로 설정)
