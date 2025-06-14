@@ -130,15 +130,14 @@
    메인 콘텐츠 섹션
    ═══════════════════════════════════════════════════════════════ */
 
-/* 🔥 라인은 그대로 두고 텍스트만 중앙 정렬 */
 .about-content-wrapper {
-  max-width: none;          
+  max-width: none;
   margin: 0 auto;
   width: 100%;
-  padding: 0 8vw;           /* 🔥 기존 패딩 복원 */
+  padding: 0 8vw;  /* 🔥 5vw → 8vw (좌우 마진 증가) */
   box-sizing: border-box;
   position: relative;
-  z-index: 1;
+  z-index: 1; /* 🔥 z-index 추가 */
 }
 
 /* 히어로 섹션과 메인 콘텐츠 사이 구분선 */
@@ -154,27 +153,16 @@
   z-index: 0; /* 🔥 백그라운드 요소 */
 }
 
-/* 🔥 메인 콘텐츠만 중앙으로 이동 */
 .main-content {
   padding: 5rem 0;
   position: relative;
   z-index: 1;
-  
-  /* 🔥 컨테이너만 중앙 정렬, 텍스트는 기존 스타일 유지 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* text-align: center; 🚨 이 줄 제거! */
 }
 
-/* 🔥 각 섹션을 적절한 너비로 제한하고 중앙 정렬 */
 .content-section {
   margin: 0 0 6rem 0;
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 900px;         /* 🔥 적절한 최대 너비 */
-  text-align: left;         /* 🔥 텍스트는 왼쪽 정렬 유지 */
 }
 
 .content-section:first-child {
