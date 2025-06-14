@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────
-   about.css (KAUZ About Us - 수정된 버전)
-   🔥 common.css와의 충돌 방지 및 중복 제거 + 완전 정렬
+   about.css (KAUZ About Us - 중앙정렬 및 호버 수정 버전)
+   🔥 전체 화면 중앙 정렬 + 클라이언트 박스 호버 제거
    ───────────────────────────────────────────────────────────────────── */
 
 /*===============================================================================
@@ -23,7 +23,7 @@
   padding: 0 25px;
   box-sizing: border-box;
   overflow: hidden;
-  z-index: 1; /* 🔥 적절한 z-index 설정 */
+  z-index: 1;
 }
 
 .about-hero-content {
@@ -42,7 +42,7 @@
   letter-spacing: -0.05em;
   text-transform: uppercase;
   position: relative;
-  z-index: 2; /* 🔥 z-index 추가 */
+  z-index: 2;
 }
 
 .about-main-title .kauz-spaced {
@@ -62,7 +62,7 @@
   position: absolute;
   bottom: -2.5rem;
   left: 0;
-  z-index: 2; /* 🔥 z-index 추가 */
+  z-index: 2;
 }
 
 /* SCROLL과 라인을 감싸는 컨테이너 */
@@ -74,7 +74,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
-  z-index: 3; /* 🔥 가장 높은 z-index */
+  z-index: 3;
 }
 
 /* SCROLL 인디케이터 - 라인 완전 제거 */
@@ -127,17 +127,17 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   메인 콘텐츠 섹션
+   🔥 메인 콘텐츠 섹션 - 완전 중앙정렬
    ═══════════════════════════════════════════════════════════════ */
 
 .about-content-wrapper {
-  max-width: none;
-  margin: 0 auto;
+  max-width: 1200px; /* 🔥 최대 폭 설정 */
+  margin: 0 auto;     /* 🔥 중앙 정렬 */
   width: 100%;
-  padding: 0 8vw;  /* 🔥 5vw → 8vw (좌우 마진 증가) */
+  padding: 0 2rem;    /* 🔥 양쪽 패딩 균등하게 */
   box-sizing: border-box;
   position: relative;
-  z-index: 1; /* 🔥 z-index 추가 */
+  z-index: 1;
 }
 
 /* 히어로 섹션과 메인 콘텐츠 사이 구분선 */
@@ -150,34 +150,36 @@
   width: 100vw;
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
-  z-index: 0; /* 🔥 백그라운드 요소 */
+  z-index: 0;
 }
 
 .main-content {
   padding: 5rem 0;
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 100%;
 }
 
 .content-section {
   margin: 0 0 6rem 0;
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 100%;
 }
 
 .content-section:first-child {
   margin-top: 4rem;
 }
 
-/* 섹션 구분선 - 하단만 사용 */
+/* 🔥 섹션 구분선 - 중앙정렬 */
 .section-divider-bottom {
-  width: calc(100% - 10vw);  /* 🔥 양쪽 여백만큼 줄임 */
+  width: 100%;
+  max-width: 800px;  /* 🔥 최대 폭 제한 */
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
-  margin-top: 4rem;
-  margin-bottom: 0;
-  margin-left: 5vw;          /* 🔥 좌우 마진을 패딩과 동일하게 */
-  margin-right: 5vw;
+  margin: 4rem auto 0 auto; /* 🔥 중앙 정렬 */
 }
 
 .section-number {
@@ -198,12 +200,14 @@
   line-height: 1.1;
 }
 
-/* 🔥 핵심 수정: 섹션 콘텐츠 - 완전한 정렬을 위한 그리드 시스템 */
+/* 🔥 핵심 수정: 섹션 콘텐츠 - 완전한 중앙정렬을 위한 그리드 시스템 */
 .section-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6vw;
+  gap: 4rem; /* 🔥 간격 조정 */
   width: 100%;
+  max-width: 1000px; /* 🔥 최대 폭 제한 */
+  margin: 0 auto;    /* 🔥 중앙 정렬 */
   align-items: flex-start;
 }
 
@@ -245,13 +249,13 @@
   padding: 0;
   margin: 0;
   width: 100%;
-  max-width: 350px; /* 🔥 추가: 다른 텍스트 영역과 동일한 최대 너비 */
+  max-width: 350px;
 }
 
 .services-list li {
   font-size: 1.1rem;
   padding: 1rem 0;
-  border-bottom: none; /* 🔥 기본 라인 제거 */
+  border-bottom: none;
   color: #ccc;
   position: relative;
   padding-left: 2rem;
@@ -259,9 +263,9 @@
   line-height: 1.4;
   font-weight: 500;
   letter-spacing: 0.02em;
-  cursor: pointer; /* 🔥 호버 가능 표시 */
-  max-width: 100%; /* 🔥 추가: 라인이 컨테이너를 넘지 않도록 */
-  box-sizing: border-box; /* 🔥 추가: 패딩 포함한 박스 사이징 */
+  cursor: pointer;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* 🔥 텍스트 길이에 맞는 짧은 라인 추가 */
@@ -269,10 +273,10 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: 2rem; /* 화살표 다음부터 시작 */
+  left: 2rem;
   right: auto;
-  width: calc(100% - 2rem); /* 🔥 텍스트 영역만큼만 */
-  max-width: 295px; /* 🔥 280px → 295px (15px 증가) */
+  width: calc(100% - 2rem);
+  max-width: 295px;
   height: 1px;
   background: #333;
   transition: background 0.3s ease;
@@ -292,7 +296,7 @@
 }
 
 .services-list li:hover::after {
-  background: #E37031; /* 🔥 호버 시 라인 색상 변경 */
+  background: #E37031;
 }
 
 .services-list li:hover::before {
@@ -300,21 +304,19 @@
 }
 
 .services-list li:last-child::after {
-  background: #333; /* 🔥 마지막 항목도 라인 유지 */
+  background: #333;
 }
 
-/* 🔥 OUR SERVICES 섹션 - 제거 (그리드가 자동으로 정렬) */
-/* .services-section .section-content 관련 코드 제거 */
-
-/* 미션 섹션 특별 스타일 */
+/* 🔥 미션 섹션 특별 스타일 - 중앙정렬 강화 */
 .mission-section .section-content {
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
   gap: 4rem;
-  width: 90vw;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 900px; /* 🔥 최대 폭 제한 */
+  margin: 0 auto;   /* 🔥 중앙 정렬 */
 }
 
 .mission-quote {
@@ -322,12 +324,12 @@
   font-weight: 300;
   line-height: 1.4;
   color: white;
-  margin: 0 auto 2rem auto;  /* 🔥 중앙 정렬 */
+  margin: 0 auto 2rem auto;
   font-style: italic;
   position: relative;
-  white-space: normal;       /* 🔥 nowrap → normal (자연스러운 줄바꿈) */
-  max-width: 800px;          /* 🔥 100% → 800px (적절한 폭 제한) */
-  text-align: center;        /* 🔥 텍스트 중앙 정렬 */
+  white-space: normal;
+  max-width: 800px;
+  text-align: center;
 }
 
 .mission-quote::before,
@@ -337,12 +339,16 @@
   font-size: 3rem;
 }
 
-/* 클라이언트 섹션 */
+/* 🔥 클라이언트 섹션 - 호버 효과 완전 제거 */
 .clients-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
   margin-top: 3rem;
+  width: 100%;
+  max-width: 1000px; /* 🔥 최대 폭 제한 */
+  margin-left: auto;  /* 🔥 중앙 정렬 */
+  margin-right: auto;
 }
 
 .client-box {
@@ -352,13 +358,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
   position: relative;
   z-index: 2;
+  /* 🔥 호버 효과 완전 제거 */
+  cursor: default;
+  transition: none;
 }
 
-/* 🔥 호버 효과는 JavaScript에서 처리 (about.js) */
+/* 🔥 호버 효과 완전 제거 */
+.client-box:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
 
 /* ═══════════════════════════════════════════════════════════════
    반응형 (모바일 대응)
@@ -449,6 +460,8 @@
     flex-direction: column;
     gap: 2rem;
     align-items: flex-start;
+    max-width: 100%;
+    margin: 0;
   }
 
   /* 🔥 모바일에서 그리드 무효화 */
@@ -468,9 +481,9 @@
   }
 
   .mission-quote {
-    white-space: normal;  /* 🔥 모바일에서는 줄바꿈 허용 */
+    white-space: normal;
     font-size: 1.5rem;
-    max-width: 100%;      /* 🔥 모바일에서는 전체 폭 사용 */
+    max-width: 100%;
   }
 
   .services-list li {
@@ -484,6 +497,7 @@
     grid-template-rows: repeat(2, 1fr);
     gap: 1rem;
     margin-top: 2rem;
+    max-width: 100%;
   }
 
   .client-box {
@@ -493,6 +507,7 @@
   .section-divider-bottom {
     margin-top: 3rem;
     margin-bottom: 0;
+    max-width: 100%;
   }
 }
 
