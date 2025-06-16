@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────
    about.css (KAUZ About Us - 수정된 버전)
-   🔥 common.css와의 충돌 방지 및 중복 제거 + 완전 정렬
+   🔥 common.css와의 충돌 방지 및 중복 제거 + 완전 정렬 + 무한롤링 수정
    ───────────────────────────────────────────────────────────────────── */
 
 /*===============================================================================
@@ -23,7 +23,7 @@
   padding: 0 25px;
   box-sizing: border-box;
   overflow: hidden;
-  z-index: 1; /* 🔥 적절한 z-index 설정 */
+  z-index: 1;
 }
 
 .about-hero-content {
@@ -42,7 +42,7 @@
   letter-spacing: -0.05em;
   text-transform: uppercase;
   position: relative;
-  z-index: 2; /* 🔥 z-index 추가 */
+  z-index: 2;
 }
 
 .about-main-title .kauz-spaced {
@@ -62,7 +62,7 @@
   position: absolute;
   bottom: -2.5rem;
   left: 0;
-  z-index: 2; /* 🔥 z-index 추가 */
+  z-index: 2;
 }
 
 /* SCROLL과 라인을 감싸는 컨테이너 */
@@ -74,7 +74,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
-  z-index: 3; /* 🔥 가장 높은 z-index */
+  z-index: 3;
 }
 
 /* SCROLL 인디케이터 - 라인 완전 제거 */
@@ -134,10 +134,10 @@
   max-width: none;
   margin: 0 auto;
   width: 100%;
-  padding: 0 8vw;  /* 🔥 5vw → 8vw (좌우 마진 증가) */
+  padding: 0 8vw;
   box-sizing: border-box;
   position: relative;
-  z-index: 1; /* 🔥 z-index 추가 */
+  z-index: 1;
 }
 
 /* 히어로 섹션과 메인 콘텐츠 사이 구분선 */
@@ -150,7 +150,7 @@
   width: 100vw;
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
-  z-index: 0; /* 🔥 백그라운드 요소 */
+  z-index: 0;
 }
 
 .main-content {
@@ -171,12 +171,12 @@
 
 /* 섹션 구분선 - 하단만 사용 */
 .section-divider-bottom {
-  width: calc(100% - 10vw);  /* 🔥 양쪽 여백만큼 줄임 */
+  width: calc(100% - 10vw);
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
   margin-top: 4rem;
   margin-bottom: 0;
-  margin-left: 5vw;          /* 🔥 좌우 마진을 패딩과 동일하게 */
+  margin-left: 5vw;
   margin-right: 5vw;
 }
 
@@ -187,7 +187,7 @@
   letter-spacing: 2px;
   margin-bottom: 1rem;
   font-weight: 400;
-  max-width: 1400px;           /* 🔥 1500px → 1400px */
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -199,7 +199,7 @@
   color: white;
   text-transform: uppercase;
   line-height: 1.1;
-  max-width: 1400px;           /* 🔥 1500px → 1400px */
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -208,9 +208,9 @@
 .section-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3vw;                    /* 🔥 6vw → 3vw (간격 줄임) */
+  gap: 3vw;
   width: 100%;
-  max-width: 1400px;           /* 🔥 1500px → 1400px */
+  max-width: 1400px;
   margin: 0 auto;
   align-items: flex-start;
 }
@@ -253,13 +253,13 @@
   padding: 0;
   margin: 0;
   width: 100%;
-  max-width: 350px; /* 🔥 추가: 다른 텍스트 영역과 동일한 최대 너비 */
+  max-width: 350px;
 }
 
 .services-list li {
   font-size: 1.1rem;
   padding: 1rem 0;
-  border-bottom: none; /* 🔥 기본 라인 제거 */
+  border-bottom: none;
   color: #ccc;
   position: relative;
   padding-left: 2rem;
@@ -267,9 +267,9 @@
   line-height: 1.4;
   font-weight: 500;
   letter-spacing: 0.02em;
-  cursor: pointer; /* 🔥 호버 가능 표시 */
-  max-width: 100%; /* 🔥 추가: 라인이 컨테이너를 넘지 않도록 */
-  box-sizing: border-box; /* 🔥 추가: 패딩 포함한 박스 사이징 */
+  cursor: pointer;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* 🔥 텍스트 길이에 맞는 짧은 라인 추가 */
@@ -277,10 +277,10 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: 2rem; /* 화살표 다음부터 시작 */
+  left: 2rem;
   right: auto;
-  width: calc(100% - 2rem); /* 🔥 텍스트 영역만큼만 */
-  max-width: 295px; /* 🔥 280px → 295px (15px 증가) */
+  width: calc(100% - 2rem);
+  max-width: 295px;
   height: 1px;
   background: #333;
   transition: background 0.3s ease;
@@ -300,7 +300,7 @@
 }
 
 .services-list li:hover::after {
-  background: #E37031; /* 🔥 호버 시 라인 색상 변경 */
+  background: #E37031;
 }
 
 .services-list li:hover::before {
@@ -308,11 +308,8 @@
 }
 
 .services-list li:last-child::after {
-  background: #333; /* 🔥 마지막 항목도 라인 유지 */
+  background: #333;
 }
-
-/* 🔥 OUR SERVICES 섹션 - 제거 (그리드가 자동으로 정렬) */
-/* .services-section .section-content 관련 코드 제거 */
 
 /* 미션 섹션 특별 스타일 */
 .mission-section .section-content {
@@ -322,7 +319,7 @@
   align-items: center;
   gap: 4rem;
   width: 100%;
-  max-width: 1000px;           /* 🔥 추가: 미션 섹션도 1000px */
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -331,12 +328,12 @@
   font-weight: 300;
   line-height: 1.4;
   color: white;
-  margin: 0 auto 2rem auto;  /* 🔥 중앙 정렬 */
+  margin: 0 auto 2rem auto;
   font-style: italic;
   position: relative;
-  white-space: normal;       /* 🔥 nowrap → normal (자연스러운 줄바꿈) */
-  max-width: 800px;          /* 🔥 100% → 800px (적절한 폭 제한) */
-  text-align: center;        /* 🔥 텍스트 중앙 정렬 */
+  white-space: normal;
+  max-width: 800px;
+  text-align: center;
 }
 
 .mission-quote::before,
@@ -352,7 +349,7 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
   margin-top: 3rem;
-  max-width: 1000px;           /* 🔥 추가: 클라이언트 그리드도 1000px */
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -370,10 +367,8 @@
   z-index: 2;
 }
 
-/* 🔥 호버 효과는 JavaScript에서 처리 (about.js) */
-
 /* ═══════════════════════════════════════════════════════════════
-   🔥 About 페이지 전용 Contact Us 무한롤링 섹션 (메인페이지와 동일)
+   🔥 About 페이지 전용 Contact Us 무한롤링 섹션 (메인페이지와 완전 동일)
    ═══════════════════════════════════════════════════════════════ */
 
 #contact {
@@ -387,10 +382,10 @@
   user-select: none;
 }
 
-/* 🔥 수정된 무한롤링 구조 */
+/* 🔥 무한롤링 구조 */
 .marquee-wrapper {
   width: 100%;
-  height: 200px; /* 🔥 160px 폰트에 맞게 조정 */
+  height: 200px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -406,17 +401,17 @@
   will-change: transform;
 }
 
-/* 🔥 새로운 방식: 일반 텍스트 + stroke 효과 */
+/* 🔥 텍스트 + stroke 효과 */
 .text-item {
   display: inline-block;
   font-family: 'Pretendard', sans-serif;
-  font-size: 160px; /* 🔥 웹 최종 크기 160px */
+  font-size: 160px;
   font-weight: 800;
   text-transform: uppercase;
   color: transparent;
-  -webkit-text-stroke: 2.2px white; /* 🔥 웹 선굵기 2.2px */
+  -webkit-text-stroke: 2.2px white;
   text-stroke: 2.2px white;
-  margin-right: 3rem; /* 🔥 큰 폰트에 맞게 간격 증가 */
+  margin-right: 3rem;
   flex-shrink: 0;
   line-height: 1;
   letter-spacing: 0.02em;
@@ -426,12 +421,12 @@
 .text-divider {
   display: inline-block;
   font-family: 'Pretendard', sans-serif;
-  font-size: 160px; /* 🔥 웹 최종 크기 160px */
+  font-size: 160px;
   font-weight: 800;
   color: transparent;
-  -webkit-text-stroke: 2.2px white; /* 🔥 웹 선굵기 2.2px */
+  -webkit-text-stroke: 2.2px white;
   text-stroke: 2.2px white;
-  margin-right: 3rem; /* 🔥 큰 폰트에 맞게 간격 증가 */
+  margin-right: 3rem;
   flex-shrink: 0;
   line-height: 1;
 }
@@ -466,7 +461,7 @@
   }
 }
 
-/* 무한 스크롤 애니메이션 */
+/* 🔥 무한 스크롤 애니메이션 - 핵심! */
 @keyframes perfectScroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -605,9 +600,9 @@
   }
 
   .mission-quote {
-    white-space: normal;  /* 🔥 모바일에서는 줄바꿈 허용 */
+    white-space: normal;
     font-size: 1.5rem;
-    max-width: 100%;      /* 🔥 모바일에서는 전체 폭 사용 */
+    max-width: 100%;
   }
 
   .services-list li {
@@ -642,15 +637,15 @@
   }
 
   .marquee-inner {
-    animation-duration: 20s;
+    animation: perfectScroll 20s linear infinite;
   }
 
   .text-item,
   .text-divider {
-    font-size: 40px; /* 모바일 크기 */
-    -webkit-text-stroke-width: 0.6px; /* 🔥 모바일 선굵기 0.6px */
+    font-size: 40px;
+    -webkit-text-stroke-width: 0.6px;
     text-stroke-width: 0.6px;
-    margin-right: 1rem; /* 모바일 간격 줄임 */
+    margin-right: 1rem;
   }
 }
 
@@ -740,15 +735,15 @@
   }
 
   .marquee-inner {
-    animation-duration: 18s;
+    animation: perfectScroll 18s linear infinite;
   }
 
   .text-item,
   .text-divider {
-    font-size: 30px; /* 작은 모바일 크기 */
-    -webkit-text-stroke-width: 0.5px; /* 🔥 작은 모바일 선굵기 0.5px */
+    font-size: 30px;
+    -webkit-text-stroke-width: 0.5px;
     text-stroke-width: 0.5px;
-    margin-right: 0.8rem; /* 더 타이트한 간격 */
+    margin-right: 0.8rem;
   }
 }
 
@@ -796,13 +791,11 @@
 @media (hover: none) and (pointer: coarse) {
   .text-item,
   .text-divider {
-    /* 🔥 터치 디바이스에서 렌더링 안정화 */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   
-  /* 🔥 터치 디바이스에서 호버 효과 단순화 */
   #contact:hover .text-item,
   #contact:hover .text-divider {
     animation: touchSafeColorFlow 4s linear infinite;
@@ -867,5 +860,26 @@
   .fade-up {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🔥 최종 안전장치 - 무한롤링 강제 적용
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 혹시나 해서 한 번 더! */
+#contact .marquee-inner {
+  animation: perfectScroll 25s linear infinite !important;
+}
+
+@media (max-width: 768px) {
+  #contact .marquee-inner {
+    animation: perfectScroll 20s linear infinite !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #contact .marquee-inner {
+    animation: perfectScroll 18s linear infinite !important;
   }
 }
