@@ -198,12 +198,14 @@
   line-height: 1.1;
 }
 
-/* 🔥 핵심 수정: 섹션 콘텐츠 - 완전한 정렬을 위한 그리드 시스템 */
+/* 🔥 새로운 코드 (위 코드를 이걸로 교체) */
 .section-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6vw;
+  gap: 4vw;                    /* 6vw → 4vw (간격 줄임) */
   width: 100%;
+  max-width: 900px;            /* 🔥 최대 너비 제한 */
+  margin: 0 auto;              /* 🔥 중앙 정렬 */
   align-items: flex-start;
 }
 
