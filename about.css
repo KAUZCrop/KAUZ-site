@@ -187,6 +187,9 @@
   letter-spacing: 2px;
   margin-bottom: 1rem;
   font-weight: 400;
+  max-width: 1000px;           /* 🔥 1500px → 1000px */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-title {
@@ -196,16 +199,19 @@
   color: white;
   text-transform: uppercase;
   line-height: 1.1;
+  max-width: 1000px;           /* 🔥 1500px → 1000px */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* 🔥 새로운 코드 (위 코드를 이걸로 교체) */
+/* 🔥 핵심 수정: 섹션 콘텐츠 - 완전한 정렬을 위한 그리드 시스템 */
 .section-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4vw;                    /* 6vw → 4vw (간격 줄임) */
+  gap: 3vw;                    /* 🔥 6vw → 3vw (간격 줄임) */
   width: 100%;
-  max-width: 1500px;            /* 🔥 최대 너비 제한 */
-  margin: 0 auto;              /* 🔥 중앙 정렬 */
+  max-width: 1000px;           /* 🔥 1500px → 1000px */
+  margin: 0 auto;
   align-items: flex-start;
 }
 
@@ -315,7 +321,8 @@
   text-align: center;
   align-items: center;
   gap: 4rem;
-  width: 90vw;
+  width: 100%;
+  max-width: 1000px;           /* 🔥 추가: 미션 섹션도 1000px */
   margin: 0 auto;
 }
 
@@ -345,6 +352,9 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
   margin-top: 3rem;
+  max-width: 1000px;           /* 🔥 추가: 클라이언트 그리드도 1000px */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .client-box {
