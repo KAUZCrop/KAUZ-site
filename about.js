@@ -1,5 +1,5 @@
 // about.js (About Us 전용 스크립트) - 수정된 버전
-// 🔥 강제 리다이렉트 제거 + 새로고침 시 상단 이동
+// 🔥 강제 리다이렉트 제거 + 새로고침 시 상단 이동 + 무한롤링 배너 추가
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('📄 About.js starting...');
@@ -90,6 +90,111 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Client boxes hover effects removed:', clientBoxes.length);
   }
 
+  // ─── 🔥 Contact 섹션 클릭 처리 (About 페이지 전용) ───
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    let isScrolling = false;
+    let scrollTimeout;
+    let startY = 0;
+    let startTime = 0;
+    let touchStarted = false;
+
+    contactSection.addEventListener('touchstart', (e) => {
+      touchStarted = true;
+      startY = e.touches[0].clientY;
+      startTime = Date.now();
+      isScrolling = false;
+      
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 150);
+    }, { passive: true });
+
+    contactSection.addEventListener('mousedown', (e) => {
+      if (!touchStarted) {
+        startY = e.clientY;
+        startTime = Date.now();
+        isScrolling = false;
+      }
+    });
+
+    contactSection.addEventListener('touchmove', (e) => {
+      const currentY = e.touches[0].clientY;
+      const deltaY = Math.abs(currentY - startY);
+      
+      if (deltaY > 10) {
+        isScrolling = true;
+      }
+    }, { passive: true });
+
+    contactSection.addEventListener('mousemove', (e) => {
+      if (!touchStarted) {
+        const currentY = e.clientY;
+        const deltaY = Math.abs(currentY - startY);
+        
+        if (deltaY > 10) {
+          isScrolling = true;
+        }
+      }
+    });
+
+    contactSection.addEventListener('touchend', (e) => {
+      const endTime = Date.now();
+      const duration = endTime - startTime;
+      
+      if (!isScrolling && duration < 300) {
+        e.preventDefault();
+        performSafeNavigation('portfolio.html'); // 🔥 About 페이지에서는 portfolio로 이동
+      }
+      
+      setTimeout(() => {
+        touchStarted = false;
+      }, 100);
+    });
+
+    contactSection.addEventListener('click', (e) => {
+      if (!touchStarted && !isScrolling) {
+        e.preventDefault();
+        performSafeNavigation('portfolio.html'); // 🔥 About 페이지에서는 portfolio로 이동
+      }
+    });
+
+    function performSafeNavigation(url) {
+      console.log('🔗 About page navigating to:', url);
+      
+      document.body.style.opacity = '0.9';
+      document.body.style.transition = 'opacity 0.2s ease';
+      
+      setTimeout(() => {
+        window.location.href = url;
+      }, 100);
+    }
+
+    console.log('✅ About page contact section click events initialized');
+  }
+
+  // ─── 🔥 Contact 섹션 무한롤링 초기화 (About 페이지 전용) ───
+  function initAboutContactInfiniteScroll() {
+    const marqueeInner = document.querySelector('#contact .marquee-inner');
+    const marqueeWrapper = document.querySelector('#contact .marquee-wrapper');
+    
+    if (!marqueeInner || !marqueeWrapper) {
+      console.warn('About contact marquee elements not found');
+      return;
+    }
+    
+    // 색상 웨이브 딜레이 적용
+    const allTextElements = marqueeInner.querySelectorAll('.text-item, .text-divider');
+    allTextElements.forEach((element, index) => {
+      const delay = (index * 0.3) % 4;
+      element.style.animationDelay = `${delay}s`;
+    });
+    
+    console.log('✅ About page contact infinite scroll initialized with', allTextElements.length, 'elements');
+    console.log('✅ No SVG viewBox issues, stable text rendering!');
+  }
+
   // 5) 스크롤 진행률 표시 (CSS 변수로 설정)
   function updateScrollProgress() {
     const scrollTop = window.pageYOffset;
@@ -162,7 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
       contentSections: document.querySelectorAll('.content-section').length,
       serviceItems: document.querySelectorAll('.services-list li').length,
       clientBoxes: document.querySelectorAll('.client-box').length,
-      scrollIndicator: !!scrollIndicator
+      scrollIndicator: !!scrollIndicator,
+      contactSection: !!contactSection
     });
 
     // 성능 측정
@@ -188,6 +294,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.fade-up').forEach(el => {
           el.classList.add('is-visible');
         });
+      },
+      testContactClick: () => {
+        const contact = document.getElementById('contact');
+        if (contact) contact.click();
       }
     };
   }
@@ -200,10 +310,17 @@ document.addEventListener('DOMContentLoaded', () => {
       elementsFound: {
         scrollIndicator: !!scrollIndicator,
         fadeElements: document.querySelectorAll('.fade-up').length,
-        serviceItems: document.querySelectorAll('.services-list li').length
+        serviceItems: document.querySelectorAll('.services-list li').length,
+        contactSection: !!contactSection,
+        marqueeElements: document.querySelectorAll('#contact .text-item').length
       }
     });
   }, 100);
+
+  // Contact 섹션 텍스트 기반 무한롤링 초기화 (로딩 완료 후)
+  setTimeout(() => {
+    initAboutContactInfiniteScroll();
+  }, 1200);
 
   console.log('✅ About.js initialization complete');
 });
