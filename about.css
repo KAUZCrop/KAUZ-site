@@ -204,7 +204,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 4vw;                    /* 6vw → 4vw (간격 줄임) */
   width: 100%;
-  max-width: 1200px;            /* 🔥 최대 너비 제한 */
+  max-width: 1500px;            /* 🔥 최대 너비 제한 */
   margin: 0 auto;              /* 🔥 중앙 정렬 */
   align-items: flex-start;
 }
