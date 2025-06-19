@@ -938,7 +938,953 @@
 @media (prefers-reduced-motion: reduce) {
   .portfolio-hero *,
   .filter-section *,
+  .project-card *,/* ─────────────────────────────────────────────────────────────────────
+   portfolio.css (KAUZ Portfolio - About 페이지와 동일한 스타일)
+   🔥 common.css와의 충돌 방지 및 중복 제거 + 완전 정렬 + 무한롤링 추가
+   ───────────────────────────────────────────────────────────────────── */
+
+/*===============================================================================
+  🔥 Portfolio 페이지 전용 스타일만 정의 (common.css와 중복 제거)
+===============================================================================*/
+
+/* ═══════════════════════════════════════════════════════════════
+   Portfolio 히어로 섹션 - About과 동일한 전체화면 적용
+   ═══════════════════════════════════════════════════════════════ */
+
+.portfolio-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0D0D0D;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 25px;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.portfolio-hero-content {
+  max-width: 100%;
+  text-align: left;
+  width: 100%;
+  position: relative;
+}
+
+.portfolio-main-title {
+  font-size: 200px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 1rem 0;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+}
+
+.portfolio-main-title .title-line1,
+.portfolio-main-title .title-line2 {
+  display: block;
+}
+
+.portfolio-subtitle {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #E37031;
+  margin: 0;
+  line-height: 1.2;
+  opacity: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  width: 100%;
+  position: absolute;
+  bottom: -2.5rem;
+  left: 0;
+  z-index: 2;
+}
+
+/* SCROLL과 라인을 감싸는 컨테이너 */
+.portfolio-bottom-elements {
+  position: absolute;
+  bottom: 4rem;
+  left: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  z-index: 3;
+}
+
+/* SCROLL 인디케이터 - 라인 완전 제거 */
+.scroll-indicator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  border: none !important;
+  background: none !important;
+  z-index: 3;
+}
+
+.scroll-indicator:hover {
+  opacity: 0.7;
+}
+
+.scroll-text {
+  font-size: 0.9rem;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  border: none !important;
+  background: none !important;
+}
+
+.scroll-arrow {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
+  border: none !important;
+  background: none !important;
+}
+
+/* 하단 고정 그라디언트 라인 - 제거됨 */
+.portfolio-bottom-line {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   메인 콘텐츠 섹션
+   ═══════════════════════════════════════════════════════════════ */
+
+.portfolio-content-wrapper {
+  max-width: none;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 8vw;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+/* 히어로 섹션과 메인 콘텐츠 사이 구분선 */
+.portfolio-content-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   필터 섹션
+   ═══════════════════════════════════════════════════════════════ */
+
+.filter-section {
+  padding: 5rem 0 3rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.filter-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3vw;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.filter-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: white;
+  text-transform: uppercase;
+  line-height: 1.1;
+  grid-column: 1;
+}
+
+.filter-buttons {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  padding-top: 0.5rem;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid #333;
+  color: #ccc;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 0;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background-color: #E37031;
+  color: white;
+  border-color: #E37031;
+  transform: translateY(-2px);
+}
+
+/* 섹션 구분선 - 하단만 사용 */
+.section-divider-bottom {
+  width: calc(100% - 10vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  margin-top: 4rem;
+  margin-bottom: 0;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   프로젝트 카드 그리드
+   ═══════════════════════════════════════════════════════════════ */
+
+.portfolio-projects {
+  padding: 5rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+.project-card {
+  background-color: transparent;
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 프로젝트 이미지 컨테이너 */
+.project-image-container {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+.project-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* 이미지가 없을 때 플레이스홀더 */
+.project-image-container::after {
+  content: 'IMAGE';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #666;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-image-container img:not([src]), 
+.project-image-container img[src=""] {
+  display: none;
+}
+
+/* 프로젝트 호버 오버레이 */
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-overlay-content {
+  text-align: center;
+  color: white;
+}
+
+.project-overlay-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.project-overlay-content p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.btn-more {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.btn-more:hover {
+  background: white;
+  color: #0D0D0D;
+}
+
+/* 프로젝트 정보 */
+.project-info {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #333;
+}
+
+.project-category {
+  font-size: 0.8rem;
+  color: #E37031;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.project-title {
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.project-description {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 호버 효과 */
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card:hover .project-image-container img {
+  transform: scale(1.05);
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-card:hover .project-info {
+  border-bottom-color: #E37031;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   모달 스타일 (Portfolio 전용)
+   ═══════════════════════════════════════════════════════════════ */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 10000;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 3rem;
+  color: white;
+}
+
+.modal-content h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #E37031;
+  font-weight: 700;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #ccc;
+}
+
+.modal-content p:last-child {
+  margin-bottom: 0;
+}
+
+.modal-content strong {
+  color: white;
+  font-weight: 600;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #E37031;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🔥 Portfolio 페이지 전용 Contact Us 무한롤링 섹션 (About과 동일)
+   ═══════════════════════════════════════════════════════════════ */
+
+#contact {
+  margin-top: 50px;
+  padding: 6rem 0;
+  background-color: #0D0D0D;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 🔥 무한롤링 구조 */
+.marquee-wrapper {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.marquee-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  animation: perfectScroll 25s linear infinite;
+  will-change: transform;
+}
+
+/* 🔥 텍스트 + stroke 효과 */
+.text-item {
+  display: inline-block;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 160px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2.2px white;
+  text-stroke: 2.2px white;
+  margin-right: 3rem;
+  flex-shrink: 0;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* 구분자 스타일 */
+.text-divider {
+  display: inline-block;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 160px;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 2.2px white;
+  text-stroke: 2.2px white;
+  margin-right: 3rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* 호버 시 색상 웨이브 */
+#contact:hover .text-item,
+#contact:hover .text-divider {
+  animation: colorWaveText 4s linear infinite;
+}
+
+/* 🔥 텍스트용 색상 웨이브 애니메이션 */
+@keyframes colorWaveText {
+  0% { 
+    -webkit-text-stroke-color: white;
+    text-stroke-color: white;
+  }
+  25% { 
+    -webkit-text-stroke-color: #E37031;
+    text-stroke-color: #E37031;
+  }
+  50% { 
+    -webkit-text-stroke-color: #ff8c42;
+    text-stroke-color: #ff8c42;
+  }
+  75% { 
+    -webkit-text-stroke-color: #E37031;
+    text-stroke-color: #E37031;
+  }
+  100% { 
+    -webkit-text-stroke-color: white;
+    text-stroke-color: white;
+  }
+}
+
+/* 🔥 무한 스크롤 애니메이션 - 핵심! */
+@keyframes perfectScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 호버 효과 */
+#contact:hover {
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+/* 🔥 폰트가 없을 때 폴백 */
+@supports not (-webkit-text-stroke: 1px white) {
+  .text-item,
+  .text-divider {
+    color: white;
+    text-shadow: 
+      -2px -2px 0 transparent,
+      2px -2px 0 transparent,
+      -2px 2px 0 transparent,
+      2px 2px 0 transparent;
+  }
+}
+
+/* 🔥 성능 최적화 */
+.marquee-inner * {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   반응형 (모바일 대응)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .portfolio-hero {
+    min-height: 100vh;
+    padding: 0 1rem;
+    justify-content: center;
+  }
+  
+  .portfolio-hero-content {
+    position: relative;
+  }
+  
+  .portfolio-main-title {
+    font-size: 85px !important;
+    line-height: 0.8 !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    letter-spacing: 0.01em !important;
+    white-space: normal;
+    margin-bottom: 2rem !important;
+    position: relative !important;
+  }
+  
+  .portfolio-subtitle {
+    font-size: 0.9rem !important;
+    letter-spacing: 0.08em !important;
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 1rem !important;
+  }
+
+  .portfolio-bottom-elements {
+    bottom: 3rem;
+    left: 1rem;
+    gap: 15px;
+  }
+
+  .scroll-text {
+    font-size: 0.8rem;
+  }
+
+  .scroll-arrow {
+    font-size: 1rem;
+  }
+
+  .portfolio-content-wrapper {
+    max-width: none;
+    padding: 0 1rem;
+  }
+
+  .portfolio-content-wrapper::before {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    background: linear-gradient(90deg, transparent 0%, #E37031 20%, #E37031 80%, transparent 100%);
+  }
+
+  .filter-section {
+    padding: 3rem 0;
+  }
+
+  .filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .filter-title {
+    font-size: 1.8rem;
+  }
+
+  .filter-buttons {
+    gap: 0.8rem;
+  }
+
+  .filter-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .project-list {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .project-image-container {
+    height: 250px;
+  }
+
+  .project-info {
+    padding: 1rem 0;
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+  }
+
+  .modal-content {
+    padding: 2rem;
+    margin: 1rem;
+    max-width: none;
+  }
+
+  .modal-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .section-divider-bottom {
+    margin-top: 3rem;
+    margin-bottom: 0;
+  }
+
+  /* 🔥 모바일 Contact 섹션 */
+  #contact {
+    padding: 4rem 0;
+  }
+
+  .marquee-wrapper {
+    height: 80px;
+  }
+
+  .marquee-inner {
+    animation: perfectScroll 20s linear infinite;
+  }
+
+  .text-item,
+  .text-divider {
+    font-size: 40px;
+    -webkit-text-stroke-width: 0.6px;
+    text-stroke-width: 0.6px;
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-hero {
+    min-height: 100vh;
+    padding: 0 0.5rem;
+  }
+  
+  .portfolio-main-title {
+    font-size: 70px !important;
+    line-height: 0.8 !important;
+    letter-spacing: 0 !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .portfolio-subtitle {
+    font-size: 0.8rem !important;
+    letter-spacing: 0.05em !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin-top: 0.8rem !important;
+  }
+
+  .portfolio-bottom-elements {
+    bottom: 2rem;
+    left: 0.5rem;
+    gap: 10px;
+  }
+
+  .scroll-text {
+    font-size: 0.75rem;
+  }
+
+  .scroll-arrow {
+    font-size: 0.9rem;
+  }
+
+  .portfolio-content-wrapper {
+    padding: 0 0.8rem;
+  }
+
+  .filter-title {
+    font-size: 1.5rem;
+  }
+  
+  .filter-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .project-image-container {
+    height: 200px;
+  }
+
+  .project-title {
+    font-size: 1rem;
+  }
+
+  .project-description {
+    font-size: 0.8rem;
+  }
+
+  /* 🔥 작은 모바일 Contact 섹션 */
+  #contact {
+    padding: 3rem 0;
+  }
+
+  .marquee-wrapper {
+    height: 60px;
+  }
+
+  .marquee-inner {
+    animation: perfectScroll 18s linear infinite;
+  }
+
+  .text-item,
+  .text-divider {
+    font-size: 30px;
+    -webkit-text-stroke-width: 0.5px;
+    text-stroke-width: 0.5px;
+    margin-right: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .portfolio-hero {
+    min-height: 100vh;
+    padding: 0 0.5rem;
+  }
+
+  .portfolio-main-title {
+    font-size: 60px !important;
+    letter-spacing: 0 !important;
+    margin-bottom: 1.2rem !important;
+  }
+  
+  .portfolio-subtitle {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.03em !important;
+    margin-top: 0.6rem !important;
+  }
+
+  .portfolio-bottom-elements {
+    gap: 8px;
+  }
+
+  .portfolio-content-wrapper {
+    padding: 0 0.5rem;
+  }
+
+  .filter-title {
+    font-size: 1.3rem;
+  }
+  
+  .project-description {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🔥 추가 안전장치 - 모든 모바일 디바이스에서 렌더링 문제 완전 방지
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 터치 디바이스에서 모든 복잡한 효과 제거 */
+@media (hover: none) and (pointer: coarse) {
+  .text-item,
+  .text-divider {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  #contact:hover .text-item,
+  #contact:hover .text-divider {
+    animation: touchSafeColorFlow 4s linear infinite;
+  }
+
+  @keyframes touchSafeColorFlow {
+    0%, 100% { 
+      -webkit-text-stroke-color: white;
+      text-stroke-color: white;
+    }
+    50% { 
+      -webkit-text-stroke-color: #E37031;
+      text-stroke-color: #E37031;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   추가 안전장치 및 최적화
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 터치 디바이스 최적화 */
+.touch-device .project-card:hover {
+  transform: none;
+}
+
+.touch-device .project-overlay {
+  opacity: 0 !important;
+}
+
+/* CSS Grid 미지원 브라우저 폴백 */
+.no-grid-support .project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.no-grid-support .project-card {
+  width: calc(33.333% - 1rem);
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .no-grid-support .project-card {
+    width: 100%;
+  }
+}
+
+/* 성능 최적화 */
+.portfolio-hero,
+.portfolio-hero-content,
+.portfolio-main-title {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-hero *,
+  .filter-section *,
   .project-card *,
+  .fade-up {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🔥 최종 안전장치 - 무한롤링 강제 적용
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 혹시나 해서 한 번 더! */
+#contact .marquee-inner {
+  animation: perfectScroll 25s linear infinite !important;
+}
+
+@media (max-width: 768px) {
+  #contact .marquee-inner {
+    animation: perfectScroll 20s linear infinite !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #contact .marquee-inner {
+    animation: perfectScroll 18s linear infinite !important;
+  }
+}
   .fade-up {
     animation: none !important;
     transition: none !important;
