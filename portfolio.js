@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── 🔧 수정된 Airtable 설정 (스크린샷 기준) ───
   const AIRTABLE_CONFIG = {
     BASE_ID: 'appglO0MOXGY7CITU',
-    API_KEY: 'patRSZDxFKTYHd0PH.52e35eb0b2142e97e1a8f83cc42a7ed5ef0bf1c37bf2c28e9dc97056d06ddce3',
+    API_KEY: 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9',
     TABLE_NAME: 'Table%201'  // ✅ 스크린샷에서 확인된 실제 테이블 이름
   };
 
