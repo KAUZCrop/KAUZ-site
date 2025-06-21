@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         id: 'fallback-3',
         fields: {
-          'Title': '법무법인 아울',
+          'Title': '법무법인 이엘',
           'Description': '브랜드 아이덴티티 및 웹사이트 리뉴얼 프로젝트',
           'Assignee': 'KAUZ',
           'Status': 'COMPLETED',
