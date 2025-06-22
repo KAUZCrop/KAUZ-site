@@ -60,11 +60,41 @@ document.addEventListener('DOMContentLoaded', () => {
       portfolioEndMessage = document.createElement('div');
       portfolioEndMessage.id = 'portfolioEndMessage';
       portfolioEndMessage.className = 'portfolio-end-message';
-      portfolioEndMessage.style.display = 'none';
+      // 🎯 확실히 보이도록 인라인 스타일 적용
+      portfolioEndMessage.style.cssText = `
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem 0;
+        margin-top: 3rem;
+        text-align: center;
+        width: 100%;
+      `;
       portfolioEndMessage.innerHTML = `
-        <div class="end-message-content">
-          <div class="update-icon">🔄</div>
-          <p>Update our portfolio soon</p>
+        <div class="end-message-content" style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.8rem;
+          padding: 0;
+          background: none;
+          border: none;
+        ">
+          <span class="update-icon" style="
+            font-size: 1.5rem;
+            line-height: 1;
+            display: inline-block;
+            color: #E37031;
+            font-weight: bold;
+          ">↺</span>
+          <p style="
+            color: #ccc;
+            font-size: 1.1rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+          ">Update our portfolio soon</p>
         </div>
       `;
       portfolioGrid.parentNode.appendChild(portfolioEndMessage);
@@ -514,9 +544,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // 🔥 hasMoreData 상태 업데이트 수정
       if (currentPage * ITEMS_PER_PAGE >= allPortfolioData.length) {
         hasMoreData = false;
-        if (allPortfolioData.length > ITEMS_PER_PAGE) {  // 6개보다 많을 때만 종료 메시지
-          showEndMessage();
-        }
+        // 🎯 항상 종료 메시지 표시 (데이터 개수 상관없이)
+        showEndMessage();
         console.log('🏁 All data loaded');
       }
 
@@ -575,7 +604,18 @@ document.addEventListener('DOMContentLoaded', () => {
   function showEndMessage() {
     if (portfolioEndMessage) {
       portfolioEndMessage.style.display = 'flex';
-      console.log('🏁 End message shown');
+      // 🎯 확실히 보이도록 추가 스타일 적용
+      portfolioEndMessage.style.visibility = 'visible';
+      portfolioEndMessage.style.opacity = '1';
+      console.log('🏁 End message shown with enhanced visibility');
+      
+      // 🔥 스크롤해서 메시지 확인할 수 있도록 위치 조정
+      setTimeout(() => {
+        portfolioEndMessage.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'nearest' 
+        });
+      }, 500);
     }
   }
 
@@ -738,6 +778,25 @@ document.addEventListener('DOMContentLoaded', () => {
       await initPortfolioWithData(fallbackData);
       
       alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트`);
+    },
+    
+    // 🎯 종료 메시지 강제 표시 (테스트용)
+    showEndMessage: () => {
+      console.log('🧪 Manually showing end message...');
+      showEndMessage();
+      alert('🏁 "Update our portfolio soon" 메시지를 강제로 표시했습니다.');
+    },
+    
+    // 🔍 DOM 요소 상태 확인
+    checkElements: () => {
+      const elements = {
+        portfolioGrid: !!portfolioGrid,
+        loadingIndicator: !!loadingIndicator,
+        portfolioEndMessage: !!portfolioEndMessage,
+        scrollTrigger: !!scrollTrigger
+      };
+      console.log('📋 DOM Elements Status:', elements);
+      alert(`DOM 요소 상태:\n${Object.entries(elements).map(([key, value]) => `${key}: ${value ? '✅' : '❌'}`).join('\n')}`);
     }
   };
 
@@ -759,6 +818,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 🔥 첫 페이지 로딩 후 hasMoreData 재설정
     hasMoreData = allPortfolioData.length > ITEMS_PER_PAGE;
+
+    // 🎯 데이터가 6개 이하면 바로 종료 메시지 표시
+    if (allPortfolioData.length <= ITEMS_PER_PAGE) {
+      setTimeout(() => {
+        showEndMessage();
+        console.log('🏁 Showing end message for small dataset');
+      }, 1000);
+    }
 
     // 무한스크롤 초기화
     initInfiniteScroll();
