@@ -187,6 +187,23 @@
         <div class="project-list" id="portfolioGrid">
           <!-- Airtable 데이터가 여기에 동적으로 삽입됩니다 -->
         </div>
+        
+        <!-- 🔥 로딩 인디케이터 -->
+        <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+          <div class="loading-spinner"></div>
+          <p>더 많은 작품을 불러오는 중...</p>
+        </div>
+        
+        <!-- 🔥 더 이상 로딩할 포트폴리오가 없을 때 메시지 -->
+        <div class="portfolio-end-message" id="portfolioEndMessage" style="display: none;">
+          <div class="end-message-content">
+            <div class="update-icon">🔄</div>
+            <p>Update our portfolio soon</p>
+          </div>
+        </div>
+        
+        <!-- 🔥 무한 스크롤 트리거 (화면에 안보이는 감지 영역) -->
+        <div class="scroll-trigger" id="scrollTrigger"></div>
       </section>
 
     </div> <!-- portfolio-content-wrapper 끝 -->
