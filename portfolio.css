@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────
-   portfolio.css (KAUZ Portfolio - 완전 최종 버전)
-   🔥 햄버거 → X 애니메이션 + 모달 헤더 개선 + 완벽한 디자인
+   portfolio.css (KAUZ Portfolio - 무한스크롤 + 크기조정 버전)
+   🔥 햄버거 → X 애니메이션 + 모달 헤더 개선 + 무한스크롤 + 웹 크기조정
    ───────────────────────────────────────────────────────────────────── */
 
 /*===============================================================================
@@ -200,13 +200,31 @@ body {
   z-index: 1;
 }
 
-/* 🔥 포트폴리오 그리드 - 항상 2열, 큰 사이즈 */
+/* 🔥 포트폴리오 그리드 - 기본 설정 (모바일 우선) */
 .project-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6rem 4rem;
   margin: 0 auto;
   max-width: 1600px;
+}
+
+/* 🔥 웹 전용 크기 및 간격 조정 (769px 이상) */
+@media (min-width: 769px) {
+  .project-list {
+    gap: 7.5rem 5.5rem; /* 기존 6rem 4rem에서 1.5rem씩 증가 (25px 추가) */
+    max-width: 2000px; /* 확대된 카드에 맞춰 최대 너비 증가 */
+  }
+  
+  .project-card {
+    transform: scale(1.35); /* 35% 확대 */
+    transform-origin: center;
+    transition: all 0.4s ease;
+  }
+  
+  .project-card:hover {
+    transform: scale(1.35) translateY(-8px); /* 호버시에도 확대 유지 */
+  }
 }
 
 /* 🔥 포트폴리오 아이템 */
@@ -296,6 +314,99 @@ body {
   line-height: 1.2;
   margin: 0;
   text-align: right;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🔥 무한 스크롤 관련 스타일
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 로딩 인디케이터 */
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #333;
+  border-top: 3px solid #E37031;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-indicator p {
+  color: #ccc;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* "Update our portfolio soon" 메시지 */
+.portfolio-end-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.end-message-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 3rem;
+  background: rgba(26, 26, 26, 0.5);
+  border: 1px solid #333;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.end-message-content:hover {
+  border-color: #E37031;
+  background: rgba(26, 26, 26, 0.8);
+}
+
+.update-icon {
+  font-size: 3rem;
+  line-height: 1;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.end-message-content p {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* 스크롤 트리거 (보이지 않는 감지 영역) */
+.scroll-trigger {
+  height: 10px;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  margin-top: 2rem;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -687,10 +798,18 @@ body {
     padding: 3rem 0;
   }
 
-  /* 🔥 모바일에서도 2열 유지! */
+  /* 🔥 모바일에서는 기존 스타일 유지 (크기 조정 없음) */
   .project-list {
     grid-template-columns: 1fr 1fr;
     gap: 3rem 2rem;
+  }
+
+  .project-card {
+    transform: none !important; /* 모바일에서는 확대 없음 */
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px) !important; /* 모바일에서는 기본 호버만 */
   }
 
   .project-image-container {
@@ -731,6 +850,23 @@ body {
 
   .modal-body {
     padding: 2rem 1rem;
+  }
+
+  /* 모바일 무한스크롤 관련 요소들 */
+  .loading-indicator {
+    padding: 2rem 0;
+  }
+
+  .portfolio-end-message {
+    padding: 3rem 0;
+  }
+
+  .end-message-content {
+    padding: 1.5rem 2rem;
+  }
+
+  .end-message-content p {
+    font-size: 1rem;
   }
 
   #contact {
@@ -777,6 +913,22 @@ body {
 
   .project-category {
     font-size: 0.65rem;
+  }
+
+  .loading-indicator {
+    padding: 1.5rem 0;
+  }
+
+  .portfolio-end-message {
+    padding: 2rem 0;
+  }
+
+  .end-message-content {
+    padding: 1rem 1.5rem;
+  }
+
+  .end-message-content p {
+    font-size: 0.9rem;
   }
 
   .text-item,
