@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── Airtable Portfolio Loading ───
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
   const baseId = 'appglO0MOXGY7CITU';
-  const tableName = 'Table%201';
+  const tableName = 'KAUZ%20main';
 
   function loadPortfolio() {
     fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
