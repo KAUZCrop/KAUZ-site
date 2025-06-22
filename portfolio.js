@@ -1,5 +1,5 @@
-// portfolio.js (완전 수정 버전) - API 키 교체 없이 즉시 작동
-// 🔥 테이블 이름 및 필드 매핑 수정 + 강화된 에러 핸들링
+// portfolio.js (완전한 KAUZ Work 테이블 연동 버전)
+// 🔥 새로운 'KAUZ Work' 테이블과 Image 필드 매핑
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('📄 Portfolio.js starting...');
@@ -14,23 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('⚠️ Navigation API not supported, continuing...');
   }
 
-  // ─── 🔧 수정된 Airtable 설정 (스크린샷 기준) ───
+  // ─── 🔧 KAUZ Work 테이블 설정 ───
   const AIRTABLE_CONFIG = {
     BASE_ID: 'appglO0MOXGY7CITU',
     API_KEY: 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9',
-    TABLE_NAME: 'Table%201'  // ✅ 스크린샷에서 확인된 실제 테이블 이름
+    TABLE_NAME: 'KAUZ%20Work'  // ✅ 새로운 테이블명 (공백을 %20으로 인코딩)
   };
 
-  // ⚠️ 보안 경고 (하지만 일단 작동시키기)
-  console.warn('🚨 보안 알림: API 키가 클라이언트에 노출되어 있습니다. 추후 백엔드로 이전을 권장합니다.');
+  console.log('🔧 Using table:', AIRTABLE_CONFIG.TABLE_NAME);
 
   // ─── 📡 Airtable에서 포트폴리오 데이터 가져오기 ───
   async function fetchPortfolioData() {
     try {
-      console.log('🔗 Fetching portfolio data from Airtable...');
-      console.log('📋 Using table name:', AIRTABLE_CONFIG.TABLE_NAME);
+      console.log('🔗 Fetching portfolio data from KAUZ Work table...');
       
-      const url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${encodeURIComponent(AIRTABLE_CONFIG.TABLE_NAME)}`;
+      const url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABLE_NAME}`;
       console.log('🌐 Request URL:', url);
       
       const response = await fetch(url, {
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       
       console.log('📊 Response status:', response.status);
-      console.log('📊 Response headers:', Object.fromEntries(response.headers.entries()));
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -51,14 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
           errorBody: errorText
         });
         
-        // 상태코드별 구체적인 에러 메시지
         switch (response.status) {
           case 401:
-            throw new Error('API 키 인증에 실패했습니다. Airtable Personal Access Token을 확인해주세요.');
+            throw new Error('API 키 인증에 실패했습니다.');
           case 403:
-            throw new Error('API 키에 이 베이스에 대한 접근 권한이 없습니다. 권한을 확인해주세요.');
+            throw new Error('API 키에 이 베이스에 대한 접근 권한이 없습니다.');
           case 404:
-            throw new Error(`테이블 "${AIRTABLE_CONFIG.TABLE_NAME}"을 찾을 수 없습니다. Airtable에서 테이블 이름을 확인해주세요.`);
+            throw new Error(`테이블 "KAUZ Work"를 찾을 수 없습니다. 테이블 이름을 확인해주세요.`);
           case 422:
             throw new Error('API 요청 형식이 올바르지 않습니다.');
           case 429:
@@ -70,36 +66,21 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const data = await response.json();
       
-      console.log('✅ Raw data received from Airtable:', data);
+      console.log('✅ Raw data received from KAUZ Work:', data);
       console.log('📄 Total records:', data.records ? data.records.length : 0);
       
       if (data.records && data.records.length > 0) {
         console.log('📋 Available fields in first record:', Object.keys(data.records[0].fields));
         console.log('🔍 First record sample:', data.records[0]);
-        
-        // 필드 매핑 확인
-        const firstRecord = data.records[0].fields;
-        console.log('🗂️ Field mapping check:', {
-          'Title': firstRecord['Title'] || '❌ 없음',
-          'Description': firstRecord['Description'] || '❌ 없음', 
-          'Assignee': firstRecord['Assignee'] || '❌ 없음',
-          'Status': firstRecord['Status'] || '❌ 없음',
-          'ImageURL': firstRecord['ImageURL'] || '❌ 없음',
-          'Attachment Summary': firstRecord['Attachment Summary'] || '❌ 없음'
-        });
       } else {
-        console.warn('⚠️ No records found in the table');
+        console.warn('⚠️ No records found in KAUZ Work table');
       }
       
       return data.records || [];
       
     } catch (error) {
-      console.error('❌ Airtable 데이터 로딩 실패:', error);
-      
-      // 사용자에게 친화적인 에러 메시지 표시
+      console.error('❌ KAUZ Work 데이터 로딩 실패:', error);
       showDetailedError(error.message);
-      
-      // 연결 실패시 대체 데이터 반환
       return getFallbackData();
     }
   }
@@ -119,43 +100,21 @@ document.addEventListener('DOMContentLoaded', () => {
             <strong style="color: #E37031; display: block; margin-bottom: 0.5rem;">📋 현재 설정:</strong>
             <div style="font-family: monospace; line-height: 1.6;">
               • 베이스 ID: ${AIRTABLE_CONFIG.BASE_ID}<br>
-              • 테이블 이름: "${AIRTABLE_CONFIG.TABLE_NAME}"<br>
+              • 테이블 이름: "KAUZ Work"<br>
               • API 키: ${AIRTABLE_CONFIG.API_KEY ? '✅ 설정됨' : '❌ 없음'}<br>
-              • 요청 URL: ${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${encodeURIComponent(AIRTABLE_CONFIG.TABLE_NAME)}`}
+              • 요청 URL: ${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABLE_NAME}`}
             </div>
-          </div>
-          
-          <div style="margin: 2rem 0;">
-            <strong style="color: #E37031; display: block; margin-bottom: 1rem;">💡 해결 방법:</strong>
-            <ul style="text-align: left; max-width: 500px; margin: 0 auto; color: #ccc; line-height: 1.6;">
-              <li>Airtable에서 테이블 이름이 정확히 "${AIRTABLE_CONFIG.TABLE_NAME}"인지 확인</li>
-              <li>API 키가 해당 베이스에 접근 권한이 있는지 확인</li>
-              <li>Personal Access Token의 유효기간 확인</li>
-              <li>베이스 ID가 올바른지 확인</li>
-            </ul>
           </div>
           
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
             <button onclick="location.reload()" style="
               background: #E37031; color: white; border: none; padding: 0.8rem 1.5rem; 
-              border-radius: 4px; cursor: pointer; font-size: 1rem; transition: background 0.3s;
-            " onmouseover="this.style.background='#d85d1f'" onmouseout="this.style.background='#E37031'">
-              🔄 다시 시도
-            </button>
-            
+              border-radius: 4px; cursor: pointer; font-size: 1rem;
+            ">🔄 다시 시도</button>
             <button onclick="portfolioDebug.loadFallbackData()" style="
               background: #333; color: white; border: none; padding: 0.8rem 1.5rem; 
-              border-radius: 4px; cursor: pointer; font-size: 1rem; transition: background 0.3s;
-            " onmouseover="this.style.background='#444'" onmouseout="this.style.background='#333'">
-              📋 샘플 데이터 보기
-            </button>
-            
-            <button onclick="portfolioDebug.showConnectionInfo()" style="
-              background: #555; color: white; border: none; padding: 0.8rem 1.5rem; 
-              border-radius: 4px; cursor: pointer; font-size: 1rem; transition: background 0.3s;
-            " onmouseover="this.style.background='#666'" onmouseout="this.style.background='#555'">
-              🔍 연결 정보 확인
-            </button>
+              border-radius: 4px; cursor: pointer; font-size: 1rem;
+            ">📋 샘플 데이터 보기</button>
           </div>
         </div>
       `;
@@ -164,52 +123,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── 🔄 대체 데이터 (연결 실패시) ───
   function getFallbackData() {
-    console.log('🔄 Using fallback data...');
+    console.log('🔄 Using fallback data for KAUZ Work...');
     return [
       {
         id: 'fallback-1',
         fields: {
           'Title': 'LG 시그니처',
-          'Description': 'LG 시그니처 키친스위트 브랜딩 캠페인 - 프리미엄 라이프스타일 브랜드로서의 포지셔닝 강화',
-          'Assignee': 'KAUZ',
-          'Status': 'COMPLETED',
-          'ImageURL': null
+          'Category': 'BRANDING',
+          'Client': 'LG',
+          'Image': null
         }
       },
       {
         id: 'fallback-2',
         fields: {
           'Title': 'LG 전자',
-          'Description': 'LG M9(로봇청소기) 신제품 런칭 캠페인',
-          'Assignee': 'KAUZ',
-          'Status': 'COMPLETED',
-          'ImageURL': null
+          'Category': 'DIGITAL',
+          'Client': 'LG',
+          'Image': null
         }
       },
       {
         id: 'fallback-3',
         fields: {
-          'Title': '법무법인 이엘',
-          'Description': '브랜드 아이덴티티 및 웹사이트 리뉴얼 프로젝트',
-          'Assignee': 'KAUZ',
-          'Status': 'COMPLETED',
-          'ImageURL': null
+          'Title': '법무법인 아울',
+          'Category': 'BRANDING',
+          'Client': 'KAUZ',
+          'Image': null
         }
       },
       {
         id: 'fallback-4',
         fields: {
           'Title': 'KAUZ 샘플 프로젝트',
-          'Description': '샘플 포트폴리오 아이템입니다. 실제 데이터 연결을 확인해주세요.',
-          'Assignee': 'KAUZ TEAM',
-          'Status': 'SAMPLE',
-          'ImageURL': null
+          'Category': 'CAMPAIGN',
+          'Client': 'KAUZ TEAM',
+          'Image': null
         }
       }
     ];
   }
 
-  // ─── 🎨 포트폴리오 데이터 렌더링 (스크린샷 필드 기준 매핑) ───
+  // ─── 🎨 포트폴리오 데이터 렌더링 (KAUZ Work 필드 기준) ───
   function renderPortfolioItems(records) {
     const portfolioGrid = document.getElementById('portfolioGrid');
     if (!portfolioGrid) {
@@ -221,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
       portfolioGrid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
           <h3 style="color: #E37031; margin-bottom: 1rem;">📭 포트폴리오 데이터 없음</h3>
-          <p style="margin-bottom: 2rem;">Airtable "${AIRTABLE_CONFIG.TABLE_NAME}" 테이블에 데이터가 없거나 연결에 문제가 있습니다.</p>
+          <p style="margin-bottom: 2rem;">KAUZ Work 테이블에 데이터가 없거나 연결에 문제가 있습니다.</p>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <button onclick="portfolioDebug.testConnection()" style="
               background: #E37031; color: white; border: none; padding: 0.8rem 1.5rem; 
@@ -237,39 +192,28 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // 🔥 스크린샷 기준 실제 필드명으로 매핑
+    // 🔥 KAUZ Work 테이블 필드에 맞춘 매핑
     portfolioGrid.innerHTML = records.map((record, index) => {
       const fields = record.fields;
       
-      // 📋 스크린샷에서 확인된 실제 필드명들로 매핑
-      const title = fields['Title'] || fields['제목'] || fields['프로젝트명'] || fields['Brand Name'] || 'UNTITLED PROJECT';
-      const description = fields['Description'] || fields['설명'] || fields['내용'] || '';
-      const assignee = fields['Assignee'] || fields['담당자'] || fields['Campaign Type'] || 'KAUZ';
-      const status = fields['Status'] || fields['상태'] || 'PROJECT';
+      // 📋 KAUZ Work 테이블의 실제 필드명으로 매핑
+      const title = fields['Title'] || 'UNTITLED PROJECT';
+      const category = fields['Category'] || 'PROJECT';
+      const client = fields['Client'] || 'KAUZ';
       
-      // 이미지 URL 처리 (여러 가능성 확인)
+      // 🖼️ 이미지 처리 (Attachment 필드)
       let imageUrl = null;
-      if (fields['ImageURL']) {
-        imageUrl = fields['ImageURL'];
-      } else if (fields['이미지URL']) {
-        imageUrl = fields['이미지URL'];
-      } else if (fields['Main Image'] && Array.isArray(fields['Main Image']) && fields['Main Image'].length > 0) {
-        imageUrl = fields['Main Image'][0].url;
-      } else if (fields['Attachment Summary']) {
-        // Attachment Summary가 URL 형태인 경우
-        const attachmentUrl = fields['Attachment Summary'];
-        if (typeof attachmentUrl === 'string' && (attachmentUrl.startsWith('http') || attachmentUrl.includes('airtable'))) {
-          imageUrl = attachmentUrl;
-        }
+      if (fields['Image'] && Array.isArray(fields['Image']) && fields['Image'].length > 0) {
+        imageUrl = fields['Image'][0].url;
       }
       
       // 디버깅용 로그
       console.log(`🔍 Record ${index + 1} mapping:`, {
         title,
-        description: description.substring(0, 50) + '...',
-        assignee,
-        status,
+        category,
+        client,
         hasImage: !!imageUrl,
+        imageUrl: imageUrl ? imageUrl.substring(0, 50) + '...' : 'No image',
         availableFields: Object.keys(fields)
       });
       
@@ -286,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="project-info">
             <div class="project-title">${title}</div>
-            <div class="project-category">${assignee || status}</div>
+            <div class="project-category">${category}</div>
           </div>
         </div>
       `;
@@ -295,12 +239,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 애니메이션 초기화
     initFadeUpAnimations();
     
-    console.log(`✅ Portfolio items rendered: ${records.length} items`);
+    console.log(`✅ Portfolio items rendered: ${records.length} items from KAUZ Work table`);
     
     // 렌더링 완료 후 통계 출력
     const withImages = records.filter(r => {
       const fields = r.fields;
-      return fields['ImageURL'] || fields['Main Image'] || fields['Attachment Summary'];
+      return fields['Image'] && Array.isArray(fields['Image']) && fields['Image'].length > 0;
     }).length;
     
     console.log('📊 Rendering statistics:', {
@@ -341,24 +285,26 @@ document.addEventListener('DOMContentLoaded', () => {
   window.openPortfolioModal = function(recordId, index) {
     console.log('🔍 Opening portfolio modal:', recordId, index);
     
-    // 모달 HTML 생성 (실제 데이터 기반으로 개선)
+    // 실제 데이터 기반 모달 생성
+    const record = portfolioData ? portfolioData.find(r => r.id === recordId) : null;
+    const fields = record ? record.fields : {};
+    
     const modalHtml = `
       <div id="portfolioModal" class="modal active">
         <div class="modal-content">
           <span class="close-btn" onclick="closePortfolioModal()">&times;</span>
-          <h2>Portfolio Project ${index + 1}</h2>
-          <p><strong>프로젝트 ID:</strong> ${recordId}</p>
+          <h2>${fields['Title'] || 'Portfolio Project'}</h2>
+          <p><strong>카테고리:</strong> ${fields['Category'] || 'N/A'}</p>
+          <p><strong>클라이언트:</strong> ${fields['Client'] || 'N/A'}</p>
           <p><strong>프로젝트 개요:</strong><br>
-          포트폴리오 상세 정보가 여기에 표시됩니다. Airtable에서 더 많은 필드를 추가하면 여기에 동적으로 표시됩니다.</p>
+          ${fields['Description'] || '상세한 프로젝트 정보가 추가될 예정입니다.'}</p>
           <p><strong>주요 성과:</strong><br>
           • 브랜드 인지도 향상<br>
           • 높은 전환율 달성<br>
           • ROI 개선</p>
           <p><strong>담당팀:</strong> KAUZ Creative Team</p>
-          <p><strong>사용된 채널:</strong> 디지털, 소셜미디어, PR</p>
           <div style="margin-top: 2rem; padding: 1rem; background: #0d0d0d; border-radius: 4px; font-size: 0.9rem; color: #999;">
-            💡 <strong>개발자 노트:</strong> 이 모달은 Airtable 데이터를 기반으로 동적으로 생성됩니다. 
-            더 많은 필드를 추가하면 여기에 자동으로 표시됩니다.
+            💡 <strong>개발자 노트:</strong> KAUZ Work 테이블에서 자동으로 가져온 데이터입니다.
           </div>
         </div>
       </div>
@@ -410,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Portfolio page scroll indicator initialized');
   }
 
-  // ─── 📞 Contact 섹션 클릭 처리 (Portfolio 페이지 전용) ───
+  // ─── 📞 Contact 섹션 클릭 처리 ───
   const contactSection = document.getElementById('contact');
   if (contactSection) {
     let isScrolling = false;
@@ -518,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.portfolioDebug = {
     // 연결 테스트
     testConnection: async () => {
-      console.log('🧪 Testing Airtable connection...');
+      console.log('🧪 Testing KAUZ Work table connection...');
       showLoadingMessage();
       
       try {
@@ -526,9 +472,9 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPortfolioItems(data);
         
         if (data.length > 0) {
-          alert(`✅ 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.`);
+          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.`);
         } else {
-          alert('⚠️ 연결은 성공했지만 데이터가 없습니다.\nAirtable에 레코드를 추가해주세요.');
+          alert('⚠️ 연결은 성공했지만 데이터가 없습니다.\nKAUZ Work 테이블에 레코드를 추가해주세요.');
         }
       } catch (error) {
         alert(`❌ 연결 실패!\n\n오류: ${error.message}`);
@@ -542,108 +488,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
 📋 설정:
 • 베이스 ID: ${AIRTABLE_CONFIG.BASE_ID}
-• 테이블 이름: "${AIRTABLE_CONFIG.TABLE_NAME}"
+• 테이블 이름: "KAUZ Work"
 • API 키: ${AIRTABLE_CONFIG.API_KEY ? '설정됨 (마지막 10자: ' + AIRTABLE_CONFIG.API_KEY.slice(-10) + ')' : '❌ 없음'}
 
 🌐 요청 URL:
-${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${encodeURIComponent(AIRTABLE_CONFIG.TABLE_NAME)}`}
+${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABLE_NAME}`}
 
-💡 문제 해결:
-1. Airtable에서 테이블 이름이 정확한지 확인
-2. Personal Access Token 권한 확인
-3. 베이스 공유 설정 확인
+💡 예상 필드:
+• Title (프로젝트 제목)
+• Category (카테고리 - 주황색으로 표시)
+• Client (클라이언트명)
+• Image (첨부파일 - 프로젝트 이미지)
       `;
       
       alert(info);
       console.log('🔍 Connection Info:', {
         baseId: AIRTABLE_CONFIG.BASE_ID,
-        tableName: AIRTABLE_CONFIG.TABLE_NAME,
+        tableName: 'KAUZ Work',
         hasApiKey: !!AIRTABLE_CONFIG.API_KEY,
-        requestUrl: `https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${encodeURIComponent(AIRTABLE_CONFIG.TABLE_NAME)}`
+        requestUrl: `https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABLE_NAME}`
       });
-    },
-    
-    // 다른 테이블 이름으로 시도
-    tryDifferentTableName: async (newName) => {
-      if (!newName) {
-        newName = prompt('새로운 테이블 이름을 입력하세요:', AIRTABLE_CONFIG.TABLE_NAME);
-      }
-      
-      if (newName && newName.trim()) {
-        AIRTABLE_CONFIG.TABLE_NAME = newName.trim();
-        console.log(`🔄 Trying table name: "${AIRTABLE_CONFIG.TABLE_NAME}"`);
-        showLoadingMessage();
-        await initPortfolio();
-      }
     },
     
     // 대체 데이터 로드
     loadFallbackData: () => {
-      console.log('🔄 Loading fallback data...');
+      console.log('🔄 Loading fallback data for KAUZ Work...');
       const fallbackData = getFallbackData();
       renderPortfolioItems(fallbackData);
       
-      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트가 표시되고 있습니다.\n\n실제 데이터 연결을 위해서는 Airtable 설정을 확인해주세요.`);
+      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트가 표시되고 있습니다.\n\nKAUZ Work 테이블에 실제 데이터를 추가해주세요.`);
     },
     
     // 데이터 새로고침
     reloadData: async () => {
-      console.log('🔄 Reloading portfolio data...');
+      console.log('🔄 Reloading KAUZ Work data...');
       showLoadingMessage();
       await initPortfolio();
-    },
-    
-    // 테이블 이름 제안
-    suggestTableNames: () => {
-      const suggestions = [
-        'Table 1',      // 현재 사용중
-        'Portfolio',    // 원래 의도
-        'Projects',     // 일반적
-        'Works',        // 대안
-        'Campaigns',    // 마케팅 관련
-        'portfolio',    // 소문자
-        'PORTFOLIO',    // 대문자
-        'Main'          // 기본
-      ];
-      
-      const currentName = AIRTABLE_CONFIG.TABLE_NAME;
-      const otherSuggestions = suggestions.filter(name => name !== currentName);
-      
-      const message = `
-현재 테이블 이름: "${currentName}"
-
-다른 가능한 이름들:
-${otherSuggestions.map(name => `• ${name}`).join('\n')}
-
-테이블 이름을 바꿔서 시도해보시겠습니까?
-      `;
-      
-      if (confirm(message)) {
-        const newName = prompt('새로운 테이블 이름을 입력하세요:', suggestions[1]);
-        if (newName) {
-          this.tryDifferentTableName(newName);
-        }
-      }
-    },
-    
-    // 개발자 정보
-    showDeveloperInfo: () => {
-      console.log(`
-🔧 KAUZ Portfolio Debug Tools
-
-Available commands:
-• portfolioDebug.testConnection()        - 연결 테스트
-• portfolioDebug.showConnectionInfo()    - 연결 정보 확인
-• portfolioDebug.loadFallbackData()      - 샘플 데이터 로드
-• portfolioDebug.tryDifferentTableName() - 다른 테이블 이름으로 시도
-• portfolioDebug.suggestTableNames()     - 테이블 이름 제안
-• portfolioDebug.reloadData()           - 데이터 새로고침
-
-Current Status:
-- Table: "${AIRTABLE_CONFIG.TABLE_NAME}"
-- Base: ${AIRTABLE_CONFIG.BASE_ID}
-- API Key: ${AIRTABLE_CONFIG.API_KEY ? 'Configured' : 'Missing'}
-      `);
     }
   };
 
@@ -654,7 +534,7 @@ Current Status:
       portfolioGrid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
           <div style="display: inline-block; width: 40px; height: 40px; border: 3px solid #333; border-top: 3px solid #E37031; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
-          <p style="font-size: 1.1rem;">데이터를 불러오는 중...</p>
+          <p style="font-size: 1.1rem;">KAUZ Work 테이블에서 데이터를 불러오는 중...</p>
         </div>
         <style>
           @keyframes spin {
@@ -677,7 +557,6 @@ Current Status:
     const support = {
       intersectionObserver: 'IntersectionObserver' in window,
       cssGrid: CSS.supports('display', 'grid'),
-      cssVariables: CSS.supports('color', 'var(--test)'),
       fetch: 'fetch' in window
     };
     
@@ -690,11 +569,6 @@ Current Status:
       });
     }
 
-    if (!support.cssGrid) {
-      console.warn('⚠️ CSS Grid not supported');
-      document.body.classList.add('no-grid-support');
-    }
-
     if (!support.fetch) {
       console.error('❌ Fetch API not supported - portfolio will not work');
       alert('브라우저가 너무 오래되었습니다. 최신 브라우저를 사용해주세요.');
@@ -703,39 +577,23 @@ Current Status:
 
   checkBrowserSupport();
 
-  // ─── ⌨️ 키보드 네비게이션 ───
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Home' && (e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
-    if (e.key === 'End' && (e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-    
-    // 개발자 단축키
-    if (e.key === 'F9' && e.ctrlKey) {
-      e.preventDefault();
-      portfolioDebug.showDeveloperInfo();
-    }
-  });
-
   // ─── 🚀 메인 초기화 함수 ───
   async function initPortfolio() {
-    console.log('🚀 Initializing KAUZ Portfolio...');
+    console.log('🚀 Initializing KAUZ Portfolio with KAUZ Work table...');
     console.log('🔧 Configuration:', {
       baseId: AIRTABLE_CONFIG.BASE_ID,
-      tableName: AIRTABLE_CONFIG.TABLE_NAME,
+      tableName: 'KAUZ Work',
       hasApiKey: !!AIRTABLE_CONFIG.API_KEY
     });
     
     // 로딩 메시지 표시
     showLoadingMessage();
     
-    // 1. Airtable 데이터 로드
+    // 1. KAUZ Work 테이블에서 데이터 로드
     const portfolioData = await fetchPortfolioData();
+    
+    // 전역 변수에 저장 (모달에서 사용)
+    window.portfolioData = portfolioData;
     
     // 2. 포트폴리오 아이템 렌더링
     renderPortfolioItems(portfolioData);
@@ -745,43 +603,13 @@ Current Status:
       initPortfolioContactInfiniteScroll();
     }, 1000);
     
-    console.log('✅ Portfolio initialization complete');
-  }
-
-  // ─── 🛠️ 개발용 성능 측정 ───
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    console.log('🛠️ Portfolio page development mode enabled');
-    
-    // 성능 측정
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        try {
-          const perfData = performance.getEntriesByType('navigation')[0];
-          console.log('⚡ Portfolio page performance:', {
-            domContentLoaded: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart) + 'ms',
-            loadComplete: Math.round(perfData.loadEventEnd - perfData.loadEventStart) + 'ms',
-            totalTime: Math.round(perfData.loadEventEnd - perfData.fetchStart) + 'ms'
-          });
-        } catch (e) {
-          console.log('⚡ Performance measurement not available');
-        }
-      }, 100);
-    });
-    
-    // 개발자 도구 안내
-    console.log(`
-🔧 Development Tools Available:
-• portfolioDebug.testConnection() - Test Airtable connection
-• portfolioDebug.loadFallbackData() - Load sample data
-• portfolioDebug.showConnectionInfo() - Show connection details
-• Ctrl+F9 - Show all debug commands
-    `);
+    console.log('✅ Portfolio initialization complete with KAUZ Work table');
   }
 
   // ─── 🏁 최종 초기화 실행 ───
   initPortfolio();
 
-  console.log('✅ Portfolio.js initialization complete');
+  console.log('✅ Portfolio.js initialization complete for KAUZ Work table');
   console.log('🔧 Debug tools: portfolioDebug.*');
   console.log('💡 Try: portfolioDebug.testConnection()');
 });
