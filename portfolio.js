@@ -1,8 +1,8 @@
-// portfolio.js (당신이 제공한 예시와 100% 동일한 디자인 + Airtable 자동 데이터)
-// 🔥 하나의 완벽한 디자인 템플릿 + 데이터만 자동 입력
+// portfolio.js (무한스크롤 + 6개씩 로딩 + "Update our portfolio soon" 버전)
+// 🔥 완벽한 디자인 템플릿 + 무한스크롤 + 성능 최적화
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📄 Portfolio.js starting with Perfect Design Template...');
+  console.log('📄 Portfolio.js starting with Infinite Scroll + Perfect Design Template...');
 
   // ─── 🔧 KAUZ Work 테이블 설정 ───
   const AIRTABLE_CONFIG = {
@@ -11,9 +11,21 @@ document.addEventListener('DOMContentLoaded', () => {
     TABLE_NAME: 'KAUZ%20Work'
   };
 
-  // 전역 변수
-  let portfolioData = [];
+  // ─── 📊 무한스크롤 관련 변수들 ───
+  const ITEMS_PER_PAGE = 6; // 한 번에 로딩할 아이템 수
+  let currentPage = 0;
+  let allPortfolioData = []; // 전체 데이터 저장
+  let displayedData = []; // 현재 화면에 표시된 데이터
+  let isLoading = false;
+  let hasMoreData = true;
   let modalsGenerated = false;
+  let scrollObserver = null;
+
+  // DOM 요소 참조
+  let portfolioGrid = null;
+  let loadingIndicator = null;
+  let portfolioEndMessage = null;
+  let scrollTrigger = null;
 
   // ─── 📡 Airtable에서 포트폴리오 데이터 가져오기 ───
   async function fetchPortfolioData() {
@@ -155,6 +167,42 @@ document.addEventListener('DOMContentLoaded', () => {
           'ROI': '450%',
           'Image': null
         }
+      },
+      {
+        id: 'fallback-7',
+        fields: {
+          'Title': 'SAMSUNG GALAXY',
+          'Category': 'Digital Campaign',
+          'Client': 'SAMSUNG',
+          'Description': '혁신 모바일 기술의 글로벌 캠페인',
+          'Budget': '12억원',
+          'Duration': '5개월',
+          'Team': '디지털 전략 4명, 크리에이티브 6명, 글로벌 2명',
+          'Channels': 'Global Digital, Social, Influencer',
+          'SalesGrowth': '55%',
+          'Reach': '8.5M',
+          'Engagement': '16%',
+          'ROI': '380%',
+          'Image': null
+        }
+      },
+      {
+        id: 'fallback-8',
+        fields: {
+          'Title': 'HYUNDAI MOTOR',
+          'Category': 'Brand Identity',
+          'Client': 'HYUNDAI',
+          'Description': '미래 모빌리티 브랜드 아이덴티티 구축',
+          'Budget': '15억원',
+          'Duration': '6개월',
+          'Team': '브랜드 전략 5명, 디자인 4명, 마케팅 3명',
+          'Channels': 'Offline, Digital, Global PR',
+          'SalesGrowth': '42%',
+          'Reach': '12M',
+          'Engagement': '14%',
+          'ROI': '290%',
+          'Image': null
+        }
       }
     ];
   }
@@ -162,6 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── 🎨 당신이 제공한 예시와 100% 동일한 모달 생성 ───
   function generateAllModals(records) {
     console.log('🏗️ Generating modals with your exact design template...');
+
+    // 기존 모달들 제거
+    document.querySelectorAll('.modal[id^="modal"]').forEach(modal => modal.remove());
 
     records.forEach((record, index) => {
       const fields = record.fields;
@@ -278,38 +329,40 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`🏗️ All perfect design modals generated: ${records.length} modals created`);
   }
 
-  // ─── 🎨 포트폴리오 데이터 렌더링 ───
-  function renderPortfolioItems(records) {
-    const portfolioGrid = document.getElementById('portfolioGrid');
+  // ─── 🎨 포트폴리오 데이터 렌더링 (무한스크롤용) ───
+  function renderPortfolioItems(records, append = false) {
     if (!portfolioGrid) {
       console.error('❌ Portfolio grid element not found');
       return;
     }
 
     if (!records || records.length === 0) {
-      portfolioGrid.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
-          <h3 style="color: #E37031; margin-bottom: 1rem;">📭 포트폴리오 데이터 없음</h3>
-          <p style="margin-bottom: 2rem;">KAUZ Work 테이블에 데이터가 없거나 연결에 문제가 있습니다.</p>
-          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-            <button onclick="portfolioDebug.testConnection()" style="
-              background: #E37031; color: white; border: none; padding: 0.8rem 1.5rem; 
-              border-radius: 4px; cursor: pointer; font-size: 1rem;
-            ">연결 테스트</button>
-            <button onclick="portfolioDebug.loadFallbackData()" style="
-              background: #333; color: white; border: none; padding: 0.8rem 1.5rem; 
-              border-radius: 4px; cursor: pointer; font-size: 1rem;
-            ">샘플 데이터 보기</button>
+      if (!append) {
+        portfolioGrid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
+            <h3 style="color: #E37031; margin-bottom: 1rem;">📭 포트폴리오 데이터 없음</h3>
+            <p style="margin-bottom: 2rem;">KAUZ Work 테이블에 데이터가 없거나 연결에 문제가 있습니다.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+              <button onclick="portfolioDebug.testConnection()" style="
+                background: #E37031; color: white; border: none; padding: 0.8rem 1.5rem; 
+                border-radius: 4px; cursor: pointer; font-size: 1rem;
+              ">연결 테스트</button>
+              <button onclick="portfolioDebug.loadFallbackData()" style="
+                background: #333; color: white; border: none; padding: 0.8rem 1.5rem; 
+                border-radius: 4px; cursor: pointer; font-size: 1rem;
+              ">샘플 데이터 보기</button>
+            </div>
           </div>
-        </div>
-      `;
+        `;
+      }
       return;
     }
 
-    // 🔥 당신이 제공한 예시와 동일한 그리드 렌더링
-    portfolioGrid.innerHTML = records.map((record, index) => {
+    // 🔥 HTML 생성
+    const portfolioHtml = records.map((record, index) => {
       const fields = record.fields;
-      const modalId = `modal${index + 1}`;
+      const globalIndex = displayedData.length + index; // 전체 인덱스 계산
+      const modalId = `modal${globalIndex + 1}`;
       
       // 필드 매핑
       const title = fields['Title'] || 'BRAND NAME';
@@ -324,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hasImage = true;
       }
       
-      console.log(`🔍 Record ${index + 1} mapping:`, {
+      console.log(`🔍 Record ${globalIndex + 1} mapping:`, {
         title,
         category,
         hasImage,
@@ -351,10 +404,144 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }).join('');
 
+    // DOM에 추가 (append 모드면 기존 내용에 추가, 아니면 교체)
+    if (append) {
+      portfolioGrid.insertAdjacentHTML('beforeend', portfolioHtml);
+    } else {
+      portfolioGrid.innerHTML = portfolioHtml;
+    }
+
+    // 표시된 데이터 업데이트
+    if (append) {
+      displayedData = [...displayedData, ...records];
+    } else {
+      displayedData = [...records];
+    }
+
     // 애니메이션 초기화
     initFadeUpAnimations();
     
-    console.log(`✅ Portfolio items rendered: ${records.length} items with perfect design`);
+    console.log(`✅ Portfolio items rendered: ${records.length} items (append: ${append})`);
+    console.log(`📊 Total displayed items: ${displayedData.length}`);
+  }
+
+  // ─── 🔄 다음 페이지 로딩 함수 ───
+  async function loadNextPage() {
+    if (isLoading || !hasMoreData) {
+      console.log('🚫 Loading blocked:', { isLoading, hasMoreData });
+      return;
+    }
+
+    isLoading = true;
+    showLoadingIndicator();
+
+    console.log(`📄 Loading page ${currentPage + 1}...`);
+
+    try {
+      // 다음 페이지 데이터 계산
+      const startIndex = currentPage * ITEMS_PER_PAGE;
+      const endIndex = startIndex + ITEMS_PER_PAGE;
+      const nextPageData = allPortfolioData.slice(startIndex, endIndex);
+
+      console.log(`📊 Page ${currentPage + 1} data:`, {
+        startIndex,
+        endIndex,
+        itemsCount: nextPageData.length,
+        totalData: allPortfolioData.length
+      });
+
+      if (nextPageData.length === 0) {
+        // 더 이상 로딩할 데이터가 없음
+        hasMoreData = false;
+        hideLoadingIndicator();
+        showEndMessage();
+        console.log('🏁 No more data to load');
+        return;
+      }
+
+      // 첫 페이지가 아니면 모달도 추가 생성
+      if (currentPage > 0) {
+        // 기존 displayedData와 합쳐서 전체 모달 재생성
+        const allDisplayedData = [...displayedData, ...nextPageData];
+        generateAllModals(allDisplayedData);
+      }
+
+      // 포트폴리오 아이템 렌더링 (append 모드)
+      renderPortfolioItems(nextPageData, currentPage > 0);
+
+      currentPage++;
+
+      // 더 이상 로딩할 데이터가 있는지 확인
+      if (currentPage * ITEMS_PER_PAGE >= allPortfolioData.length) {
+        hasMoreData = false;
+        showEndMessage();
+        console.log('🏁 All data loaded');
+      }
+
+    } catch (error) {
+      console.error('❌ Error loading next page:', error);
+    } finally {
+      isLoading = false;
+      hideLoadingIndicator();
+    }
+  }
+
+  // ─── 🎯 무한스크롤 초기화 함수 ───
+  function initInfiniteScroll() {
+    if (!scrollTrigger) {
+      console.warn('⚠️ Scroll trigger element not found');
+      return;
+    }
+
+    // 기존 옵저버 정리
+    if (scrollObserver) {
+      scrollObserver.disconnect();
+    }
+
+    // 새로운 Intersection Observer 생성
+    scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && hasMoreData && !isLoading) {
+          console.log('🎯 Scroll trigger activated - loading next page...');
+          loadNextPage();
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '100px 0px'
+    });
+
+    scrollObserver.observe(scrollTrigger);
+    console.log('✅ Infinite scroll observer initialized');
+  }
+
+  // ─── 💫 로딩 인디케이터 관리 함수들 ───
+  function showLoadingIndicator() {
+    if (loadingIndicator) {
+      loadingIndicator.style.display = 'flex';
+      console.log('⏳ Loading indicator shown');
+    }
+  }
+
+  function hideLoadingIndicator() {
+    if (loadingIndicator) {
+      loadingIndicator.style.display = 'none';
+      console.log('✅ Loading indicator hidden');
+    }
+  }
+
+  function showEndMessage() {
+    if (portfolioEndMessage) {
+      portfolioEndMessage.style.display = 'flex';
+      console.log('🏁 End message shown');
+    }
+  }
+
+  function hideEndMessage() {
+    if (portfolioEndMessage) {
+      portfolioEndMessage.style.display = 'none';
+      console.log('📝 End message hidden');
+    }
   }
 
   // ─── 🖼️ 이미지 로드 실패 처리 함수 ───
@@ -393,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ─── 🔍 당신이 제공한 예시와 100% 동일한 모달 함수들 ───
+  // ─── 🔍 모달 함수들 ───
   window.openModal = function(modalId) {
     console.log('🔍 Opening perfect design modal:', modalId);
     
@@ -593,6 +780,25 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Portfolio contact infinite scroll initialized with', allTextElements.length, 'elements');
   }
 
+  // ─── 💡 로딩 메시지 표시 함수 ───
+  function showLoadingMessage() {
+    if (portfolioGrid) {
+      portfolioGrid.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
+          <div style="display: inline-block; width: 40px; height: 40px; border: 3px solid #333; border-top: 3px solid #E37031; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
+          <p style="font-size: 1.1rem;">KAUZ Work 테이블에서 데이터를 불러오는 중...</p>
+          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">무한스크롤 + 완벽한 디자인 모달을 준비합니다</p>
+        </div>
+        <style>
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        </style>
+      `;
+    }
+  }
+
   // ─── 🔧 디버깅 도구 ───
   window.portfolioDebug = {
     // 연결 테스트
@@ -602,11 +808,10 @@ document.addEventListener('DOMContentLoaded', () => {
       
       try {
         const data = await fetchPortfolioData();
-        renderPortfolioItems(data);
-        generateAllModals(data);
+        await initPortfolioWithData(data);
         
         if (data.length > 0) {
-          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.\n완벽한 디자인 모달이 자동 생성되었습니다.`);
+          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.\n무한스크롤 + 완벽한 디자인 모달이 활성화되었습니다.`);
         } else {
           alert('⚠️ 연결은 성공했지만 데이터가 없습니다.\nKAUZ Work 테이블에 레코드를 추가해주세요.');
         }
@@ -618,89 +823,94 @@ document.addEventListener('DOMContentLoaded', () => {
     // 현재 설정 확인
     showConnectionInfo: () => {
       const info = `
-🔍 KAUZ Portfolio 연결 정보 (완벽한 디자인 템플릿)
+🔍 KAUZ Portfolio 연결 정보 (무한스크롤 + 완벽한 디자인)
 
 📋 설정:
 • 베이스 ID: ${AIRTABLE_CONFIG.BASE_ID}
 • 테이블 이름: "KAUZ Work"
 • API 키: ${AIRTABLE_CONFIG.API_KEY ? '설정됨' : '❌ 없음'}
-• 모달 생성 상태: ${modalsGenerated ? '✅ 완료' : '❌ 미생성'}
+• 한 페이지당 아이템: ${ITEMS_PER_PAGE}개
+• 현재 페이지: ${currentPage}
+• 표시된 아이템: ${displayedData.length}개
+• 전체 데이터: ${allPortfolioData.length}개
+• 더 로딩 가능: ${hasMoreData ? '✅' : '❌'}
 
-🎨 디자인 템플릿:
-당신이 제공한 예시와 100% 동일한 디자인으로 모든 모달이 생성됩니다.
-데이터만 Airtable에서 자동으로 가져와서 채워집니다.
-
-📊 필요한 Airtable 필드:
-• Title, Category, Client, Description
-• Budget, Duration, Team, Channels
-• SalesGrowth, Reach, Engagement, ROI
-• Image (선택사항)
+🎨 기능:
+• 무한스크롤로 6개씩 로딩
+• 웹에서 포트폴리오 크기 35% 확대
+• "Update our portfolio soon" 메시지
+• 완벽한 디자인 모달 자동 생성
       `;
       
       alert(info);
     },
     
     // 대체 데이터 로드
-    loadFallbackData: () => {
+    loadFallbackData: async () => {
       console.log('🔄 Loading fallback data...');
       const fallbackData = getFallbackData();
-      renderPortfolioItems(fallbackData);
-      generateAllModals(fallbackData);
+      await initPortfolioWithData(fallbackData);
       
-      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트와 완벽한 디자인 모달이 생성되었습니다.`);
+      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트로 무한스크롤을 테스트할 수 있습니다.`);
     },
     
-    // 데이터 새로고침
-    reloadData: async () => {
-      console.log('🔄 Reloading KAUZ Work data...');
-      showLoadingMessage();
-      await initPortfolio();
+    // 다음 페이지 강제 로드
+    loadNextPage: () => {
+      console.log('🔧 Force loading next page...');
+      loadNextPage();
     },
 
-    // 생성된 모달 확인
-    checkModals: () => {
-      const modals = document.querySelectorAll('.modal[id^="modal"]');
-      console.log('📋 Generated perfect design modals:', modals.length);
-      modals.forEach(modal => {
-        console.log('  - Modal ID:', modal.id);
-      });
-      alert(`생성된 완벽한 디자인 모달: ${modals.length}개\n\n콘솔에서 자세한 정보를 확인하세요.`);
-    },
-
-    // 특정 모달 테스트
-    testModal: (modalId) => {
-      if (!modalId) {
-        const modals = document.querySelectorAll('.modal[id^="modal"]');
-        if (modals.length > 0) {
-          modalId = modals[0].id;
-        } else {
-          alert('생성된 모달이 없습니다.');
-          return;
-        }
+    // 무한스크롤 재초기화
+    resetInfiniteScroll: () => {
+      console.log('🔄 Resetting infinite scroll...');
+      currentPage = 0;
+      displayedData = [];
+      hasMoreData = true;
+      isLoading = false;
+      hideLoadingIndicator();
+      hideEndMessage();
+      
+      if (allPortfolioData.length > 0) {
+        loadNextPage();
       }
-      console.log('🧪 Testing perfect design modal:', modalId);
-      openModal(modalId);
+      
+      alert('무한스크롤이 재초기화되었습니다.');
+    },
+
+    // 상태 확인
+    checkStatus: () => {
+      const status = {
+        currentPage,
+        displayedItems: displayedData.length,
+        totalData: allPortfolioData.length,
+        hasMoreData,
+        isLoading,
+        modalsGenerated
+      };
+      console.log('📊 Portfolio status:', status);
+      alert(`현재 상태:\n페이지: ${currentPage}\n표시된 아이템: ${displayedData.length}\n전체 데이터: ${allPortfolioData.length}\n더 로딩 가능: ${hasMoreData}\n로딩 중: ${isLoading}\n모달 생성됨: ${modalsGenerated}`);
     }
   };
 
-  // ─── 💡 로딩 메시지 표시 함수 ───
-  function showLoadingMessage() {
-    const portfolioGrid = document.getElementById('portfolioGrid');
-    if (portfolioGrid) {
-      portfolioGrid.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
-          <div style="display: inline-block; width: 40px; height: 40px; border: 3px solid #333; border-top: 3px solid #E37031; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
-          <p style="font-size: 1.1rem;">KAUZ Work 테이블에서 데이터를 불러오는 중...</p>
-          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">완벽한 디자인 모달을 자동 생성합니다</p>
-        </div>
-        <style>
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        </style>
-      `;
-    }
+  // ─── 🚀 포트폴리오 데이터로 초기화하는 함수 ───
+  async function initPortfolioWithData(data) {
+    console.log('🎯 Initializing portfolio with data:', data.length, 'items');
+    
+    // 전역 데이터 설정
+    allPortfolioData = data;
+    currentPage = 0;
+    displayedData = [];
+    hasMoreData = data.length > ITEMS_PER_PAGE;
+    isLoading = false;
+    modalsGenerated = false;
+
+    // 첫 페이지 로딩
+    await loadNextPage();
+
+    // 무한스크롤 초기화
+    initInfiniteScroll();
+
+    console.log(`✅ Portfolio initialized: ${data.length} total items, ${ITEMS_PER_PAGE} per page`);
   }
 
   // ─── 📱 모바일 터치 최적화 ───
@@ -739,48 +949,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
   checkBrowserSupport();
 
-  // ─── 🚀 메인 초기화 함수 (완벽한 디자인 템플릿) ───
+  // ─── 🚀 메인 초기화 함수 (무한스크롤 + 완벽한 디자인) ───
   async function initPortfolio() {
-    console.log('🚀 Initializing KAUZ Portfolio with Perfect Design Template...');
+    console.log('🚀 Initializing KAUZ Portfolio with Infinite Scroll + Perfect Design...');
     console.log('🔧 Configuration:', {
       baseId: AIRTABLE_CONFIG.BASE_ID,
       tableName: 'KAUZ Work',
       hasApiKey: !!AIRTABLE_CONFIG.API_KEY,
+      itemsPerPage: ITEMS_PER_PAGE,
+      infiniteScroll: true,
       perfectDesignTemplate: true
     });
     
+    // DOM 요소 참조 설정
+    portfolioGrid = document.getElementById('portfolioGrid');
+    loadingIndicator = document.getElementById('loadingIndicator');
+    portfolioEndMessage = document.getElementById('portfolioEndMessage');
+    scrollTrigger = document.getElementById('scrollTrigger');
+
+    if (!portfolioGrid) {
+      console.error('❌ Required DOM elements not found');
+      return;
+    }
+
     // 로딩 메시지 표시
     showLoadingMessage();
     
     // 1. KAUZ Work 테이블에서 데이터 로드
     const portfolioData = await fetchPortfolioData();
     
-    // 전역 변수에 저장
-    window.portfolioData = portfolioData;
+    // 2. 데이터로 포트폴리오 초기화
+    await initPortfolioWithData(portfolioData);
     
-    // 2. 포트폴리오 아이템 렌더링 (당신 예시와 동일)
-    renderPortfolioItems(portfolioData);
-    
-    // 3. 🔥 당신이 제공한 예시와 100% 동일한 디자인 모달 자동 생성
-    generateAllModals(portfolioData);
-    
-    // 4. Contact 섹션 무한롤링 초기화 (딜레이)
+    // 3. Contact 섹션 무한롤링 초기화 (딜레이)
     setTimeout(() => {
       initPortfolioContactInfiniteScroll();
     }, 1000);
     
-    // 5. 🔥 햄버거 → X 변환 애니메이션 초기화
+    // 4. 🔥 햄버거 → X 변환 애니메이션 초기화
     initHamburgerAnimation();
     
-    console.log('✅ Portfolio initialization complete with Perfect Design Template');
-    console.log(`🏗️ Total perfect design modals created: ${portfolioData.length}`);
+    console.log('✅ Portfolio initialization complete with Infinite Scroll + Perfect Design');
+    console.log(`🎯 Setup: ${portfolioData.length} total items, ${ITEMS_PER_PAGE} per page`);
   }
 
   // ─── 🏁 최종 초기화 실행 ───
   initPortfolio();
 
-  console.log('✅ Portfolio.js initialization complete - Perfect Design Template Mode');
-  console.log('🎨 당신이 제공한 예시와 100% 동일한 디자인으로 모든 모달이 생성됩니다');
-  console.log('📊 Airtable 데이터만 자동으로 채워집니다');
+  console.log('✅ Portfolio.js initialization complete - Infinite Scroll + Perfect Design Mode');
+  console.log('🎯 Features: 6개씩 로딩, 웹 크기 확대, "Update soon" 메시지, 완벽한 모달 디자인');
   console.log('🔧 Debug tools: portfolioDebug.*');
 });
