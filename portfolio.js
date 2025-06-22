@@ -1,8 +1,8 @@
-// portfolio.js (모달 & 이미지 처리 수정 버전)
-// 🔥 전체화면 모달 + 이미지 플레이스홀더 개선
+// portfolio.js (완전 자동화 모달 생성 버전)
+// 🔥 Airtable 데이터로 모든 모달을 자동 생성, 전구 이모티콘 제거
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📄 Portfolio.js starting...');
+  console.log('📄 Portfolio.js starting with Full Auto Modal Generation...');
 
   // ─── 🔥 새로고침 시 페이지 상단으로 이동 ───
   try {
@@ -18,10 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const AIRTABLE_CONFIG = {
     BASE_ID: 'appglO0MOXGY7CITU',
     API_KEY: 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9',
-    TABLE_NAME: 'KAUZ%20Work'  // ✅ 새로운 테이블명 (공백을 %20으로 인코딩)
+    TABLE_NAME: 'KAUZ%20Work'
   };
 
   console.log('🔧 Using table:', AIRTABLE_CONFIG.TABLE_NAME);
+
+  // 전역 변수
+  let portfolioData = [];
+  let modalsGenerated = false;
 
   // ─── 📡 Airtable에서 포트폴리오 데이터 가져오기 ───
   async function fetchPortfolioData() {
@@ -128,47 +132,164 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         id: 'fallback-1',
         fields: {
-          'Title': 'LG 시그니처',
-          'Category': 'EVENT',
-          'Client': 'LG',
-          'Description': '상세한 프로젝트 정보가 추가될 예정입니다.',
+          'Title': 'VALENTINO SS24 COLLECTION',
+          'Category': 'BRANDING CAMPAIGN',
+          'Client': 'VALENTINO',
+          'Description': '럭셔리 브랜드의 프리미엄 브랜딩 전략으로 브랜드 가치를 극대화하고 매출 성장을 달성했습니다.',
+          'Budget': '8억원',
+          'Duration': '3개월',
+          'Team': '전략 3명, 크리에이티브 5명, 디지털 2명',
+          'Channels': 'Digital, Influencer, PR',
+          'SalesGrowth': '45%',
+          'Reach': '2.8M',
+          'Engagement': '12%',
+          'ROI': '320%',
           'Image': null
         }
       },
       {
         id: 'fallback-2',
         fields: {
-          'Title': 'VALENTINO SS24 COLLECTION',
-          'Category': 'BRANDING CAMPAIGN',
-          'Client': 'VALENTINO',
-          'Description': '럭셔리 브랜드의 프리미엄 브랜딩 전략',
+          'Title': 'LG SIGNATURE',
+          'Category': 'EVENT',
+          'Client': 'LG',
+          'Description': 'LG 시그니처의 프리미엄 브랜드 가치를 강화하고 VIP 고객들에게 특별한 경험을 제공하는 이벤트 캠페인입니다.',
+          'Budget': '5억원',
+          'Duration': '2개월',
+          'Team': '기획 2명, 운영 4명, 디자인 2명',
+          'Channels': 'Offline Event, Digital PR',
+          'SalesGrowth': '30%',
+          'Reach': '500K',
+          'Engagement': '25%',
+          'ROI': '250%',
           'Image': null
         }
       },
       {
         id: 'fallback-3',
         fields: {
-          'Title': '법무법인 아울',
-          'Category': 'BRANDING',
-          'Client': 'KAUZ',
-          'Description': '브랜드 인지도 향상을 위한 통합 브랜딩 솔루션',
+          'Title': 'ACNE STUDIOS CAMPAIGN',
+          'Category': 'PERFORMANCE',
+          'Client': 'ACNE STUDIOS',
+          'Description': '데이터 기반 퍼포먼스 마케팅을 통해 정확한 타겟팅과 최적화로 ROI를 극대화한 성공 사례입니다.',
+          'Budget': '3억원',
+          'Duration': '4개월',
+          'Team': '데이터 분석 2명, 퍼포먼스 마케팅 3명',
+          'Channels': 'Google Ads, Meta, 네이버',
+          'SalesGrowth': '65%',
+          'Reach': '1.2M',
+          'Engagement': '8.5%',
+          'ROI': '420%',
           'Image': null
         }
       },
       {
         id: 'fallback-4',
         fields: {
-          'Title': 'KAUZ 크리에이티브 캠페인',
-          'Category': 'CAMPAIGN',
-          'Client': 'KAUZ TEAM',
-          'Description': '창의적이고 혁신적인 광고 캠페인 전략',
+          'Title': 'NAVER BRAND EVENT',
+          'Category': 'BRAND EVENT',
+          'Client': 'NAVER',
+          'Description': '네이버의 브랜드 가치를 높이고 사용자 참여를 증대시키는 대규모 브랜드 이벤트를 성공적으로 기획·실행했습니다.',
+          'Budget': '4억원',
+          'Duration': '2개월',
+          'Team': '브랜드 전략 3명, 이벤트 운영 5명',
+          'Channels': 'Naver Platform, SNS, PR',
+          'SalesGrowth': '35%',
+          'Reach': '3.5M',
+          'Engagement': '18%',
+          'ROI': '280%',
           'Image': null
         }
       }
     ];
   }
 
-  // ─── 🎨 포트폴리오 데이터 렌더링 (수정된 이미지 처리) ───
+  // ─── 🎨 모든 모달을 자동 생성하는 함수 ───
+  function generateAllModals(records) {
+    console.log('🏗️ Generating individual modals for all records...');
+
+    records.forEach((record, index) => {
+      const fields = record.fields;
+      const modalId = `portfolio-modal-${record.id}`;
+
+      // 필드 매핑
+      const title = fields['Title'] || 'UNTITLED PROJECT';
+      const category = fields['Category'] || 'PROJECT';
+      const client = fields['Client'] || 'KAUZ';
+      const description = fields['Description'] || '상세한 프로젝트 정보가 추가될 예정입니다.';
+      const budget = fields['Budget'] || '예산 정보 없음';
+      const duration = fields['Duration'] || '기간 정보 없음';
+      const team = fields['Team'] || '팀 정보 없음';
+      const channels = fields['Channels'] || '채널 정보 없음';
+      
+      // 성과 지표
+      const salesGrowth = fields['SalesGrowth'] || 'N/A';
+      const reach = fields['Reach'] || 'N/A';
+      const engagement = fields['Engagement'] || 'N/A';
+      const roi = fields['ROI'] || 'N/A';
+
+      // 이미지 URL
+      let imageUrl = null;
+      if (fields['Image'] && Array.isArray(fields['Image']) && fields['Image'].length > 0) {
+        imageUrl = fields['Image'][0].url;
+      }
+
+      // 완전한 모달 HTML 생성
+      const modalHtml = `
+        <div id="${modalId}" class="modal">
+          <div class="modal-backdrop" onclick="closePortfolioModal('${modalId}')"></div>
+          <div class="modal-content">
+            <span class="close-btn" onclick="closePortfolioModal('${modalId}')">&times;</span>
+            
+            ${imageUrl ? `<img src="${imageUrl}" alt="${title}" class="modal-image" />` : ''}
+            
+            <h2>${title}</h2>
+            
+            <p><strong>카테고리:</strong> ${category}</p>
+            <p><strong>클라이언트:</strong> ${client}</p>
+            
+            <p><strong>프로젝트 개요:</strong><br>
+            ${description}</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+              <div>
+                <p><strong>프로젝트 정보:</strong><br>
+                • 예산: ${budget}<br>
+                • 기간: ${duration}<br>
+                • 팀 구성: ${team}<br>
+                • 채널: ${channels}</p>
+              </div>
+              <div>
+                <p><strong>주요 성과:</strong><br>
+                • 매출 성장: ${salesGrowth}<br>
+                • 도달 수: ${reach}<br>
+                • 참여율: ${engagement}<br>
+                • ROI: ${roi}</p>
+              </div>
+            </div>
+            
+            <p><strong>주요 성과:</strong><br>
+            • 브랜드 인지도 향상<br>
+            • 높은 전환율 달성<br>
+            • ROI 개선<br>
+            • 고객 참여도 증가</p>
+            
+            <p><strong>담당팀:</strong> KAUZ Creative Team</p>
+          </div>
+        </div>
+      `;
+
+      // DOM에 모달 추가
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      
+      console.log(`✅ Modal generated for: ${title} (ID: ${modalId})`);
+    });
+
+    modalsGenerated = true;
+    console.log(`🏗️ All modals generated: ${records.length} modals created`);
+  }
+
+  // ─── 🎨 포트폴리오 데이터 렌더링 ───
   function renderPortfolioItems(records) {
     const portfolioGrid = document.getElementById('portfolioGrid');
     if (!portfolioGrid) {
@@ -196,17 +317,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // 🔥 수정된 렌더링 로직 - 이미지 처리 개선
+    // 🔥 수정된 렌더링 로직 - 개별 모달 ID 연결
     portfolioGrid.innerHTML = records.map((record, index) => {
       const fields = record.fields;
+      const modalId = `portfolio-modal-${record.id}`;
       
-      // 📋 KAUZ Work 테이블의 실제 필드명으로 매핑
+      // 필드 매핑
       const title = fields['Title'] || 'UNTITLED PROJECT';
       const category = fields['Category'] || 'PROJECT';
-      const client = fields['Client'] || 'KAUZ';
-      const description = fields['Description'] || '상세한 프로젝트 정보가 추가될 예정입니다.';
       
-      // 🖼️ 이미지 처리 (Attachment 필드)
+      // 이미지 처리
       let imageUrl = null;
       let hasImage = false;
       
@@ -215,21 +335,20 @@ document.addEventListener('DOMContentLoaded', () => {
         hasImage = true;
       }
       
-      // 디버깅용 로그
       console.log(`🔍 Record ${index + 1} mapping:`, {
         title,
         category,
-        client,
         hasImage,
-        imageUrl: imageUrl ? imageUrl.substring(0, 50) + '...' : 'No image',
-        availableFields: Object.keys(fields)
+        modalId,
+        recordId: record.id
       });
       
       return `
         <div class="project-card fade-up" 
              data-index="${index}"
              data-record-id="${record.id}"
-             onclick="openPortfolioModal('${record.id}', ${index})"
+             data-modal-id="${modalId}"
+             onclick="openPortfolioModal('${modalId}')"
              style="animation-delay: ${index * 0.1}s">
           <div class="project-image-container ${!hasImage ? 'no-image' : ''}">
             ${hasImage 
@@ -248,19 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 애니메이션 초기화
     initFadeUpAnimations();
     
-    console.log(`✅ Portfolio items rendered: ${records.length} items from KAUZ Work table`);
-    
-    // 렌더링 완료 후 통계 출력
-    const withImages = records.filter(r => {
-      const fields = r.fields;
-      return fields['Image'] && Array.isArray(fields['Image']) && fields['Image'].length > 0;
-    }).length;
-    
-    console.log('📊 Rendering statistics:', {
-      total: records.length,
-      withImages: withImages,
-      withoutImages: records.length - withImages
-    });
+    console.log(`✅ Portfolio items rendered: ${records.length} items with individual modal IDs`);
   }
 
   // ─── 🖼️ 이미지 로드 실패 처리 함수 ───
@@ -300,95 +407,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ─── 🔍 수정된 포트폴리오 모달 열기 (전체화면) ───
-  window.openPortfolioModal = function(recordId, index) {
-    console.log('🔍 Opening portfolio modal (fullscreen):', recordId, index);
+  // ─── 🔍 수정된 포트폴리오 모달 열기 (단순화됨) ───
+  window.openPortfolioModal = function(modalId) {
+    console.log('🔍 Opening pre-generated modal:', modalId);
     
-    // 실제 데이터 기반 모달 생성
-    const record = window.portfolioData ? window.portfolioData.find(r => r.id === recordId) : null;
-    const fields = record ? record.fields : {};
-    
-    // 이미지 URL 추출
-    let imageUrl = null;
-    if (fields['Image'] && Array.isArray(fields['Image']) && fields['Image'].length > 0) {
-      imageUrl = fields['Image'][0].url;
-    }
-    
-    const modalHtml = `
-      <div id="portfolioModal" class="modal active">
-        <div class="modal-backdrop" onclick="closePortfolioModal()"></div>
-        <div class="modal-content">
-          <span class="close-btn" onclick="closePortfolioModal()">&times;</span>
-          
-          ${imageUrl ? `<img src="${imageUrl}" alt="${fields['Title'] || 'Project Image'}" class="modal-image" />` : ''}
-          
-          <h2>${fields['Title'] || 'Portfolio Project'}</h2>
-          
-          <p><strong>카테고리:</strong> ${fields['Category'] || 'N/A'}</p>
-          <p><strong>클라이언트:</strong> ${fields['Client'] || 'N/A'}</p>
-          
-          <p><strong>프로젝트 개요:</strong><br>
-          ${fields['Description'] || '상세한 프로젝트 정보가 추가될 예정입니다.'}</p>
-          
-          <p><strong>주요 성과:</strong><br>
-          • 브랜드 인지도 향상<br>
-          • 높은 전환율 달성<br>
-          • ROI 개선<br>
-          • 고객 참여도 증가</p>
-          
-          <p><strong>담당팀:</strong> KAUZ Creative Team</p>
-          
-          <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(0,0,0,0.3); border-radius: 8px; border-left: 4px solid #E37031;">
-            <p style="margin: 0; font-size: 0.95rem; color: #bbb; line-height: 1.6;">
-              💡 <strong style="color: #E37031;">KAUZ Work:</strong> 
-              이 프로젝트는 KAUZ의 창의적인 접근 방식과 데이터 기반 전략의 결합으로 탄생했습니다. 
-              클라이언트의 브랜드 가치를 극대화하기 위한 통합적 솔루션을 제공했습니다.
-            </p>
-          </div>
-        </div>
-      </div>
-    `;
-    
-    // 기존 모달 제거 후 새 모달 추가
-    const existingModal = document.getElementById('portfolioModal');
-    if (existingModal) {
-      existingModal.remove();
-    }
-    
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-    document.body.style.overflow = 'hidden';
-    
-    // 모달 애니메이션 시작
-    setTimeout(() => {
-      const modal = document.getElementById('portfolioModal');
-      if (modal) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add('active');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      
+      // 모달 애니메이션
+      setTimeout(() => {
         modal.style.opacity = '1';
-      }
-    }, 10);
-    
-    console.log('✅ Fullscreen portfolio modal opened for record:', recordId);
+      }, 10);
+      
+      console.log('✅ Modal opened successfully:', modalId);
+    } else {
+      console.error('❌ Modal not found:', modalId);
+      alert('모달을 찾을 수 없습니다. 페이지를 새로고침해주세요.');
+    }
   };
 
   // ─── ❌ 포트폴리오 모달 닫기 ───
-  window.closePortfolioModal = function() {
-    const modal = document.getElementById('portfolioModal');
+  window.closePortfolioModal = function(modalId) {
+    const modal = document.getElementById(modalId);
     if (modal) {
       modal.style.opacity = '0';
-      modal.style.transform = 'scale(0.95)';
       
       setTimeout(() => {
-        modal.remove();
+        modal.classList.remove('active');
+        modal.style.display = 'none';
         document.body.style.overflow = '';
       }, 300);
       
-      console.log('✅ Portfolio modal closed');
+      console.log('✅ Modal closed:', modalId);
     }
   };
 
   // ─── ⌨️ ESC 키로 모달 닫기 ───
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      closePortfolioModal();
+      const activeModal = document.querySelector('.modal.active');
+      if (activeModal) {
+        const modalId = activeModal.id;
+        closePortfolioModal(modalId);
+      }
     }
   });
 
@@ -523,9 +587,10 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const data = await fetchPortfolioData();
         renderPortfolioItems(data);
+        generateAllModals(data);
         
         if (data.length > 0) {
-          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.`);
+          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.\n모든 모달이 자동 생성되었습니다.`);
         } else {
           alert('⚠️ 연결은 성공했지만 데이터가 없습니다.\nKAUZ Work 테이블에 레코드를 추가해주세요.');
         }
@@ -537,30 +602,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // 현재 설정 확인
     showConnectionInfo: () => {
       const info = `
-🔍 KAUZ Portfolio 연결 정보
+🔍 KAUZ Portfolio 연결 정보 (자동 모달 생성)
 
 📋 설정:
 • 베이스 ID: ${AIRTABLE_CONFIG.BASE_ID}
 • 테이블 이름: "KAUZ Work"
 • API 키: ${AIRTABLE_CONFIG.API_KEY ? '설정됨 (마지막 10자: ' + AIRTABLE_CONFIG.API_KEY.slice(-10) + ')' : '❌ 없음'}
+• 모달 생성 상태: ${modalsGenerated ? '✅ 완료' : '❌ 미생성'}
 
 🌐 요청 URL:
 ${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABLE_NAME}`}
 
-💡 예상 필드:
-• Title (프로젝트 제목)
-• Category (카테고리 - 주황색으로 표시)
-• Client (클라이언트명)
-• Description (프로젝트 설명)
-• Image (첨부파일 - 프로젝트 이미지)
+🔥 자동 모달 생성:
+Airtable 데이터를 기반으로 각 프로젝트마다 개별 모달이 자동 생성됩니다.
       `;
       
       alert(info);
-      console.log('🔍 Connection Info:', {
+      console.log('🔍 Auto Modal Generation Info:', {
         baseId: AIRTABLE_CONFIG.BASE_ID,
         tableName: 'KAUZ Work',
         hasApiKey: !!AIRTABLE_CONFIG.API_KEY,
-        requestUrl: `https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABLE_NAME}`
+        modalsGenerated: modalsGenerated,
+        totalModals: document.querySelectorAll('.modal[id^="portfolio-modal-"]').length
       });
     },
     
@@ -569,8 +632,9 @@ ${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABL
       console.log('🔄 Loading fallback data for KAUZ Work...');
       const fallbackData = getFallbackData();
       renderPortfolioItems(fallbackData);
+      generateAllModals(fallbackData);
       
-      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트가 표시되고 있습니다.\n\nKAUZ Work 테이블에 실제 데이터를 추가해주세요.`);
+      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트와 모달이 생성되었습니다.\n\nKAUZ Work 테이블에 실제 데이터를 추가해주세요.`);
     },
     
     // 데이터 새로고침
@@ -580,10 +644,29 @@ ${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABL
       await initPortfolio();
     },
 
-    // 모달 테스트
-    testModal: () => {
-      console.log('🧪 Testing fullscreen modal...');
-      openPortfolioModal('test-modal', 0);
+    // 생성된 모달 확인
+    checkModals: () => {
+      const modals = document.querySelectorAll('.modal[id^="portfolio-modal-"]');
+      console.log('📋 Generated modals:', modals.length);
+      modals.forEach(modal => {
+        console.log('  - Modal ID:', modal.id);
+      });
+      alert(`생성된 모달: ${modals.length}개\n\n콘솔에서 자세한 정보를 확인하세요.`);
+    },
+
+    // 특정 모달 테스트
+    testModal: (modalId) => {
+      if (!modalId) {
+        const modals = document.querySelectorAll('.modal[id^="portfolio-modal-"]');
+        if (modals.length > 0) {
+          modalId = modals[0].id;
+        } else {
+          alert('생성된 모달이 없습니다.');
+          return;
+        }
+      }
+      console.log('🧪 Testing modal:', modalId);
+      openPortfolioModal(modalId);
     }
   };
 
@@ -595,6 +678,7 @@ ${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABL
         <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
           <div style="display: inline-block; width: 40px; height: 40px; border: 3px solid #333; border-top: 3px solid #E37031; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
           <p style="font-size: 1.1rem;">KAUZ Work 테이블에서 데이터를 불러오는 중...</p>
+          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">모든 모달을 자동 생성합니다</p>
         </div>
         <style>
           @keyframes spin {
@@ -642,13 +726,14 @@ ${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABL
 
   checkBrowserSupport();
 
-  // ─── 🚀 메인 초기화 함수 ───
+  // ─── 🚀 메인 초기화 함수 (완전 자동화) ───
   async function initPortfolio() {
-    console.log('🚀 Initializing KAUZ Portfolio with KAUZ Work table...');
+    console.log('🚀 Initializing KAUZ Portfolio with Auto Modal Generation...');
     console.log('🔧 Configuration:', {
       baseId: AIRTABLE_CONFIG.BASE_ID,
       tableName: 'KAUZ Work',
-      hasApiKey: !!AIRTABLE_CONFIG.API_KEY
+      hasApiKey: !!AIRTABLE_CONFIG.API_KEY,
+      autoModalGeneration: true
     });
     
     // 로딩 메시지 표시
@@ -657,28 +742,35 @@ ${`https://api.airtable.com/v0/${AIRTABLE_CONFIG.BASE_ID}/${AIRTABLE_CONFIG.TABL
     // 1. KAUZ Work 테이블에서 데이터 로드
     const portfolioData = await fetchPortfolioData();
     
-    // 전역 변수에 저장 (모달에서 사용)
+    // 전역 변수에 저장
     window.portfolioData = portfolioData;
     
     // 2. 포트폴리오 아이템 렌더링
     renderPortfolioItems(portfolioData);
     
-    // 3. Contact 섹션 무한롤링 초기화 (딜레이)
+    // 3. 🔥 모든 모달 자동 생성
+    generateAllModals(portfolioData);
+    
+    // 4. Contact 섹션 무한롤링 초기화 (딜레이)
     setTimeout(() => {
       initPortfolioContactInfiniteScroll();
     }, 1000);
     
-    console.log('✅ Portfolio initialization complete with KAUZ Work table');
+    console.log('✅ Portfolio initialization complete with Auto Modal Generation');
+    console.log(`🏗️ Total modals created: ${portfolioData.length}`);
   }
 
   // ─── 🏁 최종 초기화 실행 ───
   initPortfolio();
 
-  console.log('✅ Portfolio.js initialization complete for KAUZ Work table');
+  console.log('✅ Portfolio.js initialization complete - Auto Modal Generation Mode');
   console.log('🔧 Debug tools available:');
   console.log('  - portfolioDebug.testConnection()');
   console.log('  - portfolioDebug.showConnectionInfo()');
   console.log('  - portfolioDebug.loadFallbackData()');
+  console.log('  - portfolioDebug.checkModals()');
   console.log('  - portfolioDebug.testModal()');
   console.log('  - portfolioDebug.reloadData()');
+  console.log('');
+  console.log('🎯 KAUZ Work: 이 프로젝트는 KAUZ의 창의적인 접근 방식과 데이터 기반 전략의 결합으로 탄생했습니다. 클라이언트의 브랜드 가치를 극대화하기 위한 통합적 솔루션을 제공했습니다.');
 });
