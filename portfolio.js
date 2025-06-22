@@ -236,10 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${description}</p>
                   </div>
                   <div class="content-text">
-                    <p><strong>Duration:</strong> ${duration}<br>
-                    <strong>Budget:</strong> ${budget}<br>
-                    <strong>Team:</strong> ${team}<br>
-                    <strong>Channels:</strong> ${channels}</p>
+                    <p>클라이언트와의 긴밀한 협업을 통해 브랜드 가치를 극대화하고 목표 달성을 위한 전략적 접근을 실행했습니다.</p>
+                    <p>데이터 기반 인사이트와 창의적 아이디어의 결합으로 탁월한 성과를 이루어냈습니다.</p>
                   </div>
                 </div>
               </div>
@@ -439,6 +437,40 @@ document.addEventListener('DOMContentLoaded', () => {
       closeModal(modalId);
     }
   });
+
+  // ─── 🔥 햄버거 → X 변환 애니메이션 추가 ───
+  function initHamburgerAnimation() {
+    const hamburger = document.getElementById('hamburger');
+    const menuOverlay = document.getElementById('menu-overlay');
+    
+    if (hamburger && menuOverlay) {
+      // 메뉴 상태 감지를 위한 옵저버
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            const isActive = menuOverlay.classList.contains('active');
+            
+            // 햄버거 아이콘 상태 변경
+            if (isActive) {
+              hamburger.classList.add('active');
+            } else {
+              hamburger.classList.remove('active');
+            }
+          }
+        });
+      });
+      
+      // 메뉴 오버레이 클래스 변화 감지
+      observer.observe(menuOverlay, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+      
+      console.log('✅ Hamburger → X animation initialized');
+    } else {
+      console.warn('⚠️ Hamburger or menu overlay not found');
+    }
+  }
 
   // ─── 📜 SCROLL 인디케이터 클릭 이벤트 ───
   const scrollIndicator = document.querySelector('.scroll-indicator');
@@ -736,6 +768,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       initPortfolioContactInfiniteScroll();
     }, 1000);
+    
+    // 5. 🔥 햄버거 → X 변환 애니메이션 초기화
+    initHamburgerAnimation();
     
     console.log('✅ Portfolio initialization complete with Perfect Design Template');
     console.log(`🏗️ Total perfect design modals created: ${portfolioData.length}`);
