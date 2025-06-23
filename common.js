@@ -61,13 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // span 요소들도 최적화
       const spans = hamburger.querySelectorAll('span');
-      spans.forEach(span => {
+      spans.forEach((span, index) => {
         span.style.willChange = 'transform, opacity';
         span.style.transform = 'translateZ(0)';
         span.style.backfaceVisibility = 'hidden';
+        
+        // 🔥 span 요소가 제대로 생성되었는지 확인
+        console.log(`Span ${index + 1}:`, span, 'Width:', span.offsetWidth, 'Height:', span.offsetHeight);
       });
       
-      console.log('✅ Hamburger GPU optimization applied');
+      console.log('✅ Hamburger GPU optimization applied, spans found:', spans.length);
     }
     
     if (menuOverlay) {
@@ -175,13 +178,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const isOpen = menuOverlay.classList.contains('active');
         console.log('🍔 Hamburger clicked, current state:', isOpen ? 'Open' : 'Closed');
         
-        // 🔥 연속 클릭 방지 (디바운싱)
-        if (hamburger.dataset.animating === 'true') {
-          console.log('⏳ Animation in progress, ignoring click');
+        // 🔥 연속 클릭 방지 (디바운싱) - 더 안전한 방식
+        const now = Date.now();
+        const lastClick = hamburger.dataset.lastClick || 0;
+        
+        if (now - lastClick < 300) { // 300ms 내 연속 클릭 방지
+          console.log('⏳ Click too fast, ignoring');
           return;
         }
         
-        hamburger.dataset.animating = 'true';
+        hamburger.dataset.lastClick = now;
+        
+        // 🔥 span 요소 상태 확인
+        const spans = hamburger.querySelectorAll('span');
+        if (spans.length !== 2) {
+          console.error('❌ Hamburger spans missing! Expected 2, found:', spans.length);
+          return;
+        }
         
         if (isOpen) {
           closeMenu();
@@ -189,15 +202,17 @@ document.addEventListener('DOMContentLoaded', () => {
           openMenu();
         }
         
-        // 애니메이션 완료 후 디바운스 해제
-        setTimeout(() => {
-          hamburger.dataset.animating = 'false';
-        }, 500);
-        
       } catch (e) {
         console.error('❌ Error handling hamburger click:', e);
-        // 오류 발생 시 디바운스 해제
-        hamburger.dataset.animating = 'false';
+        
+        // 🔥 오류 발생 시 복구 시도
+        try {
+          if (menuOverlay && menuOverlay.classList.contains('active')) {
+            closeMenu();
+          }
+        } catch (recoveryError) {
+          console.error('❌ Recovery failed:', recoveryError);
+        }
       }
     }
     
@@ -224,7 +239,14 @@ document.addEventListener('DOMContentLoaded', () => {
           // 짧은 터치만 클릭으로 인정 (스크롤과 구분)
           if (touchStarted && touchDuration < 300) {
             e.preventDefault();
-            handleHamburgerClick(e);
+            
+            // 🔥 span 요소 확인 후 클릭 처리
+            const spans = hamburger.querySelectorAll('span');
+            if (spans.length === 2) {
+              handleHamburgerClick(e);
+            } else {
+              console.error('❌ Touch ignored - spans missing:', spans.length);
+            }
           }
           
           touchStarted = false;
@@ -391,21 +413,45 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburger,
       menuOverlay,
       isMenuOpen: () => menuOverlay ? menuOverlay.classList.contains('active') : false,
-      isAnimating: () => hamburger ? hamburger.dataset.animating === 'true' : false,
+      checkSpans: () => {
+        if (hamburger) {
+          const spans = hamburger.querySelectorAll('span');
+          console.log('🔍 Hamburger spans check:', {
+            count: spans.length,
+            spans: Array.from(spans).map((span, i) => ({
+              index: i,
+              width: span.offsetWidth,
+              height: span.offsetHeight,
+              transform: span.style.transform,
+              visible: span.offsetParent !== null
+            }))
+          });
+          return spans.length;
+        }
+        return 0;
+      },
       testClick: () => {
-        if (hamburger && hamburger.dataset.animating !== 'true') {
+        if (hamburger) {
+          const spans = hamburger.querySelectorAll('span');
+          if (spans.length !== 2) {
+            console.error('❌ Cannot test click - spans missing!', spans.length);
+            return false;
+          }
           hamburger.click();
+          return true;
         } else {
-          console.error('Hamburger element not found or animating');
+          console.error('Hamburger element not found');
+          return false;
         }
       },
       optimizePerformance: optimizeHamburgerForPerformance,
       getAnimationState: () => ({
         menuActive: menuOverlay ? menuOverlay.classList.contains('active') : false,
         hamburgerActive: hamburger ? hamburger.classList.contains('active') : false,
-        isAnimating: hamburger ? hamburger.dataset.animating === 'true' : false,
+        lastClick: hamburger ? hamburger.dataset.lastClick : 'N/A',
         willChangeMenu: menuOverlay ? menuOverlay.style.willChange : 'N/A',
-        willChangeHamburger: hamburger ? hamburger.style.willChange : 'N/A'
+        willChangeHamburger: hamburger ? hamburger.style.willChange : 'N/A',
+        spanCount: hamburger ? hamburger.querySelectorAll('span').length : 0
       })
     };
   } catch (e) {
