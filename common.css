@@ -6,6 +6,32 @@
 =================================================================================*/
 
 /*===============================================================================
+  🎨 KAUZ 브랜드 톤 맞춤 스크롤바 커스터마이징
+===============================================================================*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D; /* 배경색과 동일 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E37031; /* KAUZ 오렌지 포인트 컬러 */
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8c42; /* 호버시 밝은 오렌지 */
+}
+
+::-webkit-scrollbar-corner {
+  background: #0D0D0D;
+}
+
+/*===============================================================================
   1) html, body 전역 설정 (서브 페이지 공통)
 ===============================================================================*/
 html, body {
@@ -53,7 +79,7 @@ h1, h2, h3 {
 }
 
 /*===============================================================================
-  4) 햄버거 아이콘 스타일 (서브 페이지 완전 동일)
+  🔥 4) 완전히 수정된 햄버거 아이콘 스타일 (X 표시 문제 해결)
 ===============================================================================*/
 .hamburger {
   position: fixed;
@@ -72,39 +98,63 @@ h1, h2, h3 {
   padding: 0;
   visibility: visible;     /* 서브 페이지에서 즉시 보이도록 */
   opacity: 1;              /* 서브 페이지에서 즉시 보이도록 */
-  transition: all 0.3s ease;
+  
+  /* 🔥 GPU 가속 및 부드러운 애니메이션 최적화 */
+  will-change: transform;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateZ(0); /* GPU 레이어 강제 생성 */
+  backface-visibility: hidden;
 }
 
 .hamburger span {
-  position: relative;
+  position: absolute;
   display: block;
-  width: 100%;
+  width: 20px;             /* 🔥 명확한 크기 지정 */
   height: 2px;             /* 서브 페이지 동일 */
   background: white;       /* 흰색 바 */
-  border-radius: 2px;
-  transition: all 0.3s ease;
-  transform-origin: center;
+  border-radius: 1px;
+  left: 50%;
+  
+  /* 🔥 완벽한 X 변환을 위한 최적화 */
+  will-change: transform, opacity;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center center; /* 🔥 정확한 회전 중심점 */
+  backface-visibility: hidden;
 }
 
+/* 🔥 기본 햄버거 상태 - 정확한 위치 */
 .hamburger span:nth-child(1) {
-  transform: translateY(-6px); /* 서브 페이지 동일 */
+  transform: translate(-50%, -6px); /* 🔥 정확한 위치 계산 */
 }
 
 .hamburger span:nth-child(2) {
-  transform: translateY(6px);
+  transform: translate(-50%, 6px);  /* 🔥 정확한 위치 계산 */
 }
 
-/* 햄버거 클릭 시 X자 모양 (서브 페이지 동일) */
+/* 🔥 완벽한 X자 모양 변환 (모든 페이지에서 동일) */
 .hamburger.active span:nth-child(1) {
-  transform: translateY(0) rotate(45deg);
+  transform: translate(-50%, 0) rotate(45deg);
+  background: white; /* 🔥 색상 확실히 지정 */
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: translateY(0) rotate(-45deg);
+  transform: translate(-50%, 0) rotate(-45deg);
+  background: white; /* 🔥 색상 확실히 지정 */
+}
+
+/* 🔥 햄버거 호버 효과 */
+.hamburger:hover {
+  opacity: 0.8;
+  transform: translateZ(0) scale(1.05);
+}
+
+.hamburger:active {
+  transform: translateZ(0) scale(0.95);
+  transition: transform 0.1s ease;
 }
 
 /*===============================================================================
-  5) 메뉴 오버레이 (전체 화면 팝업) - 서브 페이지 동일
+  🔥 5) 메뉴 오버레이 최적화 (전체 화면 팝업)
 ===============================================================================*/
 .menu-overlay {
   position: fixed;
@@ -117,9 +167,13 @@ h1, h2, h3 {
   opacity: 0;
   visibility: hidden;          /* 초기에는 숨김 */
   pointer-events: none;        /* 숨김 상태에서는 클릭 불가 */
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  
+  /* 🔥 GPU 가속 및 부드러운 전환 최적화 */
+  will-change: transform, opacity;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 10000;              /* 서브 페이지 동일 */
   backdrop-filter: blur(10px); /* 서브 페이지 동일한 블러 효과 */
+  transform: translateZ(0);    /* GPU 레이어 생성 */
 }
 
 /* 메뉴 오버레이 활성화 시 */
@@ -127,6 +181,7 @@ h1, h2, h3 {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  transform: translateZ(0);
 }
 
 /*===============================================================================
@@ -140,6 +195,10 @@ h1, h2, h3 {
   text-align: center;
   z-index: 10001;
   position: relative;
+  
+  /* 🔥 메뉴 컨텐츠도 GPU 가속 적용 */
+  will-change: transform, opacity;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .menu-overlay:not(.active) .menu-content {
@@ -162,7 +221,10 @@ h1, h2, h3 {
   text-decoration: none;
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.3s ease;
+  
+  /* 🔥 메뉴 아이템 애니메이션 최적화 */
+  will-change: transform, opacity;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
   line-height: 0.9; 
   margin: 0.2rem 0; 
@@ -170,7 +232,7 @@ h1, h2, h3 {
 }
 
 .menu-content a:hover {
-  color: #ccc;
+  color: #E37031; /* 🔥 KAUZ 브랜드 컬러로 변경 */
   transform: translateY(-2px);
 }
 
@@ -225,7 +287,7 @@ h1, h2, h3 {
   transition: color 0.3s ease;
 }
 .footer-follow-link:hover {
-  color: #ccc;
+  color: #E37031; /* 🔥 KAUZ 브랜드 컬러 적용 */
 }
 
 /*===============================================================================
@@ -237,12 +299,24 @@ h1, h2, h3 {
     height: 28px; /* 서브 페이지 모바일에서 28px (메인과 동일) */
   }
 
-  /* 햄버거 위치 조정 */
+  /* 🔥 햄버거 모바일 최적화 */
   .hamburger {
     top: 1rem;
     right: 1rem;
     width: 24px;
     height: 24px;
+  }
+
+  .hamburger span {
+    width: 18px; /* 🔥 모바일에서 크기 조정 */
+  }
+
+  .hamburger span:nth-child(1) {
+    transform: translate(-50%, -5px); /* 🔥 모바일 위치 조정 */
+  }
+
+  .hamburger span:nth-child(2) {
+    transform: translate(-50%, 5px);  /* 🔥 모바일 위치 조정 */
   }
 
   /* 메뉴 항목 크기 조정 */
@@ -270,6 +344,11 @@ h1, h2, h3 {
 }
 
 @media (max-width: 480px) {
+  /* 🔥 작은 모바일 햄버거 추가 최적화 */
+  .hamburger span {
+    width: 16px; /* 🔥 더 작은 크기 */
+  }
+
   .menu-content a {
     font-size: 2.5rem;
     line-height: 0.9;
@@ -290,8 +369,50 @@ h1, h2, h3 {
   transform: translateY(0);
 }
 
-/* 스크롤 비활성화 (메뉴 열린 상태) */
+/* 🔥 스크롤 비활성화 최적화 (메뉴 열린 상태) */
 body.menu-open {
   overflow: hidden;
   height: 100vh;
+  
+  /* 🔥 모바일에서 스크롤 바운스 방지 */
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+/*===============================================================================
+  🔥 11) 성능 최적화 및 안정성 보강
+===============================================================================*/
+
+/* GPU 레이어 최적화 */
+.hamburger,
+.hamburger span,
+.menu-overlay,
+.menu-content {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .hamburger:hover {
+    opacity: 1; /* 터치에서는 호버 효과 제거 */
+    transform: translateZ(0);
+  }
+  
+  .menu-content a:hover {
+    color: #fff; /* 터치에서는 호버 색상 변경 제거 */
+    transform: translateY(0);
+  }
+}
+
+/* 고해상도 디스플레이 최적화 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hamburger span {
+    /* 레티나에서 선명한 라인 렌더링 */
+    background: white;
+    border-radius: 0.5px;
+  }
 }
