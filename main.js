@@ -1004,7 +1004,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🛠️ Development mode detected');
     console.log('🎯 Debug commands available:');
     console.log('  - window.debugMenu.forceToggle()  // 강제 토글');
-    console.log('  - window.debugMenu.testX()        // 강제 X 모양');
     console.log('  - window.debugMenu.resetHamburger() // 초기화');
     console.log('  - window.debugMenu.fixSpans()     // span 수정');
     console.log('  - window.debugMenu.getState()     // 상태 확인');
