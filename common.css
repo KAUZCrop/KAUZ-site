@@ -1,7 +1,6 @@
 /*=================================================================================
   common.css - 서브 페이지(About, Portfolio, Contact) 공통 스타일
-  ─────────────────────────────────────────────────────────────────────────────────
-  🔥 완전 새로 작성 - 스크롤바 + 햄버거 + X표시 완벽 해결
+  🔥 X표시 변환 완벽 수정 버전
 =================================================================================*/
 
 /*===============================================================================
@@ -78,77 +77,85 @@ h1, h2, h3 {
 }
 
 /*===============================================================================
-  🔥 4) 완전히 새로 작성한 햄버거 아이콘 스타일 (X 표시 문제 완벽 해결)
+  🔥 4) 완전히 새로 작성한 햄버거 아이콘 스타일 (X 표시 완벽 해결)
 ===============================================================================*/
 .hamburger {
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 28px;
-  height: 28px;
-  z-index: 10001;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  border: none;
-  padding: 0;
-  visibility: visible;
-  opacity: 1;
-  gap: 6px; /* 🔥 두 라인 사이 간격 */
+  position: fixed !important;
+  top: 1.5rem !important;
+  right: 1.5rem !important;
+  width: 28px !important;
+  height: 28px !important;
+  z-index: 10001 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  
+  /* 🔥 X 변환 최적화 - gap 제거하고 absolute 배치 */
+  gap: 0 !important;
   
   /* GPU 가속 최적화 */
-  will-change: transform, opacity;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  will-change: transform, opacity !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
 }
 
 .hamburger span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: white;
-  border-radius: 1px;
+  position: absolute !important;  /* 🔥 absolute로 정확한 위치 제어 */
+  display: block !important;
+  width: 20px !important;
+  height: 2px !important;
+  background: white !important;
+  border-radius: 1px !important;
+  left: 50% !important;
+  top: 50% !important;
   
-  /* GPU 가속 최적화 */
-  will-change: transform, opacity;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform-origin: center center;
-  backface-visibility: hidden;
+  /* 🔥 완벽한 X 변환을 위한 최적화 */
+  will-change: transform, opacity !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  transform-origin: center center !important;
+  backface-visibility: hidden !important;
 }
 
-/* 🔥 기본 햄버거 상태 - gap이 자동으로 간격 조정 */
-.hamburger span:nth-child(1),
+/* 🔥 기본 햄버거 상태 - 정확한 위치 */
+.hamburger span:nth-child(1) {
+  transform: translate(-50%, -50%) translateY(-6px) !important; /* 위쪽 라인 */
+}
+
 .hamburger span:nth-child(2) {
-  transform: translateY(0);
+  transform: translate(-50%, -50%) translateY(6px) !important;  /* 아래쪽 라인 */
 }
 
 /* 🔥 완벽한 X자 모양 변환 */
 .hamburger.active span:nth-child(1) {
-  transform: translateY(3px) rotate(45deg); /* gap의 절반만큼 이동 후 회전 */
+  transform: translate(-50%, -50%) rotate(45deg) !important;
+  background: white !important;
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: translateY(-3px) rotate(-45deg); /* gap의 절반만큼 이동 후 회전 */
+  transform: translate(-50%, -50%) rotate(-45deg) !important;
+  background: white !important;
 }
 
-/* 호버 효과 */
+/* 🔥 햄버거 호버 효과 */
 .hamburger:hover {
-  opacity: 0.8;
-  transform: translateZ(0) scale(1.05);
+  opacity: 0.8 !important;
+  transform: translateZ(0) scale(1.05) !important;
 }
 
 .hamburger:active {
-  transform: translateZ(0) scale(0.95);
-  transition: transform 0.1s ease;
+  transform: translateZ(0) scale(0.95) !important;
+  transition: transform 0.1s ease !important;
 }
 
 .hamburger.active:hover {
-  opacity: 0.9;
-  transform: translateZ(0) scale(1.02);
+  opacity: 0.9 !important;
+  transform: translateZ(0) scale(1.02) !important;
 }
 
 /*===============================================================================
@@ -295,26 +302,34 @@ h1, h2, h3 {
     height: 28px;
   }
 
-  /* 햄버거 모바일 최적화 */
+  /* 🔥 햄버거 모바일 최적화 */
   .hamburger {
-    top: 1rem;
-    right: 1rem;
-    width: 24px;
-    height: 24px;
-    gap: 5px; /* 모바일 gap 조정 */
+    top: 1rem !important;
+    right: 1rem !important;
+    width: 24px !important;
+    height: 24px !important;
   }
 
   .hamburger span {
-    width: 18px;
+    width: 18px !important;
   }
 
-  /* 모바일 X 변환 */
+  /* 🔥 모바일 기본 상태 */
+  .hamburger span:nth-child(1) {
+    transform: translate(-50%, -50%) translateY(-5px) !important;
+  }
+
+  .hamburger span:nth-child(2) {
+    transform: translate(-50%, -50%) translateY(5px) !important;
+  }
+
+  /* 🔥 모바일 X 변환 */
   .hamburger.active span:nth-child(1) {
-    transform: translateY(2.5px) rotate(45deg); /* 모바일 gap의 절반 */
+    transform: translate(-50%, -50%) rotate(45deg) !important;
   }
 
   .hamburger.active span:nth-child(2) {
-    transform: translateY(-2.5px) rotate(-45deg); /* 모바일 gap의 절반 */
+    transform: translate(-50%, -50%) rotate(-45deg) !important;
   }
 
   /* 메뉴 항목 크기 조정 */
@@ -342,22 +357,27 @@ h1, h2, h3 {
 }
 
 @media (max-width: 480px) {
-  /* 작은 모바일 햄버거 추가 최적화 */
-  .hamburger {
-    gap: 4px; /* 작은 모바일 gap 조정 */
-  }
-  
+  /* 🔥 작은 모바일 햄버거 추가 최적화 */
   .hamburger span {
-    width: 16px;
+    width: 16px !important;
   }
 
-  /* 작은 모바일 X 변환 */
+  /* 🔥 작은 모바일 기본 상태 */
+  .hamburger span:nth-child(1) {
+    transform: translate(-50%, -50%) translateY(-4px) !important;
+  }
+
+  .hamburger span:nth-child(2) {
+    transform: translate(-50%, -50%) translateY(4px) !important;
+  }
+
+  /* 🔥 작은 모바일 X 변환 */
   .hamburger.active span:nth-child(1) {
-    transform: translateY(2px) rotate(45deg); /* 작은 모바일 gap의 절반 */
+    transform: translate(-50%, -50%) rotate(45deg) !important;
   }
 
   .hamburger.active span:nth-child(2) {
-    transform: translateY(-2px) rotate(-45deg); /* 작은 모바일 gap의 절반 */
+    transform: translate(-50%, -50%) rotate(-45deg) !important;
   }
 
   .menu-content a {
@@ -391,10 +411,25 @@ body.menu-open {
 }
 
 /*===============================================================================
-  11) 성능 최적화 및 안정성 보강
+  🔥 11) 추가 안전장치 - X 변환 강제 적용
 ===============================================================================*/
 
-/* GPU 레이어 최적화 */
+/* 🔥 모든 브라우저에서 확실한 X 변환 */
+.hamburger[data-state="active"] span:nth-child(1),
+.hamburger.is-active span:nth-child(1),
+.hamburger.menu-open span:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg) !important;
+  background: white !important;
+}
+
+.hamburger[data-state="active"] span:nth-child(2),
+.hamburger.is-active span:nth-child(2),
+.hamburger.menu-open span:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(-45deg) !important;
+  background: white !important;
+}
+
+/* 🔥 성능 최적화 및 안정성 보강 */
 .hamburger,
 .hamburger span,
 .menu-overlay,
