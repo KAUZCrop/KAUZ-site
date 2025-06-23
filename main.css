@@ -158,6 +158,7 @@ a:hover {
   padding: 0;
   visibility: hidden;  /* 메인 페이지에서는 초기 숨김 */
   opacity: 0;          /* 메인 페이지에서는 초기 숨김 */
+  gap: 6px;            /* 🔥 span 요소 사이 간격 */
   
   /* 🔥 GPU 가속 및 부드러운 애니메이션 최적화 */
   will-change: transform, opacity, visibility;
@@ -167,13 +168,13 @@ a:hover {
 }
 
 .hamburger span {
-  position: absolute;
+  position: relative;      /* 🔥 absolute → relative로 변경 */
   display: block;
   width: 20px;             /* 🔥 명확한 크기 지정 */
   height: 2px;
   background: white;       /* 흰색 바 */
   border-radius: 1px;
-  left: 50%;
+  margin: 0 auto;          /* 🔥 중앙 정렬 */
   
   /* 🔥 완벽한 X 변환을 위한 최적화 */
   will-change: transform, opacity;
@@ -182,23 +183,20 @@ a:hover {
   backface-visibility: hidden;
 }
 
-/* 🔥 기본 햄버거 상태 - 정확한 위치 */
-.hamburger span:nth-child(1) {
-  transform: translate(-50%, -6px); /* 🔥 정확한 위치 계산 */
-}
-
+/* 🔥 기본 햄버거 상태 - gap으로 자동 간격 */
+.hamburger span:nth-child(1),
 .hamburger span:nth-child(2) {
-  transform: translate(-50%, 6px);  /* 🔥 정확한 위치 계산 */
+  transform: translateY(0); /* 🔥 gap으로 자동 배치 */
 }
 
 /* 🔥 완벽한 X자 모양 변환 (모든 페이지에서 동일) */
 .hamburger.active span:nth-child(1) {
-  transform: translate(-50%, 0) rotate(45deg);
+  transform: translateY(3px) rotate(45deg); /* 🔥 gap의 절반만큼 이동 후 회전 */
   background: white; /* 🔥 색상 확실히 지정 */
 }
 
 .hamburger.active span:nth-child(2) {
-  transform: translate(-50%, 0) rotate(-45deg);
+  transform: translateY(-3px) rotate(-45deg); /* 🔥 gap의 절반만큼 이동 후 회전 */
   background: white; /* 🔥 색상 확실히 지정 */
 }
 
@@ -211,6 +209,12 @@ a:hover {
 .hamburger:active {
   transform: translateZ(0) scale(0.95);
   transition: transform 0.1s ease;
+}
+
+/* 🔥 햄버거가 활성 상태일 때는 호버 효과 조정 */
+.hamburger.active:hover {
+  opacity: 0.9;
+  transform: translateZ(0) scale(1.02); /* 덜 확대 */
 }
 
 /*===============================================================================
@@ -307,18 +311,25 @@ a:hover {
     right: 1rem;
     width: 24px;
     height: 24px;
+    gap: 5px; /* 🔥 모바일 gap 조정 */
   }
 
   .hamburger span {
     width: 18px; /* 🔥 모바일에서 크기 조정 */
   }
 
-  .hamburger span:nth-child(1) {
-    transform: translate(-50%, -5px); /* 🔥 모바일 위치 조정 */
+  .hamburger span:nth-child(1),
+  .hamburger span:nth-child(2) {
+    transform: translateY(0); /* 🔥 gap으로 자동 배치 */
+  }
+  
+  /* 🔥 모바일 X 변환 */
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(2.5px) rotate(45deg); /* 🔥 모바일 gap의 절반 */
   }
 
-  .hamburger span:nth-child(2) {
-    transform: translate(-50%, 5px);  /* 🔥 모바일 위치 조정 */
+  .hamburger.active span:nth-child(2) {
+    transform: translateY(-2.5px) rotate(-45deg); /* 🔥 모바일 gap의 절반 */
   }
 
   .menu-content {
@@ -336,6 +347,23 @@ a:hover {
   /* 🔥 작은 모바일 햄버거 추가 최적화 */
   .hamburger span {
     width: 16px; /* 🔥 더 작은 크기 */
+  }
+
+  .hamburger span:nth-child(1) {
+    transform: translateY(-4px); /* 🔥 작은 모바일 위치 조정 */
+  }
+
+  .hamburger span:nth-child(2) {
+    transform: translateY(4px);  /* 🔥 작은 모바일 위치 조정 */
+  }
+  
+  /* 🔥 작은 모바일 X 변환 */
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(1px) rotate(45deg); /* 🔥 작은 모바일 X 교차점 */
+  }
+
+  .hamburger.active span:nth-child(2) {
+    transform: translateY(-1px) rotate(-45deg); /* 🔥 작은 모바일 X 교차점 */
   }
 
   .menu-content a {
@@ -1669,12 +1697,18 @@ body {
   /* 🔥 터치 디바이스에서 햄버거 호버 효과 제거 */
   .hamburger:hover {
     opacity: 1;
-    transform: translateZ(0);
+    transform: translateZ(0) scale(1);
   }
   
   .menu-content a:hover {
     color: #fff;
     transform: translateY(0);
+  }
+  
+  /* 🔥 터치에서 active 상태만 처리 */
+  .hamburger:active {
+    transform: translateZ(0) scale(0.95);
+    transition: transform 0.1s ease;
   }
 }
 
