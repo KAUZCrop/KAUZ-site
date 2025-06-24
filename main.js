@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🚀 Main.js starting...');
+
   // ─── 🔥 새로고침 시 페이지 상단으로 이동 ───
   try {
     if (performance.getEntriesByType('navigation')[0].type === 'reload') {
@@ -9,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('⚠️ Navigation API not supported, continuing...');
   }
 
-  // ─── 🔥 간소화된 전역 변수 선언 ───
+  // ─── 🔥 전역 변수 선언 및 초기화 ───
   const loadingScreen = document.getElementById('loading-screen');
   const progressFill = document.querySelector('.progress-fill');
   let hamburger = null;
@@ -17,42 +19,73 @@ document.addEventListener('DOMContentLoaded', () => {
   const scrollIndicator = document.querySelector('.scroll-indicator');
   const contactSection = document.getElementById('contact');
 
-  console.log('Elements found:', { loadingScreen, progressFill, scrollIndicator });
+  console.log('📋 Initial elements found:', { 
+    loadingScreen: !!loadingScreen, 
+    progressFill: !!progressFill, 
+    scrollIndicator: !!scrollIndicator,
+    contactSection: !!contactSection
+  });
 
-  // ─── 🔥 간소화된 요소 찾기 (더 관대한 방식) ───
+  // ─── 🔥 요소 찾기 함수 (더 안정적) ───
   function findElements() {
+    // 햄버거 메뉴 찾기
     hamburger = document.getElementById('hamburger') || 
                 document.querySelector('.hamburger') ||
                 document.querySelector('[class*="hamburger"]') ||
-                document.querySelector('button.hamburger');
+                document.querySelector('button[id*="hamburger"]');
                 
+    // 메뉴 오버레이 찾기            
     menuOverlay = document.getElementById('menu-overlay') || 
                   document.querySelector('.menu-overlay') ||
                   document.querySelector('[class*="menu-overlay"]');
     
+    console.log('🔍 Element search result:', {
+      hamburger: hamburger ? hamburger.tagName + '#' + (hamburger.id || 'no-id') : null,
+      menuOverlay: menuOverlay ? menuOverlay.tagName + '#' + (menuOverlay.id || 'no-id') : null
+    });
+    
     return hamburger && menuOverlay;
   }
 
-  // 요소를 찾을 때까지 재시도 (최대 3초)
-  let retryCount = 0;
-  const maxRetries = 30;
-  
-  function initializeWhenReady() {
-    if (findElements()) {
-      console.log('✅ Elements found:', { 
-        hamburger: hamburger.tagName, 
-        menuOverlay: menuOverlay.tagName 
-      });
-      setupHamburgerMenu();
-    } else if (retryCount < maxRetries) {
-      retryCount++;
-      setTimeout(initializeWhenReady, 100);
-    } else {
-      console.error('❌ Elements not found after retries');
+  // ─── 🔥 햄버거 메뉴 초기화 함수 ───
+  function initializeHamburger() {
+    if (!hamburger) {
+      console.warn('❌ Hamburger element not found');
+      return false;
     }
+
+    console.log('🔧 Initializing hamburger menu...');
+
+    // 로딩 중일 때는 햄버거 숨김
+    if (loadingScreen && loadingScreen.style.display !== 'none') {
+      hamburger.classList.add('loading-hidden');
+      console.log('🔒 Hamburger hidden during loading');
+    } else {
+      hamburger.classList.remove('loading-hidden');
+      console.log('🔓 Hamburger visible');
+    }
+
+    // span 요소 확인 및 생성
+    const spans = hamburger.querySelectorAll('span');
+    console.log('📊 Current spans:', spans.length);
+    
+    if (spans.length === 0) {
+      console.log('🔧 Creating missing spans...');
+      hamburger.innerHTML = '<span></span><span></span>';
+    } else if (spans.length === 1) {
+      console.log('🔧 Adding missing span...');
+      hamburger.appendChild(document.createElement('span'));
+    } else if (spans.length > 2) {
+      console.log('🔧 Removing extra spans...');
+      for (let i = spans.length - 1; i >= 2; i--) {
+        spans[i].remove();
+      }
+    }
+
+    return true;
   }
 
-  // ─── 스크롤 제어 함수들 (간소화) ───
+  // ─── 스크롤 제어 함수들 ───
   function disableScroll() {
     const scrollY = window.scrollY;
     document.body.style.overflow = 'hidden';
@@ -85,6 +118,220 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 페이지 로드 시 즉시 스크롤 차단
   disableScroll();
+
+  // ─── 🔥 메뉴 닫기 함수 ───
+  function closeMenu() {
+    console.log('🔴 Closing menu...');
+    
+    try {
+      if (menuOverlay) {
+        menuOverlay.classList.remove('active');
+      }
+      
+      if (hamburger) {
+        // 모든 가능한 클래스 제거
+        hamburger.classList.remove('active', 'is-active', 'menu-open');
+        hamburger.removeAttribute('data-state');
+      }
+      
+      // 스크롤 복원 (로딩 화면 체크)
+      if (!loadingScreen || loadingScreen.style.display === 'none') {
+        enableScroll();
+      } else {
+        disableScroll();
+      }
+      document.body.classList.remove('menu-open');
+      
+    } catch (e) {
+      console.error('❌ Error closing menu:', e);
+    }
+  }
+
+  // ─── 🔥 메뉴 열기 함수 ───
+  function openMenu() {
+    console.log('🟢 Opening menu...');
+    
+    try {
+      if (menuOverlay) {
+        menuOverlay.classList.add('active');
+      }
+      
+      if (hamburger) {
+        // 모든 가능한 방법으로 active 상태 적용
+        hamburger.classList.add('active', 'is-active', 'menu-open');
+        hamburger.setAttribute('data-state', 'active');
+      }
+      
+      // 배경 스크롤 방지
+      disableScroll();
+      document.body.classList.add('menu-open');
+      
+    } catch (e) {
+      console.error('❌ Error opening menu:', e);
+    }
+  }
+
+  // ─── 🔥 햄버거 메뉴 이벤트 설정 ───
+  function setupHamburgerEvents() {
+    if (!hamburger || !menuOverlay) {
+      console.error('❌ Required elements missing for hamburger events');
+      return false;
+    }
+
+    console.log('🎯 Setting up hamburger events...');
+
+    // 클릭 이벤트 핸들러
+    function handleClick(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const isOpen = menuOverlay.classList.contains('active') || 
+                     hamburger.classList.contains('active') ||
+                     hamburger.classList.contains('is-active') ||
+                     hamburger.getAttribute('data-state') === 'active';
+      
+      console.log('🍔 Hamburger clicked, current state:', isOpen ? 'Open' : 'Closed');
+      
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    // 이벤트 리스너 등록
+    hamburger.removeEventListener('click', handleClick); // 중복 방지
+    hamburger.addEventListener('click', handleClick);
+    
+    // 터치 이벤트도 추가
+    if ('ontouchstart' in window) {
+      hamburger.removeEventListener('touchend', handleClick); // 중복 방지
+      hamburger.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        handleClick(e);
+      });
+    }
+
+    // 메뉴 링크 클릭 시 메뉴 닫기
+    try {
+      const menuLinks = menuOverlay.querySelectorAll('.menu-content a, a');
+      menuLinks.forEach((link, index) => {
+        link.addEventListener('click', (e) => {
+          console.log(`📎 Menu link ${index + 1} clicked`);
+          
+          if (link.href && !link.href.includes('#')) {
+            e.preventDefault();
+            closeMenu();
+            setTimeout(() => {
+              window.location.href = link.href;
+            }, 200);
+          } else {
+            closeMenu();
+          }
+        });
+      });
+    } catch (e) {
+      console.error('❌ Error setting up menu links:', e);
+    }
+
+    // ESC 키로 메뉴 닫기
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    // 메뉴 배경 클릭 시 닫기
+    menuOverlay.addEventListener('click', (e) => {
+      if (e.target === menuOverlay) {
+        closeMenu();
+      }
+    });
+
+    // 윈도우 리사이즈 시 메뉴 닫기
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && menuOverlay.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    // 페이지 가시성 변경 시 메뉴 닫기
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && menuOverlay.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    console.log('✅ Hamburger events registered successfully');
+    return true;
+  }
+
+  // ─── 🔥 요소 초기화 재시도 로직 ───
+  let retryCount = 0;
+  const maxRetries = 50; // 5초간 재시도
+  
+  function initializeWhenReady() {
+    console.log(`🔄 Initialization attempt ${retryCount + 1}/${maxRetries}`);
+    
+    if (findElements()) {
+      console.log('✅ All elements found, proceeding with initialization...');
+      
+      if (initializeHamburger()) {
+        setupHamburgerEvents();
+        console.log('🎉 Hamburger menu fully initialized!');
+        return true;
+      }
+    }
+    
+    if (retryCount < maxRetries) {
+      retryCount++;
+      setTimeout(initializeWhenReady, 100);
+    } else {
+      console.error('❌ Failed to initialize after maximum retries');
+      // 최후의 수단: 강제 생성
+      createFallbackElements();
+    }
+    
+    return false;
+  }
+
+  // ─── 🔥 최후의 수단: 요소 강제 생성 ───
+  function createFallbackElements() {
+    console.log('🚨 Creating fallback elements...');
+    
+    // 햄버거 요소가 없으면 생성
+    if (!hamburger) {
+      hamburger = document.createElement('button');
+      hamburger.id = 'hamburger';
+      hamburger.className = 'hamburger';
+      hamburger.innerHTML = '<span></span><span></span>';
+      document.body.appendChild(hamburger);
+      console.log('🔧 Fallback hamburger created');
+    }
+    
+    // 메뉴 오버레이가 없으면 생성
+    if (!menuOverlay) {
+      menuOverlay = document.createElement('div');
+      menuOverlay.id = 'menu-overlay';
+      menuOverlay.className = 'menu-overlay';
+      menuOverlay.innerHTML = `
+        <div class="menu-content">
+          <a href="about.html">About</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="contact.html">Contact</a>
+          <a href="mailto:hello@kauzcorp.com">E-mail</a>
+        </div>
+      `;
+      document.body.appendChild(menuOverlay);
+      console.log('🔧 Fallback menu overlay created');
+    }
+    
+    // 다시 초기화 시도
+    if (initializeHamburger()) {
+      setupHamburgerEvents();
+      console.log('✅ Fallback initialization successful!');
+    }
+  }
 
   // ─── 한글 검색어 대응 시스템 (기존과 동일) ───
   const jamoToKey = {
@@ -203,58 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setBodyMobileClass();
   window.addEventListener('resize', setBodyMobileClass);
 
-  // ─── 🔥 메뉴 닫기 함수 (간소화) ───
-  function closeMenu() {
-    console.log('🔴 Closing menu...');
-    
-    try {
-      if (menuOverlay) {
-        menuOverlay.classList.remove('active');
-      }
-      
-      if (hamburger) {
-        // 🔥 모든 가능한 클래스 제거
-        hamburger.classList.remove('active', 'is-active', 'menu-open');
-        hamburger.removeAttribute('data-state');
-      }
-      
-      // 🔥 스크롤 복원 (로딩 화면 체크)
-      if (!loadingScreen || loadingScreen.style.display === 'none') {
-        enableScroll();
-      } else {
-        disableScroll();
-      }
-      document.body.classList.remove('menu-open');
-      
-    } catch (e) {
-      console.error('❌ Error closing menu:', e);
-    }
-  }
-
-  // ─── 🔥 메뉴 열기 함수 (간소화) ───
-  function openMenu() {
-    console.log('🟢 Opening menu...');
-    
-    try {
-      if (menuOverlay) {
-        menuOverlay.classList.add('active');
-      }
-      
-      if (hamburger) {
-        // 🔥 모든 가능한 방법으로 active 상태 적용
-        hamburger.classList.add('active', 'is-active', 'menu-open');
-        hamburger.setAttribute('data-state', 'active');
-      }
-      
-      // 🔥 배경 스크롤 방지
-      disableScroll();
-      document.body.classList.add('menu-open');
-      
-    } catch (e) {
-      console.error('❌ Error opening menu:', e);
-    }
-  }
-
   // ─── SCROLL 인디케이터 클릭 이벤트 ───
   if (scrollIndicator) {
     scrollIndicator.addEventListener('click', () => {
@@ -268,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ SCROLL 인디케이터 클릭 이벤트 추가됨');
   }
 
-  // ─── Contact 섹션 클릭 처리 (간소화) ───
+  // ─── Contact 섹션 클릭 처리 ───
   if (contactSection) {
     let isScrolling = false;
     let startY = 0;
@@ -324,7 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ─── About 섹션 클릭 이벤트 + 확장 커서 애니메이션 (기존과 동일하지만 간소화) ───
+  // ─── About 섹션 클릭 이벤트 + 확장 커서 애니메이션 ───
   const aboutSection = document.querySelector('.about-custom');
 
   if (aboutSection) {
@@ -476,20 +671,19 @@ document.addEventListener('DOMContentLoaded', () => {
     type1();
   }
 
-  // ─── 로딩 스크린 처리 ───
+  // ─── 🔥 로딩 스크린 처리 (수정됨) ───
   function hideLoadingScreen() {
-    console.log('Hiding loading screen...');
+    console.log('🔄 Hiding loading screen...');
     
     if (loadingScreen) {
       loadingScreen.style.transition = 'opacity 0.8s ease';
       loadingScreen.style.opacity = '0';
     }
 
-    // 🔥 햄버거 메뉴 표시
+    // 🔥 햄버거 메뉴 표시 (loading-hidden 클래스 제거)
     if (hamburger) {
-      hamburger.style.display = 'flex';
-      hamburger.style.visibility = 'visible';
-      hamburger.style.opacity = '1';
+      hamburger.classList.remove('loading-hidden');
+      console.log('🔓 Hamburger menu now visible');
     }
 
     const backgroundLine = document.querySelector('.background-animation-line');
@@ -515,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 페이지 로드 완료 시
   window.addEventListener('load', () => {
-    console.log('Window loaded');
+    console.log('🎯 Window loaded');
     
     if (progressFill) {
       progressFill.style.width = '100%';
@@ -527,131 +721,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // 폴백: 3초 후에도 로딩 화면이 남아있으면 강제로 숨기기
   setTimeout(() => {
     if (loadingScreen && loadingScreen.style.display !== 'none') {
-      console.warn('Forcing loading screen removal');
+      console.warn('⚠️ Forcing loading screen removal');
       hideLoadingScreen();
     }
   }, 3000);
 
-  // ─── 🔥 햄버거 메뉴 설정 (대폭 간소화) ───
-  function setupHamburgerMenu() {
-    if (!hamburger || !menuOverlay) {
-      console.error('❌ Required elements missing');
-      return;
-    }
-
-    // 🔥 span 요소 확인 (더 관대하게)
-    const spans = hamburger.querySelectorAll('span');
-    console.log('🔍 Spans found:', spans.length);
-    
-    // span이 없으면 자동으로 생성
-    if (spans.length === 0) {
-      console.log('🔧 Creating missing spans...');
-      hamburger.innerHTML = '<span></span><span></span>';
-    } else if (spans.length === 1) {
-      console.log('🔧 Adding missing span...');
-      hamburger.appendChild(document.createElement('span'));
-    } else if (spans.length > 2) {
-      console.log('🔧 Removing extra spans...');
-      for (let i = spans.length - 1; i >= 2; i--) {
-        spans[i].remove();
-      }
-    }
-
-    // ─── 🔥 클릭 이벤트 (매우 간단한 버전) ───
-    function handleClick(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      const isOpen = menuOverlay.classList.contains('active') || 
-                     hamburger.classList.contains('active') ||
-                     hamburger.classList.contains('is-active') ||
-                     hamburger.getAttribute('data-state') === 'active';
-      
-      console.log('🍔 Hamburger clicked, current state:', isOpen ? 'Open' : 'Closed');
-      
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    }
-
-    // ─── 🔥 이벤트 리스너 등록 (모든 가능한 방법) ───
-    
-    // 기존 이벤트 제거
-    hamburger.onclick = null;
-    
-    // 새 이벤트 등록
-    hamburger.addEventListener('click', handleClick);
-    
-    // 추가 보험: onclick도 설정
-    hamburger.onclick = handleClick;
-    
-    // 터치 이벤트도 추가
-    if ('ontouchstart' in window) {
-      hamburger.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        handleClick(e);
-      });
-    }
-
-    console.log('✅ Hamburger menu events registered');
-
-    // ─── 메뉴 링크 클릭 시 메뉴 닫기 ───
-    try {
-      const menuLinks = menuOverlay.querySelectorAll('.menu-content a, a');
-      menuLinks.forEach((link, index) => {
-        link.addEventListener('click', (e) => {
-          console.log(`📎 Menu link ${index + 1} clicked`);
-          
-          if (link.href && !link.href.includes('#')) {
-            e.preventDefault();
-            closeMenu();
-            setTimeout(() => {
-              window.location.href = link.href;
-            }, 200);
-          } else {
-            closeMenu();
-          }
-        });
-      });
-    } catch (e) {
-      console.error('❌ Error setting up menu links:', e);
-    }
-
-    // ─── ESC 키로 메뉴 닫기 ───
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
-        closeMenu();
-      }
-    });
-
-    // ─── 메뉴 배경 클릭 시 닫기 ───
-    menuOverlay.addEventListener('click', (e) => {
-      if (e.target === menuOverlay) {
-        closeMenu();
-      }
-    });
-
-    // ─── 윈도우 리사이즈 시 메뉴 닫기 ───
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && menuOverlay.classList.contains('active')) {
-        closeMenu();
-      }
-    });
-
-    // ─── 페이지 가시성 변경 시 메뉴 닫기 ───
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden && menuOverlay.classList.contains('active')) {
-        closeMenu();
-      }
-    });
-  }
-
   // ─── 🔥 초기화 시작 ───
+  console.log('🔄 Starting hamburger initialization...');
   initializeWhenReady();
 
-  // ─── Airtable Portfolio Loading (기존과 동일하지만 간소화) ───
+  // ─── Airtable Portfolio Loading ───
   const token = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
   const baseId = 'appglO0MOXGY7CITU';
   const tableName = 'KAUZ%20main';
@@ -882,7 +961,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('About cards initialized:', aboutCards.length);
   }
 
-  // ─── 🔥 Contact 섹션 텍스트 기반 무한롤링 초기화 ───
+  // ─── Contact 섹션 텍스트 기반 무한롤링 초기화 ───
   function initTextBasedContactInfiniteScroll() {
     const marqueeInner = document.querySelector('#contact .marquee-inner');
     const marqueeWrapper = document.querySelector('#contact .marquee-wrapper');
@@ -900,7 +979,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     console.log('✅ Text-based contact infinite scroll initialized with', allTextElements.length, 'elements');
-    console.log('✅ No SVG viewBox issues, stable text rendering!');
   }
 
   // Contact 섹션 텍스트 기반 무한롤링 초기화 (로딩 완료 후)
@@ -931,7 +1009,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🛠️ 개발 모드: window.testKoreanSearch() 로 테스트 가능');
   }
 
-  // ─── 🔥 디버깅용 전역 함수 (간소화) ───
+  // ─── 🔥 디버깅용 전역 함수 (강화됨) ───
   window.debugMenu = {
     openMenu,
     closeMenu,
@@ -964,10 +1042,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!hamburger) return false;
       
       // 모든 상태 초기화
-      hamburger.classList.remove('active', 'is-active', 'menu-open');
+      hamburger.classList.remove('active', 'is-active', 'menu-open', 'loading-hidden');
       hamburger.removeAttribute('data-state');
       
       console.log('🔄 Hamburger reset');
+      return true;
+    },
+    showHamburger: () => {
+      if (!hamburger) return false;
+      
+      hamburger.classList.remove('loading-hidden');
+      console.log('🔓 Hamburger forced visible');
+      return true;
+    },
+    hideHamburger: () => {
+      if (!hamburger) return false;
+      
+      hamburger.classList.add('loading-hidden');
+      console.log('🔒 Hamburger forced hidden');
       return true;
     },
     checkSpans: () => {
@@ -984,6 +1076,11 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('🔧 Spans fixed');
       return true;
     },
+    reinitialize: () => {
+      console.log('🔄 Reinitializing hamburger...');
+      retryCount = 0;
+      initializeWhenReady();
+    },
     getState: () => ({
       hamburgerExists: !!hamburger,
       menuOverlayExists: !!menuOverlay,
@@ -991,9 +1088,12 @@ document.addEventListener('DOMContentLoaded', () => {
       hasActiveClass: hamburger ? hamburger.classList.contains('active') : false,
       hasIsActiveClass: hamburger ? hamburger.classList.contains('is-active') : false,
       hasMenuOpenClass: hamburger ? hamburger.classList.contains('menu-open') : false,
+      hasLoadingHiddenClass: hamburger ? hamburger.classList.contains('loading-hidden') : false,
       dataState: hamburger ? hamburger.getAttribute('data-state') : null,
       spansCount: hamburger ? hamburger.querySelectorAll('span').length : 0,
-      loadingScreenVisible: loadingScreen ? loadingScreen.style.display !== 'none' : false
+      loadingScreenVisible: loadingScreen ? loadingScreen.style.display !== 'none' : false,
+      retryCount: retryCount,
+      maxRetries: maxRetries
     })
   };
 
@@ -1003,11 +1103,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     console.log('🛠️ Development mode detected');
     console.log('🎯 Debug commands available:');
-    console.log('  - window.debugMenu.forceToggle()  // 강제 토글');
-    console.log('  - window.debugMenu.testX()        // 강제 X 모양');
-    console.log('  - window.debugMenu.resetHamburger() // 초기화');
-    console.log('  - window.debugMenu.fixSpans()     // span 수정');
-    console.log('  - window.debugMenu.getState()     // 상태 확인');
+    console.log('  - window.debugMenu.forceToggle()     // 강제 토글');
+    console.log('  - window.debugMenu.testX()           // 강제 X 모양');
+    console.log('  - window.debugMenu.resetHamburger()  // 초기화');
+    console.log('  - window.debugMenu.showHamburger()   // 강제 표시');
+    console.log('  - window.debugMenu.hideHamburger()   // 강제 숨김');
+    console.log('  - window.debugMenu.fixSpans()        // span 수정');
+    console.log('  - window.debugMenu.reinitialize()    // 재초기화');
+    console.log('  - window.debugMenu.getState()        // 상태 확인');
   }
 });
 
@@ -1015,54 +1118,11 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
   setTimeout(() => {
     if (window.debugMenu && !window.debugMenu.hamburger()) {
-      console.log('🔄 Retrying hamburger initialization...');
-      // 강제 새로고침 대신 재초기화 시도
-      const event = new Event('DOMContentLoaded');
-      document.dispatchEvent(event);
+      console.log('🔄 Retrying hamburger initialization after window load...');
+      window.debugMenu.reinitialize();
     }
   }, 1000);
 });
-
-// ─── 🔥 최후의 수단: 직접 CSS 조작 ───
-function forceHamburgerFix() {
-  const hamburger = document.getElementById('hamburger') || document.querySelector('.hamburger');
-  if (!hamburger) return;
-  
-  // 강제로 span 생성
-  if (hamburger.querySelectorAll('span').length < 2) {
-    hamburger.innerHTML = '<span></span><span></span>';
-  }
-  
-  // 강제로 CSS 적용
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .hamburger.active span:nth-child(1) {
-      transform: translate(-50%, -50%) rotate(45deg) !important;
-      background: white !important;
-    }
-    .hamburger.active span:nth-child(2) {
-      transform: translate(-50%, -50%) rotate(-45deg) !important;
-      background: white !important;
-    }
-  `;
-  document.head.appendChild(style);
-  
-  // 강제로 이벤트 추가
-  hamburger.onclick = function() {
-    this.classList.toggle('active');
-    document.querySelector('.menu-overlay')?.classList.toggle('active');
-  };
-  
-  console.log('🔧 Force fix applied');
-}
-
-// 3초 후에도 작동하지 않으면 강제 수정
-setTimeout(() => {
-  if (!window.debugMenu || !window.debugMenu.hamburger()) {
-    console.log('🚨 Applying force fix...');
-    forceHamburgerFix();
-  }
-}, 3000);
 
 // ─── 전역 스코프 함수들 ───
 window.addEventListener('load', () => {
