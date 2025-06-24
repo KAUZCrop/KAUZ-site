@@ -262,7 +262,7 @@ body {
   font-size: 1.8rem;
   font-weight: 700;
   color: white;
-  text-transform: none;
+  text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1.2;
   margin: 0;
@@ -361,15 +361,15 @@ body {
   font-weight: 400;        /* 폰트 웨이트 줄임 */
 }
 
-/* 🔥 하단 그라디언트 라인 추가 */
+/* 🔥 하단 그라디언트 라인 추가 (상단 라인과 동일하게) */
 .portfolio-end-message::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 120vw;
-  max-width: 1000px;
+  width: 100vw;        /* 🔥 상단과 동일한 100vw */
+  max-width: none;     /* 🔥 제한 제거 */
   height: 3px;
   background: linear-gradient(90deg, 
     transparent 0%, 
@@ -854,9 +854,9 @@ body {
     font-size: 1rem;
   }
 
-  /* 🔥 모바일용 그라디언트 라인 */
+  /* 🔥 모바일용 그라디언트 라인 (상단과 동일하게) */
   .portfolio-end-message::after {
-    width: 90vw;
+    width: 100vw;      /* 🔥 모바일도 상단과 동일 */
     height: 2px;
   }
 
