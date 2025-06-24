@@ -1,8 +1,9 @@
-// portfolio.js (최종 수정 - 첫 페이지 로딩 보장)
+// portfolio.js (최종 수정 - 첫 페이지 로딩 보장 + Contact 클릭 기능)
 // 🔥 데이터 개수와 상관없이 첫 페이지는 무조건 로딩
+// 🔥 Contact 배너 클릭시 contact.html로 이동
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📄 Portfolio.js starting with First Page Loading Fix...');
+  console.log('📄 Portfolio.js starting with First Page Loading Fix + Contact Navigation...');
 
   // ─── 🔧 KAUZ Work 테이블 설정 ───
   const AIRTABLE_CONFIG = {
@@ -833,15 +834,110 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`✅ Portfolio initialized: ${data.length} total items, ${ITEMS_PER_PAGE} per page`);
   }
 
+  // ─── 🔗 Contact 배너 클릭 이벤트 초기화 ───
+  function initContactBannerClick() {
+    console.log('🔗 Initializing Contact banner click event...');
+    
+    // Contact 배너 요소 찾기
+    const contactBanner = document.getElementById('contact');
+    
+    if (contactBanner) {
+      // 클릭 이벤트 추가
+      contactBanner.addEventListener('click', () => {
+        console.log('🎯 Contact banner clicked - redirecting to contact.html');
+        
+        // Contact 페이지로 이동
+        window.location.href = 'contact.html';
+      });
+      
+      // 호버 효과 강화
+      contactBanner.addEventListener('mouseenter', () => {
+        contactBanner.style.cursor = 'pointer';
+        console.log('👆 Contact banner hover - cursor pointer activated');
+      });
+      
+      contactBanner.addEventListener('mouseleave', () => {
+        contactBanner.style.cursor = 'pointer';
+      });
+      
+      console.log('✅ Contact banner click event successfully added');
+      console.log('🎯 Click target: #contact section');
+      console.log('📍 Redirect destination: contact.html');
+      
+    } else {
+      console.warn('⚠️ Contact banner element (#contact) not found!');
+      console.log('🔍 Will retry after DOM is fully loaded...');
+      
+      // DOM이 완전히 로드된 후 다시 시도
+      setTimeout(() => {
+        const retryContactBanner = document.getElementById('contact');
+        if (retryContactBanner) {
+          retryContactBanner.addEventListener('click', () => {
+            console.log('🎯 Contact banner clicked (retry) - redirecting to contact.html');
+            window.location.href = 'contact.html';
+          });
+          console.log('✅ Contact banner click event added (retry success)');
+        } else {
+          console.error('❌ Contact banner element still not found after retry');
+        }
+      }, 2000);
+    }
+  }
+
+  // ─── 🔥 키보드 접근성 추가 (Enter 키로도 이동 가능) ───
+  function initContactKeyboardNavigation() {
+    document.addEventListener('keydown', (e) => {
+      const contactBanner = document.getElementById('contact');
+      
+      if (e.key === 'Enter' && document.activeElement === contactBanner) {
+        console.log('⌨️ Contact banner activated via Enter key');
+        window.location.href = 'contact.html';
+      }
+    });
+    
+    console.log('✅ Contact keyboard navigation initialized');
+  }
+
+  // ─── 🔧 Contact 디버깅 도구 추가 ───
+  window.portfolioContactDebug = {
+    testClick: () => {
+      console.log('🧪 Testing contact banner click...');
+      const contactBanner = document.getElementById('contact');
+      if (contactBanner) {
+        contactBanner.click();
+      } else {
+        console.error('❌ Contact banner not found');
+      }
+    },
+    
+    checkElement: () => {
+      const contactBanner = document.getElementById('contact');
+      console.log('🔍 Contact banner element:', contactBanner);
+      console.log('📊 Element info:', {
+        exists: !!contactBanner,
+        id: contactBanner?.id,
+        tagName: contactBanner?.tagName,
+        classList: contactBanner?.classList,
+        hasClickListener: !!contactBanner?._listeners
+      });
+    },
+    
+    forceRedirect: () => {
+      console.log('🚀 Force redirecting to contact.html...');
+      window.location.href = 'contact.html';
+    }
+  };
+
   // ─── 🚀 메인 초기화 함수 ───
   async function initPortfolio() {
-    console.log('🚀 Initializing KAUZ Portfolio with First Page Loading Fix...');
+    console.log('🚀 Initializing KAUZ Portfolio with First Page Loading Fix + Contact Navigation...');
     console.log('🔧 Configuration:', {
       baseId: AIRTABLE_CONFIG.BASE_ID,
       tableName: 'KAUZ Work',
       hasApiKey: !!AIRTABLE_CONFIG.API_KEY,
       itemsPerPage: ITEMS_PER_PAGE,
-      firstPageGuaranteed: true
+      firstPageGuaranteed: true,
+      contactNavigation: true
     });
     
     // 1. DOM 요소 초기화
@@ -860,13 +956,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. 데이터로 포트폴리오 초기화
     await initPortfolioWithData(portfolioData);
     
-    console.log('✅ Portfolio initialization complete with First Page Loading Fix');
-    console.log(`🎯 Setup: ${portfolioData.length} total items, first page guaranteed`);
+    // 🔥 5. Contact 배너 클릭 이벤트 초기화
+    initContactBannerClick();
+    
+    // 🔥 6. Contact 키보드 네비게이션 초기화
+    initContactKeyboardNavigation();
+    
+    console.log('✅ Portfolio initialization complete with First Page Loading Fix + Contact Navigation');
+    console.log(`🎯 Setup: ${portfolioData.length} total items, first page guaranteed, contact navigation enabled`);
   }
 
   // ─── 🏁 최종 초기화 실행 ───
   initPortfolio();
 
-  console.log('✅ Portfolio.js loaded - First Page Loading Guaranteed');
-  console.log('🔧 Debug tools: portfolioDebug.*');
+  console.log('✅ Portfolio.js loaded - First Page Loading Guaranteed + Contact Navigation');
+  console.log('🔧 Debug tools: portfolioDebug.*, portfolioContactDebug.*');
 });
