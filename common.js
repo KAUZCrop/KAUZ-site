@@ -1,5 +1,5 @@
 // common.js - 서브 페이지(About, Portfolio, Contact) 공통 JavaScript
-// 🔥 X표시 변환 완벽 수정 버전 - 햄버거 표시 오류 해결
+// 🔥 중복 이벤트 문제 완전 해결 버전
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Common.js loading for sub pages...');
@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── 🔥 전역 변수 선언 및 초기화 ───
   let hamburger = null;
   let menuOverlay = null;
+  let eventHandlersAttached = false; // 🔥 중복 방지 플래그
   
   console.log('📋 Starting element search...');
 
@@ -135,24 +136,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ─── 🔥 햄버거 메뉴 이벤트 설정 ───
+  // ─── 🔥 이벤트 리스너 완전 제거 함수 ───
+  function removeAllEventListeners() {
+    if (!hamburger) return;
+
+    console.log('🧹 Removing all existing event listeners...');
+
+    // 🔥 새로운 요소를 복제해서 모든 이벤트 리스너 제거
+    const newHamburger = hamburger.cloneNode(true);
+    hamburger.parentNode.replaceChild(newHamburger, hamburger);
+    hamburger = newHamburger;
+
+    console.log('✅ All event listeners removed via cloning');
+    return hamburger;
+  }
+
+  // ─── 🔥 햄버거 메뉴 이벤트 설정 (완전히 새로 작성) ───
   function setupHamburgerEvents() {
     if (!hamburger || !menuOverlay) {
       console.error('❌ Required elements missing for hamburger events');
       return false;
     }
 
-    console.log('🎯 Setting up hamburger events...');
+    // 🔥 이미 이벤트가 등록되어 있으면 중복 방지
+    if (eventHandlersAttached) {
+      console.log('⚠️ Event handlers already attached, skipping...');
+      return true;
+    }
 
-    // 클릭 이벤트 핸들러
+    console.log('🎯 Setting up hamburger events (single attachment)...');
+
+    // 🔥 모든 기존 이벤트 리스너 제거
+    hamburger = removeAllEventListeners();
+
+    // 🔥 디바이스 감지
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // 🔥 단일 클릭 이벤트 핸들러
     function handleClick(e) {
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation(); // 🔥 즉시 전파 중단
       
-      const isOpen = menuOverlay.classList.contains('active') || 
-                     hamburger.classList.contains('active') ||
-                     hamburger.classList.contains('is-active') ||
-                     hamburger.getAttribute('data-state') === 'active';
+      // 🔥 중복 클릭 방지 (짧은 시간 내 다시 클릭 방지)
+      if (hamburger.dataset.processing === 'true') {
+        console.log('🚫 Click ignored - already processing');
+        return;
+      }
+      
+      hamburger.dataset.processing = 'true';
+      
+      // 🔥 간단한 상태 판별
+      const isOpen = menuOverlay.classList.contains('active');
       
       console.log('🍔 Hamburger clicked, current state:', isOpen ? 'Open' : 'Closed');
       
@@ -161,28 +196,26 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         openMenu();
       }
+      
+      // 🔥 처리 완료 후 플래그 해제 (짧은 딜레이)
+      setTimeout(() => {
+        hamburger.dataset.processing = 'false';
+      }, 300);
     }
 
-    // 기존 이벤트 리스너 제거 (중복 방지)
-    hamburger.removeEventListener('click', handleClick);
-    hamburger.onclick = null;
-    
-    // 새 이벤트 리스너 등록
-    hamburger.addEventListener('click', handleClick);
-    
-    // 추가 보험: onclick도 설정
-    hamburger.onclick = handleClick;
-    
-    // 터치 이벤트도 추가
-    if ('ontouchstart' in window) {
-      hamburger.removeEventListener('touchend', handleClick);
-      hamburger.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        handleClick(e);
-      });
+    // 🔥 터치 디바이스용 이벤트 (터치만)
+    if (isTouchDevice) {
+      console.log('📱 Touch device detected - using touchend');
+      hamburger.addEventListener('touchend', handleClick, { passive: false });
+    } else {
+      // 🔥 데스크톱용 이벤트 (클릭만)
+      console.log('🖥️ Desktop device detected - using click');
+      hamburger.addEventListener('click', handleClick);
     }
 
-    console.log('✅ Hamburger events registered successfully');
+    // 🔥 이벤트 등록 완료 플래그 설정
+    eventHandlersAttached = true;
+    console.log('✅ Hamburger events registered successfully (single handler)');
 
     // ─── 메뉴 링크 클릭 시 메뉴 닫기 ───
     try {
@@ -249,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       if (initializeHamburger()) {
         setupHamburgerEvents();
-        console.log('🎉 Hamburger menu fully initialized!');
+        console.log('🎉 Hamburger menu fully initialized (no duplicates)!');
         return true;
       }
     }
@@ -333,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ─── 🔥 초기화 시작 ───
-  console.log('🔄 Starting hamburger initialization...');
+  console.log('🔄 Starting hamburger initialization (duplicate prevention)...');
   initializeWhenReady();
 
   // ─── 🔥 디버깅용 전역 함수 (강화됨) ───
@@ -343,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger: () => hamburger,
     menuOverlay: () => menuOverlay,
     isMenuOpen: () => menuOverlay ? menuOverlay.classList.contains('active') : false,
+    eventHandlersAttached: () => eventHandlersAttached,
     forceToggle: () => {
       if (!hamburger) return false;
       
@@ -371,6 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // 모든 상태 초기화
       hamburger.classList.remove('active', 'is-active', 'menu-open');
       hamburger.removeAttribute('data-state');
+      hamburger.dataset.processing = 'false';
       
       // 확실하게 표시되도록 설정
       hamburger.style.display = 'flex';
@@ -389,13 +424,12 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('🔓 Hamburger forced visible');
       return true;
     },
-    hideHamburger: () => {
+    removeAllListeners: () => {
       if (!hamburger) return false;
       
-      hamburger.style.display = 'none';
-      hamburger.style.visibility = 'hidden';
-      hamburger.style.opacity = '0';
-      console.log('🔒 Hamburger forced hidden');
+      hamburger = removeAllEventListeners();
+      eventHandlersAttached = false;
+      console.log('🧹 All event listeners removed');
       return true;
     },
     checkSpans: () => {
@@ -414,6 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     reinitialize: () => {
       console.log('🔄 Reinitializing hamburger...');
+      eventHandlersAttached = false;
       retryCount = 0;
       initializeWhenReady();
     },
@@ -423,12 +458,14 @@ document.addEventListener('DOMContentLoaded', () => {
     getState: () => ({
       hamburgerExists: !!hamburger,
       menuOverlayExists: !!menuOverlay,
+      eventHandlersAttached: eventHandlersAttached,
       isActive: hamburger ? hamburger.classList.contains('active') : false,
       hasActiveClass: hamburger ? hamburger.classList.contains('active') : false,
       hasIsActiveClass: hamburger ? hamburger.classList.contains('is-active') : false,
       hasMenuOpenClass: hamburger ? hamburger.classList.contains('menu-open') : false,
       dataState: hamburger ? hamburger.getAttribute('data-state') : null,
       spansCount: hamburger ? hamburger.querySelectorAll('span').length : 0,
+      processingState: hamburger ? hamburger.dataset.processing : null,
       hamburgerStyle: hamburger ? {
         display: hamburger.style.display,
         visibility: hamburger.style.visibility,
@@ -439,21 +476,17 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   };
 
-  console.log('✅ Common.js initialization complete');
+  console.log('✅ Common.js initialization complete (duplicate prevention active)');
   
   // 개발 모드 정보
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     console.log('🛠️ Development mode detected');
     console.log('🎯 Debug commands available:');
-    console.log('  - window.debugMenu.forceToggle()     // 강제 토글');
-    console.log('  - window.debugMenu.testX()           // 강제 X 모양');
-    console.log('  - window.debugMenu.resetHamburger()  // 초기화');
-    console.log('  - window.debugMenu.showHamburger()   // 강제 표시');
-    console.log('  - window.debugMenu.hideHamburger()   // 강제 숨김');
-    console.log('  - window.debugMenu.fixSpans()        // span 수정');
-    console.log('  - window.debugMenu.reinitialize()    // 재초기화');
-    console.log('  - window.debugMenu.createFallback()  // 강제 생성');
-    console.log('  - window.debugMenu.getState()        // 상태 확인');
+    console.log('  - window.debugMenu.forceToggle()        // 강제 토글');
+    console.log('  - window.debugMenu.testX()              // 강제 X 모양');
+    console.log('  - window.debugMenu.resetHamburger()     // 초기화');
+    console.log('  - window.debugMenu.removeAllListeners() // 이벤트 제거');
+    console.log('  - window.debugMenu.getState()           // 상태 확인');
   }
 });
 
@@ -513,47 +546,6 @@ function forceHamburgerFix() {
   hamburger.style.visibility = 'visible';
   hamburger.style.opacity = '1';
   
-  // 강제로 CSS 적용
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .hamburger {
-      position: fixed !important;
-      top: 1.5rem !important;
-      right: 1.5rem !important;
-      width: 28px !important;
-      height: 28px !important;
-      z-index: 10001 !important;
-      cursor: pointer !important;
-      display: flex !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-    .hamburger span {
-      position: absolute !important;
-      display: block !important;
-      width: 20px !important;
-      height: 2px !important;
-      background: white !important;
-      left: 50% !important;
-      top: 50% !important;
-    }
-    .hamburger span:nth-child(1) {
-      transform: translate(-50%, -50%) translateY(-6px) !important;
-    }
-    .hamburger span:nth-child(2) {
-      transform: translate(-50%, -50%) translateY(6px) !important;
-    }
-    .hamburger.active span:nth-child(1) {
-      transform: translate(-50%, -50%) rotate(45deg) !important;
-      background: white !important;
-    }
-    .hamburger.active span:nth-child(2) {
-      transform: translate(-50%, -50%) rotate(-45deg) !important;
-      background: white !important;
-    }
-  `;
-  document.head.appendChild(style);
-  
   // 메뉴 오버레이도 확인
   let menuOverlay = document.getElementById('menu-overlay') || document.querySelector('.menu-overlay');
   if (!menuOverlay) {
@@ -573,8 +565,15 @@ function forceHamburgerFix() {
     console.log('🔧 Emergency menu overlay created');
   }
   
-  // 강제로 이벤트 추가
-  hamburger.onclick = function() {
+  // 🔥 단순한 토글 함수 (중복 방지)
+  hamburger.onclick = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // 🔥 중복 실행 방지
+    if (this.dataset.clicking === 'true') return;
+    this.dataset.clicking = 'true';
+    
     this.classList.toggle('active');
     menuOverlay.classList.toggle('active');
     
@@ -583,9 +582,14 @@ function forceHamburgerFix() {
     } else {
       document.body.style.overflow = '';
     }
+    
+    // 딜레이 후 플래그 해제
+    setTimeout(() => {
+      this.dataset.clicking = 'false';
+    }, 300);
   };
   
-  console.log('🔧 Emergency fix applied');
+  console.log('🔧 Emergency fix applied with duplicate prevention');
 }
 
 // 3초 후에도 작동하지 않으면 응급 수정
