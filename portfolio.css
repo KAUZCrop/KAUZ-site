@@ -368,7 +368,7 @@ body {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 85vw;
+  width: 120vw;
   max-width: 1000px;
   height: 3px;
   background: linear-gradient(90deg, 
