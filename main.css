@@ -145,8 +145,8 @@ a:hover {
   position: fixed;
   top: 1.5rem;
   right: 1.5rem;
-  width: 28px;
-  height: 28px;
+  width: 35px;
+  height: 35px;
   z-index: 10001;
   cursor: pointer;
   display: flex; /* 🔥 기본적으로 표시되도록 변경 */
@@ -181,8 +181,8 @@ a:hover {
 .hamburger span {
   position: absolute;  /* 🔥 absolute로 정확한 위치 제어 */
   display: block;
-  width: 20px;             /* 🔥 명확한 크기 지정 */
-  height: 2px;
+  width: 25px;             /* 🔥 명확한 크기 지정 */
+  height: 3px;
   background: white;       /* 흰색 바 */
   border-radius: 1px;
   left: 50%;
