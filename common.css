@@ -83,8 +83,8 @@ h1, h2, h3 {
   position: fixed;
   top: 1.5rem;
   right: 1.5rem;
-  width: 28px;
-  height: 28px;
+  width: 35px;
+  height: 35px;
   z-index: 10001;
   cursor: pointer;
   display: flex; /* 🔥 서브 페이지에서는 기본 표시 */
@@ -112,8 +112,8 @@ h1, h2, h3 {
 .hamburger span {
   position: absolute;  /* 🔥 absolute로 정확한 위치 제어 */
   display: block;
-  width: 20px;
-  height: 2px;
+  width: 25px;
+  height: 3px;
   background: white;
   border-radius: 1px;
   left: 50%;
