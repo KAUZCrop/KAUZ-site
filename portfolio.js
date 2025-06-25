@@ -334,7 +334,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <div id="${modalId}" class="modal">
           <div class="modal-content">
             <div class="modal-header">
-              <div class="modal-logo">KAUZ</div>
+                <div class="modal-logo">
+                  <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
+                </div>
               <button class="close-btn" onclick="closeModal('${modalId}')">&times;</button>
             </div>
 
