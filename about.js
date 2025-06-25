@@ -1,5 +1,5 @@
 // about.js (About Us 전용 스크립트) - 최종 수정 버전
-// 🔥 More+ 버튼 바로 PORTFOLIO 이동 + 무한롤링 배너 + 그라디언트 라인
+// 🔥 More+ 버튼 바로 PORTFOLIO 이동 + 무한롤링 배너 + 그라디언트 라인 (HTML 요소)
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('📄 About.js starting...');
@@ -99,6 +99,73 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     console.log('✅ More+ button initialized - direct navigation to PORTFOLIO');
+  }
+
+  // ─── 🔥 Contact 그라디언트 라인 확인 및 초기화 ───
+  const contactGradientLine = document.getElementById('contactGradientLine');
+  if (contactGradientLine) {
+    console.log('✅ Contact gradient line found:', {
+      element: contactGradientLine,
+      className: contactGradientLine.className,
+      computed: window.getComputedStyle(contactGradientLine)
+    });
+    
+    // 그라디언트 라인 가시성 강제 확인
+    const lineStyles = window.getComputedStyle(contactGradientLine);
+    console.log('🎨 Gradient line styles:', {
+      width: lineStyles.width,
+      height: lineStyles.height,
+      background: lineStyles.background,
+      opacity: lineStyles.opacity,
+      display: lineStyles.display,
+      visibility: lineStyles.visibility
+    });
+    
+    // 스크롤 시 라인 위치 확인
+    const checkLinePosition = () => {
+      const rect = contactGradientLine.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        console.log('👁️ Gradient line is in viewport:', {
+          top: rect.top,
+          bottom: rect.bottom,
+          height: rect.height,
+          width: rect.width
+        });
+      }
+    };
+    
+    window.addEventListener('scroll', checkLinePosition, { passive: true });
+    checkLinePosition(); // 초기 체크
+    
+  } else {
+    console.warn('⚠️ Contact gradient line element not found! Adding fallback...');
+    
+    // 동적으로 그라디언트 라인 생성
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      const fallbackLine = document.createElement('div');
+      fallbackLine.id = 'contactGradientLine';
+      fallbackLine.className = 'contact-gradient-line';
+      fallbackLine.style.cssText = `
+        width: 100vw;
+        height: 3.5px;
+        background: linear-gradient(90deg, 
+          transparent 0%, 
+          #E37031 20%, 
+          #ff8c42 50%, 
+          #E37031 80%, 
+          transparent 100%
+        );
+        opacity: 0.6;
+        margin: 50px 0 0 0;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      `;
+      
+      contactSection.parentNode.insertBefore(fallbackLine, contactSection);
+      console.log('🔧 Fallback gradient line created and inserted');
+    }
   }
 
   // ─── 🔥 Contact 섹션 클릭 처리 (About 페이지 전용) ───
@@ -271,6 +338,97 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ─── 🔥 그라디언트 라인 디버깅 도구 추가 ───
+  window.aboutGradientDebug = {
+    // 그라디언트 라인 확인
+    checkLine: () => {
+      const line = document.getElementById('contactGradientLine');
+      if (line) {
+        const rect = line.getBoundingClientRect();
+        const styles = window.getComputedStyle(line);
+        
+        console.log('🎨 Gradient line status:', {
+          element: line,
+          visible: rect.height > 0 && styles.opacity > 0,
+          position: {
+            top: rect.top,
+            bottom: rect.bottom,
+            left: rect.left,
+            right: rect.right,
+            width: rect.width,
+            height: rect.height
+          },
+          styles: {
+            background: styles.background,
+            opacity: styles.opacity,
+            display: styles.display,
+            visibility: styles.visibility,
+            position: styles.position,
+            transform: styles.transform
+          }
+        });
+        
+        // 라인으로 스크롤
+        line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        return line;
+      } else {
+        console.error('❌ Gradient line not found');
+        return null;
+      }
+    },
+    
+    // 라인 강제 생성
+    createLine: () => {
+      const existingLine = document.getElementById('contactGradientLine');
+      if (existingLine) {
+        existingLine.remove();
+      }
+      
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const newLine = document.createElement('div');
+        newLine.id = 'contactGradientLine';
+        newLine.className = 'contact-gradient-line';
+        newLine.style.cssText = `
+          width: 100vw !important;
+          height: 5px !important;
+          background: linear-gradient(90deg, 
+            transparent 0%, 
+            #E37031 20%, 
+            #ff8c42 50%, 
+            #E37031 80%, 
+            transparent 100%
+          ) !important;
+          opacity: 1 !important;
+          margin: 50px 0 0 0 !important;
+          position: relative !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          z-index: 9999 !important;
+        `;
+        
+        contactSection.parentNode.insertBefore(newLine, contactSection);
+        console.log('🔧 New gradient line created with enhanced visibility');
+        
+        // 생성된 라인으로 스크롤
+        setTimeout(() => {
+          newLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+        
+        return newLine;
+      }
+    },
+    
+    // 포트폴리오 페이지와 비교
+    compareWithPortfolio: () => {
+      console.log('🔍 About vs Portfolio gradient line comparison:');
+      console.log('📋 About: HTML element approach (.contact-gradient-line)');
+      console.log('📋 Portfolio: CSS ::after pseudo-element approach');
+      console.log('💡 Recommendation: HTML element is more reliable for cross-browser compatibility');
+    }
+  };
+
   // 9) 성능 모니터링 (개발용)
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     console.log('🛠️ About page development mode');
@@ -282,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollIndicator: !!scrollIndicator,
       contactSection: !!contactSection,
       moreButton: !!clientsMoreBtn,
-      gradientLine: !!document.querySelector('#contact::before')
+      gradientLine: !!contactGradientLine
     });
 
     // 성능 측정
@@ -319,6 +477,12 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       goToPortfolio: () => {
         performSafeNavigation('portfolio.html');
+      },
+      checkGradientLine: () => {
+        return aboutGradientDebug.checkLine();
+      },
+      createGradientLine: () => {
+        return aboutGradientDebug.createLine();
       }
     };
   }
@@ -335,14 +499,24 @@ document.addEventListener('DOMContentLoaded', () => {
         contactSection: !!contactSection,
         marqueeElements: document.querySelectorAll('#contact .text-item').length,
         moreButton: !!clientsMoreBtn,
-        clientBoxes: document.querySelectorAll('.client-box').length
+        clientBoxes: document.querySelectorAll('.client-box').length,
+        gradientLine: !!contactGradientLine
       },
       newFeatures: {
         moreButtonDirectNavigation: true,
         gradientLineAboveMarquee: true,
-        simplifiedMoreButtonStyle: true
+        simplifiedMoreButtonStyle: true,
+        htmlElementGradientLine: true
       }
     });
+    
+    // 🎨 그라디언트 라인 최종 확인
+    if (contactGradientLine) {
+      console.log('🎨 Final gradient line check passed ✅');
+    } else {
+      console.warn('⚠️ Gradient line not found in final check');
+    }
+    
   }, 100);
 
   // Contact 섹션 텍스트 기반 무한롤링 초기화 (로딩 완료 후)
@@ -350,5 +524,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initAboutContactInfiniteScroll();
   }, 1200);
 
-  console.log('✅ About.js initialization complete - More+ goes direct to PORTFOLIO');
+  console.log('✅ About.js initialization complete - More+ goes direct to PORTFOLIO + HTML Gradient Line');
 });
