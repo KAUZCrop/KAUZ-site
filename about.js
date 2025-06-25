@@ -1,5 +1,5 @@
 // about.js (About Us 전용 스크립트) - 수정된 버전
-// 🔥 강제 리다이렉트 제거 + 새로고침 시 상단 이동 + 무한롤링 배너 추가
+// 🔥 강제 리다이렉트 제거 + 새로고침 시 상단 이동 + 무한롤링 배너 추가 + More+ 버튼 기능
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('📄 About.js starting...');
@@ -90,6 +90,52 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Client boxes hover effects removed:', clientBoxes.length);
   }
 
+  // ─── 🔥 새로 추가: More+ 버튼 클릭 이벤트 ───
+  const clientsMoreBtn = document.getElementById('clients-more-btn');
+  if (clientsMoreBtn) {
+    let isExpanded = false;
+    
+    clientsMoreBtn.addEventListener('click', () => {
+      const clientBoxes = document.querySelectorAll('.client-box');
+      const clientsGrid = document.querySelector('.clients-grid');
+      
+      if (!isExpanded) {
+        // 🔥 모든 클라이언트 박스 표시
+        clientBoxes.forEach((box, index) => {
+          if (index >= 6) { // 7번째부터
+            box.style.display = 'flex';
+            box.style.animation = 'fadeInUp 0.5s ease forwards';
+            box.style.animationDelay = `${(index - 6) * 0.1}s`;
+          }
+        });
+        
+        // 그리드 높이 제한 해제
+        if (clientsGrid) {
+          clientsGrid.style.maxHeight = 'none';
+          clientsGrid.style.overflow = 'visible';
+          // 모바일에서는 추가 행 생성
+          if (window.innerWidth <= 768) {
+            clientsGrid.style.gridTemplateRows = 'repeat(4, 1fr)';
+          }
+        }
+        
+        // 버튼 텍스트 변경
+        clientsMoreBtn.textContent = 'CLOSE';
+        clientsMoreBtn.style.background = '#E37031';
+        clientsMoreBtn.style.color = 'white';
+        isExpanded = true;
+        
+        console.log('✅ Clients expanded');
+        
+      } else {
+        // 🔥 포트폴리오 페이지로 이동
+        performSafeNavigation('portfolio.html');
+      }
+    });
+    
+    console.log('✅ Clients More+ button initialized');
+  }
+
   // ─── 🔥 Contact 섹션 클릭 처리 (About 페이지 전용) ───
   const contactSection = document.getElementById('contact');
   if (contactSection) {
@@ -160,18 +206,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    function performSafeNavigation(url) {
-      console.log('🔗 About page navigating to:', url);
-      
-      document.body.style.opacity = '0.9';
-      document.body.style.transition = 'opacity 0.2s ease';
-      
-      setTimeout(() => {
-        window.location.href = url;
-      }, 100);
-    }
-
     console.log('✅ About page contact section click events initialized');
+  }
+
+  // ─── 🔥 안전한 네비게이션 함수 ───
+  function performSafeNavigation(url) {
+    console.log('🔗 About page navigating to:', url);
+    
+    document.body.style.opacity = '0.9';
+    document.body.style.transition = 'opacity 0.2s ease';
+    
+    setTimeout(() => {
+      window.location.href = url;
+    }, 100);
   }
 
   // ─── 🔥 Contact 섹션 무한롤링 초기화 (About 페이지 전용) ───
@@ -259,6 +306,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ─── 🔥 추가 CSS 애니메이션 정의 (동적 추가) ───
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
   // 9) 성능 모니터링 (개발용)
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     console.log('🛠️ About page development mode');
@@ -268,7 +331,8 @@ document.addEventListener('DOMContentLoaded', () => {
       serviceItems: document.querySelectorAll('.services-list li').length,
       clientBoxes: document.querySelectorAll('.client-box').length,
       scrollIndicator: !!scrollIndicator,
-      contactSection: !!contactSection
+      contactSection: !!contactSection,
+      moreButton: !!clientsMoreBtn
     });
 
     // 성능 측정
@@ -298,6 +362,14 @@ document.addEventListener('DOMContentLoaded', () => {
       testContactClick: () => {
         const contact = document.getElementById('contact');
         if (contact) contact.click();
+      },
+      testMoreButton: () => {
+        const moreBtn = document.getElementById('clients-more-btn');
+        if (moreBtn) moreBtn.click();
+      },
+      expandClients: () => {
+        const moreBtn = document.getElementById('clients-more-btn');
+        if (moreBtn && moreBtn.textContent === 'MORE+') moreBtn.click();
       }
     };
   }
@@ -312,7 +384,9 @@ document.addEventListener('DOMContentLoaded', () => {
         fadeElements: document.querySelectorAll('.fade-up').length,
         serviceItems: document.querySelectorAll('.services-list li').length,
         contactSection: !!contactSection,
-        marqueeElements: document.querySelectorAll('#contact .text-item').length
+        marqueeElements: document.querySelectorAll('#contact .text-item').length,
+        moreButton: !!clientsMoreBtn,
+        clientBoxes: document.querySelectorAll('.client-box').length
       }
     });
   }, 100);
