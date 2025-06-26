@@ -1,10 +1,9 @@
-// portfolio.js (캠페인명 추가)
+// portfolio.js (새로운 모달 구조 적용)
 // 🔥 기존 무한스크롤 + Airtable 연동 유지
-// 🔥 모달 스타일 적용
-// 🆕 브랜드명 하단에 캠페인명(Category) 추가
+// 🆕 메인+서브 이미지 구조 적용
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📄 Portfolio.js starting with Style Modal...');
+  console.log('📄 Portfolio.js starting with New Modal Structure...');
 
   // ─── 🔧 KAUZ Work 테이블 설정 ───
   const AIRTABLE_CONFIG = {
@@ -161,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── 🔄 대체 데이터 ───
   function getFallbackData() {
-    console.log('🔄 Using fallback data with modal style...');
+    console.log('🔄 Using fallback data with new modal structure...');
     return [
       {
         id: 'fallback-1',
@@ -246,9 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
   }
 
-  // ─── 🎨 스타일 모달 생성 (캠페인명 추가) ───
+  // ─── 🎨 새로운 모달 구조 생성 (메인+서브 이미지) ───
   function generateAllModals(records) {
-    console.log('🏗️ Generating style modals with campaign names...');
+    console.log('🏗️ Generating new modal structure (main+sub images)...');
 
     // 기존 모달들 제거
     document.querySelectorAll('.modal[id^="modal"]').forEach(modal => modal.remove());
@@ -262,40 +261,64 @@ document.addEventListener('DOMContentLoaded', () => {
       const category = fields['Category'] || 'CAMPAIGN';
       const client = fields['Client'] || 'BRAND';
       
-      // 이미지 URL
-      let imageUrl = null;
-      let hasImage = false;
+      // 🔥 이미지 배열 처리
+      let images = [];
       if (fields['Image'] && Array.isArray(fields['Image']) && fields['Image'].length > 0) {
-        imageUrl = fields['Image'][0].url;
-        hasImage = true;
+        images = fields['Image'];
       }
 
-      // 🔥 스타일 모달 HTML
+      // 🔥 메인 이미지 (첫 번째 이미지)
+      const mainImage = images.length > 0 ? images[0] : null;
+      
+      // 🔥 서브 이미지들 (나머지 이미지들, 최대 3개)
+      const subImages = images.slice(1, 4); // 2번째부터 4번째까지 (최대 3개)
+
+      console.log(`🎯 Modal ${modalId} images:`, {
+        total: images.length,
+        mainImage: !!mainImage,
+        subImages: subImages.length
+      });
+
+      // 🔥 새로운 모달 HTML 구조
       const modalHtml = `
         <div id="${modalId}" class="modal">
           <div class="modal-content">
             
-            <!-- 전체화면 이미지 -->
-            <div class="modal-image-container">
-              ${hasImage 
-                ? `<img src="${imageUrl}" alt="${title}" class="modal-main-image">`
-                : `<div class="modal-image-placeholder">CAMPAIGN IMAGE</div>`
-              }
-            </div>
-            
-            <!-- 상단 타이틀 + X버튼 (이미지 위에 겹침) -->
+            <!-- 🔥 상단 헤더 (sticky) -->
             <div class="modal-header">
-              <h1 class="modal-title">${title}</h1>
-              <button class="modal-close" onclick="closeModal('${modalId}')">&times;</button>
+              <div class="modal-header-top">
+                <div class="modal-logo">KAUZ</div>
+                <button class="modal-close" onclick="closeModal('${modalId}')"></button>
+              </div>
+              <h1 class="modal-brand-title">${client}</h1>
+              <div class="modal-category">${category}</div>
+            </div>
+
+            <!-- 🔥 바디 -->
+            <div class="modal-body">
+              
+              <!-- 🔥 메인 이미지 (전체 너비) -->
+              <div class="main-image-section">
+                ${mainImage 
+                  ? `<img src="${mainImage.url}" alt="${title}" class="main-image">`
+                  : `<div class="main-image-placeholder">MAIN CAMPAIGN IMAGE</div>`
+                }
+              </div>
+              
+              <!-- 🔥 서브 이미지들 (가로 배치) -->
+              ${subImages.length > 0 ? `
+                <div class="sub-images-container">
+                  ${subImages.map((subImg, subIndex) => `
+                    <div class="sub-image-section">
+                      <img src="${subImg.url}" alt="${title} Detail ${subIndex + 1}" class="sub-image">
+                    </div>
+                  `).join('')}
+                </div>
+              ` : ''}
+              
             </div>
             
-            <!-- 하단 브랜드명 + 캠페인명 -->
-            <div class="modal-brand-section">
-              <div class="modal-brand">${client}</div>
-              <div class="modal-campaign">${category}</div>
-            </div>
-            
-            <!-- 면책 조항 (희미하게) -->
+            <!-- 🔥 면책 조항 -->
             <div class="modal-disclaimer">
               *전 직장 근무 시 참여한 프로젝트입니다.
             </div>
@@ -307,11 +330,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // DOM에 모달 추가
       document.body.insertAdjacentHTML('beforeend', modalHtml);
       
-      console.log(`✅ Modal generated for: ${title} (ID: ${modalId})`);
+      console.log(`✅ Modal generated: ${title} (ID: ${modalId}) - Main: ${!!mainImage}, Subs: ${subImages.length}`);
     });
 
     modalsGenerated = true;
-    console.log(`🏗️ All modals generated: ${records.length} modals created`);
+    console.log(`🏗️ All modals generated: ${records.length} modals with new structure`);
   }
 
   // ─── 🎨 포트폴리오 데이터 렌더링 (무한스크롤용) ───
@@ -632,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
           <div style="display: inline-block; width: 40px; height: 40px; border: 3px solid #333; border-top: 3px solid #E37031; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
           <p style="font-size: 1.1rem;">KAUZ Work 테이블에서 데이터를 불러오는 중...</p>
-          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">스타일 모달 적용 🎨</p>
+          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">새로운 모달 구조 적용 🎨</p>
         </div>
         <style>
           @keyframes spin {
@@ -656,7 +679,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await initPortfolioWithData(data);
         
         if (data.length > 0) {
-          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.\n스타일 모달이 적용됩니다.`);
+          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.\n새로운 모달 구조가 적용됩니다.`);
         } else {
           alert('⚠️ 연결은 성공했지만 데이터가 없습니다.\nKAUZ Work 테이블에 레코드를 추가해주세요.');
         }
@@ -668,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 현재 설정 확인
     showConnectionInfo: () => {
       const info = `
-🔍 KAUZ Portfolio 연결 정보 (스타일 모달)
+🔍 KAUZ Portfolio 연결 정보 (새로운 모달)
 
 📋 설정:
 • 베이스 ID: ${AIRTABLE_CONFIG.BASE_ID}
@@ -682,10 +705,11 @@ document.addEventListener('DOMContentLoaded', () => {
 • 전체 데이터: ${allPortfolioData.length}개
 • 더 로딩 가능: ${hasMoreData ? '✅' : '❌'}
 
-🎨 스타일 모달:
-• 전체화면 이미지
-• 브랜드명 + 캠페인명
-• 심플한 디자인
+🎨 새로운 모달 구조:
+• 상단 sticky 헤더
+• 메인 이미지 (60vh)
+• 서브 이미지들 가로 배치 (25vh)
+• 하단 여백 충분히 확보
       `;
       
       alert(info);
@@ -697,7 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const fallbackData = getFallbackData();
       await initPortfolioWithData(fallbackData);
       
-      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트\n스타일 모달 포함`);
+      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트\n새로운 모달 구조 포함`);
     },
     
     // 🎯 종료 메시지 강제 표시 (테스트용)
@@ -722,7 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── 🚀 포트폴리오 데이터로 초기화하는 함수 (수정됨) ───
   async function initPortfolioWithData(data) {
-    console.log('🎯 Initializing portfolio with modal data:', data.length, 'items');
+    console.log('🎯 Initializing portfolio with new modal data:', data.length, 'items');
     
     // 전역 데이터 설정
     allPortfolioData = data;
@@ -819,14 +843,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── 🚀 메인 초기화 함수 ───
   async function initPortfolio() {
-    console.log('🚀 Initializing KAUZ Portfolio with Style Modal...');
+    console.log('🚀 Initializing KAUZ Portfolio with New Modal Structure...');
     console.log('🔧 Configuration:', {
       baseId: AIRTABLE_CONFIG.BASE_ID,
       tableName: 'KAUZ Work',
       hasApiKey: !!AIRTABLE_CONFIG.API_KEY,
       itemsPerPage: ITEMS_PER_PAGE,
-      modalStyle: 'Style',
-      campaignNames: true
+      modalStructure: 'Main + Sub Images',
+      shareButtons: false,
+      scrollIndicator: false
     });
     
     // 1. DOM 요소 초기화
@@ -851,13 +876,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 🔥 6. Contact 키보드 네비게이션 초기화
     initContactKeyboardNavigation();
     
-    console.log('✅ Portfolio initialization complete with Style Modal');
-    console.log(`🎯 Setup: ${portfolioData.length} total items, style modal, campaign names enabled`);
+    console.log('✅ Portfolio initialization complete with New Modal Structure');
+    console.log(`🎯 Setup: ${portfolioData.length} total items, main+sub images, clean design`);
   }
 
   // ─── 🏁 최종 초기화 실행 ───
   initPortfolio();
 
-  console.log('✅ Portfolio.js loaded - Style Modal Applied');
+  console.log('✅ Portfolio.js loaded - New Modal Structure Applied');
   console.log('🔧 Debug tools: portfolioDebug.*');
 });
