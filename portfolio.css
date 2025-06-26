@@ -1,7 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────
    portfolio.css (KAUZ Portfolio - 무한스크롤 + 크기조정 버전)
-   🔥 햄버거 스타일 충돌 해결 - common.css와 중복 제거
-   🆕 모달 z-index 수정 및 로고 이미지 스타일 추가
+   🔥 기존 그리드/무한스크롤 유지 + 모달 스타일 적용
    ───────────────────────────────────────────────────────────────────── */
 
 /*===============================================================================
@@ -22,12 +21,6 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
 }
-
-/* ═══════════════════════════════════════════════════════════════
-   ❌ 햄버거 관련 스타일 완전 제거 (common.css와 충돌 방지)
-   ═══════════════════════════════════════════════════════════════ */
-
-/* 🔥 기존 햄버거 스타일 모두 제거됨 - common.css에서 처리 */
 
 /* ═══════════════════════════════════════════════════════════════
    Portfolio 히어로 섹션
@@ -392,7 +385,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 모달 스타일 (Z-INDEX 수정 적용)
+   🔥 모달 스타일 (전체화면 이미지)
    ═══════════════════════════════════════════════════════════════ */
 
 .modal {
@@ -403,9 +396,8 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.95);
-  z-index: 99999; /* 🔥 10000에서 99999로 변경 - 햄버거 겹침 해결 */
-  overflow-y: auto;
-  backdrop-filter: blur(15px);
+  z-index: 99999; /* 햄버거 겹침 해결 */
+  backdrop-filter: blur(10px);
 }
 
 .modal.active {
@@ -413,243 +405,151 @@ body {
 }
 
 .modal-content {
-  background: #0D0D0D;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
   position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5; /* 이미지 로드 전 배경색 */
+  color: #000;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-/* 🔥 모달 헤더 - 개선된 버전 */
-.modal-header {
-  position: sticky;
+/* 🔥 모달 오픈 애니메이션 */
+.modal.active .modal-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 🔥 모달 전체화면 이미지 */
+.modal-image-container {
+  position: absolute;
   top: 0;
-  background: rgba(13, 13, 13, 0.98);
-  backdrop-filter: blur(20px);
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid #333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1001;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-.modal-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
+.modal-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.modal-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 3rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
-/* 🆕 모달 로고 이미지 스타일 추가 */
-.modal-logo .logo-img {
-  height: 30px;
-  width: auto;
-  object-fit: contain;
-}
-
-/* 🔥 개선된 닫기 버튼 */
-.close-btn {
-  background: none;
-  border: none;
-  color: #ccc;
-  font-size: 2.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  line-height: 1;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.close-btn:hover {
-  background: #333;
-  color: #E37031;
-  transform: scale(1.1);
-}
-
-/* 🔥 모달 히어로 섹션 */
-.modal-hero {
-  height: 70vh;
-  background: #1a1a1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.modal-hero-content {
+/* 🔥 모달 상단 - 프로젝트 타이틀 (이미지 위에 겹침) */
+.modal-header {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 3rem;
   z-index: 2;
-  max-width: 800px;
-  padding: 2rem;
-}
-
-.modal-category {
-  color: #E37031;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 500;
+  background: linear-gradient(180deg, rgba(245,245,245,0.9) 0%, rgba(245,245,245,0.7) 50%, transparent 100%);
 }
 
 .modal-title {
-  font-size: 4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  line-height: 1.1;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 800;
+  line-height: 0.9;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: white;
+  letter-spacing: -0.02em;
+  color: #000;
+  max-width: 80%;
+  text-shadow: 0 0 20px rgba(255,255,255,0.8); /* 이미지 위에서 가독성 향상 */
 }
 
-.modal-subtitle {
-  font-size: 1.3rem;
-  color: #ccc;
-  margin-bottom: 2rem;
-  line-height: 1.4;
-}
-
-/* 🔥 성과 지표 */
-.modal-stats {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 2rem;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #E37031;
-  display: block;
-  line-height: 1;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #ccc;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 0.5rem;
-}
-
-/* 🔥 모달 본문 */
-.modal-body {
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  color: white;
-}
-
-.content-section {
-  margin-bottom: 4rem;
-}
-
-.section-title {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #E37031;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 2px;
-  background: #E37031;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
-}
-
-.content-text {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #ccc;
-}
-
-.highlight {
-  color: #E37031;
-  font-weight: 600;
-}
-
-/* 🔥 성과 메트릭스 */
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
-}
-
-.metric-card {
-  background: #1a1a1a;
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  border: 1px solid #333;
-  transition: all 0.3s ease;
-}
-
-.metric-card:hover {
-  border-color: #E37031;
-  transform: translateY(-2px);
-}
-
-.metric-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #E37031;
-  margin-bottom: 0.5rem;
-  line-height: 1;
-}
-
-.metric-label {
-  color: #ccc;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* 🔥 이미지 플레이스홀더 */
-.image-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+.modal-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  font-size: 1.5rem;
+  color: #000;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  color: #666;
+  transition: all 0.3s ease;
+  font-weight: 400;
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  font-family: Arial, sans-serif;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.modal-close:before {
+  content: '×';
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+/* 🔥 모달 하단 - 브랜드명 + 캠페인명 */
+.modal-brand-section {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  z-index: 2;
+  background: rgba(245,245,245,0.9);
+  padding: 2rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.modal-brand {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 800;
+  color: #000;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.modal-campaign {
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  color: #E37031;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* 🔥 면책 조항 (좌하단 코너, 더 연하게) */
+.modal-disclaimer {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 0.5rem;
+  color: #999; /* 더 연한 색상 */
+  font-style: italic;
+  opacity: 0.5; /* 더 희미하게 */
+  z-index: 2;
+  background: rgba(245,245,245,0.4); /* 더 투명한 배경 */
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -823,22 +723,39 @@ body {
   }
 
   /* 🔥 모바일 모달 */
+  .modal-header {
+    padding: 2rem;
+  }
+  
   .modal-title {
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 10vw, 3rem);
+    max-width: 85%;
   }
-
-  .modal-stats {
-    flex-direction: column;
-    gap: 1.5rem;
+  
+  .modal-brand-section {
+    bottom: 2rem;
+    left: 2rem;
+    padding: 1.5rem;
   }
-
-  .content-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  
+  .modal-brand {
+    font-size: clamp(1.5rem, 8vw, 3rem);
   }
-
-  .modal-body {
-    padding: 2rem 1rem;
+  
+  .modal-campaign {
+    font-size: clamp(0.8rem, 3vw, 1rem);
+  }
+  
+  .modal-image-placeholder {
+    font-size: 2rem;
+  }
+  
+  .modal-disclaimer {
+    font-size: 0.45rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
   }
 
   /* 🔥 모바일 무한스크롤 관련 요소들 - 수정된 끝 메시지 */
