@@ -1,10 +1,10 @@
-// portfolio.js (최종 수정 - ProjectSummary & ProjectDetail 필드 적용)
-// 🔥 데이터 개수와 상관없이 첫 페이지는 무조건 로딩
-// 🔥 Contact 배너 클릭시 contact.html로 이동
-// 🆕 ProjectSummary & ProjectDetail Airtable 필드 연동
+// portfolio.js (캠페인명 추가)
+// 🔥 기존 무한스크롤 + Airtable 연동 유지
+// 🔥 모달 스타일 적용
+// 🆕 브랜드명 하단에 캠페인명(Category) 추가
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📄 Portfolio.js starting with ProjectSummary & ProjectDetail fields...');
+  console.log('📄 Portfolio.js starting with Style Modal...');
 
   // ─── 🔧 KAUZ Work 테이블 설정 ───
   const AIRTABLE_CONFIG = {
@@ -159,9 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ─── 🔄 대체 데이터 (ProjectSummary & ProjectDetail 필드 적용) ───
+  // ─── 🔄 대체 데이터 ───
   function getFallbackData() {
-    console.log('🔄 Using fallback data with ProjectSummary & ProjectDetail fields...');
+    console.log('🔄 Using fallback data with modal style...');
     return [
       {
         id: 'fallback-1',
@@ -170,12 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
           'Category': 'Branding Campaign',
           'Client': 'VALENTINO',
           'Description': '럭셔리 브랜드의 프리미엄 브랜딩 전략',
-          'ProjectSummary': 'VALENTINO SS24 컬렉션의 럭셔리 브랜딩 전략을 통해 프리미엄 고객층의 브랜드 충성도를 극대화하는 캠페인을 기획했습니다. 이탈리아 장인정신과 현대적 감성을 결합한 독창적인 접근으로 브랜드 가치를 재정립했습니다.',
-          'ProjectDetail': '글로벌 럭셔리 시장의 트렌드 분석과 타겟 고객의 심층 인사이트를 바탕으로 전방위적 브랜딩 전략을 실행했습니다. 디지털과 오프라인을 아우르는 통합 캠페인으로 브랜드 인지도와 매출 모두에서 탁월한 성과를 달성했습니다.',
-          'SalesGrowth': '45%',
-          'Reach': '2.8M',
-          'Engagement': '12%',
-          'ROAS': '3.2x',
           'Image': null
         }
       },
@@ -186,12 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
           'Category': 'Performance Marketing',
           'Client': 'ACNE STUDIOS',
           'Description': '데이터 기반 퍼포먼스 마케팅으로 ROI 극대화',
-          'ProjectSummary': 'ACNE STUDIOS의 브랜드 정체성을 강화하면서도 퍼포먼스 마케팅의 효율성을 극대화하는 통합 캠페인을 기획했습니다. 창의적 콘텐츠와 데이터 분석의 조화로 브랜드 가치와 매출 성장을 동시에 달성했습니다.',
-          'ProjectDetail': '타겟 오디언스의 세밀한 세그먼테이션과 개인화된 메시징을 통해 높은 전환율을 기록했습니다. 실시간 데이터 모니터링과 최적화를 통해 캠페인 전반에 걸쳐 지속적인 성과 개선을 이뤄냈습니다.',
-          'SalesGrowth': '65%',
-          'Reach': '1.2M',
-          'Engagement': '8.5%',
-          'ROAS': '4.2x',
           'Image': null
         }
       },
@@ -202,12 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
           'Category': 'TVC Brand Film',
           'Client': 'LG',
           'Description': '혁신 기술의 감성적 스토리텔링',
-          'ProjectSummary': 'LG전자의 혁신 기술을 감성적 스토리텔링으로 풀어낸 브랜드 필름 캠페인을 기획했습니다. 첨단 기술의 인간적 가치를 부각시켜 소비자의 브랜드 친밀도를 높이는 것이 주요 목표였습니다.',
-          'ProjectDetail': '기술과 인간의 조화라는 핵심 메시지를 다양한 채널에서 일관되게 전달하며, 브랜드 스토리의 확장성을 확보했습니다. 감성적 어필과 기능적 우수성을 균형있게 어필하여 브랜드 선호도 향상에 기여했습니다.',
-          'SalesGrowth': '28%',
-          'Reach': '5.2M',
-          'Engagement': '15%',
-          'ROAS': '2.5x',
           'Image': null
         }
       },
@@ -218,12 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
           'Category': 'BTL Experiential',
           'Client': 'AMOREPACIFIC',
           'Description': '프리미엄 뷰티의 오감 체험',
-          'ProjectSummary': 'AMOREPACIFIC의 프리미엄 뷰티 브랜드를 위한 오감 체험형 BTL 캠페인을 기획했습니다. 브랜드의 헤리티지와 혁신 기술을 동시에 체험할 수 있는 독창적인 이벤트로 고객 만족도를 극대화했습니다.',
-          'ProjectDetail': '뷰티 전문가와의 1:1 컨설팅, AR 기술을 활용한 가상 메이크업 체험, 프리미엄 제품 샘플링을 통해 브랜드 가치를 직접적으로 전달했습니다. 참여 고객의 높은 구매 전환율과 브랜드 충성도 향상을 달성했습니다.',
-          'SalesGrowth': '52%',
-          'Reach': '800K',
-          'Engagement': '22%',
-          'ROAS': '3.8x',
           'Image': null
         }
       },
@@ -234,12 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
           'Category': 'Event Planning',
           'Client': 'NAVER',
           'Description': '브랜드 가치를 높이는 특별한 행사',
-          'ProjectSummary': 'NAVER의 기업 브랜딩을 강화하는 대규모 이벤트를 기획하고 실행했습니다. 기술 혁신과 사회적 가치를 동시에 어필할 수 있는 차별화된 이벤트로 브랜드 인지도와 호감도를 향상시켰습니다.',
-          'ProjectDetail': '온라인과 오프라인을 연결하는 하이브리드 이벤트 형태로 더 많은 참여자에게 다가갔습니다. 인터랙티브 체험존과 전문가 강연을 통해 NAVER의 기술력과 비전을 효과적으로 전달했습니다.',
-          'SalesGrowth': '35%',
-          'Reach': '3.5M',
-          'Engagement': '18%',
-          'ROAS': '2.8x',
           'Image': null
         }
       },
@@ -250,12 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
           'Category': 'Performance Marketing',
           'Client': 'COUPANG',
           'Description': '데이터 기반 퍼포먼스 최적화',
-          'ProjectSummary': 'COUPANG의 급성장하는 이커머스 플랫폼을 위한 데이터 기반 퍼포먼스 마케팅 캠페인을 설계했습니다. 고객 생애 가치 최대화와 신규 고객 확보를 동시에 달성하는 전략을 실행했습니다.',
-          'ProjectDetail': '머신러닝 알고리즘을 활용한 개인화된 광고 집행과 실시간 입찰 최적화를 통해 광고 효율성을 극대화했습니다. 다양한 채널별 성과 분석을 통해 최적의 미디어 믹스를 구성하여 ROI를 지속적으로 개선했습니다.',
-          'SalesGrowth': '78%',
-          'Reach': '2.1M',
-          'Engagement': '11%',
-          'ROAS': '4.5x',
           'Image': null
         }
       },
@@ -266,12 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
           'Category': 'Digital Campaign',
           'Client': 'SAMSUNG',
           'Description': '혁신 모바일 기술의 글로벌 캠페인',
-          'ProjectSummary': 'SAMSUNG GALAXY의 최신 스마트폰 출시를 위한 글로벌 디지털 캠페인을 기획했습니다. 혁신적인 기술력과 사용자 경험의 우수성을 전 세계 소비자에게 효과적으로 전달하는 통합 마케팅 전략을 실행했습니다.',
-          'ProjectDetail': '다양한 국가와 문화권의 특성을 고려한 로컬라이제이션 전략을 통해 글로벌 일관성과 지역별 차별화를 동시에 구현했습니다. 인플루언서 마케팅과 소셜 미디어 캠페인을 통해 젊은 소비자층의 높은 참여도를 이끌어냈습니다.',
-          'SalesGrowth': '55%',
-          'Reach': '8.5M',
-          'Engagement': '16%',
-          'ROAS': '3.8x',
           'Image': null
         }
       },
@@ -282,21 +240,15 @@ document.addEventListener('DOMContentLoaded', () => {
           'Category': 'Brand Identity',
           'Client': 'HYUNDAI',
           'Description': '미래 모빌리티 브랜드 아이덴티티 구축',
-          'ProjectSummary': 'HYUNDAI MOTOR의 미래 모빌리티 비전을 반영한 새로운 브랜드 아이덴티티 구축 프로젝트를 진행했습니다. 전기차와 자율주행 기술의 선도 기업으로서의 브랜드 포지셔닝을 강화하는 전략을 실행했습니다.',
-          'ProjectDetail': '지속가능성과 혁신 기술이라는 핵심 가치를 중심으로 브랜드 메시지를 재정립하고, 모든 브랜드 터치포인트에서 일관된 경험을 제공할 수 있는 가이드라인을 수립했습니다. 미래 지향적인 브랜드 이미지 구축을 통해 브랜드 선호도를 크게 향상시켰습니다.',
-          'SalesGrowth': '42%',
-          'Reach': '12M',
-          'Engagement': '14%',
-          'ROAS': '2.9x',
           'Image': null
         }
       }
     ];
   }
 
-  // ─── 🎨 Airtable 필드에 맞춘 모달 생성 (ProjectSummary & ProjectDetail 적용) ───
+  // ─── 🎨 스타일 모달 생성 (캠페인명 추가) ───
   function generateAllModals(records) {
-    console.log('🏗️ Generating modals with ProjectSummary & ProjectDetail fields...');
+    console.log('🏗️ Generating style modals with campaign names...');
 
     // 기존 모달들 제거
     document.querySelectorAll('.modal[id^="modal"]').forEach(modal => modal.remove());
@@ -307,102 +259,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 🔥 Airtable 필드 정확 매핑
       const title = fields['Title'] || 'UNTITLED PROJECT';
-      const category = fields['Category'] || 'PROJECT';
-      const client = fields['Client'] || 'KAUZ';
-      const description = fields['Description'] || '상세한 프로젝트 정보가 추가될 예정입니다.';
+      const category = fields['Category'] || 'CAMPAIGN';
+      const client = fields['Client'] || 'BRAND';
       
-      // 🆕 새로운 필드들 추가
-      const projectSummary = fields['ProjectSummary'] || '프로젝트 요약이 준비 중입니다.';
-      const projectDetail = fields['ProjectDetail'] || '프로젝트 상세 내용이 준비 중입니다.';
-      
-      // 성과 지표 (ROAS 필드 사용)
-      const salesGrowth = fields['SalesGrowth'] || 'N/A';
-      const reach = fields['Reach'] || 'N/A';
-      const engagement = fields['Engagement'] || 'N/A';
-      const roas = fields['ROAS'] || 'N/A';
-
       // 이미지 URL
       let imageUrl = null;
-      let hasHeroImage = false;
+      let hasImage = false;
       if (fields['Image'] && Array.isArray(fields['Image']) && fields['Image'].length > 0) {
         imageUrl = fields['Image'][0].url;
-        hasHeroImage = true;
+        hasImage = true;
       }
 
-      // 🔥 수정된 모달 HTML (ProjectSummary & ProjectDetail 적용)
+      // 🔥 스타일 모달 HTML
       const modalHtml = `
         <div id="${modalId}" class="modal">
           <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-logo">
-                  <img src="logo/white-logo.png" alt="KAUZ Logo" class="logo-img" />
-                </div>
-              <button class="close-btn" onclick="closeModal('${modalId}')">&times;</button>
-            </div>
-
-            <div class="modal-hero">
-              ${hasHeroImage 
-                ? `<img src="${imageUrl}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.3;" />`
-                : `<div class="image-placeholder" style="width: 100%; height: 100%; opacity: 0.3;">HERO IMAGE</div>`
+            
+            <!-- 전체화면 이미지 -->
+            <div class="modal-image-container">
+              ${hasImage 
+                ? `<img src="${imageUrl}" alt="${title}" class="modal-main-image">`
+                : `<div class="modal-image-placeholder">CAMPAIGN IMAGE</div>`
               }
-              <div class="modal-hero-content">
-                <div class="modal-category">${category}</div>
-                <h1 class="modal-title">${title}</h1>
-                <p class="modal-subtitle">${description}</p>
-                
-                <div class="modal-stats">
-                  <div class="stat-item">
-                    <span class="stat-number">${salesGrowth}</span>
-                    <span class="stat-label">Sales Growth</span>
-                  </div>
-                  <div class="stat-item">
-                    <span class="stat-number">${reach}</span>
-                    <span class="stat-label">Reach</span>
-                  </div>
-                  <div class="stat-item">
-                    <span class="stat-number">${engagement}</span>
-                    <span class="stat-label">Engagement</span>
-                  </div>
-                </div>
-              </div>
             </div>
-
-            <div class="modal-body">
-              <div class="content-section">
-                <h2 class="section-title">Project Overview</h2>
-                <div class="content-grid">
-                  <div class="content-text">
-                    <p>${projectSummary}</p>
-                    <p><strong>Client:</strong> ${client}</p>
-                  </div>
-                  <div class="content-text">
-                    <p>${projectDetail}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="content-section">
-                <h2 class="section-title">Key Results</h2>
-                <div class="metrics-grid">
-                  <div class="metric-card">
-                    <div class="metric-value">${salesGrowth}</div>
-                    <div class="metric-label">Sales Growth</div>
-                  </div>
-                  <div class="metric-card">
-                    <div class="metric-value">${reach}</div>
-                    <div class="metric-label">Total Reach</div>
-                  </div>
-                  <div class="metric-card">
-                    <div class="metric-value">${engagement}</div>
-                    <div class="metric-label">Engagement Rate</div>
-                  </div>
-                  <div class="metric-card">
-                    <div class="metric-value">${roas}</div>
-                    <div class="metric-label">ROAS</div>
-                  </div>
-                </div>
-              </div>
+            
+            <!-- 상단 타이틀 + X버튼 (이미지 위에 겹침) -->
+            <div class="modal-header">
+              <h1 class="modal-title">${title}</h1>
+              <button class="modal-close" onclick="closeModal('${modalId}')">&times;</button>
             </div>
+            
+            <!-- 하단 브랜드명 + 캠페인명 -->
+            <div class="modal-brand-section">
+              <div class="modal-brand">${client}</div>
+              <div class="modal-campaign">${category}</div>
+            </div>
+            
+            <!-- 면책 조항 (희미하게) -->
+            <div class="modal-disclaimer">
+              *전 직장 근무 시 참여한 프로젝트입니다.
+            </div>
+            
           </div>
         </div>
       `;
@@ -414,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     modalsGenerated = true;
-    console.log(`🏗️ All modals generated: ${records.length} modals created with ProjectSummary & ProjectDetail`);
+    console.log(`🏗️ All modals generated: ${records.length} modals created`);
   }
 
   // ─── 🎨 포트폴리오 데이터 렌더링 (무한스크롤용) ───
@@ -735,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="grid-column: 1 / -1; text-align: center; color: #ccc; padding: 4rem;">
           <div style="display: inline-block; width: 40px; height: 40px; border: 3px solid #333; border-top: 3px solid #E37031; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
           <p style="font-size: 1.1rem;">KAUZ Work 테이블에서 데이터를 불러오는 중...</p>
-          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">ProjectSummary & ProjectDetail 필드 연동 🎯</p>
+          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">스타일 모달 적용 🎨</p>
         </div>
         <style>
           @keyframes spin {
@@ -759,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await initPortfolioWithData(data);
         
         if (data.length > 0) {
-          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.\nProjectSummary & ProjectDetail 필드가 연동됩니다.`);
+          alert(`✅ KAUZ Work 테이블 연결 성공!\n\n${data.length}개의 레코드를 가져왔습니다.\n스타일 모달이 적용됩니다.`);
         } else {
           alert('⚠️ 연결은 성공했지만 데이터가 없습니다.\nKAUZ Work 테이블에 레코드를 추가해주세요.');
         }
@@ -771,7 +668,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 현재 설정 확인
     showConnectionInfo: () => {
       const info = `
-🔍 KAUZ Portfolio 연결 정보 (ProjectSummary & ProjectDetail)
+🔍 KAUZ Portfolio 연결 정보 (스타일 모달)
 
 📋 설정:
 • 베이스 ID: ${AIRTABLE_CONFIG.BASE_ID}
@@ -785,9 +682,10 @@ document.addEventListener('DOMContentLoaded', () => {
 • 전체 데이터: ${allPortfolioData.length}개
 • 더 로딩 가능: ${hasMoreData ? '✅' : '❌'}
 
-🆕 새로운 필드:
-• ProjectSummary: 프로젝트 요약
-• ProjectDetail: 프로젝트 상세 내용
+🎨 스타일 모달:
+• 전체화면 이미지
+• 브랜드명 + 캠페인명
+• 심플한 디자인
       `;
       
       alert(info);
@@ -799,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const fallbackData = getFallbackData();
       await initPortfolioWithData(fallbackData);
       
-      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트\nProjectSummary & ProjectDetail 필드 포함`);
+      alert(`📋 샘플 데이터를 표시했습니다.\n\n${fallbackData.length}개의 샘플 프로젝트\n스타일 모달 포함`);
     },
     
     // 🎯 종료 메시지 강제 표시 (테스트용)
@@ -824,7 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── 🚀 포트폴리오 데이터로 초기화하는 함수 (수정됨) ───
   async function initPortfolioWithData(data) {
-    console.log('🎯 Initializing portfolio with data:', data.length, 'items');
+    console.log('🎯 Initializing portfolio with modal data:', data.length, 'items');
     
     // 전역 데이터 설정
     allPortfolioData = data;
@@ -919,47 +817,16 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Contact keyboard navigation initialized');
   }
 
-  // ─── 🔧 Contact 디버깅 도구 추가 ───
-  window.portfolioContactDebug = {
-    testClick: () => {
-      console.log('🧪 Testing contact banner click...');
-      const contactBanner = document.getElementById('contact');
-      if (contactBanner) {
-        contactBanner.click();
-      } else {
-        console.error('❌ Contact banner not found');
-      }
-    },
-    
-    checkElement: () => {
-      const contactBanner = document.getElementById('contact');
-      console.log('🔍 Contact banner element:', contactBanner);
-      console.log('📊 Element info:', {
-        exists: !!contactBanner,
-        id: contactBanner?.id,
-        tagName: contactBanner?.tagName,
-        classList: contactBanner?.classList,
-        hasClickListener: !!contactBanner?._listeners
-      });
-    },
-    
-    forceRedirect: () => {
-      console.log('🚀 Force redirecting to contact.html...');
-      window.location.href = 'contact.html';
-    }
-  };
-
   // ─── 🚀 메인 초기화 함수 ───
   async function initPortfolio() {
-    console.log('🚀 Initializing KAUZ Portfolio with ProjectSummary & ProjectDetail fields...');
+    console.log('🚀 Initializing KAUZ Portfolio with Style Modal...');
     console.log('🔧 Configuration:', {
       baseId: AIRTABLE_CONFIG.BASE_ID,
       tableName: 'KAUZ Work',
       hasApiKey: !!AIRTABLE_CONFIG.API_KEY,
       itemsPerPage: ITEMS_PER_PAGE,
-      projectSummaryField: true,
-      projectDetailField: true,
-      contactNavigation: true
+      modalStyle: 'Style',
+      campaignNames: true
     });
     
     // 1. DOM 요소 초기화
@@ -984,13 +851,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 🔥 6. Contact 키보드 네비게이션 초기화
     initContactKeyboardNavigation();
     
-    console.log('✅ Portfolio initialization complete with ProjectSummary & ProjectDetail fields');
-    console.log(`🎯 Setup: ${portfolioData.length} total items, ProjectSummary & ProjectDetail enabled, contact navigation enabled`);
+    console.log('✅ Portfolio initialization complete with Style Modal');
+    console.log(`🎯 Setup: ${portfolioData.length} total items, style modal, campaign names enabled`);
   }
 
   // ─── 🏁 최종 초기화 실행 ───
   initPortfolio();
 
-  console.log('✅ Portfolio.js loaded - ProjectSummary & ProjectDetail Fields Applied');
-  console.log('🔧 Debug tools: portfolioDebug.*, portfolioContactDebug.*');
+  console.log('✅ Portfolio.js loaded - Style Modal Applied');
+  console.log('🔧 Debug tools: portfolioDebug.*');
 });
