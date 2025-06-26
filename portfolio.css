@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────
    portfolio.css (KAUZ Portfolio - 무한스크롤 + 크기조정 버전)
-   🔥 기존 그리드/무한스크롤 유지 + 모달 스타일 적용
+   🔥 기존 그리드/무한스크롤 유지 + 새로운 모달 스타일 적용
    ───────────────────────────────────────────────────────────────────── */
 
 /*===============================================================================
@@ -385,7 +385,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   🔥 모달 스타일 (전체화면 이미지)
+   🔥 새로운 모달 스타일 (메인+서브 이미지 구조)
    ═══════════════════════════════════════════════════════════════ */
 
 .modal {
@@ -396,8 +396,9 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.95);
-  z-index: 99999; /* 햄버거 겹침 해결 */
+  z-index: 99999;
   backdrop-filter: blur(10px);
+  overflow-y: auto;
 }
 
 .modal.active {
@@ -407,78 +408,49 @@ body {
 .modal-content {
   position: relative;
   width: 100%;
-  height: 100%;
-  background: #f5f5f5; /* 이미지 로드 전 배경색 */
+  min-height: 100vh;
+  background: #f5f5f5;
   color: #000;
   opacity: 0;
   transform: scale(0.95);
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  padding-bottom: 8rem; /* 🔥 하단 여백 충분히 확보 */
 }
 
-/* 🔥 모달 오픈 애니메이션 */
 .modal.active .modal-content {
   opacity: 1;
   transform: scale(1);
 }
 
-/* 🔥 모달 전체화면 이미지 */
-.modal-image-container {
-  position: absolute;
+/* 🔥 모달 헤더 (상단 고정) */
+.modal-header {
+  position: sticky;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  z-index: 1;
+  background: rgba(245, 245, 245, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 2rem 3rem;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-.modal-main-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0;
-}
-
-.modal-image-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+.modal-header-top {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 3rem;
-  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.modal-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
-/* 🔥 모달 상단 - 프로젝트 타이틀 (이미지 위에 겹침) */
-.modal-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 3rem;
-  z-index: 2;
-  background: linear-gradient(180deg, rgba(245,245,245,0.9) 0%, rgba(245,245,245,0.7) 50%, transparent 100%);
-}
-
-.modal-title {
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  font-weight: 800;
-  line-height: 0.9;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  color: #000;
-  max-width: 80%;
-  text-shadow: 0 0 20px rgba(255,255,255,0.8); /* 이미지 위에서 가독성 향상 */
-}
-
 .modal-close {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.1);
   border: none;
   font-size: 1.5rem;
   color: #000;
@@ -489,14 +461,12 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  font-weight: 400;
   border-radius: 50%;
-  backdrop-filter: blur(10px);
   font-family: Arial, sans-serif;
 }
 
 .modal-close:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   transform: scale(1.1);
 }
 
@@ -506,47 +476,113 @@ body {
   line-height: 1;
 }
 
-/* 🔥 모달 하단 - 브랜드명 + 캠페인명 */
-.modal-brand-section {
-  position: absolute;
-  bottom: 3rem;
-  left: 3rem;
-  z-index: 2;
-  background: rgba(245,245,245,0.9);
-  padding: 2rem;
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-}
-
-.modal-brand {
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 800;
-  color: #000;
+/* 🔥 브랜드명 + 카테고리 */
+.modal-brand-title {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 900;
+  line-height: 0.8;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: #000;
   margin-bottom: 0.5rem;
 }
 
-.modal-campaign {
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
+.modal-category {
+  font-size: clamp(1rem, 2vw, 1.3rem);
   color: #E37031;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 500;
 }
 
-/* 🔥 면책 조항 (좌하단 코너, 더 연하게) */
+/* 🔥 모달 바디 */
+.modal-body {
+  width: 100%;
+}
+
+/* 🔥 메인 이미지 섹션 (전체 너비 사용) */
+.main-image-section {
+  width: 100%;
+  margin-bottom: 3rem;
+  position: relative;
+  padding: 0;
+}
+
+.main-image {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  display: block;
+}
+
+.main-image-placeholder {
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  position: relative;
+  background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+}
+
+/* 🔥 서브 이미지들 (패딩 적용) */
+.sub-images-container {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  position: relative;
+  padding: 0 3rem;
+  padding-top: 1rem;
+  margin-bottom: 4rem; /* 🔥 하단 마진 추가 */
+}
+
+.sub-image-section {
+  flex: 1;
+  position: relative;
+}
+
+.sub-image {
+  width: 100%;
+  height: 25vh;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+}
+
+.sub-image-placeholder {
+  width: 100%;
+  height: 25vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  position: relative;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+}
+
+/* 면책 조항 */
 .modal-disclaimer {
-  position: absolute;
+  position: fixed;
   bottom: 1rem;
   left: 1rem;
   font-size: 0.5rem;
-  color: #999; /* 더 연한 색상 */
+  color: #999;
   font-style: italic;
-  opacity: 0.5; /* 더 희미하게 */
-  z-index: 2;
-  background: rgba(245,245,245,0.4); /* 더 투명한 배경 */
+  opacity: 0.7;
+  z-index: 999;
+  background: rgba(245,245,245,0.8);
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
   backdrop-filter: blur(5px);
@@ -724,30 +760,32 @@ body {
 
   /* 🔥 모바일 모달 */
   .modal-header {
-    padding: 2rem;
+    padding: 1.5rem 2rem;
   }
   
-  .modal-title {
-    font-size: clamp(1.5rem, 10vw, 3rem);
-    max-width: 85%;
+  .modal-brand-title {
+    font-size: clamp(2rem, 12vw, 4rem);
   }
   
-  .modal-brand-section {
-    bottom: 2rem;
-    left: 2rem;
-    padding: 1.5rem;
-  }
-  
-  .modal-brand {
-    font-size: clamp(1.5rem, 8vw, 3rem);
-  }
-  
-  .modal-campaign {
+  .modal-category {
     font-size: clamp(0.8rem, 3vw, 1rem);
   }
   
-  .modal-image-placeholder {
-    font-size: 2rem;
+  .main-image,
+  .main-image-placeholder {
+    height: 50vh;
+  }
+
+  .sub-image,
+  .sub-image-placeholder {
+    height: 20vh;
+  }
+
+  .sub-images-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 2rem;
+    margin-bottom: 6rem; /* 🔥 모바일 하단 마진 증가 */
   }
   
   .modal-disclaimer {
@@ -755,7 +793,6 @@ body {
     bottom: 0.5rem;
     left: 0.5rem;
     padding: 0.25rem 0.6rem;
-    border-radius: 12px;
   }
 
   /* 🔥 모바일 무한스크롤 관련 요소들 - 수정된 끝 메시지 */
