@@ -1,8 +1,163 @@
 // common.js - 서브 페이지(About, Portfolio, Contact) 공통 JavaScript
-// 🔥 중복 이벤트 문제 완전 해결 버전
+// 🔥 중복 이벤트 문제 완전 해결 버전 + 복사 방지 기능 추가
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Common.js loading for sub pages...');
+
+  // ─── 🔥 복사 방지 시스템 초기화 (메인 페이지와 동일) ───
+  function initCopyProtection() {
+    console.log('🛡️ Initializing copy protection system...');
+
+    // 1. 우클릭 방지
+    document.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      console.log('🚫 Right click blocked');
+    });
+
+    // 2. 키보드 단축키 방지
+    document.addEventListener('keydown', (e) => {
+      // Ctrl/Cmd 키 조합 차단
+      if (e.ctrlKey || e.metaKey) {
+        // 복사, 붙여넣기, 전체선택, 저장, 인쇄, 소스보기 차단
+        if (['c', 'v', 'a', 's', 'p', 'u'].includes(e.key.toLowerCase())) {
+          e.preventDefault();
+          console.log(`🚫 Keyboard shortcut blocked: Ctrl+${e.key.toUpperCase()}`);
+          return false;
+        }
+      }
+
+      // 개발자 도구 열기 차단
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+          (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+        console.log('🚫 Developer tools shortcut blocked');
+        return false;
+      }
+
+      // 기타 차단할 키들
+      if (['F1', 'F3', 'F5'].includes(e.key)) {
+        if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
+          // 새로고침은 허용하되 로그만 남김
+          console.log('🔄 Page refresh detected');
+        } else {
+          e.preventDefault();
+          console.log(`🚫 Function key blocked: ${e.key}`);
+          return false;
+        }
+      }
+    });
+
+    // 3. 드래그 시작 방지
+    document.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+      console.log('🚫 Drag start blocked');
+    });
+
+    // 4. 선택 방지 (추가 보안)
+    document.addEventListener('selectstart', (e) => {
+      // 폼 요소는 선택 허용
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+        return true;
+      }
+      e.preventDefault();
+      console.log('🚫 Text selection blocked');
+      return false;
+    });
+
+    // 5. 개발자 도구 감지 (간단한 버전)
+    let devtools = {open: false, orientation: null};
+    setInterval(() => {
+      if (window.outerHeight - window.innerHeight > 200 || 
+          window.outerWidth - window.innerWidth > 200) {
+        if (!devtools.open) {
+          devtools.open = true;
+          console.log('🚨 Developer tools detected');
+          // 심각한 차단을 원한다면 여기에 추가 로직 구현
+        }
+      } else {
+        devtools.open = false;
+      }
+    }, 500);
+
+    // 6. CSS로 복사 방지 스타일 적용
+    const copyProtectionStyle = document.createElement('style');
+    copyProtectionStyle.textContent = `
+      /* 전체 텍스트 복사 방지 */
+      body {
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        -webkit-touch-callout: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+      }
+
+      /* 폼 요소는 선택 허용 */
+      input, textarea, select {
+        user-select: text !important;
+        -webkit-user-select: text !important;
+        -moz-user-select: text !important;
+        -ms-user-select: text !important;
+      }
+
+      /* 이미지 드래그 방지 */
+      img {
+        -webkit-user-drag: none !important;
+        -khtml-user-drag: none !important;
+        -moz-user-drag: none !important;
+        -o-user-drag: none !important;
+        user-drag: none !important;
+        pointer-events: none !important;
+      }
+
+      /* 링크와 버튼은 클릭 허용하되 드래그 방지 */
+      a, button {
+        -webkit-user-drag: none !important;
+        -khtml-user-drag: none !important;
+        -moz-user-drag: none !important;
+        -o-user-drag: none !important;
+        user-drag: none !important;
+        pointer-events: auto !important;
+      }
+
+      /* 폼 요소들 클릭/터치 허용 */
+      input, textarea, select, button, 
+      .hamburger, .scroll-indicator,
+      .btn-submit, .contact-form,
+      .menu-content a {
+        pointer-events: auto !important;
+      }
+    `;
+    document.head.appendChild(copyProtectionStyle);
+
+    // 7. 인쇄 방지 (선택사항)
+    window.addEventListener('beforeprint', (e) => {
+      e.preventDefault();
+      console.log('🚫 Print blocked');
+      alert('인쇄 기능은 비활성화되어 있습니다.');
+      return false;
+    });
+
+    // 8. 페이지 저장 차단 시도
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        console.log('🚫 Save page blocked');
+        return false;
+      }
+    });
+
+    // 9. 콘솔 경고 메시지
+    console.log('%c⚠️ 저작권 보호', 'color: red; font-size: 20px; font-weight: bold;');
+    console.log('%c이 웹사이트의 모든 콘텐츠는 저작권으로 보호됩니다.', 'color: #ff6b6b; font-size: 14px;');
+    console.log('%c무단 복사, 배포, 수정을 금지합니다.', 'color: #ff6b6b; font-size: 14px;');
+
+    console.log('✅ Copy protection system initialized');
+  }
+
+  // 복사 방지 시스템 즉시 초기화
+  initCopyProtection();
 
   // ─── 🔥 새로고침 시 페이지 상단으로 이동 ───
   try {
@@ -455,6 +610,11 @@ document.addEventListener('DOMContentLoaded', () => {
     createFallback: () => {
       createFallbackElements();
     },
+    // 🔥 복사 방지 시스템 재초기화
+    reinitCopyProtection: () => {
+      initCopyProtection();
+      console.log('🛡️ Copy protection system reinitialized');
+    },
     getState: () => ({
       hamburgerExists: !!hamburger,
       menuOverlayExists: !!menuOverlay,
@@ -472,21 +632,23 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: hamburger.style.opacity
       } : null,
       retryCount: retryCount,
-      maxRetries: maxRetries
+      maxRetries: maxRetries,
+      copyProtectionActive: true // 🔥 복사 방지 상태 표시
     })
   };
 
-  console.log('✅ Common.js initialization complete (duplicate prevention active)');
+  console.log('✅ Common.js initialization complete (duplicate prevention + copy protection active)');
   
   // 개발 모드 정보
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     console.log('🛠️ Development mode detected');
     console.log('🎯 Debug commands available:');
-    console.log('  - window.debugMenu.forceToggle()        // 강제 토글');
-    console.log('  - window.debugMenu.testX()              // 강제 X 모양');
-    console.log('  - window.debugMenu.resetHamburger()     // 초기화');
-    console.log('  - window.debugMenu.removeAllListeners() // 이벤트 제거');
-    console.log('  - window.debugMenu.getState()           // 상태 확인');
+    console.log('  - window.debugMenu.forceToggle()           // 강제 토글');
+    console.log('  - window.debugMenu.testX()                 // 강제 X 모양');
+    console.log('  - window.debugMenu.resetHamburger()        // 초기화');
+    console.log('  - window.debugMenu.removeAllListeners()    // 이벤트 제거');
+    console.log('  - window.debugMenu.reinitCopyProtection()  // 복사 방지 재초기화');
+    console.log('  - window.debugMenu.getState()              // 상태 확인');
   }
 });
 
