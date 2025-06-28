@@ -65,7 +65,7 @@
   z-index: 2;
 }
 
-/* SCROLL과 라인을 감싸는 컨테이너 */
+/* SCROLL 인디케이터만 유지 (라인 제거됨) */
 .contact-bottom-elements {
   position: absolute;
   bottom: 4rem;
@@ -111,20 +111,8 @@
   background: none !important;
 }
 
-/* 하단 고정 그라데이션 라인 */
-.contact-bottom-line {
-  width: 85vw;
-  max-width: 1000px;
-  height: 3.5px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    #E37031 20%, 
-    #ff8c42 50%, 
-    #E37031 80%, 
-    transparent 100%
-  );
-  opacity: 0.6;
-}
+/* 🔥 하단 고정 그라디언트 라인 제거됨 */
+/* .contact-bottom-line 스타일 제거 */
 
 /* ═══════════════════════════════════════════════════════════════
    메인 콘텐츠 섹션 - About 페이지와 동일한 구조
@@ -180,17 +168,8 @@
   margin-right: 5vw;
 }
 
-.section-number {
-  font-size: 0.9rem;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 1rem;
-  font-weight: 400;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
+/* 🔥 섹션 번호 제거됨 */
+/* .section-number 스타일 제거 */
 
 .section-title {
   font-size: 2.5rem;
@@ -483,10 +462,7 @@
     font-size: 1rem;
   }
 
-  .contact-bottom-line {
-    width: 80vw;
-    max-width: 400px;
-  }
+  /* 🔥 하단 라인 제거됨 */
 
   .contact-content-wrapper {
     max-width: none;
@@ -616,10 +592,7 @@
     font-size: 0.9rem;
   }
 
-  .contact-bottom-line {
-    width: 85vw;
-    max-width: 300px;
-  }
+  /* 🔥 하단 라인 제거됨 */
 
   .contact-content-wrapper {
     padding: 0 0.8rem;
