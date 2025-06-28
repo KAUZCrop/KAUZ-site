@@ -26,7 +26,6 @@
     </div>
   </header>
 
-  <!-- 🔥 contact.html의 nav 태그를 div로 수정 (다른 페이지와 통일) -->
   <nav id="menu-overlay" class="menu-overlay" role="navigation" aria-label="Main Navigation">
     <div class="logo">
       <a href="index.html">
@@ -41,90 +40,211 @@
     </div>
   </nav>
 
-  <!-- CONTACT 페이지 본문 -->
-  <section class="hero-contact fade-up">
-    <div class="hero-text">
-      <h1>Contact Us</h1>
-      <p>새로운 캠페인, 브랜드 전략이 필요하신가요? 지금 문의주세요.</p>
-    </div>
-  </section>
-
-  <!-- 수정된 Formspree 폼 -->
-  <main class="contact-form-section container fade-up">
-    <form
-      id="contactForm"
-      class="contact-form"
-      action="https://formspree.io/f/mkgrljlv"
-      method="POST"
-    >
-      <input type="hidden" name="_subject" value="[KAUZ 사이트] 문의가 도착했습니다" />
-
-      <div class="form-group">
-        <label for="company">회사명</label>
-        <input
-          type="text"
-          id="company"
-          name="company"
-          placeholder="회사명을 입력하세요"
-        />
+  <!-- Contact 페이지 본문 -->
+  <main id="contact-page">
+    <!-- 🔥 About 스타일 히어로 섹션 -->
+    <section class="contact-hero fade-up">
+      <div class="contact-hero-content">
+        <h1 class="contact-main-title">
+          <span class="title-line1">WORK</span>
+          <span class="title-line2">WITH</span>
+          <span class="title-line3 kauz-spaced">KAUZ</span>
+        </h1>
+        <p class="contact-subtitle">새로운 캠페인, 브랜드 전략이 필요하신가요?</p>
       </div>
-
-      <div class="form-group">
-        <label for="name">이름 <span class="required">*</span></label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="이름을 입력해주세요"
-          required
-        />
+      
+      <!-- SCROLL과 라인을 하나의 세트로 묶어서 딱 붙임 -->
+      <div class="contact-bottom-elements">
+        <!-- SCROLL 인디케이터 -->
+        <div class="scroll-indicator">
+          <span class="scroll-text">SCROLL</span>
+          <div class="scroll-arrow">↘</div>
+        </div>
+        
+        <!-- 하단 고정 그라데이션 라인 -->
+        <div class="contact-bottom-line"></div>
       </div>
+    </section>
 
-      <div class="form-group">
-        <label for="email">이메일 <span class="required">*</span></label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="이메일을 입력해주세요"
-          required
-        />
-      </div>
+    <!-- 중앙 정렬 컨테이너로 모든 콘텐츠 감싸기 -->
+    <div class="contact-content-wrapper">
+      
+      <!-- 메인 콘텐츠 -->
+      <div class="main-content">
+        
+        <!-- GET IN TOUCH 섹션 -->
+        <section class="content-section fade-up">
+          <div class="section-number">/ 01</div>
+          <h2 class="section-title">GET IN TOUCH</h2>
+          
+          <div class="section-content">
+            <div class="content-text">
+              <p>
+                브랜드의 <span class="content-highlight">새로운 여정</span>을 시작할 준비가 되셨나요?
+              </p>
+              <p>
+                KAUZ와 함께 특별한 캠페인을 만들어보세요.
+              </p>
+            </div>
+            <div class="content-text">
+              <p>
+                프로젝트의 규모와 예산에 관계없이, 
+                우리는 항상 <span class="content-highlight">최고의 결과</span>를 위해 노력합니다.
+              </p>
+              <p>
+                지금 바로 문의해주세요. 빠른 시간 내에 연락드리겠습니다.
+              </p>
+            </div>
+          </div>
 
-      <div class="form-group">
-        <label for="phone">연락처</label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          placeholder="연락처를 입력해주세요"
-        />
-      </div>
+          <div class="section-divider-bottom"></div>
+        </section>
 
-      <div class="form-group">
-        <label for="budget">프로젝트 예산</label>
-        <input
-          type="text"
-          id="budget"
-          name="budget"
-          placeholder="예: 1천만원, 협의 가능 등"
-        />
-      </div>
+        <!-- CONTACT FORM 섹션 -->
+        <section class="content-section contact-form-section fade-up">
+          <div class="section-number">/ 02</div>
+          <h2 class="section-title">SEND MESSAGE</h2>
+          
+          <!-- 🔥 수정된 Formspree 폼 - 전송 오류 해결 -->
+          <form
+            id="contactForm"
+            class="contact-form"
+            action="https://formspree.io/f/mkgrljlv"
+            method="POST"
+          >
+            <!-- 🔥 Formspree 설정 -->
+            <input type="hidden" name="_subject" value="[KAUZ 사이트] 새로운 프로젝트 문의" />
+            <input type="hidden" name="_next" value="https://kauzcrop.com/contact.html?success=true" />
+            <input type="hidden" name="_captcha" value="false" />
 
-      <div class="form-group">
-        <label for="message">프로젝트에 관해 설명해주세요 <span class="required">*</span></label>
-        <textarea
-          id="message"
-          name="message"
-          rows="6"
-          placeholder="프로젝트에 대해 구체적으로 설명해주세요."
-          required
-        ></textarea>
-      </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="company">회사명</label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  placeholder="회사명을 입력하세요"
+                />
+              </div>
 
-      <button type="submit" class="btn-submit">Send Message</button>
-      <div id="formResponse" class="form-response"></div>
-    </form>
+              <div class="form-group">
+                <label for="name">이름 <span class="required">*</span></label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="이름을 입력해주세요"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">이메일 <span class="required">*</span></label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="이메일을 입력해주세요"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">연락처</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="연락처를 입력해주세요"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="budget">프로젝트 예산</label>
+              <select id="budget" name="budget">
+                <option value="">예산 범위를 선택해주세요</option>
+                <option value="1천만원 미만">1천만원 미만</option>
+                <option value="1천만원 - 3천만원">1천만원 - 3천만원</option>
+                <option value="3천만원 - 5천만원">3천만원 - 5천만원</option>
+                <option value="5천만원 - 1억원">5천만원 - 1억원</option>
+                <option value="1억원 이상">1억원 이상</option>
+                <option value="협의 가능">협의 가능</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">프로젝트에 관해 설명해주세요 <span class="required">*</span></label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                placeholder="프로젝트에 대해 구체적으로 설명해주세요. (목표, 타겟, 기대효과 등)"
+                required
+              ></textarea>
+              <div class="character-counter">
+                <span id="messageCounter">0</span>/1000 characters
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitButton">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-loading" style="display: none;">전송 중...</span>
+            </button>
+            
+            <!-- 응답 메시지 -->
+            <div id="formResponse" class="form-response"></div>
+          </form>
+
+          <div class="section-divider-bottom"></div>
+        </section>
+
+        <!-- CONTACT INFO 섹션 -->
+        <section class="content-section fade-up">
+          <div class="section-number">/ 03</div>
+          <h2 class="section-title">CONTACT INFO</h2>
+          
+          <div class="section-content">
+            <div class="content-text">
+              <p>
+                빠른 응답을 원하신다면 <span class="content-highlight">직접 연락</span>해주세요.
+              </p>
+              <p>
+                평일 오전 9시부터 오후 6시까지 상담 가능합니다.
+              </p>
+            </div>
+            <div class="contact-info-list">
+              <div class="contact-info-item">
+                <span class="info-label">Email</span>
+                <span class="info-value">hello@kauzcrop.com</span>
+              </div>
+              <div class="contact-info-item">
+                <span class="info-label">Phone</span>
+                <span class="info-value">+82 2-0000-0000</span>
+              </div>
+              <div class="contact-info-item">
+                <span class="info-label">Instagram</span>
+                <span class="info-value">@kauzcrop.official</span>
+              </div>
+              <div class="contact-info-item">
+                <span class="info-label">Business Hours</span>
+                <span class="info-value">Mon-Fri 9:00-18:00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-divider-bottom"></div>
+        </section>
+
+      </div> <!-- main-content 끝 -->
+    </div> <!-- contact-content-wrapper 끝 -->
+
+    <!-- 🔥 푸터 위 그라디언트 라인 (HTML 요소로 직접 추가) -->
+    <div class="footer-gradient-line" id="footerGradientLine"></div>
+
   </main>
 
   <!-- 푸터 -->
