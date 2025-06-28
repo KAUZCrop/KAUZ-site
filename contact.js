@@ -1,30 +1,5 @@
 // contact.js (Contact Us 전용 스크립트) - About 스타일 구조 적용
-// 🔥 메일 전송 오류 해결 + About과 동일한 히어로 섹션 기능
-
-// ─── 🔥 성공 메시지 처리 (페이지 로드 즉시 실행) ───
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('success') === 'true') {
-  // DOMContentLoaded 이벤트에 성공 처리 추가
-  document.addEventListener('DOMContentLoaded', () => {
-    const formResponse = document.getElementById('formResponse');
-    if (formResponse) {
-      formResponse.innerHTML = '✅ 메시지가 성공적으로 전송되었습니다! 곧 연락드리겠습니다.';
-      formResponse.style.visibility = 'visible';
-      formResponse.style.backgroundColor = '#4caf50';
-      
-      // URL에서 success 파라미터 제거
-      const url = new URL(window.location);
-      url.searchParams.delete('success');
-      window.history.replaceState({}, '', url);
-      
-      // 폼 초기화
-      const form = document.getElementById('contactForm');
-      if (form) form.reset();
-      
-      console.log('✅ Form submission success message displayed');
-    }
-  });
-}
+// 🔥 AJAX 방식으로 메일 전송 + 리다이렉트 방지
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('📄 Contact.js starting...');
@@ -93,16 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnLoading = submitButton?.querySelector('.btn-loading');
   
   if (form) {
-    // 🔥 실제 폼 제출 처리 (preventDefault 제거하여 Formspree가 작동하도록)
-    form.addEventListener('submit', (e) => {
-      // 기본 유효성 검사만 수행
+    // 🔥 AJAX 방식으로 폼 제출 (리다이렉트 방지)
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // 기본 제출 방지
+      
+      // 기본 유효성 검사
       const name = form.querySelector('#name').value.trim();
       const email = form.querySelector('#email').value.trim();
       const message = form.querySelector('#message').value.trim();
 
       // 필수 필드 검사
       if (name === '' || email === '' || message === '') {
-        e.preventDefault(); // 필수 필드가 비어있을 때만 제출 방지
         showFormResponse('필수 항목(이름, 이메일, 메시지)을 모두 입력해주세요.', 'error');
         return;
       }
@@ -110,29 +86,59 @@ document.addEventListener('DOMContentLoaded', () => {
       // 이메일 형식 검사
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
-        e.preventDefault(); // 이메일 형식이 잘못됐을 때만 제출 방지
         showFormResponse('올바른 이메일 형식을 입력해주세요.', 'error');
         return;
       }
 
       // 메시지 길이 검사
       if (message.length > 1000) {
-        e.preventDefault();
         showFormResponse('메시지는 1000자 이하로 입력해주세요.', 'error');
         return;
       }
 
-      // 모든 검사를 통과하면 로딩 상태로 변경
-      // 🔥 preventDefault를 호출하지 않아서 실제 Formspree로 제출됨
+      // 로딩 상태 시작
       setSubmitButtonLoading(true);
-      
-      console.log('📧 Contact form submitted to Formspree');
-      
-      // Formspree가 리다이렉트하므로 로딩 상태를 유지
-      // 성공/실패 처리는 페이지 리로드 후 URL 파라미터로 처리
+
+      try {
+        // 🔥 AJAX로 Formspree에 전송
+        const formData = new FormData(form);
+        
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // 성공
+          showFormResponse('✅ 메시지가 성공적으로 전송되었습니다! 곧 연락드리겠습니다.', 'success');
+          form.reset(); // 폼 초기화
+          
+          // 카운터 리셋
+          if (messageCounter && typeof updateMessageCounter === 'function') {
+            updateMessageCounter();
+          }
+          
+          console.log('📧 Contact form submitted successfully via AJAX');
+        } else {
+          // 실패
+          const data = await response.json();
+          console.error('Form submission failed:', data);
+          showFormResponse('❌ 전송 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+        }
+      } catch (error) {
+        // 네트워크 오류
+        console.error('Form submission error:', error);
+        showFormResponse('❌ 네트워크 오류가 발생했습니다. 인터넷 연결을 확인하고 다시 시도해주세요.', 'error');
+      } finally {
+        // 로딩 상태 종료
+        setSubmitButtonLoading(false);
+      }
     });
     
-    console.log('✅ Contact form submit handler initialized');
+    console.log('✅ Contact form AJAX handler initialized');
   } else {
     console.warn('⚠️ Contact form not found');
   }
