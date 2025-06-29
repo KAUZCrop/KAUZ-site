@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KAUZ Admin - 관리자 페이지</title>
+  <title>KAUZ Admin - Ultimate Management System</title>
   
-  <!-- 🔥 파비콘 -->
+  <!-- 파비콘 -->
   <link rel="icon" href="logo/simbol.png" type="image/png">
   
-  <!-- 공통 CSS (기존 KAUZ 디자인 활용) -->
+  <!-- CSS -->
   <link rel="stylesheet" href="common.css" />
-  <!-- 관리자 전용 CSS -->
   <link rel="stylesheet" href="admin.css" />
+  
+  <!-- Chart.js for Advanced Charts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
-  <!-- 로그인 폼 (초기에 표시) -->
+  <!-- 로그인 폼 (AES 보안) -->
   <div id="login-screen" class="login-screen">
     <div class="login-container">
       <div class="login-logo">
         <img src="logo/white-logo.png" alt="KAUZ Logo" />
       </div>
       <h1>KAUZ Admin</h1>
-      <p>관리자 로그인이 필요합니다</p>
+      <p>🔐 AES-256 보안 + 📊 실시간 분석 시스템</p>
       
       <form id="login-form" class="login-form">
         <div class="form-group">
@@ -32,25 +34,35 @@
             required 
           />
         </div>
-        <button type="submit" class="login-btn">로그인</button>
+        <button type="submit" class="login-btn">🔐 보안 로그인</button>
       </form>
       
       <div id="login-error" class="login-error" style="display: none;">
         비밀번호가 틀렸습니다.
       </div>
+      
+      <div class="login-features">
+        <div class="feature-item">🔒 AES-256 암호화</div>
+        <div class="feature-item">📊 실시간 방문자 추적</div>
+        <div class="feature-item">📈 고급 차트 분석</div>
+      </div>
     </div>
   </div>
 
-  <!-- 관리자 대시보드 (로그인 후 표시) -->
+  <!-- 관리자 대시보드 -->
   <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
     
     <!-- 헤더 -->
     <header class="admin-header">
       <div class="admin-logo">
         <img src="logo/white-logo.png" alt="KAUZ Logo" />
-        <span>Admin</span>
+        <span>Ultimate Admin</span>
       </div>
       <div class="admin-header-right">
+        <div class="system-status">
+          <span class="status-indicator" id="system-status">🟢</span>
+          <span class="status-text">System Online</span>
+        </div>
         <span class="admin-user">관리자</span>
         <button id="logout-btn" class="logout-btn">로그아웃</button>
       </div>
@@ -61,23 +73,35 @@
       <ul class="sidebar-menu">
         <li class="menu-item active" data-section="dashboard">
           <span class="menu-icon">📊</span>
-          <span class="menu-text">대시보드</span>
+          <span class="menu-text">통합 대시보드</span>
         </li>
         <li class="menu-item" data-section="portfolio">
           <span class="menu-icon">🖼️</span>
-          <span class="menu-text">포트폴리오</span>
-        </li>
-        <li class="menu-item" data-section="content">
-          <span class="menu-icon">📝</span>
-          <span class="menu-text">콘텐츠</span>
+          <span class="menu-text">포트폴리오 관리</span>
         </li>
         <li class="menu-item" data-section="contacts">
           <span class="menu-icon">📧</span>
-          <span class="menu-text">문의관리</span>
+          <span class="menu-text">문의 관리</span>
         </li>
-        <li class="menu-item" data-section="settings">
-          <span class="menu-icon">⚙️</span>
-          <span class="menu-text">설정</span>
+        <li class="menu-item" data-section="analytics">
+          <span class="menu-icon">📈</span>
+          <span class="menu-text">실시간 분석</span>
+        </li>
+        <li class="menu-item" data-section="visitor-tracking">
+          <span class="menu-icon">👥</span>
+          <span class="menu-text">방문자 추적</span>
+        </li>
+        <li class="menu-item" data-section="content">
+          <span class="menu-icon">📝</span>
+          <span class="menu-text">콘텐츠 관리</span>
+        </li>
+        <li class="menu-item" data-section="security">
+          <span class="menu-icon">🔐</span>
+          <span class="menu-text">보안 설정</span>
+        </li>
+        <li class="menu-item" data-section="backup">
+          <span class="menu-icon">💾</span>
+          <span class="menu-text">백업 관리</span>
         </li>
       </ul>
     </nav>
@@ -85,106 +109,327 @@
     <!-- 메인 콘텐츠 -->
     <main class="admin-main">
       
-      <!-- 대시보드 섹션 -->
+      <!-- 통합 대시보드 섹션 -->
       <section id="section-dashboard" class="admin-section active">
         <div class="section-header">
-          <h1>대시보드</h1>
-          <p>KAUZ 홈페이지 관리 현황</p>
+          <div class="header-content">
+            <h1>🚀 Ultimate Dashboard</h1>
+            <p>실시간 모니터링 + 고급 분석 + 보안 관리</p>
+          </div>
+          <div class="header-actions">
+            <button class="refresh-btn" id="refresh-dashboard">🔄 새로고침</button>
+            <button class="export-btn" id="export-report">📊 리포트 내보내기</button>
+          </div>
         </div>
         
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">🖼️</div>
+        <!-- 실시간 주요 통계 -->
+        <div class="stats-grid enhanced">
+          <div class="stat-card primary">
+            <div class="stat-icon">🏠</div>
             <div class="stat-content">
-              <div class="stat-number" id="portfolio-count">-</div>
-              <div class="stat-label">포트폴리오</div>
+              <div class="stat-number" id="main-portfolio-count">-</div>
+              <div class="stat-label">메인 포트폴리오</div>
+              <div class="stat-trend" id="main-portfolio-trend">📈 +12%</div>
             </div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card success">
+            <div class="stat-icon">🖼️</div>
+            <div class="stat-content">
+              <div class="stat-number" id="work-portfolio-count">-</div>
+              <div class="stat-label">포트폴리오 작품</div>
+              <div class="stat-trend" id="work-portfolio-trend">📈 +8%</div>
+            </div>
+          </div>
+          <div class="stat-card warning">
             <div class="stat-icon">📧</div>
             <div class="stat-content">
               <div class="stat-number" id="contact-count">-</div>
-              <div class="stat-label">문의</div>
+              <div class="stat-label">신규 문의</div>
+              <div class="stat-trend" id="contact-trend">⚡ 실시간</div>
             </div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card info">
             <div class="stat-icon">👥</div>
             <div class="stat-content">
-              <div class="stat-number">-</div>
-              <div class="stat-label">방문자</div>
+              <div class="stat-number" id="visitor-count">-</div>
+              <div class="stat-label">실시간 방문자</div>
+              <div class="stat-trend" id="visitor-trend">🔴 LIVE</div>
             </div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon">⚡</div>
+          <div class="stat-card purple">
+            <div class="stat-icon">⏱️</div>
             <div class="stat-content">
-              <div class="stat-number">Online</div>
-              <div class="stat-label">사이트 상태</div>
+              <div class="stat-number" id="avg-session-time">-</div>
+              <div class="stat-label">평균 체류시간</div>
+              <div class="stat-trend" id="session-trend">📊 분석</div>
+            </div>
+          </div>
+          <div class="stat-card danger">
+            <div class="stat-icon">🔐</div>
+            <div class="stat-content">
+              <div class="stat-number" id="security-level">HIGH</div>
+              <div class="stat-label">보안 레벨</div>
+              <div class="stat-trend">🛡️ AES-256</div>
             </div>
           </div>
         </div>
 
-        <div class="dashboard-widgets">
-          <div class="widget">
-            <h3>최근 활동</h3>
-            <div id="recent-activity">
-              <p>로딩 중...</p>
+        <!-- 실시간 차트 대시보드 -->
+        <div class="dashboard-charts">
+          <div class="chart-widget large">
+            <div class="widget-header">
+              <h3>📈 실시간 방문자 추이</h3>
+              <div class="chart-controls">
+                <select id="visitor-chart-period">
+                  <option value="today">오늘</option>
+                  <option value="week">7일</option>
+                  <option value="month">30일</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="widget">
-            <h3>빠른 작업</h3>
-            <div class="quick-actions">
-              <button class="action-btn" data-action="add-portfolio">포트폴리오 추가</button>
-              <button class="action-btn" data-action="edit-about">About 편집</button>
-              <button class="action-btn" data-action="view-contacts">문의 확인</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 포트폴리오 관리 섹션 -->
-      <section id="section-portfolio" class="admin-section">
-        <div class="section-header">
-          <h1>포트폴리오 관리</h1>
-          <button class="primary-btn" id="add-portfolio-btn">포트폴리오 추가</button>
-        </div>
-        
-        <div class="portfolio-list">
-          <div id="portfolio-grid" class="portfolio-grid">
-            <!-- 포트폴리오 항목들이 동적으로 추가됩니다 -->
-          </div>
-        </div>
-      </section>
-
-      <!-- 콘텐츠 관리 섹션 -->
-      <section id="section-content" class="admin-section">
-        <div class="section-header">
-          <h1>콘텐츠 관리</h1>
-          <p>About 페이지 및 기타 콘텐츠 편집</p>
-        </div>
-        
-        <div class="content-editor">
-          <div class="editor-tabs">
-            <button class="tab-btn active" data-tab="about">About 페이지</button>
-            <button class="tab-btn" data-tab="meta">메타 정보</button>
+            <canvas id="visitor-trend-chart" width="800" height="300"></canvas>
           </div>
           
-          <div class="tab-content">
-            <div id="about-editor" class="tab-pane active">
-              <h3>About 페이지 내용</h3>
-              <textarea id="about-content" rows="10" placeholder="About 페이지 내용을 입력하세요..."></textarea>
-              <button class="save-btn">저장</button>
+          <div class="chart-widget medium">
+            <div class="widget-header">
+              <h3>🎯 방문자 행동 분석</h3>
             </div>
-            <div id="meta-editor" class="tab-pane">
-              <h3>메타 정보</h3>
-              <div class="form-group">
-                <label>사이트 제목</label>
-                <input type="text" id="site-title" placeholder="KAUZ - 종합광고대행사">
+            <canvas id="user-behavior-chart" width="400" height="300"></canvas>
+          </div>
+        </div>
+
+        <!-- 실시간 위젯 -->
+        <div class="dashboard-widgets">
+          <div class="widget realtime">
+            <div class="widget-header">
+              <h3>⚡ 실시간 활동</h3>
+              <span class="live-indicator">🔴 LIVE</span>
+            </div>
+            <div id="realtime-activity" class="activity-feed">
+              <div class="loading">실시간 데이터 로딩 중...</div>
+            </div>
+          </div>
+          
+          <div class="widget analytics">
+            <div class="widget-header">
+              <h3>📊 오늘의 하이라이트</h3>
+            </div>
+            <div class="highlight-stats">
+              <div class="highlight-item">
+                <span class="highlight-icon">🏆</span>
+                <div class="highlight-content">
+                  <div class="highlight-value" id="top-page">-</div>
+                  <div class="highlight-label">인기 페이지</div>
+                </div>
               </div>
-              <div class="form-group">
-                <label>사이트 설명</label>
-                <textarea id="site-description" rows="3"></textarea>
+              <div class="highlight-item">
+                <span class="highlight-icon">⭐</span>
+                <div class="highlight-content">
+                  <div class="highlight-value" id="peak-hour">-</div>
+                  <div class="highlight-label">피크 시간</div>
+                </div>
               </div>
-              <button class="save-btn">저장</button>
+              <div class="highlight-item">
+                <span class="highlight-icon">🌍</span>
+                <div class="highlight-content">
+                  <div class="highlight-value" id="top-country">-</div>
+                  <div class="highlight-label">주요 국가</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="widget quick-actions">
+            <div class="widget-header">
+              <h3>🚀 빠른 작업</h3>
+            </div>
+            <div class="quick-actions-grid">
+              <button class="action-btn" data-action="add-main-portfolio">
+                <span class="action-icon">🏠</span>
+                <span class="action-text">메인 포트폴리오 추가</span>
+              </button>
+              <button class="action-btn" data-action="add-work-portfolio">
+                <span class="action-icon">🖼️</span>
+                <span class="action-text">작품 추가</span>
+              </button>
+              <button class="action-btn" data-action="view-contacts">
+                <span class="action-icon">📧</span>
+                <span class="action-text">신규 문의 확인</span>
+              </button>
+              <button class="action-btn" data-action="backup-data">
+                <span class="action-icon">💾</span>
+                <span class="action-text">데이터 백업</span>
+              </button>
+            </div>
+          </div>
+          
+          <div class="widget system-status">
+            <div class="widget-header">
+              <h3>🖥️ 시스템 상태</h3>
+            </div>
+            <div class="status-grid">
+              <div class="status-item">
+                <span class="status-label">웹사이트</span>
+                <span class="status-value online">🟢 온라인</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">API 연결</span>
+                <span class="status-value" id="api-status">🔄 확인 중...</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">보안 상태</span>
+                <span class="status-value secure">🔐 안전</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">백업 상태</span>
+                <span class="status-value" id="backup-status">📅 최신</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 포트폴리오 통합 관리 섹션 -->
+      <section id="section-portfolio" class="admin-section">
+        <div class="section-header">
+          <div class="header-content">
+            <h1>🖼️ 포트폴리오 통합 관리</h1>
+            <p>메인페이지 + 포트폴리오 페이지 통합 관리</p>
+          </div>
+          <div class="header-actions">
+            <div class="portfolio-tabs">
+              <button class="tab-btn active" data-tab="main">🏠 메인 포트폴리오</button>
+              <button class="tab-btn" data-tab="work">🖼️ 포트폴리오 작품</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 메인 포트폴리오 탭 -->
+        <div class="tab-content active" id="main-portfolio-tab">
+          <div class="portfolio-manager">
+            <div class="manager-header">
+              <div class="portfolio-stats">
+                <div class="stat-item">
+                  <span class="stat-number" id="main-total">0</span>
+                  <span class="stat-label">총 항목</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" id="main-featured">0</span>
+                  <span class="stat-label">추천</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" id="main-recent">0</span>
+                  <span class="stat-label">최근 등록</span>
+                </div>
+              </div>
+              
+              <div class="manager-actions">
+                <button class="primary-btn" id="add-main-portfolio-btn">
+                  <span class="btn-icon">➕</span>
+                  포트폴리오 추가
+                </button>
+                <button class="secondary-btn" id="main-bulk-actions">
+                  <span class="btn-icon">📋</span>
+                  일괄 관리
+                </button>
+              </div>
+            </div>
+            
+            <div class="portfolio-filters advanced">
+              <div class="filter-group">
+                <label>카테고리:</label>
+                <div class="filter-buttons">
+                  <button class="filter-btn active" data-filter="all">전체</button>
+                  <button class="filter-btn" data-filter="branding">브랜딩</button>
+                  <button class="filter-btn" data-filter="digital">디지털</button>
+                  <button class="filter-btn" data-filter="campaign">캠페인</button>
+                </div>
+              </div>
+              
+              <div class="filter-group">
+                <label>상태:</label>
+                <div class="filter-buttons">
+                  <button class="filter-btn active" data-status="all">전체</button>
+                  <button class="filter-btn" data-status="published">게시됨</button>
+                  <button class="filter-btn" data-status="featured">추천</button>
+                  <button class="filter-btn" data-status="draft">임시저장</button>
+                </div>
+              </div>
+              
+              <div class="filter-tools">
+                <input type="text" class="search-input" placeholder="제목으로 검색..." id="main-search">
+                <select class="sort-select" id="main-sort">
+                  <option value="date-desc">최신순</option>
+                  <option value="date-asc">오래된순</option>
+                  <option value="title-asc">제목순</option>
+                  <option value="priority-desc">우선순위순</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="portfolio-grid" id="main-portfolio-grid">
+              <div class="loading">메인 포트폴리오를 불러오는 중...</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 포트폴리오 작품 탭 -->
+        <div class="tab-content" id="work-portfolio-tab">
+          <div class="portfolio-manager">
+            <div class="manager-header">
+              <div class="portfolio-stats">
+                <div class="stat-item">
+                  <span class="stat-number" id="work-total">0</span>
+                  <span class="stat-label">총 작품</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" id="work-categories">0</span>
+                  <span class="stat-label">카테고리</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" id="work-clients">0</span>
+                  <span class="stat-label">클라이언트</span>
+                </div>
+              </div>
+              
+              <div class="manager-actions">
+                <button class="primary-btn" id="add-work-portfolio-btn">
+                  <span class="btn-icon">➕</span>
+                  작품 추가
+                </button>
+                <button class="secondary-btn" id="work-bulk-actions">
+                  <span class="btn-icon">📋</span>
+                  일괄 관리
+                </button>
+              </div>
+            </div>
+            
+            <div class="portfolio-filters advanced">
+              <div class="filter-group">
+                <label>카테고리:</label>
+                <div class="filter-buttons">
+                  <button class="filter-btn active" data-filter="all">전체</button>
+                  <button class="filter-btn" data-filter="branding">Branding</button>
+                  <button class="filter-btn" data-filter="digital">Digital Campaign</button>
+                  <button class="filter-btn" data-filter="social">Social Media</button>
+                  <button class="filter-btn" data-filter="performance">Performance Marketing</button>
+                  <button class="filter-btn" data-filter="tvc">TVC Brand Film</button>
+                  <button class="filter-btn" data-filter="btl">BTL Experiential</button>
+                </div>
+              </div>
+              
+              <div class="filter-tools">
+                <input type="text" class="search-input" placeholder="제목 또는 클라이언트 검색..." id="work-search">
+                <select class="sort-select" id="work-sort">
+                  <option value="date-desc">최신순</option>
+                  <option value="client-asc">클라이언트순</option>
+                  <option value="category-asc">카테고리순</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="portfolio-grid" id="work-portfolio-grid">
+              <div class="loading">포트폴리오 작품을 불러오는 중...</div>
             </div>
           </div>
         </div>
@@ -193,125 +438,596 @@
       <!-- 문의 관리 섹션 -->
       <section id="section-contacts" class="admin-section">
         <div class="section-header">
-          <h1>문의 관리</h1>
-          <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">전체</button>
-            <button class="filter-btn" data-filter="new">신규</button>
-            <button class="filter-btn" data-filter="replied">답변완료</button>
+          <div class="header-content">
+            <h1>📧 문의 관리</h1>
+            <p>실시간 문의 모니터링 + 자동 분류</p>
+          </div>
+          <div class="header-actions">
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-filter="all">전체</button>
+              <button class="filter-btn" data-filter="new">🆕 신규</button>
+              <button class="filter-btn" data-filter="replied">✅ 답변완료</button>
+              <button class="filter-btn" data-filter="important">⭐ 중요</button>
+            </div>
+            <button class="export-btn">📊 문의 내보내기</button>
           </div>
         </div>
         
-        <div class="contacts-list">
-          <div id="contacts-table">
-            <!-- 문의 목록이 동적으로 추가됩니다 -->
+        <div class="contacts-dashboard">
+          <div class="contacts-stats">
+            <div class="contact-stat-card new">
+              <div class="stat-icon">🆕</div>
+              <div class="stat-content">
+                <div class="stat-number" id="new-contacts">0</div>
+                <div class="stat-label">신규 문의</div>
+                <div class="stat-change">오늘 +3</div>
+              </div>
+            </div>
+            <div class="contact-stat-card pending">
+              <div class="stat-icon">⏳</div>
+              <div class="stat-content">
+                <div class="stat-number" id="pending-contacts">0</div>
+                <div class="stat-label">답변 대기</div>
+                <div class="stat-change">처리 필요</div>
+              </div>
+            </div>
+            <div class="contact-stat-card replied">
+              <div class="stat-icon">✅</div>
+              <div class="stat-content">
+                <div class="stat-number" id="replied-contacts">0</div>
+                <div class="stat-label">답변 완료</div>
+                <div class="stat-change">이번 주</div>
+              </div>
+            </div>
+            <div class="contact-stat-card response-time">
+              <div class="stat-icon">⚡</div>
+              <div class="stat-content">
+                <div class="stat-number" id="avg-response-time">-</div>
+                <div class="stat-label">평균 응답시간</div>
+                <div class="stat-change">목표: 24시간</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contacts-tools">
+            <div class="search-section">
+              <input type="text" class="search-input" placeholder="이름, 이메일, 내용으로 검색..." id="contact-search">
+              <button class="search-btn">🔍</button>
+            </div>
+            
+            <div class="action-section">
+              <button class="bulk-reply-btn">📧 일괄 답변</button>
+              <button class="auto-classify-btn">🤖 자동 분류</button>
+            </div>
+          </div>
+          
+          <div class="contacts-table" id="contacts-table">
+            <div class="loading">문의 데이터를 불러오는 중...</div>
           </div>
         </div>
       </section>
 
-      <!-- 설정 섹션 -->
-      <section id="section-settings" class="admin-section">
+      <!-- 실시간 분석 섹션 -->
+      <section id="section-analytics" class="admin-section">
         <div class="section-header">
-          <h1>사이트 설정</h1>
-          <p>기본 설정 및 시스템 관리</p>
-        </div>
-        
-        <div class="settings-grid">
-          <div class="settings-card">
-            <h3>기본 정보</h3>
-            <div class="form-group">
-              <label>회사명</label>
-              <input type="text" value="KAUZ">
-            </div>
-            <div class="form-group">
-              <label>연락처</label>
-              <input type="text" placeholder="02-1234-5678">
-            </div>
-            <div class="form-group">
-              <label>이메일</label>
-              <input type="email" placeholder="contact@kauz.co.kr">
-            </div>
+          <div class="header-content">
+            <h1>📈 실시간 분석</h1>
+            <p>고급 차트 + 상세 지표 + 예측 분석</p>
           </div>
-          
-          <div class="settings-card">
-            <h3>소셜 미디어</h3>
-            <div class="form-group">
-              <label>Instagram</label>
-              <input type="url" placeholder="https://instagram.com/kauzcorp.official">
-            </div>
-            <div class="form-group">
-              <label>LinkedIn</label>
-              <input type="url" placeholder="https://linkedin.com/company/kauz">
-            </div>
-          </div>
-          
-          <div class="settings-card">
-            <h3>관리자 설정</h3>
-            <div class="form-group">
-              <label>비밀번호 변경</label>
-              <input type="password" placeholder="새 비밀번호">
-            </div>
-            <div class="form-group">
-              <label>세션 시간</label>
-              <select>
-                <option value="2">2시간</option>
-                <option value="4">4시간</option>
-                <option value="8">8시간</option>
-              </select>
-            </div>
+          <div class="header-actions">
+            <select id="analytics-period">
+              <option value="realtime">실시간</option>
+              <option value="today">오늘</option>
+              <option value="week">최근 7일</option>
+              <option value="month">최근 30일</option>
+            </select>
+            <button class="export-btn" id="export-analytics">📊 리포트 내보내기</button>
           </div>
         </div>
         
-        <div class="settings-actions">
-          <button class="save-btn">설정 저장</button>
-          <button class="backup-btn">백업 생성</button>
+        <div class="analytics-dashboard advanced">
+          <!-- KPI 카드 -->
+          <div class="kpi-cards">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <h3>총 방문자</h3>
+                <span class="kpi-icon">👥</span>
+              </div>
+              <div class="kpi-content">
+                <div class="kpi-value" id="total-visitors">-</div>
+                <div class="kpi-change positive" id="visitors-change">+12.5%</div>
+                <div class="kpi-subtitle">전일 대비</div>
+              </div>
+            </div>
+            
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <h3>페이지뷰</h3>
+                <span class="kpi-icon">📄</span>
+              </div>
+              <div class="kpi-content">
+                <div class="kpi-value" id="total-pageviews">-</div>
+                <div class="kpi-change positive" id="pageviews-change">+8.3%</div>
+                <div class="kpi-subtitle">세션당 평균</div>
+              </div>
+            </div>
+            
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <h3>평균 체류시간</h3>
+                <span class="kpi-icon">⏱️</span>
+              </div>
+              <div class="kpi-content">
+                <div class="kpi-value" id="avg-session-duration">-</div>
+                <div class="kpi-change neutral" id="session-change">+0.8%</div>
+                <div class="kpi-subtitle">목표: 3분</div>
+              </div>
+            </div>
+            
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <h3>이탈률</h3>
+                <span class="kpi-icon">📉</span>
+              </div>
+              <div class="kpi-content">
+                <div class="kpi-value" id="bounce-rate">-</div>
+                <div class="kpi-change negative" id="bounce-change">-5.2%</div>
+                <div class="kpi-subtitle">개선됨</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 고급 차트 섹션 -->
+          <div class="advanced-charts">
+            <div class="chart-container main-chart">
+              <div class="chart-header">
+                <h3>📊 방문자 추이 분석</h3>
+                <div class="chart-controls">
+                  <button class="chart-btn active" data-metric="visitors">방문자</button>
+                  <button class="chart-btn" data-metric="pageviews">페이지뷰</button>
+                  <button class="chart-btn" data-metric="sessions">세션</button>
+                </div>
+              </div>
+              <canvas id="main-analytics-chart" width="800" height="400"></canvas>
+            </div>
+            
+            <div class="chart-grid">
+              <div class="chart-container">
+                <div class="chart-header">
+                  <h3>🎯 페이지별 성과</h3>
+                </div>
+                <canvas id="pages-performance-chart" width="400" height="300"></canvas>
+              </div>
+              
+              <div class="chart-container">
+                <div class="chart-header">
+                  <h3>⏰ 시간대별 방문</h3>
+                </div>
+                <canvas id="hourly-visits-chart" width="400" height="300"></canvas>
+              </div>
+              
+              <div class="chart-container">
+                <div class="chart-header">
+                  <h3>🌍 지역별 방문자</h3>
+                </div>
+                <canvas id="geo-chart" width="400" height="300"></canvas>
+              </div>
+              
+              <div class="chart-container">
+                <div class="chart-header">
+                  <h3>📱 디바이스 분석</h3>
+                </div>
+                <canvas id="device-chart" width="400" height="300"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 방문자 추적 섹션 -->
+      <section id="section-visitor-tracking" class="admin-section">
+        <div class="section-header">
+          <div class="header-content">
+            <h1>👥 실시간 방문자 추적</h1>
+            <p>Live 방문자 모니터링 + 행동 패턴 분석</p>
+          </div>
+          <div class="header-actions">
+            <div class="tracking-status">
+              <span class="status-indicator active">🔴</span>
+              <span class="status-text">실시간 추적 중</span>
+            </div>
+            <button class="tracking-btn" id="toggle-tracking">⏸️ 추적 일시정지</button>
+          </div>
+        </div>
+        
+        <div class="visitor-tracking-dashboard">
+          <div class="realtime-metrics">
+            <div class="metric-card live">
+              <div class="metric-icon">👤</div>
+              <div class="metric-content">
+                <div class="metric-value" id="live-visitors">0</div>
+                <div class="metric-label">현재 접속자</div>
+              </div>
+            </div>
+            
+            <div class="metric-card">
+              <div class="metric-icon">🖱️</div>
+              <div class="metric-content">
+                <div class="metric-value" id="live-clicks">0</div>
+                <div class="metric-label">실시간 클릭</div>
+              </div>
+            </div>
+            
+            <div class="metric-card">
+              <div class="metric-icon">📄</div>
+              <div class="metric-content">
+                <div class="metric-value" id="live-pageviews">0</div>
+                <div class="metric-label">페이지 뷰</div>
+              </div>
+            </div>
+            
+            <div class="metric-card">
+              <div class="metric-icon">⏱️</div>
+              <div class="metric-content">
+                <div class="metric-value" id="avg-time-on-page">0s</div>
+                <div class="metric-label">평균 체류</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tracking-widgets">
+            <div class="widget realtime-visitors">
+              <div class="widget-header">
+                <h3>🔴 실시간 방문자</h3>
+                <span class="update-time">1초 전 업데이트</span>
+              </div>
+              <div class="visitors-list" id="realtime-visitors-list">
+                <!-- 실시간 방문자 목록 -->
+              </div>
+            </div>
+            
+            <div class="widget visitor-map">
+              <div class="widget-header">
+                <h3>🌍 방문자 지도</h3>
+              </div>
+              <div class="map-container" id="visitor-map">
+                <!-- 방문자 지도 -->
+              </div>
+            </div>
+            
+            <div class="widget page-analytics">
+              <div class="widget-header">
+                <h3>📊 페이지별 실시간 데이터</h3>
+              </div>
+              <div class="page-list" id="realtime-pages">
+                <!-- 실시간 페이지 데이터 -->
+              </div>
+            </div>
+            
+            <div class="widget behavior-flow">
+              <div class="widget-header">
+                <h3>🔀 사용자 행동 흐름</h3>
+              </div>
+              <div class="flow-diagram" id="behavior-flow">
+                <!-- 행동 흐름 다이어그램 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 콘텐츠 관리 섹션 -->
+      <section id="section-content" class="admin-section">
+        <div class="section-header">
+          <div class="header-content">
+            <h1>📝 콘텐츠 관리</h1>
+            <p>사이트 콘텐츠 + SEO + 메타데이터</p>
+          </div>
+        </div>
+        
+        <div class="content-management">
+          <div class="content-tabs">
+            <button class="tab-btn active" data-tab="about">About 페이지</button>
+            <button class="tab-btn" data-tab="seo">SEO 설정</button>
+            <button class="tab-btn" data-tab="social">소셜 미디어</button>
+            <button class="tab-btn" data-tab="scripts">스크립트 관리</button>
+          </div>
+          
+          <div class="tab-content active" id="about-content-tab">
+            <div class="editor-container">
+              <div class="editor-toolbar">
+                <button class="editor-btn" data-action="bold">📝 볼드</button>
+                <button class="editor-btn" data-action="italic">📚 이탤릭</button>
+                <button class="editor-btn" data-action="link">🔗 링크</button>
+                <button class="editor-btn" data-action="image">🖼️ 이미지</button>
+              </div>
+              <textarea id="about-content" rows="15" placeholder="About 페이지 내용을 입력하세요..."></textarea>
+              <div class="editor-footer">
+                <span class="word-count">0 words</span>
+                <button class="save-btn">💾 저장</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content" id="seo-content-tab">
+            <div class="seo-settings">
+              <div class="form-group">
+                <label>사이트 제목</label>
+                <input type="text" id="site-title" placeholder="KAUZ - 종합광고대행사">
+              </div>
+              <div class="form-group">
+                <label>메타 설명</label>
+                <textarea id="meta-description" rows="3" placeholder="사이트 설명..."></textarea>
+              </div>
+              <div class="form-group">
+                <label>키워드</label>
+                <input type="text" id="meta-keywords" placeholder="광고, 마케팅, 브랜딩...">
+              </div>
+              <button class="save-btn">💾 SEO 설정 저장</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 보안 설정 섹션 -->
+      <section id="section-security" class="admin-section">
+        <div class="section-header">
+          <div class="header-content">
+            <h1>🔐 보안 설정</h1>
+            <p>AES-256 암호화 + 세션 관리 + 접근 제어</p>
+          </div>
+        </div>
+        
+        <div class="security-dashboard">
+          <div class="security-status">
+            <div class="security-card high">
+              <div class="security-icon">🛡️</div>
+              <div class="security-content">
+                <div class="security-level">HIGH</div>
+                <div class="security-label">보안 레벨</div>
+                <div class="security-detail">AES-256 활성</div>
+              </div>
+            </div>
+            
+            <div class="security-card">
+              <div class="security-icon">🔑</div>
+              <div class="security-content">
+                <div class="security-level" id="active-sessions">1</div>
+                <div class="security-label">활성 세션</div>
+                <div class="security-detail">현재 기기</div>
+              </div>
+            </div>
+            
+            <div class="security-card">
+              <div class="security-icon">🕐</div>
+              <div class="security-content">
+                <div class="security-level" id="session-time">2h</div>
+                <div class="security-label">세션 시간</div>
+                <div class="security-detail">자동 만료</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="security-settings">
+            <div class="settings-group">
+              <h3>🔑 계정 보안</h3>
+              <div class="form-group">
+                <label>새 비밀번호</label>
+                <input type="password" id="new-password" placeholder="새 비밀번호 입력">
+              </div>
+              <div class="form-group">
+                <label>비밀번호 확인</label>
+                <input type="password" id="confirm-password" placeholder="비밀번호 다시 입력">
+              </div>
+              <button class="save-btn">🔐 비밀번호 변경</button>
+            </div>
+            
+            <div class="settings-group">
+              <h3>⏰ 세션 설정</h3>
+              <div class="form-group">
+                <label>세션 지속 시간</label>
+                <select id="session-duration">
+                  <option value="1">1시간</option>
+                  <option value="2" selected>2시간</option>
+                  <option value="4">4시간</option>
+                  <option value="8">8시간</option>
+                </select>
+              </div>
+              <button class="save-btn">⏰ 세션 설정 저장</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 백업 관리 섹션 -->
+      <section id="section-backup" class="admin-section">
+        <div class="section-header">
+          <div class="header-content">
+            <h1>💾 백업 관리</h1>
+            <p>자동 백업 + 수동 백업 + 복원 관리</p>
+          </div>
+          <div class="header-actions">
+            <button class="primary-btn" id="create-backup">📦 즉시 백업</button>
+            <button class="secondary-btn" id="schedule-backup">⏰ 예약 백업</button>
+          </div>
+        </div>
+        
+        <div class="backup-dashboard">
+          <div class="backup-stats">
+            <div class="backup-card">
+              <div class="backup-icon">💾</div>
+              <div class="backup-content">
+                <div class="backup-number" id="total-backups">0</div>
+                <div class="backup-label">총 백업</div>
+              </div>
+            </div>
+            
+            <div class="backup-card">
+              <div class="backup-icon">📅</div>
+              <div class="backup-content">
+                <div class="backup-number" id="last-backup-time">-</div>
+                <div class="backup-label">마지막 백업</div>
+              </div>
+            </div>
+            
+            <div class="backup-card">
+              <div class="backup-icon">💿</div>
+              <div class="backup-content">
+                <div class="backup-number" id="backup-size">-</div>
+                <div class="backup-label">백업 크기</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="backup-settings">
+            <div class="settings-group">
+              <h3>⚙️ 자동 백업 설정</h3>
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="auto-backup-enabled">
+                  자동 백업 활성화
+                </label>
+              </div>
+              <div class="form-group">
+                <label>백업 주기</label>
+                <select id="backup-frequency">
+                  <option value="daily">매일</option>
+                  <option value="weekly" selected>매주</option>
+                  <option value="monthly">매월</option>
+                </select>
+              </div>
+              <button class="save-btn">⚙️ 설정 저장</button>
+            </div>
+          </div>
+          
+          <div class="backup-history">
+            <h3>📋 백업 이력</h3>
+            <div class="backup-list" id="backup-list">
+              <!-- 백업 목록이 여기에 표시됩니다 -->
+            </div>
+          </div>
         </div>
       </section>
 
     </main>
   </div>
 
-  <!-- 모달 (포트폴리오 추가/편집용) -->
-  <div id="portfolio-modal" class="modal">
-    <div class="modal-content">
+  <!-- 고급 포트폴리오 모달 -->
+  <div id="portfolio-modal" class="modal advanced">
+    <div class="modal-content large">
       <div class="modal-header">
-        <h2 id="modal-title">포트폴리오 추가</h2>
+        <h2 id="modal-title">🖼️ 포트폴리오 관리</h2>
         <button class="modal-close">&times;</button>
       </div>
       <div class="modal-body">
-        <form id="portfolio-form">
-          <div class="form-group">
-            <label>제목</label>
-            <input type="text" id="portfolio-title" required>
-          </div>
-          <div class="form-group">
-            <label>카테고리</label>
-            <select id="portfolio-category">
-              <option value="branding">Branding</option>
-              <option value="digital">Digital</option>
-              <option value="social">Social Media</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>이미지</label>
-            <input type="file" id="portfolio-image" accept="image/*">
-          </div>
-          <div class="form-group">
-            <label>설명</label>
-            <textarea id="portfolio-description" rows="4"></textarea>
+        <form id="portfolio-form" class="advanced-form">
+          <div class="form-grid">
+            <div class="form-section">
+              <h4>📝 기본 정보</h4>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>제목 *</label>
+                  <input type="text" id="portfolio-title" required>
+                </div>
+                <div class="form-group">
+                  <label>클라이언트</label>
+                  <input type="text" id="portfolio-client">
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label>카테고리 *</label>
+                  <select id="portfolio-category" required>
+                    <option value="">카테고리 선택</option>
+                    <option value="branding">Branding</option>
+                    <option value="digital">Digital Campaign</option>
+                    <option value="social">Social Media</option>
+                    <option value="performance">Performance Marketing</option>
+                    <option value="tvc">TVC Brand Film</option>
+                    <option value="btl">BTL Experiential</option>
+                    <option value="event">Event Planning</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>우선순위</label>
+                  <select id="portfolio-priority">
+                    <option value="normal">일반</option>
+                    <option value="featured">추천</option>
+                    <option value="top">상단 고정</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label>설명</label>
+                <textarea id="portfolio-description" rows="4" placeholder="프로젝트 설명을 입력하세요"></textarea>
+              </div>
+            </div>
+            
+            <div class="form-section">
+              <h4>🖼️ 이미지 관리</h4>
+              <div class="image-upload-zone" id="image-upload-zone">
+                <input type="file" id="portfolio-images" multiple accept="image/*">
+                <div class="upload-area">
+                  <div class="upload-icon">📸</div>
+                  <div class="upload-text">
+                    <p>이미지를 드래그하거나 클릭하여 업로드</p>
+                    <small>최대 10개, JPG/PNG 형식, 개당 5MB 이하</small>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="image-preview-grid" id="image-preview-grid">
+                <!-- 이미지 미리보기가 여기에 표시됩니다 -->
+              </div>
+            </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="cancel-btn">취소</button>
-        <button class="save-btn" id="save-portfolio">저장</button>
+        <button class="cancel-btn">❌ 취소</button>
+        <button class="draft-btn">📄 임시저장</button>
+        <button class="save-btn" id="save-portfolio">💾 저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 문의 상세 모달 -->
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>📧 문의 상세</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="contact-details" id="contact-details">
+          <!-- 문의 상세 내용이 여기에 로드됩니다 -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="secondary-btn" id="mark-replied">✅ 답변완료 처리</button>
+        <button class="primary-btn" id="reply-email">📧 이메일 답변</button>
       </div>
     </div>
   </div>
 
   <!-- 알림 시스템 -->
-  <div id="notification" class="notification">
-    <span id="notification-text"></span>
+  <div id="notification" class="notification enhanced">
+    <div class="notification-icon"></div>
+    <div class="notification-content">
+      <span id="notification-text"></span>
+      <span id="notification-time"></span>
+    </div>
     <button id="notification-close">&times;</button>
+  </div>
+
+  <!-- 로딩 오버레이 -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <div class="loading-text">처리 중...</div>
+    </div>
   </div>
 
   <!-- JavaScript -->
