@@ -107,9 +107,8 @@
             action="https://formspree.io/f/mkgrljlv"
             method="POST"
           >
-            <!-- 🔥 Formspree 설정 -->
+            <!-- 🔥 AJAX 방식 Formspree 설정 -->
             <input type="hidden" name="_subject" value="[KAUZ 사이트] 새로운 프로젝트 문의" />
-            <input type="hidden" name="_next" value="https://kauzcrop.com/contact.html?success=true" />
             <input type="hidden" name="_captcha" value="false" />
 
             <div class="form-row">
@@ -160,15 +159,12 @@
 
             <div class="form-group">
               <label for="budget">프로젝트 예산</label>
-              <select id="budget" name="budget">
-                <option value="">예산 범위를 선택해주세요</option>
-                <option value="1천만원 미만">1천만원 미만</option>
-                <option value="1천만원 - 3천만원">1천만원 - 3천만원</option>
-                <option value="3천만원 - 5천만원">3천만원 - 5천만원</option>
-                <option value="5천만원 - 1억원">5천만원 - 1억원</option>
-                <option value="1억원 이상">1억원 이상</option>
-                <option value="협의 가능">협의 가능</option>
-              </select>
+              <input
+                type="text"
+                id="budget"
+                name="budget"
+                placeholder="예: 3천만원, 5천만원, 협의 가능 등"
+              />
             </div>
 
             <div class="form-group">
