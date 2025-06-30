@@ -262,30 +262,5 @@
   <!-- 🔥 JavaScript 파일들 - defer 속성 추가 -->
   <script src="common.js" defer></script>
   <script src="contact.js" defer></script>
-
-  <!-- 🔥 성공 메시지 처리 스크립트 -->
-  <script>
-    // URL에서 success 파라미터 확인
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
-      document.addEventListener('DOMContentLoaded', () => {
-        const formResponse = document.getElementById('formResponse');
-        if (formResponse) {
-          formResponse.innerHTML = '✅ 메시지가 성공적으로 전송되었습니다! 곧 연락드리겠습니다.';
-          formResponse.style.visibility = 'visible';
-          formResponse.style.backgroundColor = '#4caf50';
-          
-          // URL에서 success 파라미터 제거
-          const url = new URL(window.location);
-          url.searchParams.delete('success');
-          window.history.replaceState({}, '', url);
-          
-          // 폼 초기화
-          const form = document.getElementById('contactForm');
-          if (form) form.reset();
-        }
-      });
-    }
-  </script>
 </body>
 </html>
