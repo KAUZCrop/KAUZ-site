@@ -100,17 +100,9 @@
         <section class="content-section contact-form-section fade-up">
           <h2 class="section-title">SEND MESSAGE</h2>
           
-          <!-- 🔥 수정된 Formspree 폼 - 전송 오류 해결 -->
-          <form
-            id="contactForm"
-            class="contact-form"
-            action="https://formspree.io/f/mkgrljlv"
-            method="POST"
-          >
-            <!-- 🔥 AJAX 방식 Formspree 설정 -->
-            <input type="hidden" name="_subject" value="[KAUZ 사이트] 새로운 프로젝트 문의" />
-            <input type="hidden" name="_captcha" value="false" />
-
+          <!-- 🔥 AJAX 방식 폼 - action 제거, onsubmit 제거 -->
+          <form id="contactForm" class="contact-form">
+            
             <div class="form-row">
               <div class="form-group">
                 <label for="company">회사명</label>
