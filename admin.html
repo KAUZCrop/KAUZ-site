@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="common.css" />
   <link rel="stylesheet" href="admin.css" />
   
-  <!-- Chart.js for Advanced Charts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <!-- Google Charts for Advanced Charts (Chart.js 교체) -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
   <!-- 로그인 폼 (AES 보안) -->
@@ -44,7 +44,7 @@
       <div class="login-features">
         <div class="feature-item">🔒 AES-256 암호화</div>
         <div class="feature-item">📊 실시간 방문자 추적</div>
-        <div class="feature-item">📈 고급 차트 분석</div>
+        <div class="feature-item">📈 Google Charts 분석</div>
       </div>
     </div>
   </div>
@@ -114,7 +114,7 @@
         <div class="section-header">
           <div class="header-content">
             <h1>🚀 Ultimate Dashboard</h1>
-            <p>실시간 모니터링 + 고급 분석 + 보안 관리</p>
+            <p>실시간 모니터링 + Google Charts 분석 + 보안 관리</p>
           </div>
           <div class="header-actions">
             <button class="refresh-btn" id="refresh-dashboard">🔄 새로고침</button>
@@ -174,11 +174,11 @@
           </div>
         </div>
 
-        <!-- 실시간 차트 대시보드 -->
+        <!-- Google Charts 대시보드 -->
         <div class="dashboard-charts">
           <div class="chart-widget large">
             <div class="widget-header">
-              <h3>📈 실시간 방문자 추이</h3>
+              <h3>📈 실시간 방문자 추이 (Google Charts)</h3>
               <div class="chart-controls">
                 <select id="visitor-chart-period">
                   <option value="today">오늘</option>
@@ -187,14 +187,14 @@
                 </select>
               </div>
             </div>
-            <canvas id="visitor-trend-chart" width="800" height="300"></canvas>
+            <div id="visitor-trend-chart" style="width: 100%; height: 300px;"></div>
           </div>
           
           <div class="chart-widget medium">
             <div class="widget-header">
               <h3>🎯 방문자 행동 분석</h3>
             </div>
-            <canvas id="user-behavior-chart" width="400" height="300"></canvas>
+            <div id="user-behavior-chart" style="width: 100%; height: 300px;"></div>
           </div>
         </div>
 
@@ -512,7 +512,7 @@
         <div class="section-header">
           <div class="header-content">
             <h1>📈 실시간 분석</h1>
-            <p>고급 차트 + 상세 지표 + 예측 분석</p>
+            <p>Google Charts + 상세 지표 + 예측 분석</p>
           </div>
           <div class="header-actions">
             <select id="analytics-period">
@@ -577,18 +577,18 @@
             </div>
           </div>
           
-          <!-- 고급 차트 섹션 -->
+          <!-- Google Charts 섹션 -->
           <div class="advanced-charts">
             <div class="chart-container main-chart">
               <div class="chart-header">
-                <h3>📊 방문자 추이 분석</h3>
+                <h3>📊 방문자 추이 분석 (Google Charts)</h3>
                 <div class="chart-controls">
                   <button class="chart-btn active" data-metric="visitors">방문자</button>
                   <button class="chart-btn" data-metric="pageviews">페이지뷰</button>
                   <button class="chart-btn" data-metric="sessions">세션</button>
                 </div>
               </div>
-              <canvas id="main-analytics-chart" width="800" height="400"></canvas>
+              <div id="main-analytics-chart" style="width: 100%; height: 400px;"></div>
             </div>
             
             <div class="chart-grid">
@@ -596,28 +596,28 @@
                 <div class="chart-header">
                   <h3>🎯 페이지별 성과</h3>
                 </div>
-                <canvas id="pages-performance-chart" width="400" height="300"></canvas>
+                <div id="pages-performance-chart" style="width: 100%; height: 300px;"></div>
               </div>
               
               <div class="chart-container">
                 <div class="chart-header">
                   <h3>⏰ 시간대별 방문</h3>
                 </div>
-                <canvas id="hourly-visits-chart" width="400" height="300"></canvas>
+                <div id="hourly-visits-chart" style="width: 100%; height: 300px;"></div>
               </div>
               
               <div class="chart-container">
                 <div class="chart-header">
                   <h3>🌍 지역별 방문자</h3>
                 </div>
-                <canvas id="geo-chart" width="400" height="300"></canvas>
+                <div id="geo-chart" style="width: 100%; height: 300px;"></div>
               </div>
               
               <div class="chart-container">
                 <div class="chart-header">
                   <h3>📱 디바이스 분석</h3>
                 </div>
-                <canvas id="device-chart" width="400" height="300"></canvas>
+                <div id="device-chart" style="width: 100%; height: 300px;"></div>
               </div>
             </div>
           </div>
