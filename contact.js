@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok) {
           // 성공
-          showFormResponse('✅ 메시지가 성공적으로 전송되었습니다! 곧 연락드리겠습니다.', 'success');
+          showFormResponse('메시지가 성공적으로 전송되었습니다! 곧 연락드리겠습니다.', 'success');
           form.reset(); // 폼 초기화
           
           // 카운터 리셋
