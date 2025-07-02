@@ -1,12 +1,15 @@
 // ═══════════════════════════════════════════════════════════════
-// KAUZ Admin Data Module v4.2.0
+// KAUZ Admin Data Module v4.2.1-FIXED
 // 📊 데이터 관리, API 호출, 포트폴리오/문의 관리
 // ═══════════════════════════════════════════════════════════════
 
-// 모듈 의존성 체크
-if (!window.KAUZ_ADMIN || !window.KAUZ_ADMIN.managers) {
-  throw new Error('❌ admin-core.js와 admin-managers.js가 먼저 로드되어야 합니다.');
+// 모듈 의존성 체크 (수정된 버전)
+if (!window.KAUZ_ADMIN) {
+  throw new Error('❌ admin-core.js가 먼저 로드되어야 합니다.');
 }
+
+// managers는 admin-ui.js에서 초기화되므로 여기서는 체크하지 않음
+// 함수 실행 시점에 존재 여부를 확인하도록 수정
 
 // ═══════════════════════════════════════════════════════════════
 // 📡 데이터 로드 함수들
@@ -14,7 +17,18 @@ if (!window.KAUZ_ADMIN || !window.KAUZ_ADMIN.managers) {
 
 window.KAUZ_ADMIN.loadPortfolioData = async function(tableName) {
   try {
-    const data = await this.managers.performanceManager.cachedApiCall(
+    // 안전한 managers 접근
+    const performanceManager = this.managers?.performanceManager;
+    if (!performanceManager) {
+      console.warn('⚠️ Performance Manager가 아직 초기화되지 않음 - 직접 API 호출');
+      const response = await this.secureApiCall(
+        `https://api.airtable.com/v0/${this.CONFIG.baseId}/${tableName}?maxRecords=30`
+      );
+      const data = await response.json();
+      return data.records || [];
+    }
+
+    const data = await performanceManager.cachedApiCall(
       `https://api.airtable.com/v0/${this.CONFIG.baseId}/${tableName}?maxRecords=30`,
       {},
       60000
@@ -29,7 +43,17 @@ window.KAUZ_ADMIN.loadPortfolioData = async function(tableName) {
 
 window.KAUZ_ADMIN.loadContactData = async function() {
   try {
-    const data = await this.managers.performanceManager.cachedApiCall(
+    const performanceManager = this.managers?.performanceManager;
+    if (!performanceManager) {
+      console.warn('⚠️ Performance Manager가 아직 초기화되지 않음 - 직접 API 호출');
+      const response = await this.secureApiCall(
+        `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.contactTableName}?maxRecords=30&sort[0][field]=Created&sort[0][direction]=desc`
+      );
+      const data = await response.json();
+      return data.records || [];
+    }
+
+    const data = await performanceManager.cachedApiCall(
       `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.contactTableName}?maxRecords=30&sort[0][field]=Created&sort[0][direction]=desc`,
       {},
       30000
@@ -47,7 +71,17 @@ window.KAUZ_ADMIN.loadAnalyticsData = async function() {
     const weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
     
-    const data = await this.managers.performanceManager.cachedApiCall(
+    const performanceManager = this.managers?.performanceManager;
+    if (!performanceManager) {
+      console.warn('⚠️ Performance Manager가 아직 초기화되지 않음 - 직접 API 호출');
+      const response = await this.secureApiCall(
+        `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.analyticsTableName}?maxRecords=50&filterByFormula=IS_AFTER({Created},'${weekAgo.toISOString()}')`
+      );
+      const data = await response.json();
+      return data.records || [];
+    }
+
+    const data = await performanceManager.cachedApiCall(
       `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.analyticsTableName}?maxRecords=50&filterByFormula=IS_AFTER({Created},'${weekAgo.toISOString()}')`,
       {},
       60000
@@ -83,7 +117,10 @@ window.KAUZ_ADMIN.createPortfolioItem = async function(tableName, fields) {
       if (this.showNotification) {
         this.showNotification('포트폴리오가 생성되었습니다.', 'success');
       }
-      this.managers.performanceManager.clearCache();
+      // 안전한 캐시 정리
+      if (this.managers?.performanceManager) {
+        this.managers.performanceManager.clearCache();
+      }
       return data;
     } else {
       throw new Error('생성 실패');
@@ -117,7 +154,10 @@ window.KAUZ_ADMIN.updatePortfolioItem = async function(tableName, recordId, fiel
       if (this.showNotification) {
         this.showNotification('포트폴리오가 수정되었습니다.', 'success');
       }
-      this.managers.performanceManager.clearCache();
+      // 안전한 캐시 정리
+      if (this.managers?.performanceManager) {
+        this.managers.performanceManager.clearCache();
+      }
       return data;
     } else {
       throw new Error('수정 실패');
@@ -147,7 +187,10 @@ window.KAUZ_ADMIN.deletePortfolioItem = async function(tableName, recordId) {
       if (this.showNotification) {
         this.showNotification('포트폴리오가 삭제되었습니다.', 'success');
       }
-      this.managers.performanceManager.clearCache();
+      // 안전한 캐시 정리
+      if (this.managers?.performanceManager) {
+        this.managers.performanceManager.clearCache();
+      }
       return true;
     } else {
       throw new Error('삭제 실패');
@@ -180,7 +223,10 @@ window.KAUZ_ADMIN.updateContactStatus = async function(recordId, status) {
       if (this.showNotification) {
         this.showNotification('문의 상태가 업데이트되었습니다.', 'success');
       }
-      this.managers.performanceManager.clearCache();
+      // 안전한 캐시 정리
+      if (this.managers?.performanceManager) {
+        this.managers.performanceManager.clearCache();
+      }
       return true;
     }
     return false;
@@ -204,7 +250,13 @@ window.KAUZ_ADMIN.initializeDashboard = async function() {
     
     // Step 1: 필수 데이터 로드
     const mainPortfolio = await this.loadPortfolioData(this.CONFIG.mainTableName);
-    this.DATA.portfolio.main = this.managers.dataLimiter.enforceLimit(mainPortfolio, 'portfolio');
+    
+    // 안전한 데이터 제한 적용
+    if (this.managers?.dataLimiter) {
+      this.DATA.portfolio.main = this.managers.dataLimiter.enforceLimit(mainPortfolio, 'portfolio');
+    } else {
+      this.DATA.portfolio.main = mainPortfolio.slice(0, 30); // 임시 제한
+    }
     
     this.updateDashboardStats();
     
@@ -216,9 +268,16 @@ window.KAUZ_ADMIN.initializeDashboard = async function() {
         this.loadAnalyticsData()
       ]);
 
-      this.DATA.portfolio.work = this.managers.dataLimiter.enforceLimit(workPortfolio, 'portfolio');
-      this.DATA.contacts = this.managers.dataLimiter.enforceLimit(contacts, 'contacts');
-      this.DATA.analytics = this.managers.dataLimiter.enforceLimit(analytics, 'analytics');
+      // 안전한 데이터 제한 적용
+      if (this.managers?.dataLimiter) {
+        this.DATA.portfolio.work = this.managers.dataLimiter.enforceLimit(workPortfolio, 'portfolio');
+        this.DATA.contacts = this.managers.dataLimiter.enforceLimit(contacts, 'contacts');
+        this.DATA.analytics = this.managers.dataLimiter.enforceLimit(analytics, 'analytics');
+      } else {
+        this.DATA.portfolio.work = workPortfolio.slice(0, 30);
+        this.DATA.contacts = contacts.slice(0, 30);
+        this.DATA.analytics = analytics.slice(0, 50);
+      }
 
       // Step 3: 차트 초기화
       setTimeout(() => {
@@ -242,7 +301,8 @@ window.KAUZ_ADMIN.initializeDashboard = async function() {
 };
 
 window.KAUZ_ADMIN.initializeCharts = function() {
-  if (!this.managers.chartManager || !this.managers.chartManager.isGoogleChartsLoaded) {
+  // 안전한 차트 관리자 접근
+  if (!this.managers?.chartManager || !this.managers.chartManager.isGoogleChartsLoaded) {
     console.log('⏳ Google Charts 아직 로딩 중...');
     setTimeout(() => this.initializeCharts(), 1000);
     return;
@@ -303,7 +363,8 @@ window.KAUZ_ADMIN.calculateTodayVisitors = function() {
     record.fields.Date === today
   ).length;
   
-  const localCount = this.managers.visitorCountManager?.getTodayVisitors() || 0;
+  // 안전한 방문자 관리자 접근
+  const localCount = this.managers?.visitorCountManager?.getTodayVisitors() || 0;
   const safeCount = Math.min(analyticsCount, localCount, 500);
   
   return safeCount;
@@ -417,17 +478,34 @@ window.KAUZ_ADMIN.checkPortfolioStatus = async function() {
   console.log('🖼️ 포트폴리오 상태 확인 중...');
   
   try {
-    const mainData = await this.managers.performanceManager.cachedApiCall(
-      `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.mainTableName}?maxRecords=5`,
-      {},
-      30000
-    );
-    
-    const workData = await this.managers.performanceManager.cachedApiCall(
-      `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.workTableName}?maxRecords=5`,
-      {},
-      30000
-    );
+    // 안전한 성능 관리자 접근
+    const performanceManager = this.managers?.performanceManager;
+    let mainData, workData;
+
+    if (performanceManager) {
+      mainData = await performanceManager.cachedApiCall(
+        `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.mainTableName}?maxRecords=5`,
+        {},
+        30000
+      );
+      
+      workData = await performanceManager.cachedApiCall(
+        `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.workTableName}?maxRecords=5`,
+        {},
+        30000
+      );
+    } else {
+      // 직접 API 호출
+      const mainResponse = await this.secureApiCall(
+        `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.mainTableName}?maxRecords=5`
+      );
+      mainData = await mainResponse.json();
+
+      const workResponse = await this.secureApiCall(
+        `https://api.airtable.com/v0/${this.CONFIG.baseId}/${this.CONFIG.workTableName}?maxRecords=5`
+      );
+      workData = await workResponse.json();
+    }
 
     const status = {
       mainTable: {
@@ -567,26 +645,30 @@ window.KAUZ_ADMIN.calculateAnalyticsStats = function() {
 window.KAUZ_ADMIN.cleanupMemory = function() {
   console.log('🧹 메모리 정리 시작...');
   
-  if (this.managers.chartManager) {
+  // 안전한 관리자 접근
+  if (this.managers?.chartManager) {
     this.managers.chartManager.cleanup();
   }
 
-  if (this.managers.realtimeTracker) {
+  if (this.managers?.realtimeTracker) {
     this.managers.realtimeTracker.cleanup();
   }
 
-  if (this.managers.dataLimiter) {
+  if (this.managers?.dataLimiter) {
     this.managers.dataLimiter.cleanupSystemData(this.DATA);
   }
 
-  this.managers.performanceManager.cleanupCache();
+  if (this.managers?.performanceManager) {
+    this.managers.performanceManager.cleanupCache();
+  }
+  
   console.log('✅ 메모리 정리 완료');
 };
 
 window.KAUZ_ADMIN.forceRecreateCharts = function() {
   console.log('🔥 차트 재생성 중...');
   
-  if (this.managers.chartManager && this.managers.chartManager.isGoogleChartsLoaded) {
+  if (this.managers?.chartManager && this.managers.chartManager.isGoogleChartsLoaded) {
     const visitorData = this.processVisitorTrendData();
     const behaviorData = this.processUserBehaviorData();
     
@@ -600,14 +682,3 @@ window.KAUZ_ADMIN.forceRecreateCharts = function() {
       this.managers.chartManager.createAnalyticsChart('device-chart', 'pie', this.processDeviceData());
     }
   }
-  
-  console.log('✅ 차트 재생성 완료');
-};
-
-// ═══════════════════════════════════════════════════════════════
-// 🎉 Data 모듈 로드 완료
-// ═══════════════════════════════════════════════════════════════
-
-console.log('✅ KAUZ Admin Data Module 로드 완료');
-console.log('📊 모든 데이터 관리 함수 준비 완료');
-console.log('📋 다음 모듈: admin-ui.js 로드 필요');
