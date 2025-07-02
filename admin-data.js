@@ -682,3 +682,4 @@ window.KAUZ_ADMIN.forceRecreateCharts = function() {
       this.managers.chartManager.createAnalyticsChart('device-chart', 'pie', this.processDeviceData());
     }
   }
+}
