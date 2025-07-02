@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════
-// KAUZ Admin Managers Module v4.2.0
-// 🔧 성능관리자, 차트관리자, Formspree관리자 등
+// KAUZ Admin Managers Module v4.2.0-FINAL
+// 🔧 성능관리자, 차트관리자, Formspree관리자 + 방문자 증가 방지
 // ═══════════════════════════════════════════════════════════════
 
 // 모듈 의존성 체크
@@ -53,245 +53,6 @@ window.KAUZ_ADMIN.PerformanceManager = class {
     this.loadingStates.add(cacheKey);
     
     try {
-      const startTime = Date.now();
-      const response = await window.KAUZ_ADMIN.secureApiCall(url, options);
-      const data = await response.json();
-      
-      // 캐시 저장
-      this.cache.set(cacheKey, { data: data, timestamp: Date.now() });
-      this.metrics.apiCalls++;
-      this.metrics.avgResponseTime = (this.metrics.avgResponseTime + (Date.now() - startTime)) / 2;
-      
-      return data;
-    } finally {
-      this.loadingStates.delete(cacheKey);
-    }
-  }
-
-  cleanupCache() {
-    const now = Date.now();
-    let cleaned = 0;
-    for (const [key, value] of this.cache.entries()) {
-      if (now - value.timestamp > 300000) { // 5분 이상된 캐시 삭제
-        this.cache.delete(key);
-        cleaned++;
-      }
-    }
-    if (cleaned > 0) {
-      console.log(`🧹 캐시 정리: ${cleaned}개 항목 삭제`);
-    }
-  }
-
-  clearCache() {
-    this.cache.clear();
-    console.log('🧹 전체 캐시 정리 완료');
-  }
-
-  getPerformanceReport() {
-    return {
-      ...this.metrics,
-      cacheSize: this.cache.size,
-      cacheHitRate: this.metrics.apiCalls > 0 ? 
-        `${Math.round((this.metrics.cacheHits / this.metrics.apiCalls) * 100)}%` : '0%'
-    };
-  }
-};
-
-// ═══════════════════════════════════════════════════════════════
-// 🔥 데이터 제한 관리자
-// ═══════════════════════════════════════════════════════════════
-
-window.KAUZ_ADMIN.DataLimiter = class {
-  constructor() {
-    this.limits = {
-      chartLabels: 12,
-      chartData: 12,
-      analytics: 50,
-      contacts: 30,
-      portfolio: 30,
-      realtimeData: 10
-    };
-  }
-
-  enforceLimit(array, limitType) {
-    const limit = this.limits[limitType];
-    if (!Array.isArray(array)) return [];
-    
-    if (array.length > limit) {
-      const result = array.slice(-limit);
-      console.log(`⚡ 데이터 제한 적용: ${array.length} → ${result.length} (${limitType})`);
-      return result;
-    }
-    return array;
-  }
-
-  cleanupSystemData(systemData) {
-    if (!systemData) return;
-
-    if (systemData.analytics) {
-      systemData.analytics = this.enforceLimit(systemData.analytics, 'analytics');
-    }
-    if (systemData.contacts) {
-      systemData.contacts = this.enforceLimit(systemData.contacts, 'contacts');
-    }
-    if (systemData.portfolio) {
-      if (systemData.portfolio.main) {
-        systemData.portfolio.main = this.enforceLimit(systemData.portfolio.main, 'portfolio');
-      }
-      if (systemData.portfolio.work) {
-        systemData.portfolio.work = this.enforceLimit(systemData.portfolio.work, 'portfolio');
-      }
-    }
-    console.log('🧹 시스템 데이터 정리 완료');
-  }
-};
-
-// ═══════════════════════════════════════════════════════════════
-// 🔧 방문자 카운트 관리자
-// ═══════════════════════════════════════════════════════════════
-
-window.KAUZ_ADMIN.VisitorCountManager = class {
-  constructor() {
-    this.dailyVisitorCount = 0;
-    this.lastResetDate = new Date().toISOString().split('T')[0];
-    this.maxDailyIncrement = 100;
-    this.recentVisitors = new Set();
-    this.loadFromStorage();
-  }
-
-  loadFromStorage() {
-    try {
-      const stored = localStorage.getItem('kauz_visitor_count');
-      if (stored) {
-        const data = JSON.parse(stored);
-        const today = new Date().toISOString().split('T')[0];
-        
-        if (data.date === today) {
-          this.dailyVisitorCount = Math.min(data.count || 0, this.maxDailyIncrement);
-        } else {
-          this.dailyVisitorCount = 0;
-          this.lastResetDate = today;
-          this.saveToStorage();
-        }
-      }
-    } catch (error) {
-      console.error('방문자 카운트 로드 실패:', error);
-      this.dailyVisitorCount = 0;
-    }
-  }
-
-  saveToStorage() {
-    try {
-      const data = { count: this.dailyVisitorCount, date: this.lastResetDate };
-      localStorage.setItem('kauz_visitor_count', JSON.stringify(data));
-    } catch (error) {
-      console.error('방문자 카운트 저장 실패:', error);
-    }
-  }
-
-  incrementVisitor(sessionId = null) {
-    const today = new Date().toISOString().split('T')[0];
-    
-    if (today !== this.lastResetDate) {
-      this.dailyVisitorCount = 0;
-      this.lastResetDate = today;
-      this.recentVisitors.clear();
-    }
-
-    if (sessionId && this.recentVisitors.has(sessionId)) {
-      return this.dailyVisitorCount;
-    }
-
-    if (this.dailyVisitorCount >= this.maxDailyIncrement) {
-      console.log('⚠️ 일일 최대 방문자 수 도달');
-      return this.dailyVisitorCount;
-    }
-
-    this.dailyVisitorCount++;
-    
-    if (sessionId) {
-      this.recentVisitors.add(sessionId);
-      if (this.recentVisitors.size > 1000) {
-        const oldestEntries = Array.from(this.recentVisitors).slice(0, 500);
-        oldestEntries.forEach(entry => this.recentVisitors.delete(entry));
-      }
-    }
-
-    this.saveToStorage();
-    return this.dailyVisitorCount;
-  }
-
-  getTodayVisitors() {
-    const today = new Date().toISOString().split('T')[0];
-    if (today !== this.lastResetDate) {
-      return 0;
-    }
-    return this.dailyVisitorCount;
-  }
-
-  setVisitorCount(count) {
-    this.dailyVisitorCount = Math.min(Math.max(count, 0), this.maxDailyIncrement);
-    this.saveToStorage();
-    return this.dailyVisitorCount;
-  }
-};
-
-// ═══════════════════════════════════════════════════════════════
-// 🚀 Google Charts 관리자
-// ═══════════════════════════════════════════════════════════════
-
-window.KAUZ_ADMIN.GoogleChartsManager = class {
-  constructor() {
-    this.charts = {};
-    this.dataLimiter = new window.KAUZ_ADMIN.DataLimiter();
-    this.lastUpdateTime = {};
-    this.updateInterval = 30000;
-    this.isGoogleChartsLoaded = false;
-    this.loadGoogleCharts();
-  }
-
-  async loadGoogleCharts() {
-    return new Promise((resolve) => {
-      if (typeof google !== 'undefined' && google.charts) {
-        google.charts.load('current', {
-          packages: ['corechart', 'line', 'bar'],
-          callback: () => {
-            this.isGoogleChartsLoaded = true;
-            console.log('✅ Google Charts 로드 완료');
-            resolve();
-          }
-        });
-      } else {
-        // Google Charts 라이브러리가 없으면 스크립트 로드
-        const script = document.createElement('script');
-        script.src = 'https://www.gstatic.com/charts/loader.js';
-        script.onload = () => {
-          setTimeout(() => this.loadGoogleCharts().then(resolve), 100);
-        };
-        document.head.appendChild(script);
-      }
-    });
-  }
-
-  shouldUpdateChart(chartId) {
-    const now = Date.now();
-    const lastUpdate = this.lastUpdateTime[chartId] || 0;
-    return (now - lastUpdate) > this.updateInterval;
-  }
-
-  drawChart(chartId, chartType, data, options) {
-    if (!this.isGoogleChartsLoaded) {
-      console.log('⏳ Google Charts 로딩 중...');
-      return;
-    }
-
-    const container = document.getElementById(chartId);
-    if (!container) {
-      console.error(`❌ 차트 컨테이너를 찾을 수 없음: ${chartId}`);
-      return;
-    }
-
-    try {
       let chart;
       
       switch(chartType) {
@@ -314,6 +75,9 @@ window.KAUZ_ADMIN.GoogleChartsManager = class {
       chart.draw(data, options);
       this.charts[chartId] = chart;
       this.lastUpdateTime[chartId] = Date.now();
+      
+      // 차트 로딩 완료 표시
+      container.classList.add('loaded');
       
       console.log(`📊 Google Charts 차트 생성 완료: ${chartId}`);
       
@@ -424,7 +188,6 @@ window.KAUZ_ADMIN.FormspreeManager = class {
   init() {
     this.initializeForm();
     
-    // 재시도 간격
     const retryIntervals = [1000, 2000, 3000, 5000, 10000];
     retryIntervals.forEach((delay, index) => {
       setTimeout(() => {
@@ -466,7 +229,6 @@ window.KAUZ_ADMIN.FormspreeManager = class {
       contactForm.method = 'POST';
       contactForm.dataset.formspreeInitialized = 'true';
 
-      // 기존 이벤트 리스너 제거를 위해 클론
       const newForm = contactForm.cloneNode(true);
       contactForm.parentNode.replaceChild(newForm, contactForm);
       contactForm = newForm;
@@ -476,7 +238,6 @@ window.KAUZ_ADMIN.FormspreeManager = class {
       this.isInitialized = true;
       console.log('✅ Formspree Contact Form 연동 완료');
       
-      // 알림 표시 (UI 모듈이 로드된 후에)
       if (window.KAUZ_ADMIN.showNotification) {
         window.KAUZ_ADMIN.showNotification('📧 Contact Form이 Formspree로 연동되었습니다!', 'success');
       }
@@ -495,7 +256,6 @@ window.KAUZ_ADMIN.FormspreeManager = class {
     const originalText = submitButton?.textContent || submitButton?.value || '전송';
     
     try {
-      // 버튼 상태 변경
       if (submitButton) {
         submitButton.disabled = true;
         if (submitButton.textContent !== undefined) {
@@ -507,13 +267,11 @@ window.KAUZ_ADMIN.FormspreeManager = class {
       
       const formData = new FormData(form);
       
-      // 폼 검증
       const validation = this.validateForm(formData);
       if (!validation.isValid) {
         throw new Error(validation.message);
       }
       
-      // Formspree로 전송
       const response = await fetch(this.formspreeUrl, {
         method: 'POST',
         body: formData,
@@ -537,7 +295,6 @@ window.KAUZ_ADMIN.FormspreeManager = class {
         window.KAUZ_ADMIN.showNotification(`❌ 문의 전송에 실패했습니다: ${error.message}`, 'error');
       }
     } finally {
-      // 버튼 상태 복원
       if (submitButton) {
         submitButton.disabled = false;
         if (submitButton.textContent !== undefined) {
@@ -603,7 +360,6 @@ window.KAUZ_ADMIN.FormspreeManager = class {
         const newContact = await response.json();
         window.KAUZ_ADMIN.DATA.contacts.unshift(newContact);
         
-        // 데이터 제한 적용
         if (window.KAUZ_ADMIN.managers && window.KAUZ_ADMIN.managers.dataLimiter) {
           window.KAUZ_ADMIN.DATA.contacts = window.KAUZ_ADMIN.managers.dataLimiter.enforceLimit(
             window.KAUZ_ADMIN.DATA.contacts, 
@@ -611,7 +367,6 @@ window.KAUZ_ADMIN.FormspreeManager = class {
           );
         }
         
-        // 대시보드 업데이트
         if (window.KAUZ_ADMIN.updateDashboardStats) {
           window.KAUZ_ADMIN.updateDashboardStats();
         }
@@ -630,7 +385,7 @@ window.KAUZ_ADMIN.FormspreeManager = class {
 };
 
 // ═══════════════════════════════════════════════════════════════
-// 📊 실시간 추적 관리자
+// 📊 실시간 추적 관리자 (과도한 추적 방지)
 // ═══════════════════════════════════════════════════════════════
 
 window.KAUZ_ADMIN.RealtimeTracker = class {
@@ -645,6 +400,8 @@ window.KAUZ_ADMIN.RealtimeTracker = class {
     this.startTime = Date.now();
     this.pageViews = 0;
     this.maxSessionDuration = 30 * 60 * 1000; // 30분
+    this.lastPageViewTime = 0; // 🔥 페이지뷰 추적 간격 제한
+    this.maxPageViews = 20; // 🔥 세션당 최대 페이지뷰
     
     document.addEventListener('visibilitychange', () => {
       this.isVisible = !document.hidden;
@@ -837,17 +594,31 @@ window.KAUZ_ADMIN.RealtimeTracker = class {
     this.fetchRealtimeData();
   }
 
-  trackPageView() {
-    this.pageViews++;
+  // 🛡️ 안전한 페이지뷰 추적 (무한 증가 방지)
+  trackPageViewSafe() {
+    const now = Date.now();
     
+    // 과도한 페이지뷰 추적 방지
+    if (this.pageViews >= this.maxPageViews) {
+      console.log('🛑 세션당 페이지뷰 제한 도달');
+      return;
+    }
+    
+    // 너무 빠른 연속 추적 방지 (3초 간격)
+    if (this.lastPageViewTime && (now - this.lastPageViewTime) < 3000) {
+      console.log('⏱️ 페이지뷰 추적 간격 제한');
+      return;
+    }
+    
+    this.pageViews++;
+    this.lastPageViewTime = now;
+    
+    // 방문자 카운트 관리자를 통한 안전한 증가
     if (window.KAUZ_ADMIN.managers && window.KAUZ_ADMIN.managers.visitorCountManager) {
       window.KAUZ_ADMIN.managers.visitorCountManager.incrementVisitor(this.sessionId);
     }
     
-    if (this.pageViews > 50) {
-      console.log('⚠️ 과도한 페이지뷰 감지 - 추적 제한');
-      this.stopTracking();
-    }
+    console.log(`📄 안전한 페이지뷰 추적: ${this.pageViews}/${this.maxPageViews}`);
   }
 
   cleanup() {
@@ -856,10 +627,57 @@ window.KAUZ_ADMIN.RealtimeTracker = class {
 };
 
 // ═══════════════════════════════════════════════════════════════
+// 🚨 방문자 제한 모니터링
+// ═══════════════════════════════════════════════════════════════
+
+window.KAUZ_ADMIN.VisitorLimitMonitor = class {
+  constructor() {
+    this.alertThreshold = 40; // 40명 도달시 경고
+    this.lastAlert = 0;
+    this.alertInterval = 300000; // 5분마다 최대 1회 경고
+  }
+
+  checkLimits() {
+    if (!window.KAUZ_ADMIN.managers?.visitorCountManager) return;
+    
+    const currentCount = window.KAUZ_ADMIN.managers.visitorCountManager.getTodayVisitors();
+    const maxCount = window.KAUZ_ADMIN.managers.visitorCountManager.maxDailyIncrement;
+    const now = Date.now();
+    
+    // 제한 근접 경고
+    if (currentCount >= this.alertThreshold && (now - this.lastAlert) > this.alertInterval) {
+      console.warn(`🚨 방문자 수 제한 근접: ${currentCount}/${maxCount}`);
+      this.lastAlert = now;
+      
+      if (window.KAUZ_ADMIN.showNotification) {
+        window.KAUZ_ADMIN.showNotification(
+          `방문자 수가 일일 제한에 근접했습니다 (${currentCount}/${maxCount})`, 
+          'warning'
+        );
+      }
+    }
+    
+    // 최대치 도달 알림
+    if (currentCount >= maxCount) {
+      console.error(`🛑 일일 방문자 수 최대치 도달: ${maxCount}명`);
+      
+      if (window.KAUZ_ADMIN.showNotification && (now - this.lastAlert) > this.alertInterval) {
+        window.KAUZ_ADMIN.showNotification(
+          '일일 방문자 수 제한에 도달했습니다. 더 이상 증가하지 않습니다.', 
+          'error'
+        );
+        this.lastAlert = now;
+      }
+    }
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
 // 🎉 Managers 모듈 로드 완료
 // ═══════════════════════════════════════════════════════════════
 
 console.log('✅ KAUZ Admin Managers Module 로드 완료');
+console.log('🛡️ 방문자 수 무한 증가 방지 시스템 활성화');
 console.log('🔧 모든 관리자 클래스 준비 완료');
 console.log('📋 다음 모듈: admin-data.js 로드 필요');
 
@@ -870,5 +688,359 @@ window.KAUZ_ADMIN.managers = {
   visitorCountManager: null,
   chartManager: null,
   formspreeManager: null,
-  realtimeTracker: null
+  realtimeTracker: null,
+  visitorLimitMonitor: null
 };
+
+// 디버깅 도구 추가
+window.VISITOR_DEBUG = {
+  getInfo: () => {
+    if (window.KAUZ_ADMIN.managers?.visitorCountManager) {
+      return window.KAUZ_ADMIN.managers.visitorCountManager.getDebugInfo();
+    }
+    return '방문자 관리자가 초기화되지 않았습니다.';
+  },
+  
+  reset: () => {
+    if (window.KAUZ_ADMIN.managers?.visitorCountManager) {
+      window.KAUZ_ADMIN.managers.visitorCountManager.forceReset();
+      return '방문자 카운트가 리셋되었습니다.';
+    }
+    return '방문자 관리자가 초기화되지 않았습니다.';
+  },
+  
+  setCount: (count) => {
+    if (window.KAUZ_ADMIN.managers?.visitorCountManager) {
+      return window.KAUZ_ADMIN.managers.visitorCountManager.setVisitorCount(count);
+    }
+    return '방문자 관리자가 초기화되지 않았습니다.';
+  }
+};
+
+console.log('🛡️ 방문자 수 무한 증가 방지 패치 적용 완료');
+console.log('📋 디버깅 명령어: VISITOR_DEBUG.getInfo(), VISITOR_DEBUG.reset(), VISITOR_DEBUG.setCount(숫자)');
+      const startTime = Date.now();
+      const response = await window.KAUZ_ADMIN.secureApiCall(url, options);
+      const data = await response.json();
+      
+      // 캐시 저장
+      this.cache.set(cacheKey, { data: data, timestamp: Date.now() });
+      this.metrics.apiCalls++;
+      this.metrics.avgResponseTime = (this.metrics.avgResponseTime + (Date.now() - startTime)) / 2;
+      
+      return data;
+    } finally {
+      this.loadingStates.delete(cacheKey);
+    }
+  }
+
+  cleanupCache() {
+    const now = Date.now();
+    let cleaned = 0;
+    for (const [key, value] of this.cache.entries()) {
+      if (now - value.timestamp > 300000) {
+        this.cache.delete(key);
+        cleaned++;
+      }
+    }
+    if (cleaned > 0) {
+      console.log(`🧹 캐시 정리: ${cleaned}개 항목 삭제`);
+    }
+  }
+
+  clearCache() {
+    this.cache.clear();
+    console.log('🧹 전체 캐시 정리 완료');
+  }
+
+  getPerformanceReport() {
+    return {
+      ...this.metrics,
+      cacheSize: this.cache.size,
+      cacheHitRate: this.metrics.apiCalls > 0 ? 
+        `${Math.round((this.metrics.cacheHits / this.metrics.apiCalls) * 100)}%` : '0%'
+    };
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// 🔥 데이터 제한 관리자
+// ═══════════════════════════════════════════════════════════════
+
+window.KAUZ_ADMIN.DataLimiter = class {
+  constructor() {
+    this.limits = {
+      chartLabels: 12,
+      chartData: 12,
+      analytics: 50,
+      contacts: 30,
+      portfolio: 30,
+      realtimeData: 10
+    };
+  }
+
+  enforceLimit(array, limitType) {
+    const limit = this.limits[limitType];
+    if (!Array.isArray(array)) return [];
+    
+    if (array.length > limit) {
+      const result = array.slice(-limit);
+      console.log(`⚡ 데이터 제한 적용: ${array.length} → ${result.length} (${limitType})`);
+      return result;
+    }
+    return array;
+  }
+
+  cleanupSystemData(systemData) {
+    if (!systemData) return;
+
+    if (systemData.analytics) {
+      systemData.analytics = this.enforceLimit(systemData.analytics, 'analytics');
+    }
+    if (systemData.contacts) {
+      systemData.contacts = this.enforceLimit(systemData.contacts, 'contacts');
+    }
+    if (systemData.portfolio) {
+      if (systemData.portfolio.main) {
+        systemData.portfolio.main = this.enforceLimit(systemData.portfolio.main, 'portfolio');
+      }
+      if (systemData.portfolio.work) {
+        systemData.portfolio.work = this.enforceLimit(systemData.portfolio.work, 'portfolio');
+      }
+    }
+    console.log('🧹 시스템 데이터 정리 완료');
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// 🛡️ 방문자 카운트 관리자 (기하급수적 증가 방지 강화)
+// ═══════════════════════════════════════════════════════════════
+
+window.KAUZ_ADMIN.VisitorCountManager = class {
+  constructor() {
+    this.dailyVisitorCount = 0;
+    this.lastResetDate = new Date().toISOString().split('T')[0];
+    this.maxDailyIncrement = 50; // 🔥 일일 최대 50명으로 제한
+    this.recentVisitors = new Set();
+    this.sessionTracker = new Map(); // 세션별 추적
+    this.lastIncrementTime = 0;
+    this.minIncrementInterval = 30000; // 🕐 최소 30초 간격
+    this.maxIncrementsPerHour = 10; // 📊 시간당 최대 10번
+    this.hourlyIncrements = [];
+    this.loadFromStorage();
+  }
+
+  loadFromStorage() {
+    try {
+      const stored = localStorage.getItem('kauz_visitor_count');
+      if (stored) {
+        const data = JSON.parse(stored);
+        const today = new Date().toISOString().split('T')[0];
+        
+        if (data.date === today) {
+          this.dailyVisitorCount = Math.min(data.count || 0, this.maxDailyIncrement);
+        } else {
+          this.dailyVisitorCount = 0;
+          this.lastResetDate = today;
+          this.clearHourlyData();
+          this.saveToStorage();
+        }
+      }
+    } catch (error) {
+      console.error('방문자 카운트 로드 실패:', error);
+      this.dailyVisitorCount = 0;
+    }
+  }
+
+  saveToStorage() {
+    try {
+      const data = { 
+        count: this.dailyVisitorCount, 
+        date: this.lastResetDate,
+        lastIncrement: this.lastIncrementTime
+      };
+      localStorage.setItem('kauz_visitor_count', JSON.stringify(data));
+    } catch (error) {
+      console.error('방문자 카운트 저장 실패:', error);
+    }
+  }
+
+  clearHourlyData() {
+    this.hourlyIncrements = [];
+  }
+
+  checkHourlyLimit() {
+    const now = Date.now();
+    const oneHourAgo = now - (60 * 60 * 1000);
+    
+    // 1시간 이내의 증가 횟수 정리
+    this.hourlyIncrements = this.hourlyIncrements.filter(time => time > oneHourAgo);
+    
+    return this.hourlyIncrements.length < this.maxIncrementsPerHour;
+  }
+
+  incrementVisitor(sessionId = null) {
+    const now = Date.now();
+    const today = new Date().toISOString().split('T')[0];
+    
+    // 날짜 변경 체크
+    if (today !== this.lastResetDate) {
+      this.dailyVisitorCount = 0;
+      this.lastResetDate = today;
+      this.recentVisitors.clear();
+      this.sessionTracker.clear();
+      this.clearHourlyData();
+      this.lastIncrementTime = 0;
+    }
+
+    // 🔒 다중 제한 검사
+    
+    // 1. 일일 최대치 도달
+    if (this.dailyVisitorCount >= this.maxDailyIncrement) {
+      console.log('🛑 일일 최대 방문자 수 도달 (50명)');
+      return this.dailyVisitorCount;
+    }
+
+    // 2. 최소 시간 간격 체크
+    if (now - this.lastIncrementTime < this.minIncrementInterval) {
+      console.log('⏱️ 방문자 증가 간격 제한 (30초)');
+      return this.dailyVisitorCount;
+    }
+
+    // 3. 시간당 증가 제한 체크
+    if (!this.checkHourlyLimit()) {
+      console.log('📊 시간당 방문자 증가 제한 (10회)');
+      return this.dailyVisitorCount;
+    }
+
+    // 4. 동일 세션 중복 체크
+    if (sessionId) {
+      if (this.recentVisitors.has(sessionId)) {
+        return this.dailyVisitorCount;
+      }
+      
+      // 세션 추적 - 동일 세션에서 5분 이내 재증가 방지
+      const lastSessionTime = this.sessionTracker.get(sessionId);
+      if (lastSessionTime && (now - lastSessionTime) < 300000) { // 5분
+        console.log('🔄 동일 세션 중복 방지 (5분 간격)');
+        return this.dailyVisitorCount;
+      }
+    }
+
+    // ✅ 모든 검사 통과 - 방문자 수 증가
+    this.dailyVisitorCount++;
+    this.lastIncrementTime = now;
+    this.hourlyIncrements.push(now);
+    
+    if (sessionId) {
+      this.recentVisitors.add(sessionId);
+      this.sessionTracker.set(sessionId, now);
+      
+      // 메모리 관리
+      if (this.recentVisitors.size > 100) {
+        const oldestEntries = Array.from(this.recentVisitors).slice(0, 50);
+        oldestEntries.forEach(entry => {
+          this.recentVisitors.delete(entry);
+          this.sessionTracker.delete(entry);
+        });
+      }
+    }
+
+    this.saveToStorage();
+    console.log(`📈 방문자 수 증가: ${this.dailyVisitorCount}/${this.maxDailyIncrement}`);
+    return this.dailyVisitorCount;
+  }
+
+  getTodayVisitors() {
+    const today = new Date().toISOString().split('T')[0];
+    if (today !== this.lastResetDate) {
+      return 0;
+    }
+    return Math.min(this.dailyVisitorCount, this.maxDailyIncrement);
+  }
+
+  setVisitorCount(count) {
+    this.dailyVisitorCount = Math.min(Math.max(count, 0), this.maxDailyIncrement);
+    this.saveToStorage();
+    return this.dailyVisitorCount;
+  }
+
+  // 디버깅용 메서드
+  getDebugInfo() {
+    return {
+      dailyCount: this.dailyVisitorCount,
+      maxDaily: this.maxDailyIncrement,
+      hourlyIncrements: this.hourlyIncrements.length,
+      maxHourly: this.maxIncrementsPerHour,
+      lastIncrement: new Date(this.lastIncrementTime).toLocaleString(),
+      sessionsTracked: this.sessionTracker.size,
+      recentVisitors: this.recentVisitors.size
+    };
+  }
+
+  forceReset() {
+    this.dailyVisitorCount = 0;
+    this.recentVisitors.clear();
+    this.sessionTracker.clear();
+    this.clearHourlyData();
+    this.lastIncrementTime = 0;
+    this.saveToStorage();
+    console.log('🔄 방문자 카운트 강제 리셋 완료');
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// 🚀 Google Charts 관리자
+// ═══════════════════════════════════════════════════════════════
+
+window.KAUZ_ADMIN.GoogleChartsManager = class {
+  constructor() {
+    this.charts = {};
+    this.dataLimiter = new window.KAUZ_ADMIN.DataLimiter();
+    this.lastUpdateTime = {};
+    this.updateInterval = 30000;
+    this.isGoogleChartsLoaded = false;
+    this.loadGoogleCharts();
+  }
+
+  async loadGoogleCharts() {
+    return new Promise((resolve) => {
+      if (typeof google !== 'undefined' && google.charts) {
+        google.charts.load('current', {
+          packages: ['corechart', 'line', 'bar'],
+          callback: () => {
+            this.isGoogleChartsLoaded = true;
+            console.log('✅ Google Charts 로드 완료');
+            resolve();
+          }
+        });
+      } else {
+        const script = document.createElement('script');
+        script.src = 'https://www.gstatic.com/charts/loader.js';
+        script.onload = () => {
+          setTimeout(() => this.loadGoogleCharts().then(resolve), 100);
+        };
+        document.head.appendChild(script);
+      }
+    });
+  }
+
+  shouldUpdateChart(chartId) {
+    const now = Date.now();
+    const lastUpdate = this.lastUpdateTime[chartId] || 0;
+    return (now - lastUpdate) > this.updateInterval;
+  }
+
+  drawChart(chartId, chartType, data, options) {
+    if (!this.isGoogleChartsLoaded) {
+      console.log('⏳ Google Charts 로딩 중...');
+      return;
+    }
+
+    const container = document.getElementById(chartId);
+    if (!container) {
+      console.error(`❌ 차트 컨테이너를 찾을 수 없음: ${chartId}`);
+      return;
+    }
+
+    try {
