@@ -1,11 +1,11 @@
 // ═══════════════════════════════════════════════════════════════
-// KAUZ Admin UI Module v4.2.0
+// KAUZ Admin UI Module v4.2.1-FIXED
 // 🎨 UI 관리, 모달, 알림, 이벤트 처리
 // ═══════════════════════════════════════════════════════════════
 
-// 모듈 의존성 체크
-if (!window.KAUZ_ADMIN || !window.KAUZ_ADMIN.managers) {
-  throw new Error('❌ admin-core.js, admin-managers.js, admin-data.js가 먼저 로드되어야 합니다.');
+// 모듈 의존성 체크 (수정된 버전)
+if (!window.KAUZ_ADMIN) {
+  throw new Error('❌ admin-core.js가 먼저 로드되어야 합니다.');
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -123,7 +123,10 @@ window.KAUZ_ADMIN.showDashboard = async function() {
   if (this.ELEMENTS.loginScreen) this.ELEMENTS.loginScreen.style.display = 'none';
   if (this.ELEMENTS.adminDashboard) this.ELEMENTS.adminDashboard.style.display = 'grid';
   
+  // 관리자 초기화를 먼저 실행
   await this.initializeManagers();
+  
+  // 그 다음 대시보드 초기화
   await this.initializeDashboard();
   
   this.updateSystemStatus('online');
@@ -453,7 +456,8 @@ window.KAUZ_ADMIN.updateContactStats = function() {
 window.KAUZ_ADMIN.loadAnalyticsSection = async function() {
   this.updateAnalyticsKPI();
   
-  if (this.managers.chartManager && this.managers.chartManager.isGoogleChartsLoaded) {
+  // 안전한 차트 관리자 접근
+  if (this.managers?.chartManager && this.managers.chartManager.isGoogleChartsLoaded) {
     const visitorData = this.processVisitorTrendData();
     const behaviorData = this.processUserBehaviorData();
     
@@ -704,10 +708,10 @@ window.KAUZ_ADMIN.setupEventListeners = function() {
 
   // 포트폴리오 헤더 버튼들
   document.addEventListener('click', (e) => {
-    if (e.target.id === 'add-main-portfolio-btn') {
+    if (e.target.id === 'add-main-portfolio-btn' || e.target.id === 'add-main-portfolio-btn-2') {
       this.showAddPortfolioModal('main');
     }
-    if (e.target.id === 'add-work-portfolio-btn') {
+    if (e.target.id === 'add-work-portfolio-btn' || e.target.id === 'add-work-portfolio-btn-2') {
       this.showAddPortfolioModal('work');
     }
   });
@@ -739,10 +743,13 @@ window.KAUZ_ADMIN.setupEventListeners = function() {
         result = await this.createPortfolioItem(tableName, formData);
         if (result) {
           this.DATA.portfolio[tableType].push(result);
-          this.DATA.portfolio[tableType] = this.managers.dataLimiter.enforceLimit(
-            this.DATA.portfolio[tableType], 
-            'portfolio'
-          );
+          // 안전한 데이터 제한 적용
+          if (this.managers?.dataLimiter) {
+            this.DATA.portfolio[tableType] = this.managers.dataLimiter.enforceLimit(
+              this.DATA.portfolio[tableType], 
+              'portfolio'
+            );
+          }
         }
       } else if (mode === 'edit') {
         result = await this.updatePortfolioItem(tableName, recordId, formData);
@@ -823,20 +830,36 @@ window.KAUZ_ADMIN.setupEventListeners = function() {
 };
 
 // ═══════════════════════════════════════════════════════════════
-// 🚀 관리자 인스턴스 초기화
+// 🚀 관리자 인스턴스 초기화 (수정된 버전)
 // ═══════════════════════════════════════════════════════════════
 
 window.KAUZ_ADMIN.initializeManagers = async function() {
   try {
     console.log('🔧 관리자 클래스 초기화 중...');
     
+    // managers 객체가 없으면 생성
+    if (!this.managers) {
+      this.managers = {
+        performanceManager: null,
+        dataLimiter: null,
+        visitorCountManager: null,
+        chartManager: null,
+        formspreeManager: null,
+        realtimeTracker: null,
+        visitorLimitMonitor: null
+      };
+    }
+    
+    // 관리자 클래스들 순차적으로 초기화
     this.managers.performanceManager = new this.PerformanceManager();
     this.managers.dataLimiter = new this.DataLimiter();
     this.managers.visitorCountManager = new this.VisitorCountManager();
     this.managers.chartManager = new this.GoogleChartsManager();
     this.managers.formspreeManager = new this.FormspreeManager();
     this.managers.realtimeTracker = new this.RealtimeTracker();
+    this.managers.visitorLimitMonitor = new this.VisitorLimitMonitor();
     
+    // Google Charts 로딩 대기
     await this.managers.chartManager.loadGoogleCharts();
     
     console.log('✅ 모든 관리자 클래스 초기화 완료');
