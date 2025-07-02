@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════
-// KAUZ Admin Core Module v4.2.0
+// KAUZ Admin Core Module v4.2.1-FIXED
 // 🔐 기본 설정, 암호화, 인증 시스템
 // ═══════════════════════════════════════════════════════════════
 
@@ -17,14 +17,14 @@ window.KAUZ_ADMIN.CONFIG = {
   analyticsTableName: 'Analytics',
   sessionDuration: 2 * 60 * 60 * 1000, // 2시간
   maxLoginAttempts: 5,
-  version: '4.2.0-MODULAR'
+  version: '4.2.1-FIXED'
 };
 
-// 전역 상태
+// 전역 상태 (모든 변수 명시적 초기화)
 window.KAUZ_ADMIN.STATE = {
   AIRTABLE_TOKEN: null,
   isInitialized: false,
-  correctPasswordHash: null,
+  correctPasswordHash: null, // 명시적 초기화
   currentSection: 'dashboard',
   currentPortfolioTab: 'main'
 };
@@ -140,7 +140,10 @@ window.KAUZ_ADMIN.initializeSystem = async function() {
     
     const originalToken = 'patouGO5iPVpIxbRf.e4bdbe02fe59cbe69f201edaa32b4b63f8e05dbbfcae34173f0f40c985b811d9';
     
+    // 토큰 암호화
     this.CONFIG.encryptedToken = await this.KAUZCrypto.encrypt(originalToken);
+    
+    // 비밀번호 해시 생성 및 STATE에 저장
     this.STATE.correctPasswordHash = await this.KAUZCrypto.hashPassword('kauz2025!admin');
     this.CONFIG.hashedPassword = this.STATE.correctPasswordHash;
     
@@ -214,6 +217,7 @@ window.KAUZ_ADMIN.login = async function(password) {
   }
 
   try {
+    // correctPasswordHash가 없으면 생성
     if (!this.STATE.correctPasswordHash) {
       this.STATE.correctPasswordHash = await this.KAUZCrypto.hashPassword('kauz2025!admin');
     }
@@ -306,7 +310,7 @@ window.KAUZ_ADMIN.throttle = function(func, delay) {
   };
 };
 
-// DOM 요소 초기화
+// DOM 요소 초기화 (DOMContentLoaded 후에 실행되도록 수정)
 window.KAUZ_ADMIN.initializeElements = function() {
   this.ELEMENTS = {
     loginScreen: document.getElementById('login-screen'),
@@ -333,8 +337,9 @@ console.log('✅ KAUZ Admin Core Module 로드 완료');
 console.log('🔐 AES-256 암호화 시스템 준비 완료');
 console.log('📋 다음 모듈: admin-managers.js 로드 필요');
 
-// Core 모듈 자동 초기화
-window.KAUZ_ADMIN.initializeSystem().then(success => {
+// Core 모듈 자동 초기화 (DOM 로드 후에 실행)
+document.addEventListener('DOMContentLoaded', async function() {
+  const success = await window.KAUZ_ADMIN.initializeSystem();
   if (success) {
     console.log('🚀 Core 시스템 자동 초기화 성공!');
   } else {
