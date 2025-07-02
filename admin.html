@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="common.css" />
   <link rel="stylesheet" href="admin.css" />
   
-  <!-- Google Charts for Advanced Charts (Chart.js 교체) -->
+  <!-- Google Charts for Advanced Charts -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
@@ -37,7 +37,7 @@
         <button type="submit" class="login-btn">🔐 보안 로그인</button>
       </form>
       
-      <div id="login-error" class="login-error" style="display: none;">
+      <div id="login-error" class="login-error" style="display: none; color: #dc3545; margin-top: 1rem; padding: 0.5rem; background: rgba(220, 53, 69, 0.1); border-radius: 4px;">
         비밀번호가 틀렸습니다.
       </div>
       
@@ -45,6 +45,7 @@
         <div class="feature-item">🔒 AES-256 암호화</div>
         <div class="feature-item">📊 실시간 방문자 추적</div>
         <div class="feature-item">📈 Google Charts 분석</div>
+        <div class="feature-item">📧 Formspree 연동</div>
       </div>
     </div>
   </div>
@@ -60,8 +61,8 @@
       </div>
       <div class="admin-header-right">
         <div class="system-status">
-          <span class="status-indicator" id="system-status">🟢</span>
-          <span class="status-text">System Online</span>
+          <span class="status-indicator" id="system-status">🟡</span>
+          <span class="status-text">System Loading...</span>
         </div>
         <span class="admin-user">관리자</span>
         <button id="logout-btn" class="logout-btn">로그아웃</button>
@@ -129,7 +130,7 @@
             <div class="stat-content">
               <div class="stat-number" id="main-portfolio-count">-</div>
               <div class="stat-label">메인 포트폴리오</div>
-              <div class="stat-trend" id="main-portfolio-trend">📈 +12%</div>
+              <div class="stat-trend" id="main-portfolio-trend">📈 로딩중</div>
             </div>
           </div>
           <div class="stat-card success">
@@ -137,7 +138,7 @@
             <div class="stat-content">
               <div class="stat-number" id="work-portfolio-count">-</div>
               <div class="stat-label">포트폴리오 작품</div>
-              <div class="stat-trend" id="work-portfolio-trend">📈 +8%</div>
+              <div class="stat-trend" id="work-portfolio-trend">📈 로딩중</div>
             </div>
           </div>
           <div class="stat-card warning">
@@ -187,14 +188,14 @@
                 </select>
               </div>
             </div>
-            <div id="visitor-trend-chart" style="width: 100%; height: 300px;"></div>
+            <div id="visitor-trend-chart" style="width: 100%; height: 300px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666;">차트 로딩 중...</div>
           </div>
           
           <div class="chart-widget medium">
             <div class="widget-header">
               <h3>🎯 방문자 행동 분석</h3>
             </div>
-            <div id="user-behavior-chart" style="width: 100%; height: 300px;"></div>
+            <div id="user-behavior-chart" style="width: 100%; height: 300px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666;">차트 로딩 중...</div>
           </div>
         </div>
 
@@ -244,11 +245,11 @@
               <h3>🚀 빠른 작업</h3>
             </div>
             <div class="quick-actions-grid">
-              <button class="action-btn" data-action="add-main-portfolio">
+              <button class="action-btn" data-action="add-main-portfolio" id="add-main-portfolio-btn">
                 <span class="action-icon">🏠</span>
                 <span class="action-text">메인 포트폴리오 추가</span>
               </button>
-              <button class="action-btn" data-action="add-work-portfolio">
+              <button class="action-btn" data-action="add-work-portfolio" id="add-work-portfolio-btn">
                 <span class="action-icon">🖼️</span>
                 <span class="action-text">작품 추가</span>
               </button>
@@ -283,6 +284,10 @@
               <div class="status-item">
                 <span class="status-label">백업 상태</span>
                 <span class="status-value" id="backup-status">📅 최신</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Formspree 연동</span>
+                <span class="status-value" id="formspree-status">🔄 확인 중...</span>
               </div>
             </div>
           </div>
@@ -324,7 +329,7 @@
               </div>
               
               <div class="manager-actions">
-                <button class="primary-btn" id="add-main-portfolio-btn">
+                <button class="primary-btn" id="add-main-portfolio-btn-2">
                   <span class="btn-icon">➕</span>
                   포트폴리오 추가
                 </button>
@@ -390,10 +395,14 @@
                   <span class="stat-number" id="work-clients">0</span>
                   <span class="stat-label">클라이언트</span>
                 </div>
+                <div class="stat-item">
+                  <span class="stat-number" id="work-featured">0</span>
+                  <span class="stat-label">추천</span>
+                </div>
               </div>
               
               <div class="manager-actions">
-                <button class="primary-btn" id="add-work-portfolio-btn">
+                <button class="primary-btn" id="add-work-portfolio-btn-2">
                   <span class="btn-icon">➕</span>
                   작품 추가
                 </button>
@@ -440,7 +449,7 @@
         <div class="section-header">
           <div class="header-content">
             <h1>📧 문의 관리</h1>
-            <p>실시간 문의 모니터링 + 자동 분류</p>
+            <p>실시간 문의 모니터링 + Formspree 연동</p>
           </div>
           <div class="header-actions">
             <div class="filter-buttons">
@@ -460,7 +469,7 @@
               <div class="stat-content">
                 <div class="stat-number" id="new-contacts">0</div>
                 <div class="stat-label">신규 문의</div>
-                <div class="stat-change">오늘 +3</div>
+                <div class="stat-change">오늘 +0</div>
               </div>
             </div>
             <div class="contact-stat-card pending">
@@ -535,7 +544,7 @@
               </div>
               <div class="kpi-content">
                 <div class="kpi-value" id="total-visitors">-</div>
-                <div class="kpi-change positive" id="visitors-change">+12.5%</div>
+                <div class="kpi-change positive" id="visitors-change">-</div>
                 <div class="kpi-subtitle">전일 대비</div>
               </div>
             </div>
@@ -547,7 +556,7 @@
               </div>
               <div class="kpi-content">
                 <div class="kpi-value" id="total-pageviews">-</div>
-                <div class="kpi-change positive" id="pageviews-change">+8.3%</div>
+                <div class="kpi-change positive" id="pageviews-change">-</div>
                 <div class="kpi-subtitle">세션당 평균</div>
               </div>
             </div>
@@ -559,7 +568,7 @@
               </div>
               <div class="kpi-content">
                 <div class="kpi-value" id="avg-session-duration">-</div>
-                <div class="kpi-change neutral" id="session-change">+0.8%</div>
+                <div class="kpi-change neutral" id="session-change">-</div>
                 <div class="kpi-subtitle">목표: 3분</div>
               </div>
             </div>
@@ -571,8 +580,8 @@
               </div>
               <div class="kpi-content">
                 <div class="kpi-value" id="bounce-rate">-</div>
-                <div class="kpi-change negative" id="bounce-change">-5.2%</div>
-                <div class="kpi-subtitle">개선됨</div>
+                <div class="kpi-change negative" id="bounce-change">-</div>
+                <div class="kpi-subtitle">개선 필요</div>
               </div>
             </div>
           </div>
@@ -588,7 +597,7 @@
                   <button class="chart-btn" data-metric="sessions">세션</button>
                 </div>
               </div>
-              <div id="main-analytics-chart" style="width: 100%; height: 400px;"></div>
+              <div id="main-analytics-chart" style="width: 100%; height: 400px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666;">Google Charts 로딩 중...</div>
             </div>
             
             <div class="chart-grid">
@@ -596,28 +605,28 @@
                 <div class="chart-header">
                   <h3>🎯 페이지별 성과</h3>
                 </div>
-                <div id="pages-performance-chart" style="width: 100%; height: 300px;"></div>
+                <div id="pages-performance-chart" style="width: 100%; height: 300px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666;">차트 로딩 중...</div>
               </div>
               
               <div class="chart-container">
                 <div class="chart-header">
                   <h3>⏰ 시간대별 방문</h3>
                 </div>
-                <div id="hourly-visits-chart" style="width: 100%; height: 300px;"></div>
+                <div id="hourly-visits-chart" style="width: 100%; height: 300px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666;">차트 로딩 중...</div>
               </div>
               
               <div class="chart-container">
                 <div class="chart-header">
                   <h3>🌍 지역별 방문자</h3>
                 </div>
-                <div id="geo-chart" style="width: 100%; height: 300px;"></div>
+                <div id="geo-chart" style="width: 100%; height: 300px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666;">차트 로딩 중...</div>
               </div>
               
               <div class="chart-container">
                 <div class="chart-header">
                   <h3>📱 디바이스 분석</h3>
                 </div>
-                <div id="device-chart" style="width: 100%; height: 300px;"></div>
+                <div id="device-chart" style="width: 100%; height: 300px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666;">차트 로딩 중...</div>
               </div>
             </div>
           </div>
@@ -633,7 +642,7 @@
           </div>
           <div class="header-actions">
             <div class="tracking-status">
-              <span class="status-indicator active">🔴</span>
+              <span class="status-indicator active" id="tracking-status-indicator">🔴</span>
               <span class="status-text">실시간 추적 중</span>
             </div>
             <button class="tracking-btn" id="toggle-tracking">⏸️ 추적 일시정지</button>
@@ -679,10 +688,10 @@
             <div class="widget realtime-visitors">
               <div class="widget-header">
                 <h3>🔴 실시간 방문자</h3>
-                <span class="update-time">1초 전 업데이트</span>
+                <span class="update-time">실시간 업데이트</span>
               </div>
               <div class="visitors-list" id="realtime-visitors-list">
-                <!-- 실시간 방문자 목록 -->
+                <div class="loading">실시간 방문자 데이터 로딩 중...</div>
               </div>
             </div>
             
@@ -691,7 +700,7 @@
                 <h3>🌍 방문자 지도</h3>
               </div>
               <div class="map-container" id="visitor-map">
-                <!-- 방문자 지도 -->
+                <div style="padding: 2rem; text-align: center; color: #666;">지도 로딩 중...</div>
               </div>
             </div>
             
@@ -700,7 +709,7 @@
                 <h3>📊 페이지별 실시간 데이터</h3>
               </div>
               <div class="page-list" id="realtime-pages">
-                <!-- 실시간 페이지 데이터 -->
+                <div class="loading">페이지 데이터 로딩 중...</div>
               </div>
             </div>
             
@@ -709,7 +718,7 @@
                 <h3>🔀 사용자 행동 흐름</h3>
               </div>
               <div class="flow-diagram" id="behavior-flow">
-                <!-- 행동 흐름 다이어그램 -->
+                <div style="padding: 2rem; text-align: center; color: #666;">행동 흐름 분석 중...</div>
               </div>
             </div>
           </div>
@@ -741,7 +750,7 @@
                 <button class="editor-btn" data-action="link">🔗 링크</button>
                 <button class="editor-btn" data-action="image">🖼️ 이미지</button>
               </div>
-              <textarea id="about-content" rows="15" placeholder="About 페이지 내용을 입력하세요..."></textarea>
+              <textarea id="about-content" rows="15" placeholder="About 페이지 내용을 입력하세요..." style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 1rem; font-family: inherit;"></textarea>
               <div class="editor-footer">
                 <span class="word-count">0 words</span>
                 <button class="save-btn">💾 저장</button>
@@ -753,15 +762,15 @@
             <div class="seo-settings">
               <div class="form-group">
                 <label>사이트 제목</label>
-                <input type="text" id="site-title" placeholder="KAUZ - 종합광고대행사">
+                <input type="text" id="site-title" placeholder="KAUZ - 종합광고대행사" style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
               </div>
               <div class="form-group">
                 <label>메타 설명</label>
-                <textarea id="meta-description" rows="3" placeholder="사이트 설명..."></textarea>
+                <textarea id="meta-description" rows="3" placeholder="사이트 설명..." style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem; font-family: inherit;"></textarea>
               </div>
               <div class="form-group">
                 <label>키워드</label>
-                <input type="text" id="meta-keywords" placeholder="광고, 마케팅, 브랜딩...">
+                <input type="text" id="meta-keywords" placeholder="광고, 마케팅, 브랜딩..." style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
               </div>
               <button class="save-btn">💾 SEO 설정 저장</button>
             </div>
@@ -813,11 +822,11 @@
               <h3>🔑 계정 보안</h3>
               <div class="form-group">
                 <label>새 비밀번호</label>
-                <input type="password" id="new-password" placeholder="새 비밀번호 입력">
+                <input type="password" id="new-password" placeholder="새 비밀번호 입력" style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
               </div>
               <div class="form-group">
                 <label>비밀번호 확인</label>
-                <input type="password" id="confirm-password" placeholder="비밀번호 다시 입력">
+                <input type="password" id="confirm-password" placeholder="비밀번호 다시 입력" style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
               </div>
               <button class="save-btn">🔐 비밀번호 변경</button>
             </div>
@@ -826,7 +835,7 @@
               <h3>⏰ 세션 설정</h3>
               <div class="form-group">
                 <label>세션 지속 시간</label>
-                <select id="session-duration">
+                <select id="session-duration" style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
                   <option value="1">1시간</option>
                   <option value="2" selected>2시간</option>
                   <option value="4">4시간</option>
@@ -890,7 +899,7 @@
               </div>
               <div class="form-group">
                 <label>백업 주기</label>
-                <select id="backup-frequency">
+                <select id="backup-frequency" style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
                   <option value="daily">매일</option>
                   <option value="weekly" selected>매주</option>
                   <option value="monthly">매월</option>
@@ -903,7 +912,7 @@
           <div class="backup-history">
             <h3>📋 백업 이력</h3>
             <div class="backup-list" id="backup-list">
-              <!-- 백업 목록이 여기에 표시됩니다 -->
+              <div class="loading">백업 이력을 불러오는 중...</div>
             </div>
           </div>
         </div>
@@ -927,18 +936,18 @@
               <div class="form-row">
                 <div class="form-group">
                   <label>제목 *</label>
-                  <input type="text" id="portfolio-title" required>
+                  <input type="text" id="portfolio-title" required style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
                 </div>
                 <div class="form-group">
                   <label>클라이언트</label>
-                  <input type="text" id="portfolio-client">
+                  <input type="text" id="portfolio-client" style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
                 </div>
               </div>
               
               <div class="form-row">
                 <div class="form-group">
                   <label>카테고리 *</label>
-                  <select id="portfolio-category" required>
+                  <select id="portfolio-category" required style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
                     <option value="">카테고리 선택</option>
                     <option value="branding">Branding</option>
                     <option value="digital">Digital Campaign</option>
@@ -951,7 +960,7 @@
                 </div>
                 <div class="form-group">
                   <label>우선순위</label>
-                  <select id="portfolio-priority">
+                  <select id="portfolio-priority" style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem;">
                     <option value="normal">일반</option>
                     <option value="featured">추천</option>
                     <option value="top">상단 고정</option>
@@ -961,7 +970,7 @@
               
               <div class="form-group">
                 <label>설명</label>
-                <textarea id="portfolio-description" rows="4" placeholder="프로젝트 설명을 입력하세요"></textarea>
+                <textarea id="portfolio-description" rows="4" placeholder="프로젝트 설명을 입력하세요" style="width: 100%; background: var(--background-dark); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.8rem; font-family: inherit;"></textarea>
               </div>
             </div>
             
@@ -986,9 +995,9 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button class="cancel-btn">❌ 취소</button>
-        <button class="draft-btn">📄 임시저장</button>
-        <button class="save-btn" id="save-portfolio">💾 저장</button>
+        <button class="cancel-btn modal-close">❌ 취소</button>
+        <button class="draft-btn" type="button">📄 임시저장</button>
+        <button class="save-btn" type="submit" form="portfolio-form">💾 저장</button>
       </div>
     </div>
   </div>
@@ -1003,10 +1012,11 @@
       <div class="modal-body">
         <div class="contact-details" id="contact-details">
           <!-- 문의 상세 내용이 여기에 로드됩니다 -->
+          <div class="loading">문의 상세 정보를 불러오는 중...</div>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="secondary-btn" id="mark-replied">✅ 답변완료 처리</button>
+        <button class="secondary-btn modal-close">❌ 닫기</button>
         <button class="primary-btn" id="reply-email">📧 이메일 답변</button>
       </div>
     </div>
@@ -1014,10 +1024,10 @@
 
   <!-- 알림 시스템 -->
   <div id="notification" class="notification enhanced">
-    <div class="notification-icon"></div>
+    <div class="notification-icon">📢</div>
     <div class="notification-content">
-      <span id="notification-text"></span>
-      <span id="notification-time"></span>
+      <span id="notification-text">시스템 로딩 중...</span>
+      <span id="notification-time" class="notification-time"></span>
     </div>
     <button id="notification-close">&times;</button>
   </div>
@@ -1030,7 +1040,11 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
-  <script src="admin.js"></script>
+  <!-- ===== 모듈화된 JavaScript 로드 (순서 중요!) ===== -->
+  <script src="admin-core.js"></script>
+  <script src="admin-managers.js"></script>
+  <script src="admin-data.js"></script>
+  <script src="admin-ui.js"></script>
+  <script src="admin-main.js"></script>
 </body>
 </html>
